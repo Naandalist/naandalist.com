@@ -1,20 +1,8 @@
-# 👨‍💻 Listiananda Apriliawan
-[![Hits](https://hits.sh/github.com/Naandalist/hits.svg)](https://hits.sh/github.com/Naandalist/naandalist.com)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Naandalist/naandalist.com)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Naandalist/naandalist.com)
+# React + Vite
 
-> My Personal Homepage
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Prerequisites
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
-- [tailwindcss](https://tailwindcss.com/)
+Currently, two official plugins are available:
 
-
-## Related Links
-
-- [naandalist.com](https://naandalist.com)
-- [UI Figma](https://www.figma.com/)
-
-* * *
-
-Copyright © 2024 by Naandalist
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
