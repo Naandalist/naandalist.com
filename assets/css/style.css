@@ -1,0 +1,216 @@
+@charset "UTF-8";
+/*-----------------------------------------------------------------------------------
+
+    Theme Name: Gavi
+    Theme URI: http://
+    Description: Creative Personal & Portfolio
+    Author: UI-ThemeZ
+    Author URI: http://themeforest.net/user/UI-ThemeZ
+    Version: 1.0
+
+-----------------------------------------------------------------------------------*/
+/************ TABLE OF CONTENTS ***************
+
+
+-----------------------------------------------------------------*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+}
+
+body {
+  color: #fff;
+  background-color: #1d1d1d;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Sora', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden !important;
+  position: relative;
+}
+
+body:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  right: 0;
+  bottom: 0;
+  background-image: url(../imgs/patterns/noise1.png);
+  background-size: auto;
+  background-repeat: repeat;
+  border-radius: 30px 0 0 30px;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: -2;
+}
+
+.noise-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-size: auto !important;
+  background-repeat: repeat !important;
+  pointer-events: none;
+  opacity: 0.8;
+}
+.card-item:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 30px;
+  opacity: 0.25;
+  box-sizing: border-box;
+}
+
+.cursor {
+  pointer-events: none;
+  position: fixed;
+  padding: 0.3rem;
+  background-color: #fff;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  -webkit-transition: opacity 0.4s ease, -webkit-transform 0.3s ease;
+  transition: opacity 0.4s ease, -webkit-transform 0.3s ease;
+  -o-transition: transform 0.3s ease, opacity 0.4s ease;
+  transition: transform 0.3s ease, opacity 0.4s ease;
+  transition: transform 0.3s ease, opacity 0.4s ease,
+    -webkit-transform 0.3s ease;
+  z-index: 99999;
+}
+
+.cursor-active {
+  -webkit-transform: translate(-50%, -50%) scale(8);
+  -ms-transform: translate(-50%, -50%) scale(8);
+  transform: translate(-50%, -50%) scale(8);
+  opacity: 0.1;
+}
+.hover-this .hover-anim {
+  pointer-events: none;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
+  -o-transition: transform 0.2s linear;
+  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+
+.progress-wrap {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  height: 44px;
+  width: 44px;
+  cursor: pointer;
+  display: block;
+  border-radius: 50px;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(20px);
+  -ms-transform: translateY(20px);
+  transform: translateY(20px);
+  -webkit-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+  mix-blend-mode: difference;
+}
+
+.progress-wrap.active-progress {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.progress-wrap::after {
+  position: absolute;
+  font-family: 'Font Awesome 5 Free';
+  content: '\f077';
+  text-align: center;
+  line-height: 44px;
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+  left: 0;
+  top: 0;
+  height: 44px;
+  width: 44px;
+  cursor: pointer;
+  display: block;
+  z-index: 1;
+  -webkit-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+}
+
+.progress-wrap svg path {
+  fill: none;
+}
+
+.progress-wrap svg.progress-circle path {
+  stroke: #fff;
+  stroke-width: 4;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+}
+.gallary-item:hover .branding {
+  background: #c8f31d;
+  color: #1d1d1d;
+}
+.gallary-item:hover .arrow {
+  color: #c8f31d;
+  fill: #c8f31d;
+  stroke: #c8f31d;
+}
+.services .item:hover .bord-color {
+  opacity: 1;
+  box-shadow: #c8f31d 500px;
+}
+.bord-color {
+  box-shadow: 0px -40px 50px #c8f31d;
+}
+.swiper-button-prev:after {
+  display: none !important;
+}
+.swiper-button-next:after {
+  display: none !important;
+}
+.icon-qoute {
+  transform: rotateY(180deg);
+}
+.butn-presv {
+  -webkit-perspective: 500px;
+  perspective: 500px;
+}
+.butn-presv .skew {
+  -webkit-transform: rotateX(20deg);
+  transform: rotateX(20deg);
+}
+
+.butn-presv .skew:hover {
+  -webkit-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+/* 
+/* ====================== [ End Responsive ] ====================== */

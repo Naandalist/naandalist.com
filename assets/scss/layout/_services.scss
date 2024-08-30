@@ -1,0 +1,63 @@
+
+
+/* Services
+-----------------------------------------------------------------*/
+
+.services{
+    border-radius: 15px 0 0 0;
+
+    .item{
+        padding: 40px 30px;
+        position: relative;
+        z-index: 3;
+
+        &:hover{
+
+            .bord-color{
+                opacity: 1;
+            }
+        }
+        
+        &:after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 10px;
+            background: rgba(29,29,29,.8);
+            backdrop-filter: blur(30px);
+            z-index: -1;
+        }
+
+        &:before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(../imgs/patterns/noise1.png);
+            background-size: auto;
+            background-repeat: repeat;
+            pointer-events: none;
+            opacity: .5;
+        }
+
+        .bord-color{
+            width: 92%;
+            height: 5px;
+            background: $main_color;
+            border-radius: 4px;
+            position: absolute;
+            left: 4%;
+            bottom: -1px;
+            z-index: -2;
+            opacity: 0;
+            transition: all .4s;
+        }
+    }
+}
+

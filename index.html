@@ -1,13 +1,1377 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <!-- Metas -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta
+      name="keywords"
+      content="naandalist, listiananda-apriliawan, listiananda, apriliawan, frontend, developer, react, code"
+    />
+    <meta
+      name="description"
+      content="Naandalist, frontend developer for mobile and web application with 4 years of experience."
+    />
+    <meta name="author" content="Listiananda Apriliawan" />
+    <meta name="creator" content="Listiananda Apriliawan, Naandalist" />
+    <meta name="copyright" content="Copyright © 2024 Listiananda Apriliawan" />
+
+    <!-- Title  -->
+    <title>Naandalist</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="assets/css/plugins.css" />
+
+    <!-- Core Style Css -->
+    <link href="./main.css" rel="stylesheet" />
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+
+  <body
+    class="bg-sub_dark text-[14px] lg:px-[40px] relative overscroll-y-none"
+    data-scroll-index="0"
+  >
+    <div
+      class="loader-wrap fixed inset-0 flex items-center justify-center z-50 overflow-hidden bg-transparent"
+    >
+      <svg
+        class="absolute w-screen h-screen fill-current text-[#131313]"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+      >
+        <path id="svg" d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"></path>
+      </svg>
+
+      <div
+        class="loader-wrap-heading relative z-20 text-xl font-thin tracking-wider uppercase"
+      >
+        <div class="load-text">
+          <span class="inline-block animate-loading mx-[20px]">L</span>
+          <span
+            style="animation-delay: 0.1s"
+            class="inline-block animate-loading mx-[20px]"
+            >o</span
+          >
+          <span
+            style="animation-delay: 0.2s"
+            class="inline-block animate-loading mx-[20px]"
+            >a</span
+          >
+          <span
+            style="animation-delay: 0.3s"
+            class="inline-block animate-loading mx-[20px]"
+            >d</span
+          >
+          <span
+            style="animation-delay: 0.4s"
+            class="inline-block animate-loading mx-[20px]"
+            >i</span
+          >
+          <span
+            style="animation-delay: 0.5s"
+            class="inline-block animate-loading mx-[20px]"
+            >n</span
+          >
+          <span
+            style="animation-delay: 0.6s"
+            class="inline-block animate-loading mx-[20px]"
+            >g</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="progress-wrap cursor-pointer">
+      <svg
+        class="progress-circle svg-content"
+        width="100%"
+        height="100%"
+        viewBox="-1 -1 102 102"
+      >
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+
+    <div
+      class="lines fixed inset-0 !w-full h-screen flex z-[-1] pointer-events-none"
+    >
+      <span
+        class="h-full !w-[10%] mx-[5%] border-r border-l border-white border-opacity-5 border-dashed"
+      ></span>
+      <span
+        class="h-full !w-[10%] mx-[5%] border-r border-l border-white border-opacity-5 border-dashed"
+      ></span>
+      <span
+        class="h-full !w-[10%] mx-[5%] border-r border-l border-white border-opacity-5 border-dashed"
+      ></span>
+      <span
+        class="h-full !w-[10%] mx-[5%] border-r border-l border-white border-opacity-5 border-dashed"
+      ></span>
+      <span
+        class="h-full !w-[10%] mx-[5%] border-r border-l border-white border-opacity-5 border-dashed"
+      ></span>
+    </div>
+
+    <!-- ==================== Start Navbar ==================== -->
+
+    <div class="nav-top z-20 relative md:pb-[50px]">
+      <div
+        class="w-full relative xxl:max-w-[1280px] xl:max-w-[1140px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px] mx-auto px-[3px]"
+      >
+        <!-- ==================== Start Navbar ==================== -->
+
+        <div class="social md:w-full md:hidden md:justify-start pt-10 pl-5">
+          <a
+            href="https://www.youtube.com/@googlecloudtech"
+            target="_blank"
+            rel="noopener"
+            ><i
+              class="fab fa-youtube w-10 h-10 leading-10 text-center text-xs border border-white border-opacity-20 rounded-full mx-0.5 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+            ></i
+          ></a>
+          <a href="https://react.dev/blog" target="_blank" rel="noopener"
+            ><i
+              class="fab fa-react w-10 h-10 leading-10 text-center text-xs border border-white border-opacity-20 rounded-full mx-0.5 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+            ></i
+          ></a>
+          <a
+            href="https://www.freecodecamp.org/news/"
+            target="_blank"
+            rel="noopener"
+            ><i
+              class="fab fa-free-code-camp w-10 h-10 leading-10 text-center text-xs border border-white border-opacity-20 rounded-full mx-0.5 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+            ></i
+          ></a>
+        </div>
+
+        <nav
+          class="navbar md:mt-[50px] md:relative md:!block md:w-auto md:pt-0 md:pb-0 md:bg-transparent md:border-none hidden absolute top-0 z-90 w-full pt-[80px] pb-[40px] bg-[#131313] mt-0 border-b-[2px_solid_rgba(255,_255,_255,_0.2)]"
+        >
+          <div class="navbar-nav relative flex flex-row justify-center">
+            <div class="md:social md:w-full hidden md:block md:justify-start">
+              <a
+                href="https://www.youtube.com/@googlecloudtech"
+                target="_blank"
+                rel="noopener"
+                ><i
+                  class="fab fa-youtube w-10 h-10 leading-10 text-center text-xs border border-white border-opacity-20 rounded-full mx-0.5 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+                ></i
+              ></a>
+              <a href="https://react.dev/blog" target="_blank" rel="noopener"
+                ><i
+                  class="fab fa-react w-10 h-10 leading-10 text-center text-xs border border-white border-opacity-20 rounded-full mx-0.5 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+                ></i
+              ></a>
+              <a
+                href="https://www.freecodecamp.org/news/"
+                target="_blank"
+                rel="noopener"
+                ><i
+                  class="fab fa-free-code-camp w-10 h-10 leading-10 text-center text-xs border border-white border-opacity-20 rounded-full mx-0.5 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+                ></i
+              ></a>
+            </div>
+
+            <!-- navbar links list -->
+            <ul
+              class="flex flex-col z-50 tracking-[0.4px] uppercase text-center justify-center md:flex-row w-full md:justify-end"
+            >
+              <li
+                class="nav-item text-[18px] md:text-[12px] py-[10px] px-[15px] tracking-wide uppercase"
+              >
+                <a href="#0" data-scroll-nav="0"><span>Home</span></a>
+              </li>
+              <li
+                class="nav-item text-[18px] md:text-[12px] py-[10px] px-[15px] tracking-wide uppercase"
+              >
+                <a href="#0" data-scroll-nav="1"><span>Experience</span></a>
+              </li>
+              <li
+                class="nav-item text-[18px] md:text-[12px] py-[10px] px-[15px] tracking-wide uppercase"
+              >
+                <a href="#0" data-scroll-nav="2"><span>Portfolio</span></a>
+              </li>
+
+              <li
+                class="nav-item text-[18px] md:text-[12px] py-[10px] px-[15px] tracking-wide uppercase"
+              >
+                <a href="#0" data-scroll-nav="3"><span>Blog</span></a>
+              </li>
+              <li
+                class="nav-item text-[18px] md:text-[12px] py-[10px] px-[15px] tracking-wide uppercase"
+              >
+                <a href="#0" data-scroll-nav="4"><span>Contact</span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <!-- ==================== End Navbar ==================== -->
+      <div
+        class="nav-butn absolute top-[0] right-[15px] text-[25px] cursor-pointer md:hidden block"
+      >
+        <span class="pe-7s-menu pt-10"> </span>
+      </div>
+    </div>
+
+    <!-- ==================== End Navbar ==================== -->
+
+    <main
+      class="container w-full xxl:max-w-[1280px] xl:max-w-[1140px] lg:max-w-[1024px] md:max-w-[768px] sm:max-w-[640px] mx-auto px-[3px]"
+    >
+      <!-- ==================== Start Intro ==================== -->
+
+      <section class="intro-profile md-mb50 mb-30 mb-1">
+        <div
+          class="row rest flex flex-col md:flex-row justify-normal md:justify-between"
+        >
+          <div
+            class="mt-8 md:mt-0 md:w-[33.33%] rounded-t-3xl md:rounded-tr-[0px] w-full px-[15px] md:px-[40px] overflow-hidden bg-dark py-[40px]"
+          >
+            <div
+              class="cont valign flex justify-center items-center py-[40px] px-[15px] border border-[#ffffff0d] rounded-lg min-h-[calc(100%-80px)]"
+            >
+              <div class="w-full">
+                <div class="img relative">
+                  <img src="assets/imgs/header/profile.jpg" alt />
+                  <span
+                    style="
+                      -webkit-backdrop-filter: blur(5px);
+                      backdrop-filter: blur(5px);
+                    "
+                    class="icon absolute top-8 -left-5 transform rotate-3 w-10 h-10 rounded-lg border border-white border-opacity-10 p-2 bg-white bg-opacity-5 z-30"
+                  >
+                    <img src="assets/imgs/header/icon1.png" alt />
+                  </span>
+                  <span
+                    style="
+                      -webkit-backdrop-filter: blur(5px);
+                      backdrop-filter: blur(5px);
+                    "
+                    class="icon w-10 h-10 rounded-lg border border-white border-opacity-10 p-2 bg-white bg-opacity-5 z-30 absolute bottom-[30px] left-[20px] transform rotate-6"
+                  >
+                    <img src="assets/imgs/header/icon2.png" alt />
+                  </span>
+                  <span
+                    style="
+                      -webkit-backdrop-filter: blur(5px);
+                      backdrop-filter: blur(5px);
+                    "
+                    class="icon absolute w-10 h-10 rounded-lg border border-white border-opacity-10 p-2 top-[40%] !right-[-20px] bg-white bg-opacity-5 z-30"
+                  >
+                    <img src="assets/imgs/header/icon4.png" alt />
+                  </span>
+                </div>
+                <div class="info text-center mt-[30px]">
+                  <h5 class="font-[500] text-[24px]">Listiananda Apriliawan</h5>
+                  <p class="text-[13px] font-[300] text-[#ddd] uppercase">
+                    Frontend Developer
+                  </p>
+                </div>
+                <div
+                  class="mx-auto w-[65%] md:w-[80%] grid grid-cols-4 items-center content-enter justify-content-center justify-center text-center mt-[20px]"
+                >
+                  <a
+                    href="https://www.linkedin.com/in/naandalist/"
+                    target="_blank"
+                    rel="noopener"
+                    ><i
+                      class="fab fa-linkedin-in w-[45px] h-[45px] leading-10 text-center text-[12px] rounded-md flex items-center justify-center border border-[#fff] border-opacity-20 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+                    ></i
+                  ></a>
+                  <a
+                    href="https://github.com/Naandalist"
+                    target="_blank"
+                    rel="noopener"
+                    ><i
+                      class="fab fa-github w-[45px] h-[45px] leading-10 text-center text-[12px] rounded-md flex items-center justify-center border border-[#fff] border-opacity-20 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+                    ></i
+                  ></a>
+                  <a
+                    href="https://medium.com/@naandalist"
+                    target="_blank"
+                    rel="noopener"
+                    ><i
+                      class="fab fa-medium w-[45px] h-[45px] leading-10 text-center text-[12px] rounded-md flex items-center justify-center border border-[#fff] border-opacity-20 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+                    ></i
+                  ></a>
+                  <a
+                    href="https://stackoverflow.com/users/13633973/naandalist"
+                    target="_blank"
+                    rel="noopener"
+                    ><i
+                      class="fab fa-stack-overflow w-[45px] h-[45px] leading-10 text-center text-[12px] rounded-md flex items-center justify-center border border-[#fff] border-opacity-20 transition-all duration-400 ease-in-out hover:bg-[#fff] hover:text-[#1d1d1d]"
+                    ></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="md:w-[66.66%] after:hidden md:after:inline-block w-full content bg-dark py-[40px] px-[15px] md:px-[40px] rounded-tr-3xl border-dark relative text-[30px] md:text-[40px] lg:text-[55px] font-[500] leading-[1.3] text-center md:text-left"
+          >
+            <h1
+              class="text-[30px] md:text-[40px] lg:text-[55px] font-[500] leading-[1.3]"
+            >
+              Hi,<span class="text-main"> Naandalist</span> here.<span
+                class="line-break md:hidden"
+              ></span>
+              <span
+                class="bord px-[20px] py-[0] border-[1px] border-[#ffffff1a] relative inline-block after:content-[''] after:w-[6px] after:h-[6px] after:rounded-[50%] after:bg-[#fff] after:absolute after:pointer-events-none after:box-border after:top-[-3px] after:right-[-3px] before:content-[''] before:w-[6px] before:h-[6px] before:rounded-[50%] before:bg-[#fff] before:absolute before:pointer-events-none before:box-border before:top-[-3px] before:left-[-3px]"
+                >Frontend Dev<i
+                  class="after:content-[''] after:w-[6px] after:h-[6px] after:rounded-[50%] after:bg-[#fff] after:absolute after:pointer-events-none after:box-border after:bottom-[-3px] after:right-[-3px] before:content-[''] before:w-[6px] before:h-[6px] before:rounded-[50%] before:bg-[#fff] before:absolute before:pointer-events-none before:box-border before:bottom-[-3px] before:left-[-3px]"
+                ></i></span
+              ><span class="xs:invisible md:visible">
+                for Mobile and Web with 4 years of experience.</span
+              >
+            </h1>
+
+            <div
+              class="flex mt-10 gap-4 justify-center md:justify-start flex-wrap"
+            >
+              <img
+                src="https://skillicons.dev/icons?i=javascript"
+                alt="javascript-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=typescript"
+                alt="typescript-icon"
+              />
+              <img src="https://skillicons.dev/icons?i=bun" alt="bun-icon" />
+              <img
+                src="https://skillicons.dev/icons?i=github"
+                alt="github-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=nodejs"
+                alt="nodejs-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=react"
+                alt="react-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=tailwind"
+                alt="tailwindcss-icon"
+              />
+              <img src="https://skillicons.dev/icons?i=next" alt="next-icon" />
+              <img
+                src="https://skillicons.dev/icons?i=mongodb"
+                alt="mongodb-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=figma"
+                alt="figma-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=azure"
+                alt="azure-icon"
+              />
+              <img src="https://skillicons.dev/icons?i=vite" alt="vite-icon" />
+              <img src="https://skillicons.dev/icons?i=git" alt="git-icon" />
+              <img
+                src="https://skillicons.dev/icons?i=stackoverflow"
+                alt="stackoverflow-icon"
+              />
+              <img src="https://skillicons.dev/icons?i=atom" alt="atom-icon" />
+              <img
+                src="https://skillicons.dev/icons?i=vscode"
+                alt="vscode-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=gitlab"
+                alt="gitlab-icon"
+              />
+              <img src="https://skillicons.dev/icons?i=yarn" alt="yarn-icon" />
+              <img
+                src="https://skillicons.dev/icons?i=androidstudio"
+                alt="androidstudio-icon"
+              />
+              <img
+                src="https://skillicons.dev/icons?i=gatsby"
+                alt="gatsby-icon"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== End Intro ==================== -->
+
+      <section class="in-box md:mt-0 mt-[70px]">
+        <!-- ==================== Start Working Experience ==================== -->
+        <div
+          class="sec-box px-[15px] md:px-[40px] lg:px-[50px] bg-dark py-[100px] border-y border-[#ffffff1a] section-padding bord-thin-bottom border-r border-dark"
+          data-scroll-index="1"
+        >
+          <div class="sec-head mb-[80px] wow fadeInUp">
+            <div class="row w-full flex justify-center">
+              <div class="col-lg-6 px-[15px] w-[50%] text-center">
+                <h6
+                  class="sub-title opacity-70 mb-[15px] text-[14px] font-[300] uppercase tracking-widest"
+                >
+                  Professional Journey
+                </h6>
+                <h3 class="font-[500] md:text-[38px] text-[24px]">
+                  Working
+                  <span class="text-main">Experience</span>
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class="row services grid grid-cols-1">
+            <div class="flex flex-col md:grid grid-cols-9 mx-auto p-2">
+              <div class="flex flex-row-reverse md:contents">
+                <div
+                  class="w-full col-start-1 col-end-5 p-4 my-4 ml-auto bg-[#1f1e1e] border border-[#444343] rounded-2xl"
+                >
+                  <span class="icon-img-70 opacity-[70%] !w-[70px]">
+                    <img
+                      class="!w-[70px]"
+                      src="assets/imgs/serv-img/aia-sg-logo.png"
+                      alt="AIA Singapore logo"
+                    />
+                  </span>
+                  <h6
+                    class="text-u ls1 mt-[21px] mb-[15px] uppercase tracking-widest text-[18px] font-semibold"
+                  >
+                    AIA SIngapore
+                  </h6>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    I am part of team responsible for developing and mantain
+                    project related to corporate customer app. Its eBenefits AIA
+                    mobile app. The app currently has more than 100 thousand
+                    downloads on Play Store and also top 4 health rating app in
+                    App Store for iOS.
+                  </p>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    My tasks included:
+                  </p>
+                  <ul class="space-y-4 pt-6">
+                    <li class="flex items-center">
+                      <svg
+                        class="h-6 w-6 flex-none stroke-white stroke-2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="11" />
+                        <path
+                          d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9"
+                          fill="none"
+                        />
+                      </svg>
+                      <p class="ml-4">
+                        Improve existing codebase by
+                        <span class="text-sm font-bold text-main"
+                          >upgrading React Native project</span
+                        >
+                        from version 0.65 to latest stable release.
+                      </p>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="h-6 w-6 flex-none stroke-white stroke-2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="11" />
+                        <path
+                          d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9"
+                          fill="none"
+                        />
+                      </svg>
+                      <p class="ml-4">
+                        Monitor Snyk alerts for security vulnerabilities and fix
+                        any issues to maintain a secure codebase.
+                      </p>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="h-6 w-6 flex-none stroke-white stroke-2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="11" />
+                        <path
+                          d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9"
+                          fill="none"
+                        />
+                      </svg>
+                      <p class="ml-4">
+                        Consider testability, and understand when code is ready
+                        to be shared and delivered.
+                      </p>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="h-6 w-6 flex-none stroke-white stroke-2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="11" />
+                        <path
+                          d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9"
+                          fill="none"
+                        />
+                      </svg>
+                      <p class="ml-4">
+                        Perform root-cause analysis, and issue resolution. Also
+                        documenting the updated process and outcomes in Jira
+                        tickets.
+                      </p>
+                    </li>
+                    <li class="flex items-center">
+                      <svg
+                        class="h-6 w-6 flex-none stroke-white stroke-2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="11" />
+                        <path
+                          d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9"
+                          fill="none"
+                        />
+                      </svg>
+                      <p class="ml-4">
+                        Write and manage technical documentation using Atlassian
+                        Confluence.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col-start-5 col-end-6 md:mx-auto relative mr-10">
+                  <div class="h-full w-6 flex items-center justify-center">
+                    <div
+                      class="h-full w-0.5 bg-gray-200 pointer-events-none"
+                    ></div>
+                  </div>
+                  <div
+                    class="w-6 h-6 absolute top-1/2 -mt-3 border-2 border-white rounded-full bg-main shadow"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="flex md:contents">
+                <div class="col-start-5 col-end-6 mr-10 md:mx-auto relative">
+                  <div class="h-full w-6 flex items-center justify-center">
+                    <div
+                      class="h-full w-0.5 bg-gray-200 pointer-events-none"
+                    ></div>
+                  </div>
+
+                  <div
+                    class="w-6 h-6 absolute top-1/2 -mt-3 border-2 border-white rounded-full bg-main shadow"
+                  ></div>
+                </div>
+
+                <div
+                  class="w-full col-start-6 col-end-10 my-4 mr-auto p-4 bg-[#1f1e1e] border border-[#444343] rounded-2xl"
+                >
+                  <span class="icon-img-70 opacity-[70%] !w-[300px]">
+                    <img
+                      class="!w-[270px]"
+                      src="assets/imgs/serv-img/oxy-creative-logo.png"
+                      alt="AIA Singapore logo"
+                    />
+                  </span>
+                  <h6
+                    class="text-u ls1 mt-[21px] mb-[15px] uppercase tracking-widest text-[18px] font-semibold"
+                  >
+                    Oxy Creative
+                  </h6>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    Oxy Creative is a software house that empowers businesses
+                    with innovative digital solutions in software development.
+                    Their team is committed to delivering what clients need.
+                    Clients are non-ministerial government agencies such as the
+                    National Narcotics Agency (BNN), Indonesian Police's
+                    Forensic Science Laboratory (Inafis), and others.
+                  </p>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    I contributed to
+                    <span class="text-main"
+                      >development and maintenance of Liveness Detection SDK,
+                      Authentication using face recognition </span
+                    >as an implementation of E-KYC.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex flex-row-reverse md:contents">
+                <div
+                  class="w-full col-start-1 col-end-5 p-4 my-4 ml-auto bg-[#1f1e1e] border border-[#444343] rounded-2xl"
+                >
+                  <span class="icon-img-70 opacity-[70%] !w-[70px]">
+                    <img
+                      class="!w-[100px]"
+                      src="assets/imgs/serv-img/maptv-logo.png"
+                      alt="MAP TV logo"
+                    />
+                  </span>
+                  <h6
+                    class="text-u ls1 mt-[21px] mb-[15px] uppercase tracking-widest text-[18px] font-semibold"
+                  >
+                    MAP TV Masjid Agung Palembang
+                  </h6>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    MAP TV is a community TV channel, the pioneering Islamic
+                    community TV in South Sumatra, was formerly headquartered at
+                    Masjid Agung Palembang.
+                  </p>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    I was a technical support staff member, involved in various
+                    IT tasks such as software installations,
+                    <span class="text-main">create a streaming website</span>,
+                    and ongoing collaboration with team.
+                  </p>
+                </div>
+
+                <div class="col-start-5 col-end-6 md:mx-auto relative mr-10">
+                  <div class="h-full w-6 flex items-center justify-center">
+                    <div
+                      class="h-full w-0.5 bg-gray-200 pointer-events-none"
+                    ></div>
+                  </div>
+
+                  <div
+                    class="w-6 h-6 absolute top-1/2 -mt-3 border-2 border-white rounded-full bg-main shadow"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="flex md:contents">
+                <div class="col-start-5 col-end-6 mr-10 md:mx-auto relative">
+                  <div class="h-full w-6 flex items-center justify-center">
+                    <div
+                      class="h-full w-0.5 bg-gray-200 pointer-events-none"
+                    ></div>
+                  </div>
+
+                  <div
+                    class="w-6 h-6 absolute top-1/2 -mt-3 border-2 border-white rounded-full bg-main shadow"
+                  ></div>
+                </div>
+
+                <div
+                  class="w-full col-start-6 col-end-10 my-4 mr-auto p-4 bg-[#1f1e1e] border border-[#444343] rounded-2xl"
+                >
+                  <span class="icon-img-70 opacity-[70%] !w-[70px]">
+                    <img
+                      class="!w-[100px]"
+                      src="assets/imgs/serv-img/lapan-logo.png"
+                      alt="AIA Singapore logo"
+                    />
+                  </span>
+                  <h6
+                    class="text-u ls1 mt-[21px] mb-[15px] uppercase tracking-widest text-[18px] font-semibold"
+                  >
+                    LAPAN Bandung
+                  </h6>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    The National Aeronautics and Space Agency (LAPAN) was a
+                    non-ministerial government agency in Indonesia responsible
+                    for government duties in the field of aerospace research,
+                    development, utilization, and space activities.
+                  </p>
+                  <p class="font-[300] text-[15px] text-[#ddd] mt-6">
+                    I was a university student undergoing a Field Work Practice
+                    (KKP) program. I was tasked with
+                    <span class="text-main"
+                      >evaluating the DSS SEMAR (Web Application)</span
+                    >, a system designed for predicting and monitoring the
+                    safety of local fishermen."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== End Working Experience ==================== -->
+
+        <!-- ==================== Start Portfolio ==================== -->
+
+        <div
+          class="py-[100px] px-[15px] md:px-[40px] lg:px-[50px] bg-dark mt-[3px] sec-box portfolio section-padding"
+          data-scroll-index="2"
+        >
+          <div class="sec-head mb-[30px]">
+            <div class="row grid sm:grid-cols-2 grid-cols-1 justify-between">
+              <div class="col-lg-6 px-[15px]">
+                <h6
+                  class="sub-title opacity-[70%] mb-[15px] font-[300] text-[14px] uppercase tracking-widest"
+                >
+                  My Portfolio
+                </h6>
+                <h3 class="text-[24px] md:text-[38px]">
+                  Feel free to give me <span class="text-main">feedback</span>
+                </h3>
+              </div>
+              <div
+                class="col-lg-6 px-[15px] flex items-canter justify-center w-full"
+              >
+                <div class="go-more w-full flex justify-end items-canter">
+                  <a
+                    href="works.html"
+                    class="w-full flex items-canter justify-end"
+                  >
+                    <span class="flex"
+                      >View All Works
+                      <svg
+                        class="inline-block w-[18px] h-[18px] stroke-[#fff] fill-[#fff] -rotate-45 ml-[15px]"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 34.2 32.3"
+                        xml:space="preserve"
+                        style="stroke-width: 2"
+                      >
+                        <line x1="0" y1="16" x2="33" y2="16"></line>
+                        <line x1="17.3" y1="0.7" x2="33.2" y2="16.5"></line>
+                        <line
+                          x1="17.3"
+                          y1="31.6"
+                          x2="33.5"
+                          y2="15.4"
+                        ></line></svg
+                    ></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="gallery px-[20px] !h-auto gap-[20px] grid md:grid-cols-2 grid-cols-1"
+          >
+            <div class>
+              <div
+                class="item gallary-item mt-[50px] wow fadeInUp"
+                data-wow-delay=".2s"
+              >
+                <div
+                  class="relative rounded-xl overflow-hidden p-[5px] border border-main border-opacity-0 hover:border-opacity-[100%] transition-all duration-700 ease-in-out"
+                >
+                  <a class="rounded-xl overflow-hidden w-full h-full" href="#">
+                    <img
+                      class="rounded-xl overflow-hidden w-full h-[410px] object-cover object-cente"
+                      src="assets/imgs/works/1.jpg"
+                      alt
+                    />
+                  </a>
+                </div>
+                <div
+                  class="cont mt-[30px] px-[15px] flex justify-between items-center"
+                >
+                  <div>
+                    <span
+                      class="branding transition-all duration-700 ease-in-out text-[12px] py-[6px] px-[16px] rounded-[30px] border border-[#ffffff1a]"
+                      >Branding</span
+                    >
+                    <h6 class="line-height-1 text-[18px] font-[500] mt-[15px]">
+                      <a href="#">GeekFolio Portfolio</a>
+                    </h6>
+                  </div>
+                  <div class="flex justify-end w-[50px] h-[50]">
+                    <div class="arrow h-[50px] w-[50px]">
+                      <a
+                        class="h-[50px] w-[50px] text-[#fff] overflow-hidden"
+                        href="#"
+                      >
+                        <svg
+                          class="inline-block arrow w-[25px] stroke-[#fff] fill-[#fff] -rotate-45 ml-[15px]"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 34.2 32.3"
+                          xml:space="preserve"
+                          style="stroke-width: 2"
+                        >
+                          <line x1="0" y1="16" x2="33" y2="16"></line>
+                          <line x1="17.3" y1="0.7" x2="33.2" y2="16.5"></line>
+                          <line x1="17.3" y1="31.6" x2="33.5" y2="15.4"></line>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class>
+              <div
+                class="item gallary-item mt-[50px] wow fadeInUp"
+                data-wow-delay=".2s"
+              >
+                <div
+                  class="relative rounded-xl overflow-hidden p-[5px] border border-main border-opacity-0 hover:border-opacity-[100%] transition-all duration-700 ease-in-out"
+                >
+                  <a class="rounded-xl overflow-hidden w-full h-full" href="#">
+                    <img
+                      class="rounded-xl overflow-hidden w-full h-[410px] object-cover object-cente"
+                      src="assets/imgs/works/2.jpg"
+                      alt
+                    />
+                  </a>
+                </div>
+                <div
+                  class="cont mt-[30px] px-[15px] flex justify-between items-center"
+                >
+                  <div>
+                    <span
+                      class="text-[12px] branding py-[6px] px-[16px] rounded-[30px] border border-[#ffffff1a]"
+                      >Branding</span
+                    >
+                    <h6 class="line-height-1 text-[18px] font-[500] mt-[15px]">
+                      <a href="#">Luxury Modern Website</a>
+                    </h6>
+                  </div>
+                  <div class="flex justify-end w-[50px] h-[50]">
+                    <div class="arrow h-[50px] w-[50px]">
+                      <a
+                        class="h-[50px] w-[50px] text-[#fff] overflow-hidden"
+                        href="#"
+                      >
+                        <svg
+                          class="arrow inline-block w-[25px] stroke-[#fff] fill-[#fff] -rotate-45 ml-[15px]"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 34.2 32.3"
+                          xml:space="preserve"
+                          style="stroke-width: 2"
+                        >
+                          <line x1="0" y1="16" x2="33" y2="16"></line>
+                          <line x1="17.3" y1="0.7" x2="33.2" y2="16.5"></line>
+                          <line x1="17.3" y1="31.6" x2="33.5" y2="15.4"></line>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class>
+              <div
+                class="item gallary-item mt-[50px] wow fadeInUp"
+                data-wow-delay=".2s"
+              >
+                <div
+                  class="relative rounded-xl overflow-hidden p-[5px] border border-main border-opacity-0 hover:border-opacity-[100%] transition-all duration-700 ease-in-out"
+                >
+                  <a class="rounded-xl overflow-hidden w-full h-full" href="#">
+                    <img
+                      class="rounded-xl overflow-hidden w-full h-[410px] object-cover object-cente"
+                      src="assets/imgs/works/3.jpg"
+                      alt
+                    />
+                  </a>
+                </div>
+                <div
+                  class="cont mt-[30px] px-[15px] flex justify-between items-center"
+                >
+                  <div>
+                    <span
+                      class="branding text-[12px] py-[6px] px-[16px] rounded-[30px] border border-[#ffffff1a]"
+                      >Branding</span
+                    >
+                    <h6 class="line-height-1 text-[18px] font-[500] mt-[15px]">
+                      <a href="#">GeekFolio Portfolio</a>
+                    </h6>
+                  </div>
+                  <div class="flex justify-end w-[50px] h-[50]">
+                    <div class="arrow h-[50px] w-[50px]">
+                      <a
+                        class="h-[50px] w-[50px] text-[#fff] overflow-hidden"
+                        href="#"
+                      >
+                        <svg
+                          class="arrow inline-block w-[25px] stroke-[#fff] fill-[#fff] -rotate-45 ml-[15px]"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 34.2 32.3"
+                          xml:space="preserve"
+                          style="stroke-width: 2"
+                        >
+                          <line x1="0" y1="16" x2="33" y2="16"></line>
+                          <line x1="17.3" y1="0.7" x2="33.2" y2="16.5"></line>
+                          <line x1="17.3" y1="31.6" x2="33.5" y2="15.4"></line>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class>
+              <div
+                class="gallary-item item mt-[50px] wow fadeInUp"
+                data-wow-delay=".2s"
+              >
+                <div
+                  class="relative rounded-xl overflow-hidden p-[5px] border border-main border-opacity-0 hover:border-opacity-[100%] transition-all duration-700 ease-in-out"
+                >
+                  <a class="rounded-xl overflow-hidden w-full h-full" href="#">
+                    <img
+                      class="rounded-xl overflow-hidden w-full h-[410px] object-cover object-cente"
+                      src="assets/imgs/works/4.jpg"
+                      alt
+                    />
+                  </a>
+                </div>
+                <div
+                  class="cont mt-[30px] px-[15px] flex justify-between items-center"
+                >
+                  <div>
+                    <span
+                      class="branding text-[12px] py-[6px] px-[16px] rounded-[30px] border border-[#ffffff1a]"
+                      >Branding</span
+                    >
+                    <h6 class="line-height-1 text-[18px] font-[500] mt-[15px]">
+                      <a href="#">Luxury Modern Website</a>
+                    </h6>
+                  </div>
+                  <div class="flex justify-end w-[50px] h-[50]">
+                    <div class="arrow h-[50px] w-[50px]">
+                      <a
+                        class="h-[50px] w-[50px] text-[#fff] overflow-hidden"
+                        href="#"
+                      >
+                        <svg
+                          class="arrow inline-block w-[25px] stroke-[#fff] fill-[#fff] -rotate-45 ml-[15px]"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 34.2 32.3"
+                          xml:space="preserve"
+                          style="stroke-width: 2"
+                        >
+                          <line x1="0" y1="16" x2="33" y2="16"></line>
+                          <line x1="17.3" y1="0.7" x2="33.2" y2="16.5"></line>
+                          <line x1="17.3" y1="31.6" x2="33.5" y2="15.4"></line>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== End Portfolio ==================== -->
+
+        <!-- ==================== Start Blog ==================== -->
+
+        <div
+          class="sec-box blog section-padding bord-thin-top py-[100px] px-[15px] md:px-[40px] lg:px-[50px] bg-dark border border-t-[2px] border-sub_dark rounded-b-3xl"
+          data-scroll-index="3"
+        >
+          <div class="sec-head mb-[80px]">
+            <div class="grid md:grid-cols-2 grid-cols-1">
+              <div class="col-lg-6 wow fadeInUp px-[15px]">
+                <h6
+                  class="sub-title uppercase font-[300] text-[14px] tracking-widest opacity-[70%] mb-[15px]"
+                >
+                  My Writings
+                </h6>
+                <h3 class="text-[24] md:text-[38px]">
+                  Latest <span class="text-main">Blogs</span>
+                </h3>
+              </div>
+              <div class="col-lg-6 valign">
+                <div class="go-more w-full flex justify-end">
+                  <a href="blogs.html" class="d-flex">
+                    <span class="flex"
+                      >View All Writings
+                      <svg
+                        class="inline-block w-[18px] h-[18px] stroke-[#fff] fill-[#fff] -rotate-45 ml-[15px]"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 34.2 32.3"
+                        xml:space="preserve"
+                        style="stroke-width: 2"
+                      >
+                        <line x1="0" y1="16" x2="33" y2="16"></line>
+                        <line x1="17.3" y1="0.7" x2="33.2" y2="16.5"></line>
+                        <line
+                          x1="17.3"
+                          y1="31.6"
+                          x2="33.5"
+                          y2="15.4"
+                        ></line></svg
+                    ></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-3 grid-cols-1 md:gap-x-5">
+            <div class="col-lg-4 px-[15px]">
+              <div
+                class="item md-mb30 wow fadeIn border border-sub_dark rounded-[5px]"
+                data-wow-delay=".2s"
+              >
+                <div class="img rounded-t-[5px] overflow-hidden">
+                  <img class="w-full h-auto" src="assets/imgs/blog/1.jpg" alt />
+                </div>
+                <div class="box px-[10px]">
+                  <div
+                    class="cont relative bg-sub_dark p-[40px] rounded-[5px] mt-[-30px] z-10"
+                  >
+                    <span
+                      class="date rounded-[30px] text-[11px] text-[#ddd] py-[5px] px-[15px] uppercase mb-[10px] border border-[#444343]"
+                      ><i class="fas fa-calendar-alt mr-[10px] text-main"></i> 6
+                      , Aug 2022</span
+                    >
+                    <h5 class="mt-[10px] text-[22px]">
+                      <a class="underline" href="#"
+                        >12 unique examples of portfolio websites.</a
+                      >
+                    </h5>
+                  </div>
+                  <div
+                    class="info flex items-center px-[15px] py-[20px] text-[13px]"
+                  >
+                    <div>
+                      <span
+                        ><i class="fas fa-comments text-[12px] mr-[5px]"></i> 2
+                        Comments</span
+                      >
+                    </div>
+                    <div class="ml-auto">
+                      <a class="flex" href="#"
+                        >Read More
+                        <svg
+                          class="ml-[5px]"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17.2031 10.3281L11.5781 15.9531C11.535 15.9961 11.4839 16.0303 11.4276 16.0536C11.3713 16.077 11.3109 16.089 11.25 16.089C11.1891 16.089 11.1287 16.077 11.0724 16.0536C11.0161 16.0303 10.965 15.9961 10.9219 15.9531C10.8788 15.91 10.8446 15.8588 10.8213 15.8025C10.798 15.7462 10.786 15.6859 10.786 15.6249C10.786 15.564 10.798 15.5036 10.8213 15.4473C10.8446 15.391 10.8788 15.3399 10.9219 15.2968L15.7422 10.4687H3.125C3.00068 10.4687 2.88145 10.4193 2.79354 10.3314C2.70564 10.2435 2.65625 10.1242 2.65625 9.99993C2.65625 9.87561 2.70564 9.75638 2.79354 9.66847C2.88145 9.58056 3.00068 9.53118 3.125 9.53118H15.7422L10.9219 4.70305C10.8349 4.61603 10.786 4.498 10.786 4.37493C10.786 4.25186 10.8349 4.13383 10.9219 4.0468C11.0089 3.95978 11.1269 3.91089 11.25 3.91089C11.3731 3.91089 11.4911 3.95978 11.5781 4.0468L17.2031 9.6718C17.2476 9.71412 17.2829 9.76503 17.3071 9.82143C17.3313 9.87784 17.3438 9.93856 17.3438 9.99993C17.3438 10.0613 17.3313 10.122 17.3071 10.1784C17.2829 10.2348 17.2476 10.2857 17.2031 10.3281Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 px-[15px]">
+              <div
+                class="item md-mb30 wow fadeIn border border-sub_dark rounded-[5px]"
+                data-wow-delay=".2s"
+              >
+                <div class="img rounded-t-[5px] overflow-hidden">
+                  <img class="w-full h-auto" src="assets/imgs/blog/2.jpg" alt />
+                </div>
+                <div class="box px-[10px]">
+                  <div
+                    class="cont relative bg-sub_dark p-[40px] rounded-[5px] mt-[-30px] z-10"
+                  >
+                    <span
+                      class="date rounded-[30px] text-[11px] text-[#ddd] py-[5px] px-[15px] uppercase mb-[10px] border border-[#444343]"
+                      ><i class="fas fa-calendar-alt mr-[10px] text-main"></i> 6
+                      , Aug 2022</span
+                    >
+                    <h5 class="mt-[10px] text-[22px]">
+                      <a class="underline" href="#"
+                        >12 unique examples of portfolio websites.</a
+                      >
+                    </h5>
+                  </div>
+                  <div
+                    class="info flex items-center px-[15px] py-[20px] text-[13px]"
+                  >
+                    <div>
+                      <span
+                        ><i class="fas fa-comments text-[12px] mr-[5px]"></i> 2
+                        Comments</span
+                      >
+                    </div>
+                    <div class="ml-auto">
+                      <a class="flex" href="#"
+                        >Read More
+                        <svg
+                          class="ml-[5px]"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17.2031 10.3281L11.5781 15.9531C11.535 15.9961 11.4839 16.0303 11.4276 16.0536C11.3713 16.077 11.3109 16.089 11.25 16.089C11.1891 16.089 11.1287 16.077 11.0724 16.0536C11.0161 16.0303 10.965 15.9961 10.9219 15.9531C10.8788 15.91 10.8446 15.8588 10.8213 15.8025C10.798 15.7462 10.786 15.6859 10.786 15.6249C10.786 15.564 10.798 15.5036 10.8213 15.4473C10.8446 15.391 10.8788 15.3399 10.9219 15.2968L15.7422 10.4687H3.125C3.00068 10.4687 2.88145 10.4193 2.79354 10.3314C2.70564 10.2435 2.65625 10.1242 2.65625 9.99993C2.65625 9.87561 2.70564 9.75638 2.79354 9.66847C2.88145 9.58056 3.00068 9.53118 3.125 9.53118H15.7422L10.9219 4.70305C10.8349 4.61603 10.786 4.498 10.786 4.37493C10.786 4.25186 10.8349 4.13383 10.9219 4.0468C11.0089 3.95978 11.1269 3.91089 11.25 3.91089C11.3731 3.91089 11.4911 3.95978 11.5781 4.0468L17.2031 9.6718C17.2476 9.71412 17.2829 9.76503 17.3071 9.82143C17.3313 9.87784 17.3438 9.93856 17.3438 9.99993C17.3438 10.0613 17.3313 10.122 17.3071 10.1784C17.2829 10.2348 17.2476 10.2857 17.2031 10.3281Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 px-[15px]">
+              <div
+                class="item md-mb30 wow fadeIn border border-sub_dark rounded-[5px]"
+                data-wow-delay=".2s"
+              >
+                <div class="img rounded-t-[5px] overflow-hidden">
+                  <img class="w-full h-auto" src="assets/imgs/blog/3.jpg" alt />
+                </div>
+                <div class="box px-[10px]">
+                  <div
+                    class="cont relative bg-sub_dark p-[40px] rounded-[5px] mt-[-30px] z-10"
+                  >
+                    <span
+                      class="date rounded-[30px] text-[11px] text-[#ddd] py-[5px] px-[15px] uppercase mb-[10px] border border-[#444343]"
+                      ><i class="fas fa-calendar-alt mr-[10px] text-main"></i> 6
+                      , Aug 2022</span
+                    >
+                    <h5 class="mt-[10px] text-[22px]">
+                      <a class="underline" href="#"
+                        >12 unique examples of portfolio websites.</a
+                      >
+                    </h5>
+                  </div>
+                  <div
+                    class="info flex items-center px-[15px] py-[20px] text-[13px]"
+                  >
+                    <div>
+                      <span
+                        ><i class="fas fa-comments text-[12px] mr-[5px]"></i> 2
+                        Comments</span
+                      >
+                    </div>
+                    <div class="ml-auto">
+                      <a class="flex" href="#"
+                        >Read More
+                        <svg
+                          class="ml-[5px]"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17.2031 10.3281L11.5781 15.9531C11.535 15.9961 11.4839 16.0303 11.4276 16.0536C11.3713 16.077 11.3109 16.089 11.25 16.089C11.1891 16.089 11.1287 16.077 11.0724 16.0536C11.0161 16.0303 10.965 15.9961 10.9219 15.9531C10.8788 15.91 10.8446 15.8588 10.8213 15.8025C10.798 15.7462 10.786 15.6859 10.786 15.6249C10.786 15.564 10.798 15.5036 10.8213 15.4473C10.8446 15.391 10.8788 15.3399 10.9219 15.2968L15.7422 10.4687H3.125C3.00068 10.4687 2.88145 10.4193 2.79354 10.3314C2.70564 10.2435 2.65625 10.1242 2.65625 9.99993C2.65625 9.87561 2.70564 9.75638 2.79354 9.66847C2.88145 9.58056 3.00068 9.53118 3.125 9.53118H15.7422L10.9219 4.70305C10.8349 4.61603 10.786 4.498 10.786 4.37493C10.786 4.25186 10.8349 4.13383 10.9219 4.0468C11.0089 3.95978 11.1269 3.91089 11.25 3.91089C11.3731 3.91089 11.4911 3.95978 11.5781 4.0468L17.2031 9.6718C17.2476 9.71412 17.2829 9.76503 17.3071 9.82143C17.3313 9.87784 17.3438 9.93856 17.3438 9.99993C17.3438 10.0613 17.3313 10.122 17.3071 10.1784C17.2829 10.2348 17.2476 10.2857 17.2031 10.3281Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== End Blog ==================== -->
+
+        <!-- ==================== Start Contact ==================== -->
+        <div
+          class="sec-box px-[15px] md:px-[40px] lg:px-[50px] py-[100px] bg-dark skills section-padding bord-thin-bottom rounded-b-3xl"
+          data-scroll-index="4"
+        >
+          <div>
+            <div class="row grid grid-cols-1 md:grid-cols-3">
+              <div
+                class="col-lg-4 col-span-1 flex items-center justify-center px-[15px]"
+              >
+                <div class="sec-head md-mb80 wow fadeIn mb-6">
+                  <h6
+                    class="sub-title opacity-[70%] font-[300] mb-[15px] text-[14px] tracking-widest uppercase"
+                  >
+                    Lets connect
+                  </h6>
+                  <h3 class="sm:text-[38px] text-[24px] font-[500]">
+                    <span class="text-main">Contact</span> & Social Media
+                  </h3>
+                </div>
+              </div>
+              <div class="col-lg-8 col-span-2 px-[15px]">
+                <div class="row grid sm:grid-cols-2 grid-cols-1">
+                  <div class="col-md-6 mx-[20px]">
+                    <a
+                      href="https://www.linkedin.com/in/naandalist/"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <div
+                        class="item relative border rounded-2xl border-[#444343] mb-[30px] px-[30px] pt-[30px]"
+                      >
+                        <div class="flex items-center gap-x-[3px] mb-[30px]">
+                          <div class="mr-[30px]">
+                            <div class="img icon-img-40 w-[40px]">
+                              <img
+                                src="https://skillicons.dev/icons?i=linkedin"
+                                alt
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <h6 class="text-[14px] font-[400]">
+                              Connect with me on LinkedIn
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-6 mx-[20px]">
+                    <a
+                      href="https://www.instagram.com/naandalist"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <div
+                        class="item relative border rounded-2xl border-[#444343] mb-[30px] px-[30px] pt-[30px]"
+                      >
+                        <div class="flex items-center gap-x-[3px] mb-[30px]">
+                          <div class="mr-[30px]">
+                            <div class="img icon-img-40 w-[40px]">
+                              <img
+                                src="https://skillicons.dev/icons?i=instagram"
+                                alt
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <h6 class="text-[14px] font-[400]">
+                              Follow each other on instagram
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-6 mx-[20px]">
+                    <a href="mailto:listiananda.apriliawan@gmail.com">
+                      <div
+                        class="item relative border rounded-2xl border-[#444343] mb-[30px] px-[30px] pt-[30px]"
+                      >
+                        <div class="flex items-center gap-x-[3px] mb-[30px]">
+                          <div class="mr-[30px]">
+                            <div class="img icon-img-40 w-[40px]">
+                              <img
+                                src="https://skillicons.dev/icons?i=gmail"
+                                alt
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <h6 class="text-[14px] font-[400]">
+                              Send me your message via Email
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-6 mx-[20px]">
+                    <a
+                      href="https://x.com/nawndalist"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <div
+                        class="item relative border rounded-2xl border-[#444343] mb-[30px] px-[30px] pt-[30px]"
+                      >
+                        <div class="flex items-center gap-x-[3px] mb-[30px]">
+                          <div class="mr-[30px]">
+                            <div class="img icon-img-40 w-[40px]">
+                              <img
+                                src="https://skillicons.dev/icons?i=twitter"
+                                alt
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <h6 class="text-[14px] font-[400]">
+                              Send me DM on X - Twitter
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ==================== End Contact ==================== -->
+      </section>
+    </main>
+
+    <!-- ==================== Start Footer ==================== -->
+
+    <footer class="pb-[30px] pt-[30px]">
+      <div class="w-full">
+        <div class="w-full">
+          <div class="col-12 px-[30px] w-full">
+            <div class="text-center">
+              <p class="text-[13px] text-[#ddd] font-[300]">
+                © 2024 - Nanda proudly powers this
+                <span class="underline text-main"
+                  ><a href="https://naandalist.com" target="_blank"
+                    >website</a
+                  ></span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ==================== End Footer ==================== -->
+
+    <!-- jQuery -->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-3.4.0.min.js"></script>
+
+    <!-- plugins -->
+    <script src="assets/js/plugins.js"></script>
+
+    <script src="assets/js/ScrollTrigger.min.js"></script>
+
+    <!-- custom scripts -->
+    <script src="assets/js/scripts.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css" />
   </body>
 </html>

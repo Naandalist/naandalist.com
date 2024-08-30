@@ -1,0 +1,92 @@
+/*-----------------------------------------------------------------------------------
+
+    Theme Name: Gavi
+    Theme URI: http://
+    Description: Creative Personal & Portfolio
+    Author: UI-ThemeZ
+    Author URI: http://themeforest.net/user/UI-ThemeZ
+    Version: 1.0
+
+-----------------------------------------------------------------------------------*/
+
+/************ TABLE OF CONTENTS ***************
+
+  01. variables
+  02. mixin CSS START
+  03. animation CSS START
+  04. theme-dark CSS START
+  05. typography CSS START
+  06. buttons CSS START
+  07. cursor CSS START
+  08. extra CSS START
+  09. preloader CSS START
+  10. overlay CSS START
+  11. menu CSS START
+  12. modal CSS START
+  13. title CSS START
+  14. about CSS START
+  15. awards CSS START
+  16. blog CSS START
+  17. brand CSS START
+  18. resume CSS START
+  19. counter CSS START
+  20. features START
+  21. header CSS START
+  22. hero CSS START
+  23. portfolio CSS START
+  24. price CSS START
+  25. process CSS START
+  26. services CSS START
+  27. slider CSS START
+  28. team CSS START
+  29. testimonials CSS START
+  30. contact CSS START
+  31. footer CSS START
+  32. helper CSS START
+  33. responsive CSS START
+**********************************************/
+
+// utility
+@import "utility/variables.scss";
+@import "utility/mixin.scss";
+@import "utility/animation.scss";
+@import "utility/theme-dark.scss";
+
+
+// components
+@import "components/typography.scss";
+@import "components/buttons.scss";
+@import "components/cursor.scss";
+@import "components/extra.scss";
+@import "components/preloader.scss";
+@import "components/overlay.scss";
+@import "components/menu.scss";
+@import "components/modal.scss";
+@import "components/title.scss";
+
+
+// layout
+@import "layout/about.scss";
+@import "layout/awards.scss";
+@import "layout/blog.scss";
+@import "layout/brand.scss";
+@import "layout/resume.scss";
+@import "layout/counter.scss";
+@import "layout/features.scss";
+@import "layout/header.scss";
+@import "layout/hero.scss";
+@import "layout/portfolio.scss";
+@import "layout/price.scss";
+@import "layout/process.scss";
+@import "layout/services.scss";
+@import "layout/slider.scss";
+@import "layout/team.scss";
+@import "layout/testimonials.scss";
+@import "layout/contact.scss";
+@import "layout/footer.scss";
+
+// helper
+@import "components/helper.scss";
+
+// responsive
+@import "utility/responsive.scss";

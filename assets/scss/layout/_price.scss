@@ -1,0 +1,89 @@
+
+/* Pricing
+-----------------------------------------------------------------*/
+
+.price{
+    border-radius: 0 30px 0 0;
+
+    .item{
+        padding: 40px;
+        background: $sub_bg;
+        position: relative;
+        margin-top: 50px;
+        border-radius: 0 0 10px 10px;
+
+        .left{
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 80px;
+            height: 50px;
+            background: $sub_bg;
+            border-radius: 10px 10px 0 0;
+
+            &:after{
+                content: '';
+                width: 0;
+                height: 0;
+                border-bottom: 45px solid $sub_bg;
+                border-right: 50px solid transparent;
+                position: absolute;
+                right: -48px;
+                bottom: 0;
+            }
+        }
+
+        .right{
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 80px;
+            height: 50px;
+            background: $sub_bg;
+            border-radius: 10px 10px 0 0;
+
+            &:after{
+                content: '';
+                width: 0;
+                height: 0;
+                border-bottom: 45px solid $sub_bg;
+                border-left: 50px solid transparent;
+                position: absolute;
+                left: -48px;
+                bottom: 0;
+            }
+        }
+
+        .type{
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            color: #1d1d1d;
+            font-weight: 500;
+            font-size: 13px;
+            text-transform: uppercase;
+            background: $main_color;
+            border-radius: 30px;
+        }
+
+        .content{
+
+            .feat{
+
+                li{
+                    margin-bottom: 15px;
+                    display: flex;
+
+                    i{
+                        font-size: 13px;
+                        color: $main_color;
+                        margin-right: 10px;
+                        padding-top: 3px;
+                    }
+                }
+            }
+        }
+    }
+}

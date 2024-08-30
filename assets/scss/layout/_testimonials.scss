@@ -1,0 +1,114 @@
+
+/* Testimonials
+-----------------------------------------------------------------*/
+
+.testimonials{
+    position: relative;
+    z-index: 3;
+
+    .pad-left{
+        padding-left: 100px;
+    }
+
+    &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50px;
+        right: 0;
+        bottom: 0;
+        background: $sub_bg;
+        border-radius: 30px 0 0 30px;
+        z-index: -1;
+    }
+
+    &:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50px;
+        right: 0;
+        bottom: 0;
+        background-image: url(../imgs/patterns/noise1.png);
+        background-size: auto;
+        background-repeat: repeat;
+        border-radius: 30px 0 0 30px;
+        pointer-events: none;
+        opacity: .5;
+        z-index: 0;
+    }
+
+    .icon-qoute{
+        font-size: 200px;
+        line-height: 1;
+        color: $main_bg;
+        position: absolute;
+        top: -50px;
+        right: 10%;
+        transform: rotateY(180deg);
+    }
+
+    .item{
+
+        .img{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+}
+
+.swiper-controls{
+    position: relative;
+    z-index: 4;
+
+    .swiper-button-prev,
+    .swiper-button-next{
+        position: static;
+        display: inline-block;
+
+        &:after{
+            display: none;
+        }
+    }
+
+    &.arrow-out{
+
+        .swiper-button-prev,
+        .swiper-button-next{
+
+            &:hover{
+
+                .left,
+                .right{
+                    background: rgba(255, 255, 255, 0.05);
+                }
+            }
+        }
+
+        .left,
+        .right{
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 50%;
+            color: #fff;
+        }
+
+        .left{
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.swiper-pagination-bullet{
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 7px;
+}
+
+.swiper-pagination-bullet-active{
+    background: var(--maincolor);
+}

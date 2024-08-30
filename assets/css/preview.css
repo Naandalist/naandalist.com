@@ -1,0 +1,40 @@
+
+
+.navbar.nav-scroll {
+	position: static !important;
+}
+
+.preview .img {
+	padding-left: 40px;
+}
+
+.preview .img .screen {
+	border: 1px solid #aaa;
+	border-radius: 15px 15px 0 0;
+	border-bottom: 0;
+	overflow: hidden;
+}
+
+.preview .img .botm {
+	width: calc(100% + 80px);
+	margin-left: -40px;
+	height: 30px;
+	border: 1px solid #aaa;
+	border-radius: 0 0 100px 100px;
+}
+
+.portfolio .item .img {
+	padding: 30px;
+	background: rgba(255, 255, 255, .05);
+	border-radius: 5px;
+}
+
+.portfolio .item .img>a {
+	height: auto;
+	width: 100%;
+}
+
+.portfolio .item .img>a img {
+	width: 100%;
+	height: auto;
+}
