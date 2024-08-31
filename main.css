@@ -1055,6 +1055,14 @@ video {
   margin-left: 1.25rem;
 }
 
+.mt-\[6px\] {
+  margin-top: 6px;
+}
+
+.mt-\[0px\] {
+  margin-top: 0px;
+}
+
 .block {
   display: block;
 }
@@ -1341,6 +1349,10 @@ video {
 
 .w-\[33\.33\%\] {
   width: 33.33%;
+}
+
+.w-\[100\%\] {
+  width: 100%;
 }
 
 .flex-1 {
@@ -2028,6 +2040,11 @@ video {
   padding-bottom: 2.5rem;
 }
 
+.py-\[30px\] {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
 .\!pb-\[100px\] {
   padding-bottom: 100px !important;
 }
@@ -2249,6 +2266,10 @@ video {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .leading-10 {
