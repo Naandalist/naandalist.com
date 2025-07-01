@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard.astro";
+import StackCard from "@components/StackCard.astro";
 import Link from "@components/Link.astro";
 import { dateRange } from "@lib/utils";
 import { SITE, HOME, SOCIALS } from "@consts";
@@ -31,6 +32,59 @@ const work = await Promise.all(
     return { ...item, Content };
   })
 );
+
+const stack = [
+  {
+    text: "React Native",
+    icon: "react",
+    href: "https://reactnative.dev",
+  },
+  {
+    text: "Next.js",
+    icon: "nextjs",
+    href: "https://nextjs.org",
+  },
+  {
+    text: "Vite",
+    icon: "vite",
+    href: "https://vitejs.dev",
+  },
+  {
+    text: "Node.js",
+    icon: "nodejs",
+    href: "https://nodejs.org",
+  },
+  {
+    text: "Javascript",
+    icon: "javascript",
+    href: "https://www.javascript.com",
+  },
+  {
+    text: "Typescript",
+    icon: "typescript",
+    href: "https://www.typescriptlang.org",
+  },
+  {
+    text: "Bun",
+    icon: "bun",
+    href: "https://bun.sh",
+  },
+  {
+    text: "Python",
+    icon: "python",
+    href: "https://www.python.org",
+  },
+  {
+    text: "Tailwind",
+    icon: "tailwind",
+    href: "https://tailwindcss.com",
+  },
+  {
+    text: "GitHub",
+    icon: "github",
+    href: "https://github.com/",
+  },
+];
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
@@ -102,6 +156,33 @@ const work = await Promise.all(
             it's a coding problem or a mountain top.
           </p>
         </article>
+      </section>
+
+      <section class='animate'>
+        <div class=''>
+          <p class='font-semibold text-black dark:text-white'>Skilled in</p>
+          <div class='flex flex-wrap items-center gap-2 mt-5'>
+            {
+              stack.map((item) => (
+                <StackCard text={item.text} icon={item.icon} href={item.href} />
+              ))
+            }
+          </div>
+          <div>
+            Currently, he is improving engineering back-end skills with
+            <a
+              href='https://go.dev'
+              target='_blank'
+              class='w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend'
+            >
+              <span
+                class='text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend'
+              >
+                Golang
+              </span>
+            </a>
+          </div>
+        </div>
       </section>
 
       <section class='animate space-y-6'>
