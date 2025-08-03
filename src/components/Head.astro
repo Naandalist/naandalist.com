@@ -7,6 +7,7 @@ import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 
 import { ClientRouter } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
 import { SITE } from "@consts";
 
 interface Props {
@@ -71,6 +72,7 @@ const { title, description, image = "/nano.png" } = Astro.props;
 
 <ClientRouter />
 <SpeedInsights />
+<Analytics />
 
 <!-- RSS Link -->
 <link
