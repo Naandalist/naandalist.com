@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard.astro";
-import StackCard from "@components/StackCard.astro";
 import Link from "@components/Link.astro";
 import { dateRange } from "@lib/utils";
 import { SITE, HOME, SOCIALS } from "@consts";
@@ -32,59 +31,6 @@ const work = await Promise.all(
     return { ...item, Content };
   })
 );
-
-const stack = [
-  {
-    text: "React Native",
-    icon: "react",
-    href: "https://reactnative.dev",
-  },
-  {
-    text: "Next.js",
-    icon: "nextjs",
-    href: "https://nextjs.org",
-  },
-  {
-    text: "Vite",
-    icon: "vite",
-    href: "https://vitejs.dev",
-  },
-  {
-    text: "Node.js",
-    icon: "nodejs",
-    href: "https://nodejs.org",
-  },
-  {
-    text: "Javascript",
-    icon: "javascript",
-    href: "https://www.javascript.com",
-  },
-  {
-    text: "Typescript",
-    icon: "typescript",
-    href: "https://www.typescriptlang.org",
-  },
-  {
-    text: "Bun",
-    icon: "bun",
-    href: "https://bun.sh",
-  },
-  {
-    text: "Python",
-    icon: "python",
-    href: "https://www.python.org",
-  },
-  {
-    text: "Tailwind",
-    icon: "tailwind",
-    href: "https://tailwindcss.com",
-  },
-  {
-    text: "GitHub",
-    icon: "github",
-    href: "https://github.com/",
-  },
-];
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
@@ -165,7 +111,6 @@ const stack = [
               alt='Tech stack icons'
               class='animate'
               loading='lazy'
-              x
             />
           </div>
           <div class='mt-5'>
