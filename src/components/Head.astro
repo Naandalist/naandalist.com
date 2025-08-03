@@ -6,6 +6,7 @@ import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2";
 import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 
 import { ClientRouter } from "astro:transitions";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import { SITE } from "@consts";
 
 interface Props {
@@ -48,6 +49,11 @@ const { title, description, image = "/nano.png" } = Astro.props;
 <title>{title}</title>
 <meta name='title' content={title} />
 <meta name='description' content={description} />
+<meta name='author' content='Listiananda Apriliawan' />
+<meta
+  name='keywords'
+  content='naandalist, nanda, frontend engineer, react native, javascript, typescript, bun, nodejs, astro, tailwind css, web development, mobile development, hiking, mountain climbing, travel, programming, software engineer'
+/>
 
 <!-- Open Graph / Facebook -->
 <meta property='og:type' content='website' />
@@ -64,6 +70,7 @@ const { title, description, image = "/nano.png" } = Astro.props;
 <meta property='twitter:image' content={new URL(image, Astro.url)} />
 
 <ClientRouter />
+<SpeedInsights />
 
 <!-- RSS Link -->
 <link
