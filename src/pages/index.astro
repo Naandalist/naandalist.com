@@ -201,28 +201,33 @@ const work = await Promise.all(
             hi, reach out on social media or send him an email.
           </p>
         </article>
-        <ul class='flex flex-wrap gap-2'>
+        <ul class='flex flex-wrap gap-10'>
           {
             SOCIALS.map((SOCIAL) => (
-              <li class='flex gap-x-2 text-nowrap'>
-                <Link
-                  href={SOCIAL.HREF}
-                  external
-                  aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
-                >
-                  {SOCIAL.NAME}
-                </Link>
-                {"/"}
+              <li class='flex gap-x-2 text-nowrap items-center'>
+                <div class="flex items-center gap-2">
+                  <Link
+                    href={SOCIAL.HREF}
+                    external
+                    aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
+                  >
+                    <i class={`fab fa-${SOCIAL.NAME} text-sm`}></i>
+                    {SOCIAL.NAME}
+                  </Link>
+                </div>
               </li>
             ))
           }
-          <li class='line-clamp-1'>
-            <Link
-              href={`mailto:${SITE.EMAIL}`}
-              aria-label={`Email ${SITE.NAME}`}
-            >
-              {SITE.EMAIL}
-            </Link>
+          <li class='line-clamp-1 flex items-center'>
+            <div class="flex items-center gap-2">
+              <Link
+                href={`mailto:${SITE.EMAIL}`}
+                aria-label={`Email ${SITE.NAME}`}
+              >
+                <i class="fas fa-envelope text-sm"></i>
+                {SITE.EMAIL}
+              </Link>
+            </div>
           </li>
         </ul>
       </section>
