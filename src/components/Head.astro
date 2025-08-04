@@ -40,6 +40,17 @@ const { title, description, image = "/og-image.png" } = Astro.props;
 <meta name='description' content={description} />
 <meta name='author' content='Listiananda Apriliawan' />
 <meta
+  name='robots'
+  content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+/>
+<meta name='googlebot' content='index, follow' />
+<meta name='language' content='en' />
+<meta name='revisit-after' content='7 days' />
+<meta name='rating' content='general' />
+<meta name='distribution' content='global' />
+<meta name='geo.region' content='ID' />
+<meta name='geo.country' content='Indonesia' />
+<meta
   name='keywords'
   content='naandalist, nanda, frontend engineer, react native, javascript, typescript, bun, nodejs, astro, tailwind css, web development, mobile development, hiking, mountain climbing, travel, programming, software engineer'
 />
