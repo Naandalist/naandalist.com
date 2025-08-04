@@ -3,18 +3,20 @@ import { getCollection } from "astro:content";
 import { HOME } from "@consts";
 
 type Context = {
-  site: string
-}
+  site: string;
+};
 
 export async function GET(context: Context) {
-  const blog = (await getCollection("blog"))
-  .filter(post => !post.data.draft);
+  const posts = (await getCollection("posts")).filter(
+    (post) => !post.data.draft
+  );
+  const projects = (await getCollection("projects")).filter(
+    (project) => !project.data.draft
+  );
 
-  const projects = (await getCollection("projects"))
-    .filter(project => !project.data.draft);
-
-  const items = [...blog, ...projects]
-    .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+  const items = [...posts, ...projects].sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  );
 
   return rss({
     title: HOME.TITLE,

@@ -1,7 +1,7 @@
 {
   "name": "naandalist.com",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "dev": "astro dev",
     "dev:network": "astro dev --host",
@@ -19,6 +19,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.3",
     "@fontsource/inter": "^5.0.17",
+    "@fortawesome/fontawesome-free": "^7.0.0",
     "@tailwindcss/typography": "^0.5.10",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",

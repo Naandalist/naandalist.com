@@ -6,9 +6,9 @@ import { SITE } from "@consts";
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { href: "/blog", label: "blog" },
-  { href: "/work", label: "work" },
-  { href: "/projects", label: "projects" },
+  { href: "/posts", label: "posts", icon: "fas fa-newspaper" },
+  { href: "/work", label: "work", icon: "fas fa-briefcase" },
+  { href: "/projects", label: "projects", icon: "fas fa-rocket" },
 ];
 ---
 
@@ -22,17 +22,18 @@ const navItems = [
       </Link>
       <nav class='flex gap-3'>
         {
-          navItems.map(({ href, label }) => {
+          navItems.map(({ href, label, icon }) => {
             const isActive = currentPath.startsWith(href);
             return (
               <Link href={href} underline={false}>
                 <button
-                  class={`relative group w-fit flex px-3 py-1.5 flex-nowrap rounded border transition-colors duration-300 ease-in-out ${
+                  class={`relative group w-fit flex items-center gap-2 px-3 py-1.5 flex-nowrap rounded transition-colors duration-300 ease-in-out ${
                     isActive
-                      ? "border-black/40 dark:border-white/40 bg-black/10 dark:bg-white/10 text-black dark:text-white"
-                      : "border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
+                      ? "bg-black/10 dark:bg-white/10 text-black dark:text-white"
+                      : "hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
                   }`}
                 >
+                  <i class={`${icon} text-sm`} />
                   {label}
                 </button>
               </Link>
