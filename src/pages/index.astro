@@ -205,13 +205,13 @@ const work = await Promise.all(
           {
             SOCIALS.map((SOCIAL) => (
               <li class='flex gap-x-2 text-nowrap items-center'>
-                <div class="flex items-center gap-2">
+                <div class='flex items-center gap-2'>
                   <Link
                     href={SOCIAL.HREF}
                     external
                     aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
                   >
-                    <i class={`fab fa-${SOCIAL.NAME} text-sm`}></i>
+                    <i class={`fab fa-${SOCIAL.NAME} text-sm`} />
                     {SOCIAL.NAME}
                   </Link>
                 </div>
@@ -219,12 +219,12 @@ const work = await Promise.all(
             ))
           }
           <li class='line-clamp-1 flex items-center'>
-            <div class="flex items-center gap-2">
+            <div class='flex items-center gap-2'>
               <Link
                 href={`mailto:${SITE.EMAIL}`}
                 aria-label={`Email ${SITE.NAME}`}
               >
-                <i class="fas fa-envelope text-sm"></i>
+                <i class='fas fa-envelope text-sm'></i>
                 {SITE.EMAIL}
               </Link>
             </div>
