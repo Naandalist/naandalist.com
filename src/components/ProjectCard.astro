@@ -6,9 +6,6 @@ type Props = {
 };
 
 const { entry } = Astro.props;
-
-const projectUrl =
-  entry.data.demoURL || entry.data.repoURL || `/projects/${entry.slug}`;
 ---
 
 <a
