@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
 import Link from "@components/Link.astro";
 import { dateRange } from "@lib/utils";
 import { SITE, HOME, SOCIALS } from "@consts";
@@ -162,15 +163,9 @@ const work = await Promise.all(
           </h5>
           <Link href='/projects'> See all projects </Link>
         </div>
-        <ul class='flex flex-col gap-4'>
-          {
-            projects.map((project) => (
-              <li>
-                <ArrowCard entry={project} />
-              </li>
-            ))
-          }
-        </ul>
+        <div class='flex flex-col gap-4'>
+          {projects.map((project) => <ProjectCard entry={project} />)}
+        </div>
       </section>
 
       <section class='animate space-y-6'>

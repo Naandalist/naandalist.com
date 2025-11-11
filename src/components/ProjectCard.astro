@@ -1,0 +1,87 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  entry: CollectionEntry<"projects">;
+};
+
+const { entry } = Astro.props;
+const projectUrl =
+  entry.data.demoURL || entry.data.repoURL || `/projects/${entry.slug}`;
+---
+
+<a
+  href={projectUrl}
+  target={entry.data.demoURL || entry.data.repoURL ? "_blank" : undefined}
+  rel={entry.data.demoURL || entry.data.repoURL
+    ? "noopener noreferrer"
+    : undefined}
+  class='group relative flex flex-col sm:flex-row gap-4 p-4 rounded-lg border border-black/15 dark:border-white/20 transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/25 dark:hover:border-white/30'
+>
+  <!-- Project Image/Preview -->
+  <div
+    class='relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20'
+  >
+    {
+      entry.data.imageUrl ? (
+        <img
+          src={entry.data.imageUrl}
+          alt={`${entry.data.title} preview`}
+          class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+          loading='lazy'
+        />
+      ) : entry.data.demoURL ? (
+        <img
+          src={`https://skyfall.dev/_astro/archimedes.Sm-v4rGV_Z1XrHXQ.svg`}
+          alt={`${entry.data.title} preview`}
+          class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+          loading='lazy'
+        />
+      ) : (
+        <div class='flex h-full w-full items-center justify-center'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 24 24'
+            class='h-12 w-12 stroke-black/20 dark:stroke-white/20'
+            fill='none'
+            stroke-width='1.5'
+          >
+            <path
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              d='M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z'
+            />
+          </svg>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Content -->
+  <div class='flex flex-1 flex-col gap-2'>
+    <!-- Title and Description -->
+    <div>
+      <h3
+        class='font-semibold text-lg text-black dark:text-white group-hover:underline decoration-2 underline-offset-2'
+      >
+        {entry.data.title}
+      </h3>
+      <p class='text-sm text-black/70 dark:text-white/70 mt-1 line-clamp-2'>
+        {entry.data.description}
+      </p>
+    </div>
+
+    <!-- Tech Stack -->
+    {
+      entry.data.techStack && entry.data.techStack.length > 0 && (
+        <div class='flex flex-wrap items-center gap-1.5 mt-auto'>
+          {entry.data.techStack.map((tech: string) => (
+            <span class='text-xs px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-black/70 dark:text-white/70'>
+              {tech}
+            </span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</a>

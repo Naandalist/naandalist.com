@@ -4,6 +4,8 @@ description: "Portfolio and blog build with astro."
 date: "Mar 18 2024"
 demoURL: "https://astro-sphere-demo.vercel.app"
 repoURL: "https://github.com/markhorn-dev/astro-sphere"
+imageUrl: "/astro-sphere.jpg"
+techStack: ["Astro", "TypeScript", "Tailwind CSS", "SolidJS"]
 ---
 
 ![Astro Sphere Lighthouse Score](/astro-sphere.jpg)
