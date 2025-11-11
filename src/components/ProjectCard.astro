@@ -6,13 +6,14 @@ type Props = {
 };
 
 const { entry } = Astro.props;
+
 const projectUrl =
   entry.data.demoURL || entry.data.repoURL || `/projects/${entry.slug}`;
 ---
 
 <a
-  href={projectUrl}
-  target={entry.data.demoURL || entry.data.repoURL ? "_blank" : undefined}
+  href={`/projects/${entry.slug}`}
+  target='_self'
   rel={entry.data.demoURL || entry.data.repoURL
     ? "noopener noreferrer"
     : undefined}
