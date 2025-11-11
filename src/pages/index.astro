@@ -193,7 +193,13 @@ const work = await Promise.all(
           </p>
           <p class='animate'>
             If you want to get in touch with him about something or just to say
-            hi, reach out on social media or send him an email.
+            hi, reach out on social media or send him an email to{" "}
+            <Link
+              href='mailto:dev@naandalist.com'
+              aria-label='Email Naandalist'
+            >
+              dev@naandalist.com
+            </Link>.
           </p>
         </article>
         <ul class='flex flex-wrap gap-10'>
@@ -213,17 +219,6 @@ const work = await Promise.all(
               </li>
             ))
           }
-          <li class='line-clamp-1 flex items-center'>
-            <div class='flex items-center gap-2'>
-              <Link
-                href={`mailto:${SITE.EMAIL}`}
-                aria-label={`Email ${SITE.NAME}`}
-              >
-                <i class='fas fa-envelope text-sm'></i>
-                {SITE.EMAIL}
-              </Link>
-            </div>
-          </li>
         </ul>
       </section>
     </div>
