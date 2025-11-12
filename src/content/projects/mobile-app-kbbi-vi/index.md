@@ -11,7 +11,7 @@ category: "Books & Reference"
 platforms: ["Android 5.0+"]
 price: "Free"
 keywords:
-  ["KBBI", "kamus", "dictionary", "Indonesian", "Bahasa Indonesia", "offline"]
+  ["KBBI", "kamus", "dictionary", "Indonesian", "Bahasa Indonesia", "kbbi"]
 ---
 
 # Kamus KBBI VI
@@ -26,10 +26,7 @@ The app commit to zero tracking, there are no analytics SDKs or remote calls for
 
 ## Users
 
-- **Students & academics**: quick references for essays and research
-- **Professional writers**: precise usage and definitions on demand
-- **Educators**: classroom aid with reliable, offline access
-- **Language learners**: structured entries to grow vocabulary
+The application serves a diverse user base including students and academics who need quick vocabulary references for essays and research, professional writers requiring precise usage and definitions on demand, educators using it as a classroom aid with reliable and fast access, and language learners looking for structured entries to grow their vocabulary.
 
 ## Timeline
 
@@ -61,7 +58,7 @@ Access to an authoritative Indonesian dictionary without ads, trackers, or conne
 {JSON.stringify({
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Kamus KBBI VI",
+  "name": "Kamus KBBI VI Bahasa Indonesia",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Android",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },

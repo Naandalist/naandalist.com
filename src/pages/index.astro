@@ -207,14 +207,16 @@ const work = await Promise.all(
             SOCIALS.map((SOCIAL) => (
               <li class='flex gap-x-2 text-nowrap items-center'>
                 <div class='flex items-center gap-2'>
-                  <Link
+                  <a
                     href={SOCIAL.HREF}
-                    external
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    class='inline-block text-current hover:text-black dark:hover:text-white no-underline transition-colors duration-300 ease-in-out'
                     aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
                   >
                     <i class={`fab fa-${SOCIAL.NAME} text-sm`} />
                     {SOCIAL.NAME}
-                  </Link>
+                  </a>
                 </div>
               </li>
             ))
