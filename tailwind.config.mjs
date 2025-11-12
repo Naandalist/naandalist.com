@@ -10,6 +10,12 @@ export default {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
         // serif: ["Lora", ...defaultTheme.fontFamily.serif],
       },
+      colors: {
+        link: {
+          DEFAULT: "rgba(10, 189, 227, 1.0)",
+          hover: "rgba(72, 219, 251, 1.0)",
+        },
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

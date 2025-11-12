@@ -14,12 +14,9 @@ const { href, external, underline = true, ...rest } = Astro.props;
   href={href}
   target={external ? "_blank" : "_self"}
   class={cn(
-    "inline-block transition-colors duration-300 ease-in-out",
+    "inline-block text-link hover:text-link-hover decoration-link/30 hover:decoration-link-hover/50 transition-colors duration-300 ease-in-out",
     underline && "underline underline-offset-2"
   )}
-  style='color: rgba(10, 189, 227, 1.0); text-decoration-color: rgba(10, 189, 227, 0.3);'
-  onmouseenter="this.style.color='rgba(72, 219, 251, 1.0)'; this.style.textDecorationColor='rgba(72, 219, 251, 0.5)';"
-  onmouseleave="this.style.color='rgba(10, 189, 227, 1.0)'; this.style.textDecorationColor='rgba(10, 189, 227, 0.3)';"
   {...rest}
 >
   <slot />

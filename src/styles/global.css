@@ -45,14 +45,9 @@ article {
 
 @layer utilities {
   article a {
-    @apply font-sans underline underline-offset-2;
+    @apply font-sans text-link hover:text-link-hover underline underline-offset-2;
+    @apply decoration-link/30 hover:decoration-link-hover/50;
     @apply transition-colors duration-300 ease-in-out;
-    color: rgba(10, 189, 227, 1);
-    text-decoration-color: rgba(10, 189, 227, 0.3);
-  }
-  article a:hover {
-    color: rgba(72, 219, 251, 1);
-    text-decoration-color: rgba(72, 219, 251, 0.5);
   }
 }
 
