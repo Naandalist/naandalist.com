@@ -6,7 +6,7 @@ lastUpdated: "2025-11-10"
 imageUrl: "/images/thumbnail-infohaji-app.webp"
 demoURL: "https://play.google.com/store/apps/details?id=com.naandalist.info_haji"
 repoURL: "https://github.com/Naandalist/info-hajj-app"
-techStack: ["React Native", "TypeScript", "React Navigation", "Hermes"]
+techStack: ["React Native", "Typescript", "Hermes"]
 category: "Books & Reference"
 platforms: ["Android 5.0+"]
 price: "Free"
