@@ -45,13 +45,14 @@ article {
 
 @layer utilities {
   article a {
-    @apply font-sans text-current underline underline-offset-2;
-    @apply decoration-black/15 dark:decoration-white/30;
+    @apply font-sans underline underline-offset-2;
     @apply transition-colors duration-300 ease-in-out;
+    color: rgba(10, 189, 227, 1);
+    text-decoration-color: rgba(10, 189, 227, 0.3);
   }
   article a:hover {
-    @apply text-black dark:text-white;
-    @apply decoration-black/25 dark:decoration-white/50;
+    color: rgba(72, 219, 251, 1);
+    text-decoration-color: rgba(72, 219, 251, 0.5);
   }
 }
 
