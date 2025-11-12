@@ -53,14 +53,6 @@ The app delivers optimized cold start performance through carefully configured R
 
 ![Screenshot kbbi app](https://play-lh.googleusercontent.com/7q-WDXbRHQFfNFQKebWNIfZ3quv9PojxCg1KH5rGlvarjvL4Von3m5kaVujW51ckU0_E8jX1zqMwMaZnFSKZoZU=w5120-h2880-rw)
 
-## How It's Built
-
-- **Stack**: React Native + TypeScript, React Navigation
-- **Indexing**: prebuilt on CI; shipped as compressed asset then memory-mapped/loaded to SQLite/JS index at first run
-- **Perf**: Hermes, inline requires, asset dedupe, R8 minify, split per-ABI
-- **UX**: headless search module + presentational components; E2E flows verified on CI
-- **Release**: Play Console with internal testing tracks, staged rollouts, and strict proguard mapping retention
-
 ## Why It Matters
 
 Access to an authoritative Indonesian dictionary without ads, trackers, or connectivity removes friction for learning and professional writing, and helps preserve proper Bahasa Indonesia usage in daily digital life.
