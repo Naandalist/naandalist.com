@@ -35,6 +35,30 @@ module.exports = {
     quotes: ["error", "double", { allowTemplateLiterals: true }],
     "@typescript-eslint/triple-slash-reference": "off",
     "no-console": ["warn", { allow: ["warn", "error"] }],
+    "no-unused-vars": "off", // Turn off base rule as it can report incorrect errors
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        vars: "all",
+        args: "after-used",
+        ignoreRestSiblings: true,
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+      },
+    ],
+    "import/no-unresolved": [
+      "error",
+      {
+        ignore: [
+          "^astro:",
+          "^@components/",
+          "^@layouts/",
+          "^@lib/",
+          "^@consts",
+          "^@types",
+        ],
+      },
+    ],
     "import/order": [
       "warn",
       {
