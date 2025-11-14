@@ -27,13 +27,13 @@ cd naandalist.com
 Install dependencies:
 
 ```bash
-pnpm install
+bun install
 ```
 
 Start the development server:
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 The site will be available at `http://localhost:4321`
