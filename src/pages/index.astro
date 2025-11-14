@@ -56,172 +56,153 @@ const work = await Promise.all(
           </p>
         </article>
 
-        <div class='grid grid-cols-2 sm:grid-cols-2 gap-3 my-8'>
-          <div class='relative col-span-2 sm:col-span-1 animate'>
-            <img
-              alt='Naandalist hiking on Mount Merbabu'
-              src='https://raw.githubusercontent.com/Naandalist/naandalist.com/refs/heads/main/public/images/nanda-on-peak-merbabu.webp'
-              class='rounded-lg object-cover w-full h-full'
-              style='height: 600px;'
-              loading='lazy'
-            />
-          </div>
+        <div class='relative col-span-2 sm:col-span-1 animate'>
+          <img
+            alt='Naandalist hiking on Mount Merbabu'
+            src='/images/nanda-on-mount-merbabu.png'
+            class='rounded-lg object-cover w-full h-full'
+            loading='lazy'
+          />
 
-          <div class='col-span-2 sm:col-span-1 grid grid-cols-1 gap-3'>
-            <div class='relative animate'>
+          <article class='space-y-4'>
+            <p class='animate'>
+              When he's not immersed in lines of code, you'll likely find him
+              scaling new heights – literally! He's an enthusiastic mountain
+              hiker, believing that the best views come after the hardest
+              climbs.
+            </p>
+            <p class='animate'>
+              His hiking adventures have taken him to the summits of Mount Dempo
+              in South Sumatra, Mount Merbabu, and Mount Lawu Hargo Dumilah in
+              East Java.
+            </p>
+          </article>
+        </div>
+
+        <section class='animate'>
+          <div class=''>
+            <p class='font-semibold text-black dark:text-white'>Skilled in</p>
+            <div class='flex flex-wrap items-center gap-2 mt-5'>
               <img
-                alt='Coding outdoors'
-                src='https://raw.githubusercontent.com/Naandalist/naandalist.com/refs/heads/main/public/images/coding-outdoor-sawit.webp'
-                class='rounded-lg object-cover w-full'
+                src='https://skillicons.dev/icons?i=js,figma,mongo,ts,nodejs,vscode,tailwind,react,next,github,azure,gitlab'
+                alt='Tech stack icons'
+                class='animate'
                 loading='lazy'
-                style='height: 300px;'
               />
             </div>
-            <div class='relative animate'>
-              <img
-                alt='Red mushroom in dempo forest'
-                src='https://raw.githubusercontent.com/Naandalist/naandalist.com/refs/heads/main/public/images/red-mushroom-in-dempo.webp'
-                class='rounded-lg object-cover w-full h-full'
-                loading='lazy'
-                style='height: 290px;'
-              />
+            <div class='mt-5'>
+              Currently, he is improving engineering back-end skills with Golang
+              or Nodejs.
             </div>
           </div>
-        </div>
+        </section>
 
-        <article class='space-y-4'>
-          <p class='animate'>
-            When he's not immersed in lines of code, you'll likely find him
-            scaling new heights – literally! He's an enthusiastic mountain
-            hiker, believing that the best views come after the hardest climbs.
-          </p>
-          <p class='animate'>
-            His hiking adventures have taken him to the summits of Mount Dempo
-            in South Sumatra, Mount Merbabu, and Mount Lawu Hargo Dumilah in
-            East Java.
-          </p>
-        </article>
-      </section>
-
-      <section class='animate'>
-        <div class=''>
-          <p class='font-semibold text-black dark:text-white'>Skilled in</p>
-          <div class='flex flex-wrap items-center gap-2 mt-5'>
-            <img
-              src='https://skillicons.dev/icons?i=js,figma,mongo,ts,nodejs,vscode,tailwind,react,next,github,azure,gitlab'
-              alt='Tech stack icons'
-              class='animate'
-              loading='lazy'
-            />
+        <section class='animate space-y-6 mt-10'>
+          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+            <h5 class='font-semibold text-black dark:text-white'>
+              Work Experience
+            </h5>
+            <Link href='/work'> See all work </Link>
           </div>
-          <div class='mt-5'>
-            Currently, he is improving engineering back-end skills with Golang
-            or Nodejs.
+          <ul class='flex flex-col space-y-4'>
+            {
+              work.map((entry) => (
+                <li class='animate flex items-start gap-4'>
+                  <img
+                    src={entry.data.logoUrl}
+                    alt='Company logo'
+                    class='w-12 h-12 object-contain rounded mt-1'
+                    loading='lazy'
+                  />
+                  <div>
+                    <div class='text-sm opacity-75'>
+                      {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+                    </div>
+                    <div class='font-semibold text-black dark:text-white'>
+                      {entry.data.company}
+                    </div>
+                    <div class='text-sm opacity-75'>{entry.data.role}</div>
+                    <article>
+                      <entry.Content />
+                    </article>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class='animate space-y-6 mt-10'>
+          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+            <h5 class='font-semibold text-black dark:text-white'>
+              Recent projects
+            </h5>
+            <Link href='/projects'> See all projects </Link>
           </div>
-        </div>
-      </section>
+          <div class='flex flex-col gap-4'>
+            {projects.map((project) => <ProjectCard entry={project} />)}
+          </div>
+        </section>
 
-      <section class='animate space-y-6'>
-        <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+        <section class='animate space-y-6 mt-10'>
+          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+            <h5 class='font-semibold text-black dark:text-white'>
+              Latest posts
+            </h5>
+            <Link href='/posts'> See all posts </Link>
+          </div>
+          <ul class='flex flex-col gap-4'>
+            {
+              posts.map((post) => (
+                <li>
+                  <ArrowCard entry={post} />
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class='animate space-y-4 mt-10'>
           <h5 class='font-semibold text-black dark:text-white'>
-            Work Experience
+            Let's Connect
           </h5>
-          <Link href='/work'> See all work </Link>
-        </div>
-        <ul class='flex flex-col space-y-4'>
-          {
-            work.map((entry) => (
-              <li class='animate flex items-start gap-4'>
-                <img
-                  src={entry.data.logoUrl}
-                  alt='Company logo'
-                  class='w-12 h-12 object-contain rounded mt-1'
-                  loading='lazy'
-                />
-                <div>
-                  <div class='text-sm opacity-75'>
-                    {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+          <article>
+            <p class='animate'>
+              Naandalist is Listiananda Apriliawan's often used username across
+              his public accounts.
+            </p>
+            <p class='animate'>
+              If you want to get in touch with him about something or just to
+              say hi, reach out on social media or send him an email to{" "}
+              <Link
+                href='mailto:dev@naandalist.com'
+                aria-label='Email Naandalist'
+              >
+                dev@naandalist.com
+              </Link>.
+            </p>
+          </article>
+          <ul class='flex flex-wrap gap-10'>
+            {
+              SOCIALS.map((SOCIAL) => (
+                <li class='flex gap-x-2 text-nowrap items-center'>
+                  <div class='flex items-center gap-2'>
+                    <a
+                      href={SOCIAL.HREF}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      class='inline-block text-current hover:text-black dark:hover:text-white no-underline transition-colors duration-300 ease-in-out'
+                      aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
+                    >
+                      <i class={`fab fa-${SOCIAL.NAME} text-sm`} />
+                      {SOCIAL.NAME}
+                    </a>
                   </div>
-                  <div class='font-semibold text-black dark:text-white'>
-                    {entry.data.company}
-                  </div>
-                  <div class='text-sm opacity-75'>{entry.data.role}</div>
-                  <article>
-                    <entry.Content />
-                  </article>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
-      <section class='animate space-y-6'>
-        <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-          <h5 class='font-semibold text-black dark:text-white'>
-            Recent projects
-          </h5>
-          <Link href='/projects'> See all projects </Link>
-        </div>
-        <div class='flex flex-col gap-4'>
-          {projects.map((project) => <ProjectCard entry={project} />)}
-        </div>
-      </section>
-
-      <section class='animate space-y-6'>
-        <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-          <h5 class='font-semibold text-black dark:text-white'>Latest posts</h5>
-          <Link href='/posts'> See all posts </Link>
-        </div>
-        <ul class='flex flex-col gap-4'>
-          {
-            posts.map((post) => (
-              <li>
-                <ArrowCard entry={post} />
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
-      <section class='animate space-y-4'>
-        <h5 class='font-semibold text-black dark:text-white'>Let's Connect</h5>
-        <article>
-          <p class='animate'>
-            Naandalist is Listiananda Apriliawan's often used username across
-            his public accounts.
-          </p>
-          <p class='animate'>
-            If you want to get in touch with him about something or just to say
-            hi, reach out on social media or send him an email to{" "}
-            <Link
-              href='mailto:dev@naandalist.com'
-              aria-label='Email Naandalist'
-            >
-              dev@naandalist.com
-            </Link>.
-          </p>
-        </article>
-        <ul class='flex flex-wrap gap-10'>
-          {
-            SOCIALS.map((SOCIAL) => (
-              <li class='flex gap-x-2 text-nowrap items-center'>
-                <div class='flex items-center gap-2'>
-                  <a
-                    href={SOCIAL.HREF}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    class='inline-block text-current hover:text-black dark:hover:text-white no-underline transition-colors duration-300 ease-in-out'
-                    aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
-                  >
-                    <i class={`fab fa-${SOCIAL.NAME} text-sm`} />
-                    {SOCIAL.NAME}
-                  </a>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
       </section>
     </div>
   </Container>

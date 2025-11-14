@@ -1,5 +1,5 @@
 ---
-title: "Kamus KBBI VI — Indonesian Dictionary"
+title: "Kamus KBBI VI"
 description: "A mobile dictionary app for Indonesian language with 10K+ downloads on Google Play Store"
 date: "2025-11-11"
 lastUpdated: "2025-11-12"

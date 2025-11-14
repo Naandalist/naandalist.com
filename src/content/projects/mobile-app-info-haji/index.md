@@ -1,6 +1,6 @@
 ---
 title: "Info Haji"
-description: "Cek nomor porsi, estimasi tahun berangkat (Masehi & Hijri), kuota provinsi, status pembayaran, dan berita haji dari sumber aktual."
+description: "Cek nomor porsi, estimasi tahun berangkat, kuota provinsi, dan status pembayaran."
 date: "2025-11-11"
 lastUpdated: "2025-11-10"
 imageUrl: "/images/thumbnail-infohaji-app.webp"
