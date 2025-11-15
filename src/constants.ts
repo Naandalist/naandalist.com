@@ -38,11 +38,6 @@ export const SOCIALS: Socials = [
     HREF: "https://www.linkedin.com/in/naandalist",
   },
   {
-    NAME: "github",
-    ICON: "/icons/github.svg",
-    HREF: "https://github.com/naandalist",
-  },
-  {
     NAME: "telegram",
     ICON: "/icons/telegram.svg",
     HREF: "https://t.me/naandalist",
@@ -56,5 +51,25 @@ export const SOCIALS: Socials = [
     NAME: "twitter",
     ICON: "/icons/twitter.svg",
     HREF: "https://x.com/nawndalist",
+  },
+  {
+    NAME: "medium",
+    ICON: "/icons/medium.svg",
+    HREF: "https://medium.com/@naandalist",
+  },
+  {
+    NAME: "github",
+    ICON: "/icons/github.svg",
+    HREF: "https://github.com/naandalist",
+  },
+  {
+    NAME: "gitlab",
+    ICON: "/icons/gitlab.svg",
+    HREF: "https://gitlab.com/Naandalist",
+  },
+  {
+    NAME: "stackoverflow",
+    ICON: "/icons/stackoverflow.svg",
+    HREF: "https://stackoverflow.com/users/13633973/naandalist",
   },
 ];

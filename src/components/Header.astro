@@ -26,10 +26,10 @@ const navItems = [
             return (
               <a href={href} class='inline-block no-underline'>
                 <button
-                  class={`relative group w-fit flex items-center gap-2 px-3 py-1.5 flex-nowrap rounded transition-colors duration-300 ease-in-out ${
+                  class={`relative group w-fit flex items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-colors duration-300 ease-in-out ${
                     isActive
-                      ? "bg-white/10 text-white"
-                      : "hover:bg-white/5 hover:text-white"
+                      ? "bg-white/10 text-white border-white/20"
+                      : "hover:bg-white/5 hover:text-white border-transparent"
                   }`}
                 >
                   <img src={icon} alt='' class='w-4 h-4' />
