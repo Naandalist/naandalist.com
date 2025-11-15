@@ -1,8 +1,8 @@
 ---
 title: "Partial Responses for Better UX"
-subtitle: "Returning What's Ready Instead of Making Users Wait"
+subtitle: "UX First, Purity Second"
 description: "A practical pattern for returning partial API responses so users see real data quickly while slower fields are filled in later using track IDs and follow-up calls, reducing perceived loading time and drop-off."
-date: "2025-11-14"
+date: "2025-11-16"
 keywords:
   - API design
   - UX optimization
@@ -22,7 +22,7 @@ keywords:
 
 Our product had a very simple but painful problem: the product page was too slow.
 
-On paper, the backend was “working.” It took about five seconds for the server to process a request and send the full response back to the client. In reality, analytics told a different story: many users closed the app after two or three seconds of loading. A five-second wait might be acceptable for a file upload, but for a normal screen it is a terrible UX.
+On paper, the backend was _“working”_. It took about five seconds for the server to process a request and send the full response back to the client. In reality, analytics told a different story: many users closed the app after two or three seconds of loading. A five-second wait might be acceptable for a file upload, but for a normal screen it is a terrible UX.
 
 After digging into the server side, we found a clear bottleneck. Most fields were fast to fetch: name, description, seller, address, and so on. The one thing that consistently slowed everything down was the price.
 
