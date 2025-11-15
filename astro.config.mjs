@@ -15,10 +15,9 @@ export default defineConfig({
   build: {
     inlineStylesheets: "always",
   },
-  prefetch: {
-    prefetchAll: true,
-    defaultStrategy: "viewport",
-  },
+  // Disable prefetch to eliminate critical request chain
+  // Pages will still load quickly due to modern browser caching
+  prefetch: false,
   vite: {
     build: {
       cssCodeSplit: false,
@@ -26,7 +25,6 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks: undefined,
-          // Reduce chunk size to improve loading
           chunkFileNames: "_astro/[name].[hash].js",
           assetFileNames: "_astro/[name].[hash][extname]",
         },
