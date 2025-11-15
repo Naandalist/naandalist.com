@@ -43,6 +43,11 @@ export const SOCIALS: Socials = [
     HREF: "https://t.me/naandalist",
   },
   {
+    NAME: "gmail",
+    ICON: "/icons/gmail.svg",
+    HREF: "mailto:listiananda.apriliawan@gmail.com",
+  },
+  {
     NAME: "facebook",
     ICON: "/icons/facebook.svg",
     HREF: "https://www.facebook.com/naandalist/",
