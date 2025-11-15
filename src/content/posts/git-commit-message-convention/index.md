@@ -1,7 +1,19 @@
 ---
 title: "Git Commit Message Standards"
-description: "Discover how proper commit messages lead to a cleaner codebase"
+subtitle: "Discover how proper commit messages lead to a cleaner codebase"
+description: "Practical guide to writing clear, consistent Git commit messages using the conventional commits format, with types, scopes, and concise summaries that make history easier to read and maintain."
 date: "Jun 29 2025"
+keywords:
+  - Git commit messages
+  - conventional commits
+  - commit standards
+  - version control
+  - code documentation
+  - development workflow
+  - Git best practices
+  - team collaboration
+  - code review
+  - commit conventions
 ---
 
 Ready to level up Git game? Let's talk about crafting commit messages that are not just informative, but also a joy to read.
@@ -32,25 +44,18 @@ Let's break down the ideal structure for Git commit messages. It's a simple reci
 
 This is where you categorize your commit. It's the first thing anyone sees, so make it count! Here are the types we'll be using:
 
-- **feat** : You've just added a new feature or made a significant enhancement. Think "shiny new toy" for your users.
-
-- **fix** : Squashed a bug! This commit resolves an issue that was preventing something from working as intended.
-
-- **docs** : Changes to documentation only. This could be updating READMEs, adding comments, or clarifying existing docs.
-
-- **style** : This one's for code style changes. We're talking about formatting, whitespace, semicolons, or anything that doesn't alter the code's behavior. It's like tidying up your room!
-
-- **refactor** : You've restructured code without changing its external behavior or functionality. Think of it as reorganizing your closet – same clothes, just neater.
-
-- **test** : When you're adding new tests or modifying existing ones. Because good code has good tests!
-
-- **chore** : This is for routine maintenance tasks. Updating dependencies, configuration file tweaks, or even adding a debug log.
-
-- **build** : Changes that impact the build system or external dependencies. For example, updating a package version in your package.json.
-
-- **ci** : Specifically for continuous integration related changes. Think about your CI/CD pipeline setup.
-
-- **perf** : Made some tweaks to improve performance? This is your type!
+| Type         | Description                                                                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **feat**     | You've just added a new feature or made a significant enhancement. Think "shiny new toy" for your users.                                                                       |
+| **fix**      | Squashed a bug! This commit resolves an issue that was preventing something from working as intended.                                                                          |
+| **docs**     | Changes to documentation only. This could be updating READMEs, adding comments, or clarifying existing docs.                                                                   |
+| **style**    | This one's for code style changes. We're talking about formatting, whitespace, semicolons, or anything that doesn't alter the code's behavior. It's like tidying up your room! |
+| **refactor** | You've restructured code without changing its external behavior or functionality. Think of it as reorganizing your closet – same clothes, just neater.                         |
+| **test**     | When you're adding new tests or modifying existing ones. Because good code has good tests!                                                                                     |
+| **chore**    | This is for routine maintenance tasks. Updating dependencies, configuration file tweaks, or even adding a debug log.                                                           |
+| **build**    | Changes that impact the build system or external dependencies. For example, updating a package version in your package.json.                                                   |
+| **ci**       | Specifically for continuous integration related changes. Think about your CI/CD pipeline setup.                                                                                |
+| **perf**     | Made some tweaks to improve performance? This is your type!                                                                                                                    |
 
 ### The `(<scope>)`: Where Did This Change Happen? _(Optional but Recommended!)_
 

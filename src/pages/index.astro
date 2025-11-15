@@ -33,9 +33,38 @@ const work = await Promise.all(
     return { ...item, Content };
   })
 );
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Listiananda Apriliawan",
+  alternateName: "Naandalist",
+  url: "https://www.naandalist.com",
+  image: "https://www.naandalist.com/images/nanda-on-mount-merbabu.jpg",
+  jobTitle: "Frontend Engineer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Airpaz",
+  },
+  sameAs: [
+    "https://github.com/Naandalist",
+    "https://www.linkedin.com/in/naandalist",
+    "https://twitter.com/naandalist",
+  ],
+  knowsAbout: [
+    "React Native",
+    "TypeScript",
+    "JavaScript",
+    "Bun",
+    "Node.js",
+    "Web Development",
+    "Mobile Development",
+  ],
+};
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
+  <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
   <Container>
     <h2 class='animate font-semibold text-white'>
       Hi, Naandalist here <span class='text-xl'>👋🏻</span>

@@ -43,7 +43,7 @@ The site will be available at `http://localhost:4321`
 ### High Impact, Low Effort
 
 - [x] Add reading time to posts
-- [ ] Add structured data (JSON-LD)
+- [x] Add structured data (JSON-LD)
 - [ ] Implement image optimization
 - [ ] Move nav items to constants
 

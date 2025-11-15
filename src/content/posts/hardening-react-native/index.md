@@ -1,7 +1,24 @@
 ---
 title: "Hardening React Native Apps Beyond JailMonkey"
-description: "Why root checks are not real security"
+subtitle: "Why root checks are not real security"
+description: "A practical look at why root and hook checks in React Native are weak controls, and how to replace them with server-side enforcement using device attestation, TLS pinning, and nonce-based replay protection."
 date: "2025-11-14"
+keywords:
+  - React Native security
+  - mobile app hardening
+  - device attestation
+  - TLS pinning
+  - Play Integrity API
+  - App Attest
+  - Frida detection
+  - root detection
+  - jailbreak detection
+  - mobile security patterns
+  - replay protection
+  - MITM prevention
+  - certificate pinning
+  - backend security
+  - client trust
 ---
 
 Most React Native apps that “do security” start in the same place: install a library like `jail-monkey`, read a few booleans, and block the user if the device looks suspicious. On paper it feels protective. In reality it is glorified logging with extra steps. A determined attacker with Frida, Magisk, or a patched APK can flip those booleans to whatever value they want. If your business logic trusts them, you are done.
@@ -72,15 +89,11 @@ If the client cannot be trusted, the backend has to become the place where reali
 
 For high-risk actions you want three major ingredients:
 
-A statement about the device and app integrity that the attacker cannot forge easily.
-
-A network channel that is hard to intercept or tamper with.
-
-A way to ensure that important requests cannot simply be replayed.
-
-In practice this looks like device attestation, TLS certificate pinning, and nonce-based request design.
-
-Device attestation in practice
+- A statement about the device and app integrity that the attacker cannot forge easily.
+- A network channel that is hard to intercept or tamper with.
+- A way to ensure that important requests cannot simply be replayed.
+- In practice this looks like device attestation, TLS certificate pinning, and nonce-based request design.
+- Device attestation in practice
 
 On Android, the modern path is Play Integrity API. On iOS, App Attest or DeviceCheck. The core idea is the same: instead of your JavaScript deciding “this device is fine,” you ask the platform to provide a signed statement describing the environment and you verify that on the server.
 

@@ -19,9 +19,25 @@ type Props = CollectionEntry<"projects">;
 
 const project = Astro.props;
 const { Content } = await project.render();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.data.title,
+  description: project.data.description,
+  datePublished: project.data.date.toISOString(),
+  author: {
+    "@type": "Person",
+    name: "Listiananda Apriliawan",
+    url: "https://www.naandalist.com",
+  },
+  url: `https://www.naandalist.com/projects/${project.slug}`,
+  keywords: project.data.title,
+};
 ---
 
 <PageLayout title={project.data.title} description={project.data.description}>
+  <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
   <Container>
     <div class='animate'>
       <BackToPrev href='/projects'> Back to projects </BackToPrev>
