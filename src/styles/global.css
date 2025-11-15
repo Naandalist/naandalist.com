@@ -4,10 +4,6 @@
 
 html {
   overflow-y: scroll;
-  color-scheme: light;
-}
-
-html.dark {
   color-scheme: dark;
 }
 
@@ -19,13 +15,13 @@ body {
 body {
   @apply font-sans antialiased;
   @apply flex flex-col;
-  @apply bg-white dark:bg-neutral-900;
-  @apply text-neutral-700 dark:text-neutral-300;
+  @apply bg-neutral-900;
+  @apply text-neutral-300;
 }
 
 header {
   @apply fixed top-0 left-0 right-0 z-50 py-5;
-  @apply bg-white/80 dark:bg-neutral-900/50;
+  @apply bg-neutral-900/50;
   @apply backdrop-blur-sm saturate-200;
 }
 
@@ -38,9 +34,9 @@ footer {
 }
 
 article {
-  @apply max-w-full prose dark:prose-invert prose-img:mx-auto prose-img:my-auto;
+  @apply max-w-full prose prose-invert prose-img:mx-auto prose-img:my-auto;
   @apply prose-headings:font-semibold prose-p:font-sans;
-  @apply prose-headings:text-black prose-headings:dark:text-white;
+  @apply prose-headings:text-white;
 }
 
 @layer utilities {

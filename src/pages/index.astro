@@ -37,7 +37,7 @@ const work = await Promise.all(
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
-    <h4 class='animate font-semibold text-black dark:text-white'>
+    <h4 class='animate font-semibold text-white'>
       Hello, Naandalist here <span class='text-xl'>👋🏻</span>
     </h4>
     <div class='space-y-16'>
@@ -78,9 +78,7 @@ const work = await Promise.all(
 
         <section class='animate space-y-6 mt-10'>
           <div class=''>
-            <p class='font-semibold text-black dark:text-white'>
-              Technical Skills
-            </p>
+            <p class='font-semibold text-white'>Technical Skills</p>
             <div class='flex flex-wrap items-center gap-2 mt-5'>
               <img
                 src='https://skillicons.dev/icons?i=js,bun,npm,mongo,ts,nodejs,vscode,tailwind,react,next,github,azure,gitlab'
@@ -94,9 +92,7 @@ const work = await Promise.all(
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h5 class='font-semibold text-black dark:text-white'>
-              Work Experience
-            </h5>
+            <h5 class='font-semibold text-white'>Work Experience</h5>
             <Link href='/work'> See all work </Link>
           </div>
           <ul class='flex flex-col space-y-4'>
@@ -113,7 +109,7 @@ const work = await Promise.all(
                     <div class='text-sm opacity-75'>
                       {dateRange(entry.data.dateStart, entry.data.dateEnd)}
                     </div>
-                    <div class='font-semibold text-black dark:text-white'>
+                    <div class='font-semibold text-white'>
                       {entry.data.company}
                     </div>
                     <div class='text-sm opacity-75'>{entry.data.role}</div>
@@ -129,9 +125,7 @@ const work = await Promise.all(
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h5 class='font-semibold text-black dark:text-white'>
-              Recent projects
-            </h5>
+            <h5 class='font-semibold text-white'>Recent projects</h5>
             <Link href='/projects'> See all projects </Link>
           </div>
           <div class='flex flex-col gap-4'>
@@ -141,9 +135,7 @@ const work = await Promise.all(
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h5 class='font-semibold text-black dark:text-white'>
-              Latest posts
-            </h5>
+            <h5 class='font-semibold text-white'>Latest posts</h5>
             <Link href='/posts'> See all posts </Link>
           </div>
           <ul class='flex flex-col gap-4'>
@@ -158,9 +150,7 @@ const work = await Promise.all(
         </section>
 
         <section class='animate space-y-4 mt-10'>
-          <h5 class='font-semibold text-black dark:text-white'>
-            Let's Connect
-          </h5>
+          <h5 class='font-semibold text-white'>Let's Connect</h5>
           <article>
             <p class='animate'>
               Naandalist is Listiananda Apriliawan's often used username across

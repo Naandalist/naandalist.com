@@ -13,9 +13,7 @@ const projects = (await getCollection("projects"))
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
   <Container>
     <div class='space-y-10'>
-      <div class='animate font-semibold text-black dark:text-white'>
-        Projects
-      </div>
+      <div class='animate font-semibold text-white'>Projects</div>
       <ul class='animate flex flex-col gap-4'>
         {
           projects.map((project) => (

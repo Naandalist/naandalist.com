@@ -11,7 +11,7 @@ const { text, icon, href } = Astro.props;
 <a
   href={href}
   target='_blank'
-  class='w-fit px-3 py-2 group rounded border flex gap-2 items-center border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 hover:dark:bg-neutral-800 blend'
+  class='w-fit px-3 py-2 group rounded border flex gap-2 items-center border-neutral-700 hover:bg-neutral-800 blend'
 >
   <img
     src={`https://skillicons.dev/icons?i=${icon}`}
@@ -20,7 +20,7 @@ const { text, icon, href } = Astro.props;
     width='20'
   />
   <span
-    class='text-sm capitalize text-neutral-500 dark:text-neutral-400 group-hover:text-black group-hover:dark:text-white blend'
+    class='text-sm capitalize text-neutral-400 group-hover:text-white blend'
   >
     {text}
   </span>
