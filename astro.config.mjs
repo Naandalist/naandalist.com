@@ -5,13 +5,20 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
   site: "https://www.naandalist.com",
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [
+    mdx(),
+    sitemap(),
+    tailwind({
+      applyBaseStyles: true,
+    }),
+  ],
   build: {
     inlineStylesheets: "always",
   },
   vite: {
     build: {
       cssCodeSplit: false,
+      minify: "esbuild",
       rollupOptions: {
         output: {
           manualChunks: undefined,

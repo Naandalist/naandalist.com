@@ -1,5 +1,4 @@
 ---
-import "../styles/global.css";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-600.css";
 import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2";
@@ -45,31 +44,6 @@ const {
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL} />
-
-<!-- Inline critical CSS to reduce render-blocking -->
-<style is:inline>
-  html {
-    overflow-y: scroll;
-    color-scheme: dark;
-  }
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-  }
-  body {
-    font-family:
-      "Inter",
-      system-ui,
-      -apple-system,
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(23 23 23);
-    color: rgb(212 212 212);
-  }
-</style>
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
