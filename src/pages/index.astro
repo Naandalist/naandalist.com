@@ -5,8 +5,9 @@ import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import Link from "@components/Link.astro";
+import Socials from "@components/Socials.astro";
 import { dateRange } from "@lib/utils";
-import { SITE, HOME, SOCIALS } from "@consts";
+import { SITE, HOME } from "@consts";
 
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
@@ -176,26 +177,7 @@ const work = await Promise.all(
               </Link>.
             </p>
           </article>
-          <ul class='flex flex-wrap gap-10'>
-            {
-              SOCIALS.map((SOCIAL) => (
-                <li class='flex gap-x-2 text-nowrap items-center'>
-                  <div class='flex items-center gap-2'>
-                    <a
-                      href={SOCIAL.HREF}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      class='inline-block text-current hover:text-black dark:hover:text-white no-underline transition-colors duration-300 ease-in-out'
-                      aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
-                    >
-                      <i class={`fab fa-${SOCIAL.NAME} text-sm`} />
-                      {SOCIAL.NAME}
-                    </a>
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
+          <Socials />
         </section>
       </section>
     </div>

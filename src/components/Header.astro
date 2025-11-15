@@ -5,9 +5,9 @@ import { SITE } from "@consts";
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { href: "/posts", label: "posts", icon: "fas fa-newspaper" },
-  { href: "/work", label: "work", icon: "fas fa-briefcase" },
-  { href: "/projects", label: "projects", icon: "fas fa-rocket" },
+  { href: "/posts", label: "posts", icon: "/icons/newspaper.svg" },
+  { href: "/work", label: "work", icon: "/icons/briefcase.svg" },
+  { href: "/projects", label: "projects", icon: "/icons/rocket.svg" },
 ];
 ---
 
@@ -32,7 +32,7 @@ const navItems = [
                       : "hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
                   }`}
                 >
-                  <i class={`${icon} text-sm`} />
+                  <img src={icon} alt={label} class='w-4 h-4' />
                   {label}
                 </button>
               </a>

@@ -1,0 +1,22 @@
+---
+import { SITE, SOCIALS } from "@consts";
+---
+
+<ul class='flex flex-wrap gap-3'>
+  {
+    SOCIALS.map((SOCIAL) => (
+      <li class='flex gap-x-2 text-nowrap items-center'>
+        <a
+          href={SOCIAL.HREF}
+          target='_blank'
+          rel='noopener noreferrer'
+          class='inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-black/5 dark:bg-white/5 text-current hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white no-underline transition-colors duration-300 ease-in-out'
+          aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
+        >
+          <img src={SOCIAL.ICON} alt={SOCIAL.NAME} class='w-4 h-4' />
+          {SOCIAL.NAME}
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -34,14 +34,22 @@ export const PROJECTS: Metadata = {
 export const SOCIALS: Socials = [
   {
     NAME: "linkedin",
+    ICON: "/icons/linkedin.svg",
     HREF: "https://www.linkedin.com/in/naandalist",
   },
   {
     NAME: "github",
+    ICON: "/icons/github.svg",
     HREF: "https://github.com/naandalist",
   },
   {
     NAME: "telegram",
+    ICON: "/icons/telegram.svg",
     HREF: "https://t.me/naandalist",
+  },
+  {
+    NAME: "discord",
+    ICON: "/icons/discord.svg",
+    HREF: "https://discord.com/users/Naandalist#7977",
   },
 ];
