@@ -36,10 +36,16 @@ const {
 <link rel='preload' href={inter400} as='font' type='font/woff2' crossorigin />
 <link rel='preload' href={inter600} as='font' type='font/woff2' crossorigin />
 
-<!-- Preload LCP image - Critical for LCP -->
+<!-- Preload LCP images - Critical for LCP -->
 <link
   rel='preload'
   href='/images/nanda-on-mount-merbabu.jpg'
+  as='image'
+  fetchpriority='high'
+/>
+<link
+  rel='preload'
+  href='/icons/skill-dev.svg'
   as='image'
   fetchpriority='high'
 />
