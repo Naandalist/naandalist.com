@@ -6,4 +6,17 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://www.naandalist.com",
   integrations: [mdx(), sitemap(), tailwind()],
+  build: {
+    inlineStylesheets: "auto",
+  },
+  vite: {
+    build: {
+      cssCodeSplit: false,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined,
+        },
+      },
+    },
+  },
 });
