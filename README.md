@@ -38,6 +38,28 @@ bun dev
 
 The site will be available at `http://localhost:4321`
 
+## Priority Improvements
+
+### High Impact, Low Effort
+
+- [x] Add reading time to posts
+- [ ] Add structured data (JSON-LD)
+- [ ] Implement image optimization
+- [ ] Move nav items to constants
+
+### High Impact, Medium Effort
+
+- [ ] Add search functionality
+- [ ] Implement proper TypeScript types
+- [ ] Add unit tests
+
+### Medium Impact, Quick Wins
+
+- [ ] Add theme toggle
+- [ ] Improve loading states
+- [ ] Add security headers
+- [ ] Document components
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
