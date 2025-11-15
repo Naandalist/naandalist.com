@@ -6,6 +6,10 @@ type Props = {
 };
 
 const { entry } = Astro.props;
+const displayText =
+  entry.collection === "posts"
+    ? (entry.data as any).subtitle
+    : entry.data.description;
 ---
 
 <a
@@ -17,7 +21,7 @@ const { entry } = Astro.props;
       {entry.data.title}
     </div>
     <div class='text-sm truncate sm:whitespace-normal'>
-      {entry.data.subtitle}
+      {displayText}
     </div>
   </div>
   <svg
