@@ -50,7 +50,11 @@ const jsonLd = {
   title={post.data.title}
   description={post.data.description || post.data.subtitle}
 >
-  <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
+  <script
+    is:inline
+    type='application/ld+json'
+    set:html={JSON.stringify(jsonLd)}
+  />
   <Container>
     <div class='animate'>
       <BackToPrev href='/posts'> Back to posts </BackToPrev>

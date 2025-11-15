@@ -64,7 +64,11 @@ const jsonLd = {
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
-  <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
+  <script
+    is:inline
+    type='application/ld+json'
+    set:html={JSON.stringify(jsonLd)}
+  />
   <Container>
     <h2 class='animate font-semibold text-white'>
       Hi, Naandalist here <span class='text-xl'>👋🏻</span>

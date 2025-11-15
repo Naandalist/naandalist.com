@@ -37,7 +37,11 @@ const jsonLd = {
 ---
 
 <PageLayout title={project.data.title} description={project.data.description}>
-  <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
+  <script
+    is:inline
+    type='application/ld+json'
+    set:html={JSON.stringify(jsonLd)}
+  />
   <Container>
     <div class='animate'>
       <BackToPrev href='/projects'> Back to projects </BackToPrev>
