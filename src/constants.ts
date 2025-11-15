@@ -48,8 +48,13 @@ export const SOCIALS: Socials = [
     HREF: "https://t.me/naandalist",
   },
   {
-    NAME: "discord",
-    ICON: "/icons/discord.svg",
-    HREF: "https://discord.com/users/Naandalist#7977",
+    NAME: "facebook",
+    ICON: "/icons/facebook.svg",
+    HREF: "https://www.facebook.com/naandalist/",
+  },
+  {
+    NAME: "twitter",
+    ICON: "/icons/twitter.svg",
+    HREF: "https://x.com/nawndalist",
   },
 ];
