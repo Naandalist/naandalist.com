@@ -7,7 +7,7 @@ export default defineConfig({
   site: "https://www.naandalist.com",
   integrations: [mdx(), sitemap(), tailwind()],
   build: {
-    inlineStylesheets: "auto",
+    inlineStylesheets: "always",
   },
   vite: {
     build: {
