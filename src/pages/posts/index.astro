@@ -3,7 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import ArrowCard from "@components/ArrowCard.astro";
-import { POSTS } from "@consts";
+import { POSTS } from "@constants";
 
 const data = (await getCollection("posts"))
   .filter((post) => !post.data.draft)

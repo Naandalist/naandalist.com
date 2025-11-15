@@ -7,7 +7,7 @@ import ProjectCard from "@components/ProjectCard.astro";
 import Link from "@components/Link.astro";
 import Socials from "@components/Socials.astro";
 import { dateRange } from "@lib/utils";
-import { SITE, HOME } from "@consts";
+import { SITE, HOME } from "@constants";
 
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
@@ -38,32 +38,57 @@ const work = await Promise.all(
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
     <h2 class='animate font-semibold text-white'>
-      Hello, Naandalist here <span class='text-xl'>👋🏻</span>
+      Hi, Naandalist here <span class='text-xl'>👋🏻</span>
     </h2>
     <div class='space-y-16'>
       <section>
         <article class='space-y-4'>
           <p class='animate'>
-            Listiananda Apriliawan, a Frontend engineer who currently working at <Link
+            I'm Listiananda Apriliawan, a Frontend Engineer at <Link
               href='https://www.airpaz.com/en'
               aria-label='Airpaz'
               external
             >
               Airpaz
-            </Link>, an Online Travel Agency (OTA). His daily work involves
-            using React Native, JavaScript, TypeScript, Bun, and Node.js to
-            build and maintain Android and iOS features, helping people connect
-            with their travel dreams.
+            </Link>, an online travel agency. I build and maintain Android and
+            iOS features using React Native, TypeScript, Bun, and Node.js.
           </p>
         </article>
 
         <div class='relative col-span-2 sm:col-span-1 animate'>
           <article class='space-y-4'>
             <p class='animate'>
-              When he's not immersed in lines of code, you'll likely find him
-              scaling new heights – literally! He's an enthusiastic mountain
-              hiker, believing that the best views come after the hardest
-              climbs.
+              previously, I worked as a full-stack developer, building web app
+              with Laravel, and and I still use Kotlin for native Android when
+              needed.
+            </p>
+          </article>
+        </div>
+        <div class='relative col-span-2 sm:col-span-1 animate'>
+          <article class='space-y-4'>
+            <p class='animate'>
+              When i am not shipping code, i am usually somewhere on a mountain,
+              chasing cold air and quiet views. I've reached the summits of <Link
+                href='https://id.wikipedia.org/wiki/Gunung_Dempo'
+                aria-label='Mount Dempo'
+                external
+              >
+                Mount Dempo
+              </Link> (South Sumatra), <Link
+                href='https://id.wikipedia.org/wiki/Gunung_Lawu'
+                aria-label='Mount Lawu'
+                external
+              >
+                Mount Lawu
+              </Link> (East Java),
+              <Link
+                href='https://id.wikipedia.org/wiki/Gunung_Merbabu'
+                aria-label='Mount Merbabu'
+                external
+              >
+                Mount Merbabu
+              </Link> (Central Java), Mount Papandayan (West Java), and other peaks
+              across Indonesia.
             </p>
           </article>
         </div>
@@ -155,18 +180,17 @@ const work = await Promise.all(
           <h3 class='font-semibold text-white'>Let's Connect</h3>
           <article>
             <p class='animate'>
-              Naandalist is Listiananda Apriliawan's often used username across
-              his public accounts.
+              Naandalist is the username I use across most of my public
+              accounts.
             </p>
             <p class='animate'>
-              If you want to get in touch with him about something or just to
-              say hi, reach out on social media or send him an email to{" "}
-              <Link
+              For hiring opportunities, collaboration, or freelance work. You
+              can reach me at <Link
                 href='mailto:dev@naandalist.com'
                 aria-label='Email Naandalist'
               >
                 dev@naandalist.com
-              </Link>.
+              </Link> or via the links below.
             </p>
           </article>
           <Socials />

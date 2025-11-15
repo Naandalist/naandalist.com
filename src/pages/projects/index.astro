@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
-import { PROJECTS } from "@consts";
+import { PROJECTS } from "@constants";
 import ProjectCard from "@components/ProjectCard.astro";
 
 const projects = (await getCollection("projects"))
