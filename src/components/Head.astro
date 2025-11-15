@@ -30,6 +30,10 @@ const {
 <link rel='icon' type='image/webp' href='/favicon.webp' />
 <meta name='generator' content={Astro.generator} />
 
+<!-- DNS Prefetch for external resources -->
+<link rel='dns-prefetch' href='https://vercel.live' />
+<link rel='preconnect' href='https://vercel.live' crossorigin />
+
 <!-- Font preloads -->
 <link rel='preload' href={inter400} as='font' type='font/woff2' crossorigin />
 <link rel='preload' href={inter600} as='font' type='font/woff2' crossorigin />
@@ -94,7 +98,8 @@ const {
 <meta property='twitter:creator' content='@naandalist' />
 <meta property='twitter:site' content='@naandalist' />
 
-<ClientRouter />
+<!-- Defer non-critical scripts to reduce critical request chain -->
+<ClientRouter fallback='none' />
 <SpeedInsights />
 <Analytics />
 

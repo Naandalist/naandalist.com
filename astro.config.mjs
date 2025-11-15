@@ -15,6 +15,10 @@ export default defineConfig({
   build: {
     inlineStylesheets: "always",
   },
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
   vite: {
     build: {
       cssCodeSplit: false,
@@ -22,6 +26,9 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks: undefined,
+          // Reduce chunk size to improve loading
+          chunkFileNames: "_astro/[name].[hash].js",
+          assetFileNames: "_astro/[name].[hash][extname]",
         },
       },
     },
