@@ -4,7 +4,6 @@ import "@fontsource/inter/latin-600.css";
 import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2";
 import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 
-import { ClientRouter } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
 import { SITE } from "@consts";
@@ -33,11 +32,11 @@ const {
 <!-- DNS Prefetch for external resources -->
 <link rel='dns-prefetch' href='https://vercel.live' />
 
-<!-- Font preloads -->
+<!-- Font preloads - Critical for LCP -->
 <link rel='preload' href={inter400} as='font' type='font/woff2' crossorigin />
 <link rel='preload' href={inter600} as='font' type='font/woff2' crossorigin />
 
-<!-- Preload LCP image -->
+<!-- Preload LCP image - Critical for LCP -->
 <link
   rel='preload'
   href='/images/nanda-on-mount-merbabu.jpg'
@@ -97,8 +96,7 @@ const {
 <meta property='twitter:creator' content='@naandalist' />
 <meta property='twitter:site' content='@naandalist' />
 
-<!-- Defer non-critical scripts to reduce critical request chain -->
-<ClientRouter fallback='none' />
+<!-- Analytics - Non-blocking -->
 <SpeedInsights />
 <Analytics />
 
@@ -109,17 +107,6 @@ const {
   title={SITE.NAME}
   href={new URL("rss.xml", Astro.site)}
 />
-
-<script>
-  import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
-  document.addEventListener("astro:before-swap", (e) =>
-    [
-      ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
-        'link[as="font"]'
-      ),
-    ].forEach((link) => link.remove())
-  );
-</script>
 
 <script is:inline>
   function init() {
@@ -162,5 +149,4 @@ const {
   }
 
   document.addEventListener("DOMContentLoaded", () => init());
-  document.addEventListener("astro:after-swap", () => init());
 </script>
