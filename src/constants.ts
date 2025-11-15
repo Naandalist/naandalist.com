@@ -9,26 +9,27 @@ export const SITE: Site = {
 };
 
 export const HOME: Metadata = {
-  TITLE: "",
+  TITLE: "Naandalist – Frontend Engineer",
   DESCRIPTION:
-    "Naandalist is a frontend developer based in Indonesia, specializing in React Native, JavaScript, and TypeScript. He has expertise in developing mobile and web solutions, with a focus on creating innovative user experiences.",
+    "Listiananda Apriliawan is a frontend engineer in Indonesia building Android and iOS apps with React Native and TypeScript.",
 };
 
 export const POSTS: Metadata = {
   TITLE: "Posts",
   DESCRIPTION:
-    "A collection of articles on topics naandalist passionate about.",
+    "Articles written by Naandalist on React Native, mobile, and related topics.",
 };
 
 export const WORK: Metadata = {
   TITLE: "Work",
-  DESCRIPTION: "Where naandalist have worked and what naandalist have done.",
+  DESCRIPTION:
+    "Professional experience, roles, and impact from Naandalist’s past and current work.",
 };
 
 export const PROJECTS: Metadata = {
   TITLE: "Projects",
   DESCRIPTION:
-    "A collection of naandalist projects, with links to repositories and demos.",
+    "Selected projects by Naandalist, with links to code and live demos.",
 };
 
 export const SOCIALS: Socials = [
