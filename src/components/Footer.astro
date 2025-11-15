@@ -1,7 +1,6 @@
 ---
 import Container from "@components/Container.astro";
 import { SITE } from "@constants";
-import BackToTop from "@components/BackToTop.astro";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -14,8 +13,21 @@ const currentYear = new Date().getFullYear();
         {`|`}
         {SITE.NAME}
       </div>
-      <div class='flex flex-wrap gap-1 items-center'>
-        <BackToTop />
+      <div class='flex flex-wrap items-center'>
+        <a
+          href='https://cloud.umami.is/share/92PrHjYFQjK8KpPT'
+          target='_blank'
+          rel='noopener noreferrer'
+          class='relative group w-fit flex gap-2 pl-3 pr-3 py-1.5 flex-nowrap rounded border border-white/20 hover:bg-white/5 hover:text-white transition-colors duration-300 ease-in-out'
+        >
+          <img
+            src='/icons/analytic.svg'
+            alt='Umami Analytics'
+            width='16'
+            height='16'
+          />
+          <div class='text-sm'>Analytic</div>
+        </a>
       </div>
     </div>
   </Container>
