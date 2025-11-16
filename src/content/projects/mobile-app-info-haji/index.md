@@ -4,7 +4,7 @@ description: "Cek nomor porsi, estimasi tahun berangkat, kuota provinsi, dan sta
 date: "2025-11-11"
 lastUpdated: "2025-11-10"
 imageUrl: "/images/thumbnail-infohaji-app.webp"
-demoURL: "https://play.google.com/store/apps/details?id=com.naandalist.info_haji"
+liveURL: "https://play.google.com/store/apps/details?id=com.naandalist.info_haji"
 repoURL: "https://github.com/Naandalist/info-hajj-app"
 techStack: ["React Native", "Typescript", "Hermes"]
 category: "Books & Reference"

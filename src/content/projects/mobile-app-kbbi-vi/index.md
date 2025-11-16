@@ -4,7 +4,7 @@ description: "A mobile dictionary app for Indonesian language with 10K+ download
 date: "2025-11-11"
 lastUpdated: "2025-11-12"
 imageUrl: "/images/thumbnail-kbbi-app.webp"
-demoURL: "https://play.google.com/store/apps/details?id=com.naandalist.kamus_kbbi"
+liveURL: "https://play.google.com/store/apps/details?id=com.naandalist.kamus_kbbi"
 repoURL: "https://github.com/Naandalist/kbbi-app"
 techStack: ["React Native", "Hermes", "ESBuild"]
 category: "Books & Reference"

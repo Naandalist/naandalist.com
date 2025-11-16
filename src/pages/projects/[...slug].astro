@@ -38,7 +38,7 @@ if (project.data.category && project.data.platforms) {
 // Add NewsMediaOrganization and WebSite schemas for news sites
 if (project.slug.includes("news") || project.data.category === "News & Media") {
   schemas.push(createNewsMediaOrganizationSchema(project));
-  if (project.data.demoURL) {
+  if (project.data.liveURL) {
     schemas.push(createWebSiteSchema(project));
   }
 }

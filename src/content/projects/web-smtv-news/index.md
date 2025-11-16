@@ -4,7 +4,7 @@ description: "Media lokal berbasis WordPress untuk pemberitaan kabupaten di Suma
 date: "2025-09-18"
 lastUpdated: "2025-11-12"
 imageUrl: "/images/thumbnail-smtvnews.png"
-demoURL: "https://www.smtv-news.com"
+liveURL: "https://www.smtv-news.com"
 repoURL: ""
 techStack: ["WordPress", "PHP", "MySQL"]
 category: "News & Media"

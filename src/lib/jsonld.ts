@@ -99,9 +99,9 @@ export function createSoftwareApplicationSchema(
     inLanguage: "id",
   };
 
-  if (project.data.demoURL) {
-    baseSchema.downloadUrl = project.data.demoURL;
-    baseSchema.installUrl = project.data.demoURL;
+  if (project.data.liveURL) {
+    baseSchema.downloadUrl = project.data.liveURL;
+    baseSchema.installUrl = project.data.liveURL;
   }
 
   if (project.data.category) {
@@ -131,7 +131,7 @@ export function createNewsMediaOrganizationSchema(
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
     name: project.data.title,
-    url: project.data.demoURL,
+    url: project.data.liveURL,
     logo: `${SITE_URL}${project.data.imageUrl}`,
     foundingLocation: "Sumatera Selatan, Indonesia",
     developer: AUTHOR,
@@ -149,10 +149,10 @@ export function createWebSiteSchema(project: CollectionEntry<"projects">) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: project.data.title,
-    url: project.data.demoURL,
+    url: project.data.liveURL,
     potentialAction: {
       "@type": "SearchAction",
-      target: `${project.data.demoURL}/?s={query}`,
+      target: `${project.data.liveURL}/?s={query}`,
       "query-input": "required name=query",
     },
   };

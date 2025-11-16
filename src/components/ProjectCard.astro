@@ -14,7 +14,7 @@ const { entry } = Astro.props;
   <!-- Project Image/Preview -->
   <a
     href={`/projects/${entry.slug}`}
-    class='relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-gradient-to-br from-blue-900/20 to-purple-900/20'
+    class='relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-gradient-to-r from-cyan-500 to-blue-500'
   >
     {
       entry.data.imageUrl ? (
@@ -26,19 +26,11 @@ const { entry } = Astro.props;
         />
       ) : (
         <div class='flex h-full w-full items-center justify-center'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 24 24'
-            class='h-12 w-12 stroke-white/20'
-            fill='none'
-            stroke-width='1.5'
-          >
-            <path
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              d='M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z'
-            />
-          </svg>
+          <img
+            src='/icons/image.svg'
+            alt='Project placeholder'
+            class='h-12 w-12 opacity-20'
+          />
         </div>
       )
     }
@@ -75,9 +67,9 @@ const { entry } = Astro.props;
 
       <!-- External Link Button -->
       {
-        (entry.data.demoURL || entry.data.repoURL) && (
+        (entry.data.liveURL || entry.data.repoURL) && (
           <a
-            href={entry.data.demoURL || entry.data.repoURL}
+            href={entry.data.liveURL || entry.data.repoURL}
             target='_blank'
             rel='noopener noreferrer'
             class='shrink-0 p-2 rounded-md hover:opacity-70 transition-opacity duration-200 ml-auto translate-y-0.5'
