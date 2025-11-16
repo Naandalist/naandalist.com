@@ -11,8 +11,8 @@ export default {
       },
       colors: {
         link: {
-          DEFAULT: "rgba(231, 76, 60,1.0)",
-          hover: "rgba(192, 57, 43,1.0)",
+          DEFAULT: "rgba(255, 56, 56,1.0)",
+          hover: "rgba(255, 77, 77,1.0)",
         },
       },
     },
