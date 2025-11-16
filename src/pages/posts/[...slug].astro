@@ -3,7 +3,9 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
+import JsonLd from "@components/JsonLd.astro";
 import { readingTime } from "@lib/utils";
+import { createBlogPostingSchema } from "@lib/jsonld";
 import BackToPrev from "@components/BackToPrev.astro";
 
 export async function getStaticPaths() {
@@ -20,41 +22,14 @@ type Props = CollectionEntry<"posts">;
 const post = Astro.props;
 const { Content } = await post.render();
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.data.title,
-  description: post.data.description || post.data.subtitle,
-  datePublished: post.data.date.toISOString(),
-  dateModified: post.data.date.toISOString(),
-  author: {
-    "@type": "Person",
-    name: "Listiananda Apriliawan",
-    url: "https://www.naandalist.com",
-  },
-  publisher: {
-    "@type": "Person",
-    name: "Listiananda Apriliawan",
-    url: "https://www.naandalist.com",
-  },
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": `https://www.naandalist.com/posts/${post.slug}`,
-  },
-  keywords: post.data.keywords?.join(", ") || post.data.title,
-  articleBody: post.body,
-};
+const jsonLd = createBlogPostingSchema(post);
 ---
 
 <PageLayout
   title={post.data.title}
   description={post.data.description || post.data.subtitle}
 >
-  <script
-    is:inline
-    type='application/ld+json'
-    set:html={JSON.stringify(jsonLd)}
-  />
+  <JsonLd schema={jsonLd} />
   <Container>
     <div class='animate'>
       <BackToPrev href='/posts'> Back to posts </BackToPrev>

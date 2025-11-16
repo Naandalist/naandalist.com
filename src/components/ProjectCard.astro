@@ -28,13 +28,6 @@ const { entry } = Astro.props;
           class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
           loading='lazy'
         />
-      ) : entry.data.demoURL ? (
-        <img
-          src={`https://skyfall.dev/_astro/archimedes.Sm-v4rGV_Z1XrHXQ.svg`}
-          alt={`${entry.data.title} preview`}
-          class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
-          loading='lazy'
-        />
       ) : (
         <div class='flex h-full w-full items-center justify-center'>
           <svg

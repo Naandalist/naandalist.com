@@ -49,20 +49,3 @@ Pengguna dapat memantau kuota provinsi dan embarkasi terbaru, meninjau status pe
 ## Unduh
 
 Dapatkan di <a href="https://play.google.com/store/apps/details?id=com.naandalist.info_haji">Google Playstore</a>
-
-<script type="application/ld+json">
-{JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Info Haji",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Android",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "downloadUrl": "https://play.google.com/store/apps/details?id=com.naandalist.info_haji",
-  "installUrl": "https://play.google.com/store/apps/details?id=com.naandalist.info_haji",
-  "image": "https://www.naandalist.com/images/thumbnail-infohaji-app.webp",
-  "publisher": { "@type": "Organization", "name": "Naandalist Labs" },
-  "applicationSubCategory": "Books & Reference",
-  "inLanguage": "id"
-})}
-</script>

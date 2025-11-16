@@ -1,5 +1,5 @@
 ---
-title: "Partial Responses for Better UX"
+title: "Partial API Responses for Better UX"
 subtitle: "UX First, Purity Second"
 description: "A practical pattern for returning partial API responses so users see real data quickly while slower fields are filled in later using track IDs and follow-up calls, reducing perceived loading time and drop-off."
 date: "2025-11-16"

@@ -29,11 +29,16 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
+    lastUpdated: z.coerce.date().optional(),
     draft: z.boolean().optional(),
     demoURL: z.string().optional(),
     repoURL: z.string().optional(),
     imageUrl: z.string().optional(),
     techStack: z.array(z.string()).optional(),
+    category: z.string().optional(),
+    platforms: z.array(z.string()).optional(),
+    price: z.string().optional(),
+    keywords: z.array(z.string()).optional(),
   }),
 });
 

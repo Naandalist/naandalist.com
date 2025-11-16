@@ -3,7 +3,14 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
+import JsonLd from "@components/JsonLd.astro";
 import { readingTime } from "@lib/utils";
+import {
+  createCreativeWorkSchema,
+  createSoftwareApplicationSchema,
+  createNewsMediaOrganizationSchema,
+  createWebSiteSchema,
+} from "@lib/jsonld";
 import BackToPrev from "@components/BackToPrev.astro";
 
 export async function getStaticPaths() {
@@ -20,28 +27,25 @@ type Props = CollectionEntry<"projects">;
 const project = Astro.props;
 const { Content } = await project.render();
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  name: project.data.title,
-  description: project.data.description,
-  datePublished: project.data.date.toISOString(),
-  author: {
-    "@type": "Person",
-    name: "Listiananda Apriliawan",
-    url: "https://www.naandalist.com",
-  },
-  url: `https://www.naandalist.com/projects/${project.slug}`,
-  keywords: project.data.title,
-};
+// Determine which schemas to generate based on project type
+const schemas: Record<string, any>[] = [createCreativeWorkSchema(project)];
+
+// Add SoftwareApplication schema for mobile apps
+if (project.data.category && project.data.platforms) {
+  schemas.push(createSoftwareApplicationSchema(project));
+}
+
+// Add NewsMediaOrganization and WebSite schemas for news sites
+if (project.slug.includes("news") || project.data.category === "News & Media") {
+  schemas.push(createNewsMediaOrganizationSchema(project));
+  if (project.data.demoURL) {
+    schemas.push(createWebSiteSchema(project));
+  }
+}
 ---
 
 <PageLayout title={project.data.title} description={project.data.description}>
-  <script
-    is:inline
-    type='application/ld+json'
-    set:html={JSON.stringify(jsonLd)}
-  />
+  <JsonLd schema={schemas} />
   <Container>
     <div class='animate'>
       <BackToPrev href='/projects'> Back to projects </BackToPrev>
@@ -59,23 +63,6 @@ const jsonLd = {
       <div class='animate text-2xl font-semibold text-white'>
         {project.data.title}
       </div>
-      <!-- {(project.data.demoURL || project.data.repoURL) && (
-        <nav class="animate flex gap-1">
-          {project.data.demoURL && (
-            <Link href={project.data.demoURL} external>
-              demo
-            </Link>
-          )}
-          {project.data.demoURL && project.data.repoURL && (
-            <span>/</span>
-          )}
-          {project.data.repoURL && (
-            <Link href={project.data.repoURL} external>
-              repo
-            </Link>
-          )}
-        </nav>
-      )} -->
     </div>
     <article class='animate'>
       <Content />

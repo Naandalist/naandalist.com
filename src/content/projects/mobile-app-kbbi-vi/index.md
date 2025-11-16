@@ -53,20 +53,3 @@ The app delivers optimized cold start performance through carefully configured R
 ## Why It Matters
 
 Access to an authoritative Indonesian dictionary without ads, trackers, or connectivity removes friction for learning and professional writing, and helps preserve proper Bahasa Indonesia usage in daily digital life.
-
-<script type="application/ld+json">
-{JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Kamus KBBI VI Bahasa Indonesia",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Android",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "downloadUrl": "https://play.google.com/store/apps/details?id=com.naandalist.kamus_kbbi",
-  "installUrl": "https://play.google.com/store/apps/details?id=com.naandalist.kamus_kbbi",
-  "image": "https://www.naandalist.com/images/thumbnail-kbbi-app.webp",
-  "publisher": { "@type": "Organization", "name": "Naandalist Labs" },
-  "applicationSubCategory": "Books & Reference",
-  "inLanguage": "id"
-})}
-</script>
