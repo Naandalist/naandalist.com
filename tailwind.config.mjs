@@ -7,12 +7,12 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
-        // serif: ["Lora", ...defaultTheme.fontFamily.serif],
+        serif: ["Lora", ...defaultTheme.fontFamily.serif],
       },
       colors: {
         link: {
-          DEFAULT: "rgba(10, 189, 227, 1.0)",
-          hover: "rgba(72, 219, 251, 1.0)",
+          DEFAULT: "rgba(231, 76, 60,1.0)",
+          hover: "rgba(192, 57, 43,1.0)",
         },
       },
     },

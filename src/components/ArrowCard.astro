@@ -8,7 +8,7 @@ type Props = {
 const { entry } = Astro.props;
 const displayText =
   entry.collection === "posts"
-    ? (entry.data as any).subtitle
+    ? (entry as CollectionEntry<"posts">).data.subtitle
     : entry.data.description;
 ---
 
@@ -25,7 +25,7 @@ const displayText =
     </div>
   </div>
   <img
-    src='/icons/arrow-right.svg'
+    src='/icons/top-right.svg'
     alt='Arrow'
     class='absolute top-1/2 right-2 -translate-y-1/2 size-5 group-hover:translate-x-1 transition-transform duration-300 ease-in-out'
   />
