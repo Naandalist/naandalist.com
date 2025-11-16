@@ -8,16 +8,12 @@ type Props = {
 const { entry } = Astro.props;
 ---
 
-<a
-  href={`/projects/${entry.slug}`}
-  target='_self'
-  rel={entry.data.demoURL || entry.data.repoURL
-    ? "noopener noreferrer"
-    : undefined}
+<div
   class='group relative flex flex-col sm:flex-row gap-4 p-4 rounded-lg border border-white/20 transition-all duration-300 hover:bg-white/5 hover:border-white/30'
 >
   <!-- Project Image/Preview -->
-  <div
+  <a
+    href={`/projects/${entry.slug}`}
     class='relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-gradient-to-br from-blue-900/20 to-purple-900/20'
   >
     {
@@ -46,12 +42,12 @@ const { entry } = Astro.props;
         </div>
       )
     }
-  </div>
+  </a>
 
   <!-- Content -->
   <div class='flex flex-1 flex-col gap-2'>
     <!-- Title and Description -->
-    <div>
+    <a href={`/projects/${entry.slug}`} class='block'>
       <h3
         class='font-semibold text-lg text-white group-hover:underline decoration-2 underline-offset-2'
       >
@@ -60,19 +56,41 @@ const { entry } = Astro.props;
       <p class='text-sm text-white/70 mt-1 line-clamp-2'>
         {entry.data.description}
       </p>
-    </div>
+    </a>
 
-    <!-- Tech Stack -->
-    {
-      entry.data.techStack && entry.data.techStack.length > 0 && (
-        <div class='flex flex-wrap items-center gap-1.5 mt-auto'>
-          {entry.data.techStack.map((tech: string) => (
-            <span class='text-xs px-2 py-0.5 rounded-md bg-white/10 text-white/70'>
-              {tech}
-            </span>
-          ))}
-        </div>
-      )
-    }
+    <!-- Tech Stack and External Link -->
+    <div class='flex items-end justify-between gap-2 mt-auto'>
+      <!-- Tech Stack -->
+      {
+        entry.data.techStack && entry.data.techStack.length > 0 && (
+          <div class='flex flex-wrap items-center gap-1.5'>
+            {entry.data.techStack.map((tech: string) => (
+              <span class='text-xs px-2 py-0.5 rounded-md bg-white/10 text-white/70'>
+                {tech}
+              </span>
+            ))}
+          </div>
+        )
+      }
+
+      <!-- External Link Button -->
+      {
+        (entry.data.demoURL || entry.data.repoURL) && (
+          <a
+            href={entry.data.demoURL || entry.data.repoURL}
+            target='_blank'
+            rel='noopener noreferrer'
+            class='shrink-0 p-2 rounded-md hover:opacity-70 transition-opacity duration-200 ml-auto translate-y-0.5'
+            aria-label='Open project link'
+          >
+            <img
+              src='/icons/external-link.svg'
+              alt='External link'
+              class='w-4 h-4'
+            />
+          </a>
+        )
+      }
+    </div>
   </div>
-</a>
+</div>
