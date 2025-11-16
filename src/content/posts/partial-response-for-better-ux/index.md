@@ -146,7 +146,7 @@ Instead, the simplest and safest behavior in our case is to filter these product
 
 <div align="center">
   <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1763224832/naandalist.com/Untitled_diagram-2025-11-15-163928_ym4pao.svg" alt="Partial Response Flow Diagram" />
-  <p><em>Flow diagram showing the partial response pattern</em></p>
+  <p style="font-size: 0.875rem;"><em>Flow diagram showing the partial response pattern</em></p>
 </div>
 
 ### Conclusion: UX First, Purity Second
