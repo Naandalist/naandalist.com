@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "A modern portfolio and blog website built with Astro, featuring a clean design and optimized for speed",
   "author": {
-    "name": "Naandalist",
+    "name": "Listiananda Apriliawan",
     "email": "dev@naandalist.com",
     "url": "https://naandalist.com"
   },
@@ -47,7 +47,6 @@
     "@vercel/speed-insights": "^1.2.0",
     "astro": "^5.15.5",
     "clsx": "^2.1.1",
-    "sharp": "^0.34.5",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^3.4.18"
   },
