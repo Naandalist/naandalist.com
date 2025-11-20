@@ -1,12 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import PageLayout from "@layouts/PageLayout.astro";
-import Container from "@components/Container.astro";
-import FormattedDate from "@components/FormattedDate.astro";
-import JsonLd from "@components/JsonLd.astro";
-import { readingTime } from "@lib/utils";
-import { createBlogPostingSchema } from "@lib/jsonld";
-import BackToPrev from "@components/BackToPrev.astro";
+import PostLayout from "@components/PostLayout.astro";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("posts"))
@@ -20,36 +14,6 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"posts">;
 
 const post = Astro.props;
-const { Content } = await post.render();
-
-const jsonLd = createBlogPostingSchema(post);
 ---
 
-<PageLayout
-  title={post.data.title}
-  description={post.data.description || post.data.subtitle}
->
-  <JsonLd schema={jsonLd} />
-  <Container>
-    <div class='animate'>
-      <BackToPrev href='/posts'> Back to posts </BackToPrev>
-    </div>
-    <div class='space-y-1 my-10'>
-      <div class='animate flex items-center gap-1.5'>
-        <div class='font-base text-sm'>
-          <FormattedDate date={post.data.date} />
-        </div>
-        &bull;
-        <div class='font-base text-sm'>
-          {readingTime(post.body)}
-        </div>
-      </div>
-      <div class='animate text-2xl font-semibold text-white'>
-        {post.data.title}
-      </div>
-    </div>
-    <article class='animate'>
-      <Content />
-    </article>
-  </Container>
-</PageLayout>
+<PostLayout post={post} lang="en" />

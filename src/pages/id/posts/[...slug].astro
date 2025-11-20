@@ -1,0 +1,41 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import PostLayout from "@components/PostLayout.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("posts");
+    const enPosts = posts.filter(
+        (post) => !post.data.draft && post.data.lang === "en",
+    );
+    const idPosts = posts.filter(
+        (post) => !post.data.draft && post.data.lang === "id",
+    );
+
+    return enPosts.map((post) => {
+        const slug = post.slug;
+        // Try to find a corresponding ID post.
+        // Assumption: ID post is in the same folder, so slug might be "folder/index.id" or similar.
+        // Actually, if file is index.id.md, slug is likely "folder/index.id".
+        // Let's check if there is an ID post that matches the folder name.
+        // Since we don't know the exact slug format without checking, we can try to match by some convention
+        // OR we can just look for a post that has the same "base" slug.
+        // A simpler way for now: check if there is an ID post with slug `${slug}/index.id` or similar.
+        // But wait, `slug` comes from the file path.
+        // `partial-response-for-better-ux/index.md` -> `partial-response-for-better-ux`
+        // `partial-response-for-better-ux/index.id.md` -> `partial-response-for-better-ux/index.id` (likely)
+
+        // Let's try to find an ID post where the slug starts with the EN slug.
+        const idPost = idPosts.find((p) => p.slug.startsWith(slug + "/"));
+
+        return {
+            params: { slug },
+            props: idPost || post,
+        };
+    });
+}
+type Props = CollectionEntry<"posts">;
+
+const post = Astro.props;
+---
+
+<PostLayout post={post} lang="id" />

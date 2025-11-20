@@ -10,6 +10,10 @@ import Socials from "@components/Socials.astro";
 import { dateRange } from "@lib/utils";
 import { SITE, HOME } from "@constants";
 import defaultImage from "@assets/images/nanda-on-mount-merbabu.jpg";
+import { useTranslations } from "@i18n/utils";
+
+const lang = "en"; // Default to English for now
+const t = useTranslations(lang);
 
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
@@ -65,7 +69,7 @@ const jsonLd = {
 };
 ---
 
-<PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
+<PageLayout title={t("home.title")} description={t("home.description")}>
   <script
     is:inline
     type="application/ld+json"
@@ -73,73 +77,77 @@ const jsonLd = {
   />
   <Container>
     <h2 class="animate font-semibold text-white">
-      Hi, Naandalist here <span class="text-xl">👋🏻</span>
+      {t("home.greeting")}
+      <span class="text-xl">👋🏻</span>
     </h2>
     <div class="space-y-16">
       <section>
         <article class="space-y-4">
           <p class="animate">
-            I'm Listiananda Apriliawan, a Frontend Engineer at <Link
-              href="https://www.airpaz.com/en"
-              aria-label="Airpaz"
-              external
-            >
-              Airpaz
-            </Link>, an online travel agency. I build and maintain <Link
+            {t("home.intro")}
+            <Link href="https://www.airpaz.com/en" aria-label="Airpaz" external>
+              {t("home.intro.airpaz")}
+            </Link>, {t("home.intro.desc")}
+            <Link
               href="https://play.google.com/store/apps/details?id=com.atnetwork.airpazdev&hl=id"
               aria-label="Android"
               external
             >
-              Android
-            </Link> and <Link
+              {t("home.intro.android")}
+            </Link>
+            {t("home.intro.and")}
+            <Link
               href="https://apps.apple.com/id/app/airpaz-pesawat-hotel/id1066890405?l=id"
               aria-label="iOS"
               external
             >
-              iOS
-            </Link> features using React Native, TypeScript, Bun, and Node.js.
+              {t("home.intro.ios")}
+            </Link>
+            {t("home.intro.features")}
           </p>
         </article>
 
         <div class="relative col-span-2 sm:col-span-1 animate">
           <article class="space-y-4">
             <p class="animate">
-              Previously, I worked as a full-stack developer, building web app
-              with Laravel, and and I still use Kotlin for native Android when
-              needed.
+              {t("home.prev")}
             </p>
           </article>
         </div>
         <div class="relative col-span-2 sm:col-span-1 animate">
           <article class="space-y-4">
             <p class="animate">
-              When i am not shipping code, i am usually somewhere on a mountain,
-              chasing cold air and quiet views. I've reached the summits of <Link
+              {t("home.hobby")}
+              <Link
                 href="https://www.instagram.com/p/CzHlYyyS9OY/"
                 aria-label="Mount Dempo"
                 external
               >
-                Mount Dempo
-              </Link> (South Sumatra), <Link
+                {t("home.hobby.dempo")}
+              </Link>
+              {t("home.hobby.dempo.loc")}, <Link
                 href="https://www.instagram.com/p/CYIjqaBrvzP/"
                 aria-label="Mount Lawu"
                 external
               >
-                Mount Lawu
-              </Link> (East Java),
+                {t("home.hobby.lawu")}
+              </Link>
+              {t("home.hobby.lawu.loc")},
               <Link
                 href="https://www.instagram.com/p/C1pDP4ZLsnE/"
                 aria-label="Mount Merbabu"
                 external
               >
-                Mount Merbabu
-              </Link> (Central Java), <Link
+                {t("home.hobby.merbabu")}
+              </Link>
+              {t("home.hobby.merbabu.loc")}, <Link
                 href="https://www.instagram.com/p/DOLp0lnkXrb/?img_index=8"
                 aria-label="Mount Papandayan"
                 external
               >
-                Mount Papandayan
-              </Link> (West Java), and other peaks across Indonesia.
+                {t("home.hobby.papandayan")}
+              </Link>
+              {t("home.hobby.papandayan.loc")}, {t("home.hobby.other")}
             </p>
           </article>
         </div>
@@ -157,7 +165,7 @@ const jsonLd = {
 
         <section class="animate space-y-6 mt-10">
           <div class="">
-            <p class="font-semibold text-white">Technical Skills</p>
+            <p class="font-semibold text-white">{t("home.skills")}</p>
             <div class="flex flex-wrap items-center gap-2 mt-5">
               <img
                 src="/icons/skill-dev.svg"
@@ -171,8 +179,8 @@ const jsonLd = {
 
         <section class="animate space-y-6 mt-10">
           <div class="flex flex-wrap gap-y-2 items-center justify-between">
-            <h3 class="font-semibold text-white">Work Experience</h3>
-            <Link href="/work"> See all work </Link>
+            <h3 class="font-semibold text-white">{t("home.work")}</h3>
+            <Link href="/work"> {t("home.work.seeAll")} </Link>
           </div>
           <ul class="flex flex-col space-y-4">
             {
@@ -203,8 +211,8 @@ const jsonLd = {
 
         <section class="animate space-y-6 mt-10">
           <div class="flex flex-wrap gap-y-2 items-center justify-between">
-            <h3 class="font-semibold text-white">Recent projects</h3>
-            <Link href="/projects"> See all projects </Link>
+            <h3 class="font-semibold text-white">{t("home.projects")}</h3>
+            <Link href="/projects"> {t("home.projects.seeAll")} </Link>
           </div>
           <div class="flex flex-col gap-4">
             {projects.map((project) => <ProjectCard entry={project} />)}
@@ -213,8 +221,8 @@ const jsonLd = {
 
         <section class="animate space-y-6 mt-10">
           <div class="flex flex-wrap gap-y-2 items-center justify-between">
-            <h3 class="font-semibold text-white">Latest posts</h3>
-            <Link href="/posts"> See all posts </Link>
+            <h3 class="font-semibold text-white">{t("home.posts")}</h3>
+            <Link href="/posts"> {t("home.posts.seeAll")} </Link>
           </div>
           <ul class="flex flex-col gap-4">
             {
@@ -228,19 +236,20 @@ const jsonLd = {
         </section>
 
         <section class="animate space-y-4 mt-10">
-          <h3 class="font-semibold text-white">Let's Connect</h3>
+          <h3 class="font-semibold text-white">{t("home.connect")}</h3>
           <article>
             <p class="animate">
-              Naandalist is the username I use for most of my public accounts.
+              {t("home.connect.desc1")}
             </p>
             <p class="animate">
-              For hiring opportunities, collaboration, or freelance work. You
-              can reach me at <Link
+              {t("home.connect.desc2")}
+              <Link
                 href="mailto:dev@naandalist.com"
                 aria-label="Email Naandalist"
               >
                 dev@naandalist.com
-              </Link> or via links below.
+              </Link>
+              {t("home.connect.or")}
             </p>
           </article>
           <Socials />
