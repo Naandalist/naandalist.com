@@ -38,28 +38,25 @@ bun dev
 
 The site will be available at `http://localhost:4321`
 
-## Priority Improvements
 
-### High Impact, Low Effort
-
-- [x] Add reading time to posts
-- [x] Add structured data (JSON-LD)
-- [ ] Implement image optimization
-- [ ] Move nav items to constants
-
-### High Impact, Medium Effort
-
-- [ ] Add search functionality
-- [ ] Implement proper TypeScript types
-- [ ] Add unit tests
-
-### Medium Impact, Quick Wins
-
-- [ ] Add theme toggle
-- [ ] Improve loading states
-- [ ] Add security headers
-- [ ] Document components
 
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
+
+## Todo List
+
+### High Priority
+- [x] **Image Optimization**: Replace `<img>` tags with Astro's `<Image />` component in `index.astro` and other pages for better performance (LCP).
+- [ ] **404 Page**: Create `src/pages/404.astro` to handle "Not Found" errors gracefully.
+- [ ] **Accessibility**: Add visible focus states to all interactive elements (links, buttons) in `global.css` or individual components.
+
+### Medium Priority
+- [ ] **Refactor Scripts**: Move inline scripts from `Head.astro` to a separate client-side script file (e.g., `src/scripts/main.ts`) for better maintainability.
+- [ ] **Code Quality**: Extract hardcoded strings (like "Hi, Naandalist here") to a constants file or content collection.
+- [ ] **SEO**: Verify `sitemap-index.xml` generation and ensure `robots.txt` is correctly configured.
+
+### Low Priority
+- [ ] **UI Polish**: Add a "Skip to content" link for better keyboard navigation.
+- [ ] **PWA**: Add a Web App Manifest and Service Worker for offline support.
+

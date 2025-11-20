@@ -3,7 +3,7 @@ title: "Kamus KBBI VI"
 description: "A mobile dictionary app for Indonesian language with 10K+ downloads on Google Play Store"
 date: "2025-11-11"
 lastUpdated: "2025-11-12"
-imageUrl: "/images/thumbnail-kbbi-app.webp"
+imageUrl: "@assets/images/thumbnail-kbbi-app.webp"
 liveURL: "https://play.google.com/store/apps/details?id=com.naandalist.kamus_kbbi"
 repoURL: "https://github.com/Naandalist/kbbi-app"
 techStack: ["React Native", "Hermes", "ESBuild"]
@@ -18,7 +18,7 @@ keywords:
 
 Indonesian dictionary based on KBBI VI with instant search, careful UX, and no analytics. Built for students, writers, educators, and learners who need authoritative definitions without network or tracking.
 
-![Kamus KBBI VI App Screenshot](/images/thumbnail-kbbi-app.webp)
+![Kamus KBBI VI App Screenshot](@assets/images/thumbnail-kbbi-app.webp)
 
 ## Highlights
 

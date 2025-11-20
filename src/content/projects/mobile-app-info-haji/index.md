@@ -3,7 +3,7 @@ title: "Info Haji"
 description: "Cek nomor porsi, estimasi tahun berangkat, kuota provinsi, dan status pembayaran."
 date: "2025-11-11"
 lastUpdated: "2025-11-10"
-imageUrl: "/images/thumbnail-infohaji-app.webp"
+imageUrl: "@assets/images/thumbnail-infohaji-app.webp"
 liveURL: "https://play.google.com/store/apps/details?id=com.naandalist.info_haji"
 repoURL: "https://github.com/Naandalist/info-hajj-app"
 techStack: ["React Native", "Typescript", "Hermes"]
@@ -25,7 +25,7 @@ keywords:
 
 Aplikasi untuk calon jamaah haji dan keluarga: cek nomor porsi, lihat estimasi tahun keberangkatan (Masehi & Hijri), pantau posisi antrean dan kuota, tinjau status pembayaran, serta baca berita haji terkurasi.
 
-![Info Haji App Screenshot](/images/thumbnail-infohaji-app.webp)
+![Info Haji App Screenshot](@assets/images/thumbnail-infohaji-app.webp)
 
 Aplikasi ini membantu cek porsi dengan memasukkan nomor porsi untuk melihat identitas dasar dan detail antrean, lengkap dengan estimasi keberangkatan yang memproyeksikan tahun (Masehi & Hijri) serta posisi antrean.
 

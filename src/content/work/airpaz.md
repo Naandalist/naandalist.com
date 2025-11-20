@@ -3,7 +3,7 @@ company: "Airpaz Internasional"
 role: "Frontend Engineer"
 dateStart: "04/08/2025"
 dateEnd: "Current"
-logoUrl: "/logo-company/airpaz-logo.png"
+logoUrl: "@assets/logo-company/airpaz-logo.png"
 ---
 
 At [Airpaz](https://www.airpaz.com/en), I build and maintain features for [Android](https://play.google.com/store/apps/details?id=com.atnetwork.airpazdev&hl=id) and [iOS](https://apps.apple.com/id/app/airpaz-pesawat-hotel/id1066890405?l=id) apps used by travelers across Southeast Asia using React Native and TypeScript.

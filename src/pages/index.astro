@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
@@ -8,6 +9,7 @@ import Link from "@components/Link.astro";
 import Socials from "@components/Socials.astro";
 import { dateRange } from "@lib/utils";
 import { SITE, HOME } from "@constants";
+import defaultImage from "@assets/images/nanda-on-mount-merbabu.jpg";
 
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft)
@@ -23,7 +25,7 @@ const allwork = (await getCollection("work"))
   .sort(
     (a, b) =>
       new Date(b.data.dateStart).valueOf() -
-      new Date(a.data.dateStart).valueOf()
+      new Date(a.data.dateStart).valueOf(),
   )
   .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE);
 
@@ -31,7 +33,7 @@ const work = await Promise.all(
   allwork.map(async (item) => {
     const { Content } = await item.render();
     return { ...item, Content };
-  })
+  }),
 );
 
 const jsonLd = {
@@ -66,32 +68,32 @@ const jsonLd = {
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <script
     is:inline
-    type='application/ld+json'
+    type="application/ld+json"
     set:html={JSON.stringify(jsonLd)}
   />
   <Container>
-    <h2 class='animate font-semibold text-white'>
-      Hi, Naandalist here <span class='text-xl'>👋🏻</span>
+    <h2 class="animate font-semibold text-white">
+      Hi, Naandalist here <span class="text-xl">👋🏻</span>
     </h2>
-    <div class='space-y-16'>
+    <div class="space-y-16">
       <section>
-        <article class='space-y-4'>
-          <p class='animate'>
+        <article class="space-y-4">
+          <p class="animate">
             I'm Listiananda Apriliawan, a Frontend Engineer at <Link
-              href='https://www.airpaz.com/en'
-              aria-label='Airpaz'
+              href="https://www.airpaz.com/en"
+              aria-label="Airpaz"
               external
             >
               Airpaz
             </Link>, an online travel agency. I build and maintain <Link
-              href='https://play.google.com/store/apps/details?id=com.atnetwork.airpazdev&hl=id'
-              aria-label='Android'
+              href="https://play.google.com/store/apps/details?id=com.atnetwork.airpazdev&hl=id"
+              aria-label="Android"
               external
             >
               Android
             </Link> and <Link
-              href='https://apps.apple.com/id/app/airpaz-pesawat-hotel/id1066890405?l=id'
-              aria-label='iOS'
+              href="https://apps.apple.com/id/app/airpaz-pesawat-hotel/id1066890405?l=id"
+              aria-label="iOS"
               external
             >
               iOS
@@ -99,41 +101,41 @@ const jsonLd = {
           </p>
         </article>
 
-        <div class='relative col-span-2 sm:col-span-1 animate'>
-          <article class='space-y-4'>
-            <p class='animate'>
+        <div class="relative col-span-2 sm:col-span-1 animate">
+          <article class="space-y-4">
+            <p class="animate">
               Previously, I worked as a full-stack developer, building web app
               with Laravel, and and I still use Kotlin for native Android when
               needed.
             </p>
           </article>
         </div>
-        <div class='relative col-span-2 sm:col-span-1 animate'>
-          <article class='space-y-4'>
-            <p class='animate'>
+        <div class="relative col-span-2 sm:col-span-1 animate">
+          <article class="space-y-4">
+            <p class="animate">
               When i am not shipping code, i am usually somewhere on a mountain,
               chasing cold air and quiet views. I've reached the summits of <Link
-                href='https://www.instagram.com/p/CzHlYyyS9OY/'
-                aria-label='Mount Dempo'
+                href="https://www.instagram.com/p/CzHlYyyS9OY/"
+                aria-label="Mount Dempo"
                 external
               >
                 Mount Dempo
               </Link> (South Sumatra), <Link
-                href='https://www.instagram.com/p/CYIjqaBrvzP/'
-                aria-label='Mount Lawu'
+                href="https://www.instagram.com/p/CYIjqaBrvzP/"
+                aria-label="Mount Lawu"
                 external
               >
                 Mount Lawu
               </Link> (East Java),
               <Link
-                href='https://www.instagram.com/p/C1pDP4ZLsnE/'
-                aria-label='Mount Merbabu'
+                href="https://www.instagram.com/p/C1pDP4ZLsnE/"
+                aria-label="Mount Merbabu"
                 external
               >
                 Mount Merbabu
               </Link> (Central Java), <Link
-                href='https://www.instagram.com/p/DOLp0lnkXrb/?img_index=8'
-                aria-label='Mount Papandayan'
+                href="https://www.instagram.com/p/DOLp0lnkXrb/?img_index=8"
+                aria-label="Mount Papandayan"
                 external
               >
                 Mount Papandayan
@@ -141,54 +143,54 @@ const jsonLd = {
             </p>
           </article>
         </div>
-        <div class='relative col-span-2 sm:col-span-1 animate'>
-          <img
-            alt='Naandalist hiking on Mount Merbabu'
-            src='/images/nanda-on-mount-merbabu.jpg'
-            class='rounded-lg object-cover w-full h-full'
-            width='800'
-            height='600'
-            fetchpriority='high'
+        <div class="relative col-span-2 sm:col-span-1 animate">
+          <Image
+            alt="Naandalist hiking on Mount Merbabu"
+            src={defaultImage}
+            class="rounded-lg object-cover w-full h-full"
+            width={800}
+            height={600}
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class=''>
-            <p class='font-semibold text-white'>Technical Skills</p>
-            <div class='flex flex-wrap items-center gap-2 mt-5'>
+        <section class="animate space-y-6 mt-10">
+          <div class="">
+            <p class="font-semibold text-white">Technical Skills</p>
+            <div class="flex flex-wrap items-center gap-2 mt-5">
               <img
-                src='/icons/skill-dev.svg'
-                alt='Tech stack icons'
-                class='animate'
-                fetchpriority='high'
+                src="/icons/skill-dev.svg"
+                alt="Tech stack icons"
+                class="animate"
+                fetchpriority="high"
               />
             </div>
           </div>
         </section>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3 class='font-semibold text-white'>Work Experience</h3>
-            <Link href='/work'> See all work </Link>
+        <section class="animate space-y-6 mt-10">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
+            <h3 class="font-semibold text-white">Work Experience</h3>
+            <Link href="/work"> See all work </Link>
           </div>
-          <ul class='flex flex-col space-y-4'>
+          <ul class="flex flex-col space-y-4">
             {
               work.map((entry) => (
-                <li class='animate flex items-start gap-4'>
-                  <img
+                <li class="animate flex items-start gap-4">
+                  <Image
                     src={entry.data.logoUrl}
-                    alt='Company logo'
-                    class='w-12 h-12 object-contain rounded mt-1'
-                    loading='lazy'
+                    alt="Company logo"
+                    class="w-12 h-12 object-contain rounded mt-1"
                   />
                   <div>
-                    <div class='text-sm opacity-75'>
+                    <div class="text-sm opacity-75">
                       {dateRange(entry.data.dateStart, entry.data.dateEnd)}
                     </div>
-                    <div class='font-semibold text-white'>
+                    <div class="font-semibold text-white">
                       {entry.data.company}
                     </div>
-                    <div class='text-sm opacity-75'>{entry.data.role}</div>
+                    <div class="text-sm opacity-75">{entry.data.role}</div>
                     <article>
                       <entry.Content />
                     </article>
@@ -199,22 +201,22 @@ const jsonLd = {
           </ul>
         </section>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3 class='font-semibold text-white'>Recent projects</h3>
-            <Link href='/projects'> See all projects </Link>
+        <section class="animate space-y-6 mt-10">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
+            <h3 class="font-semibold text-white">Recent projects</h3>
+            <Link href="/projects"> See all projects </Link>
           </div>
-          <div class='flex flex-col gap-4'>
+          <div class="flex flex-col gap-4">
             {projects.map((project) => <ProjectCard entry={project} />)}
           </div>
         </section>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3 class='font-semibold text-white'>Latest posts</h3>
-            <Link href='/posts'> See all posts </Link>
+        <section class="animate space-y-6 mt-10">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
+            <h3 class="font-semibold text-white">Latest posts</h3>
+            <Link href="/posts"> See all posts </Link>
           </div>
-          <ul class='flex flex-col gap-4'>
+          <ul class="flex flex-col gap-4">
             {
               posts.map((post) => (
                 <li>
@@ -225,17 +227,17 @@ const jsonLd = {
           </ul>
         </section>
 
-        <section class='animate space-y-4 mt-10'>
-          <h3 class='font-semibold text-white'>Let's Connect</h3>
+        <section class="animate space-y-4 mt-10">
+          <h3 class="font-semibold text-white">Let's Connect</h3>
           <article>
-            <p class='animate'>
+            <p class="animate">
               Naandalist is the username I use for most of my public accounts.
             </p>
-            <p class='animate'>
+            <p class="animate">
               For hiring opportunities, collaboration, or freelance work. You
               can reach me at <Link
-                href='mailto:dev@naandalist.com'
-                aria-label='Email Naandalist'
+                href="mailto:dev@naandalist.com"
+                aria-label="Email Naandalist"
               >
                 dev@naandalist.com
               </Link> or via links below.

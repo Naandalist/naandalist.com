@@ -3,7 +3,7 @@ company: "Oxy Creative. Inc"
 role: "Software Engineer"
 dateStart: "02/01/2020"
 dateEnd: "11/27/2022"
-logoUrl: "/logo-company/oxy-creative-logo.png"
+logoUrl: "@assets/logo-company/oxy-creative-logo.png"
 ---
 
 At [Oxy Creative Inc](https://www.oxycreative.com/), I worked on software products for clients in the finance and digital services space.
