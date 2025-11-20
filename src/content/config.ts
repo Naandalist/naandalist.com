@@ -22,6 +22,7 @@ const work = defineCollection({
       logoUrl: image(),
       dateStart: z.coerce.date(),
       dateEnd: z.union([z.coerce.date(), z.string()]),
+      lang: z.enum(["en", "id"]).optional().default("en"),
     }),
 });
 

@@ -6,10 +6,13 @@ import Container from "@components/Container.astro";
 import { dateRange } from "@lib/utils";
 import { WORK } from "@constants";
 
-const collection = (await getCollection("work")).sort(
-  (a, b) =>
-    new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf(),
-);
+const collection = (await getCollection("work"))
+  .filter((work) => work.data.lang === "en")
+  .sort(
+    (a, b) =>
+      new Date(b.data.dateStart).valueOf() -
+      new Date(a.data.dateStart).valueOf(),
+  );
 
 const work = await Promise.all(
   collection.map(async (item) => {

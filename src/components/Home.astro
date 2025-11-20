@@ -30,6 +30,7 @@ const projects = (await getCollection("projects"))
     .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
 
 const allwork = (await getCollection("work"))
+    .filter((work) => work.data.lang === lang)
     .sort(
         (a, b) =>
             new Date(b.data.dateStart).valueOf() -
@@ -196,7 +197,9 @@ const jsonLd = {
                         <h3 class="font-semibold text-white">
                             {t("home.work")}
                         </h3>
-                        <Link href="/work"> {t("home.work.seeAll")} </Link>
+                        <Link href={lang === "en" ? "/work" : "/id/work"}>
+                            {t("home.work.seeAll")}
+                        </Link>
                     </div>
                     <ul class="flex flex-col space-y-4">
                         {
@@ -237,7 +240,9 @@ const jsonLd = {
                         <h3 class="font-semibold text-white">
                             {t("home.projects")}
                         </h3>
-                        <Link href="/projects">
+                        <Link
+                            href={lang === "en" ? "/projects" : "/id/projects"}
+                        >
                             {t("home.projects.seeAll")}
                         </Link>
                     </div>
@@ -257,7 +262,9 @@ const jsonLd = {
                         <h3 class="font-semibold text-white">
                             {t("home.posts")}
                         </h3>
-                        <Link href="/posts"> {t("home.posts.seeAll")} </Link>
+                        <Link href={lang === "en" ? "/posts" : "/id/posts"}>
+                            {t("home.posts.seeAll")}
+                        </Link>
                     </div>
                     <ul class="flex flex-col gap-4">
                         {

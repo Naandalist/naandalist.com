@@ -45,6 +45,8 @@ export const ui = {
     "projects.title": "Projects",
     "projects.description": "A collection of my projects.",
     "projects.back": "Back to projects",
+    "work.title": "Work",
+    "work.description": "Professional experience, roles, and impact from Naandalist’s past and current work.",
   },
   id: {
     "home.title": "Beranda",
@@ -85,5 +87,7 @@ export const ui = {
     "projects.title": "Proyek",
     "projects.description": "Kumpulan proyek saya.",
     "projects.back": "Kembali ke proyek",
+    "work.title": "Pekerjaan",
+    "work.description": "Pengalaman profesional, peran, dan dampak dari pekerjaan masa lalu dan saat ini Naandalist.",
   },
 } as const;
