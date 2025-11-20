@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-link ring-offset-2 ring-offset-neutral-900 rounded-sm;
+  }
+}
+
 html {
   overflow-y: scroll;
   color-scheme: dark;
@@ -60,6 +66,7 @@ html #back-to-top {
   @apply opacity-0 pointer-events-none;
 }
 
-html.scrolled #back-to-top {
+html.scrolled #back-to-top,
+html #back-to-top:focus-visible {
   @apply opacity-100 pointer-events-auto;
 }

@@ -49,7 +49,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 ### High Priority
 - [x] **Image Optimization**: Replace `<img>` tags with Astro's `<Image />` component in `index.astro` and other pages for better performance (LCP).
 - [x] **404 Page**: Create `src/pages/404.astro` to handle "Not Found" errors gracefully.
-- [ ] **Accessibility**: Add visible focus states to all interactive elements (links, buttons) in `global.css` or individual components.
+- [x] **Accessibility**: Add visible focus states to all interactive elements (links, buttons) in `global.css` or individual components.
 
 ### Medium Priority
 - [ ] **Refactor Scripts**: Move inline scripts from `Head.astro` to a separate client-side script file (e.g., `src/scripts/main.ts`) for better maintainability.
