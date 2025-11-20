@@ -1,0 +1,30 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+
+const title = "404 Not Found";
+const description = "Page not found";
+---
+
+<PageLayout title={title} description={description} showHeader={false}>
+    <Container>
+        <div
+            class="flex flex-col items-center justify-center min-h-screen space-y-6 text-center"
+        >
+            <h1 class="text-9xl font-bold text-white/10">404</h1>
+            <div class="space-y-2">
+                <h2 class="text-2xl font-semibold text-white">
+                    Page Not Found
+                </h2>
+                <p class="text-white/70 max-w-md mx-auto">
+                    The page you are looking for might have been removed, had
+                    its name changed, or is temporarily unavailable.
+                </p>
+            </div>
+            <div class="pt-4">
+                <Link href="/" aria-label="Back to Home"> Go back home </Link>
+            </div>
+        </div>
+    </Container>
+</PageLayout>
