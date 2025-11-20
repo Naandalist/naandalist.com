@@ -52,7 +52,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 - [x] **Accessibility**: Add visible focus states to all interactive elements (links, buttons) in `global.css` or individual components.
 
 ### Medium Priority
-- [ ] **Refactor Scripts**: Move inline scripts from `Head.astro` to a separate client-side script file (e.g., `src/scripts/main.ts`) for better maintainability.
+- [x] **Refactor Scripts**: Move inline scripts from `Head.astro` to a separate client-side script file (e.g., `src/scripts/main.ts`) for better maintainability.
 - [ ] **Code Quality**: Extract hardcoded strings (like "Hi, Naandalist here") to a constants file or content collection.
 - [ ] **SEO**: Verify `sitemap-index.xml` generation and ensure `robots.txt` is correctly configured.
 
