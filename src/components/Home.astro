@@ -25,7 +25,7 @@ const posts = (await getCollection("posts"))
     .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
 const projects = (await getCollection("projects"))
-    .filter((project) => !project.data.draft)
+    .filter((project) => !project.data.draft && project.data.lang === lang)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
     .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
 
@@ -73,7 +73,7 @@ const jsonLd = {
 };
 ---
 
-<PageLayout title={t("home.title")} description={t("home.description")}>
+<PageLayout title="" description={t("home.description")}>
     <script
         is:inline
         type="application/ld+json"

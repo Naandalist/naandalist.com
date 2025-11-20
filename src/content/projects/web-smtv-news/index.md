@@ -1,6 +1,6 @@
 ---
-title: "SMTV News — Portal Berita Daerah"
-description: "Media lokal berbasis WordPress untuk pemberitaan kabupaten di Sumatera Selatan"
+title: "SMTV News — Regional News Portal"
+description: "WordPress-based local media for district news in South Sumatra"
 date: "2025-09-18"
 lastUpdated: "2025-11-12"
 imageUrl: "@assets/images/thumbnail-smtvnews.png"
@@ -12,38 +12,39 @@ platforms: ["Web"]
 price: "Free"
 keywords:
   [
-    "portal berita",
-    "berita daerah",
+    "news portal",
+    "regional news",
     "Musi Banyuasin",
     "Palembang",
-    "Sumatera Selatan",
-    "politik",
-    "kriminal",
-    "olahraga",
-    "pendidikan",
+    "South Sumatra",
+    "politics",
+    "crime",
+    "sports",
+    "education",
   ]
+lang: "en"
 ---
 
 # SMTV News
 
-Portal berita daerah berbasis **WordPress** untuk publikasi cepat: berita nasional, kriminal, politik, olahraga, pendidikan, sosial-budaya, serta kanal daerah seperti **Musi Banyuasin**, Palembang, dan Banyuasin. Dirancang untuk kecepatan muat, keterbacaan, dan manajemen redaksi yang rapi.
+Regional news portal based on **WordPress** for fast publication: national news, crime, politics, sports, education, socio-cultural, and regional channels like **Musi Banyuasin**, Palembang, and Banyuasin. Designed for load speed, readability, and neat editorial management.
 
 ![SMTV News Screenshot](@assets/images/thumbnail-smtvnews.png)
 
-Portal ini berbasis WordPress dengan workflow redaksi yang akrab dan multi-role untuk Author dan Editor. Struktur rubrik mencakup Nasional, Daerah (Muba, Palembang, Banyuasin), Hukum/Kriminal, Politik, Olahraga, Pendidikan, serta Sosial & Budaya. SEO sudah siap dengan judul H1 tunggal, meta terkelola, Open Graph dan Twitter Card. Kecepatan dioptimalkan melalui caching halaman, minify aset, dan dukungan CDN. Aksesibilitas dijaga dengan tipografi mudah dibaca, kontras memadai, dan gambar dengan alt text. Distribusi konten didukung oleh RSS feed, sitemap XML, dan integrasi share ke platform sosial.
+This portal is based on WordPress with a familiar editorial workflow and multi-role support for Authors and Editors. The rubric structure covers National, Regional (Muba, Palembang, Banyuasin), Law/Crime, Politics, Sports, Education, and Social & Culture. SEO is ready with single H1 titles, managed meta, Open Graph, and Twitter Cards. Speed is optimized through page caching, asset minification, and CDN support. Accessibility is maintained with readable typography, adequate contrast, and images with alt text. Content distribution is supported by RSS feeds, XML sitemaps, and social platform share integration.
 
-## Fitur Redaksi
+## Editorial Features
 
-- **Editor Blok (Gutenberg)**: template artikel, reusable blocks (lead, kutipan, kredit foto)
-- **Taksonomi**: kategori & tag konsisten untuk navigasi dan SEO
-- **Media Library**: kompresi & ukuran responsif, credit & caption
-- **Penjadwalan**: rilis terencana, sticky post untuk headline
-- **Moderasi Komentar**: Akismet/antispam, kebijakan komentar
+- **Block Editor (Gutenberg)**: article templates, reusable blocks (lead, quotes, photo credits)
+- **Taxonomy**: consistent categories & tags for navigation and SEO
+- **Media Library**: compression & responsive sizing, credit & caption
+- **Scheduling**: planned releases, sticky posts for headlines
+- **Comment Moderation**: Akismet/antispam, comment policy
 
-## Kebijakan & Kepatuhan
+## Policy & Compliance
 
-- **Kode Etik & Pedoman Pemberitaan** ditautkan dari footer
-- **Privacy Policy** dan **Disclaimer** halaman khusus
-- **Hak Cipta**: kredit foto, atribusi sumber, no-hotlink
+- **Code of Ethics & Reporting Guidelines** linked from footer
+- **Privacy Policy** and **Disclaimer** special pages
+- **Copyright**: photo credits, source attribution, no-hotlinking
 
-**Kunjungi situs**: <a href="https://www.smtv-news.com">smtv-news.com</a>
+**Visit site**: <a href="https://www.smtv-news.com">smtv-news.com</a>

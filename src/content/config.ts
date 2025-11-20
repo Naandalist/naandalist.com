@@ -42,6 +42,7 @@ const projects = defineCollection({
       platforms: z.array(z.string()).optional(),
       price: z.string().optional(),
       keywords: z.array(z.string()).optional(),
+      lang: z.enum(["en", "id"]).optional().default("en"),
     }),
 });
 

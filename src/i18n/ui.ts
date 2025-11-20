@@ -42,6 +42,9 @@ export const ui = {
     "posts.title": "Posts",
     "posts.description": "A collection of thoughts, tutorials, and guides.",
     "posts.back": "Back to posts",
+    "projects.title": "Projects",
+    "projects.description": "A collection of my projects.",
+    "projects.back": "Back to projects",
   },
   id: {
     "home.title": "Beranda",
@@ -79,5 +82,8 @@ export const ui = {
     "posts.title": "Tulisan",
     "posts.description": "Kumpulan pemikiran, tutorial, dan panduan.",
     "posts.back": "Kembali ke tulisan",
+    "projects.title": "Proyek",
+    "projects.description": "Kumpulan proyek saya.",
+    "projects.back": "Kembali ke proyek",
   },
 } as const;

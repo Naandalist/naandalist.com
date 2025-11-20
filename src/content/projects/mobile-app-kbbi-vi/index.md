@@ -12,6 +12,7 @@ platforms: ["Android 5.0+"]
 price: "Free"
 keywords:
   ["KBBI", "kamus", "dictionary", "Indonesian", "Bahasa Indonesia", "kbbi"]
+lang: "en"
 ---
 
 # Kamus KBBI VI

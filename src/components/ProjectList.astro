@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import Container from "@components/Container.astro";
+import { PROJECTS } from "@constants";
+import ProjectCard from "@components/ProjectCard.astro";
+import { useTranslations } from "@i18n/utils";
+
+interface Props {
+    lang?: "en" | "id";
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
+const projects = (await getCollection("projects"))
+    .filter((project) => !project.data.draft && project.data.lang === lang)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<PageLayout title={t("projects.title")} description={t("projects.description")}>
+    <Container>
+        <div class="space-y-10">
+            <div class="animate font-semibold text-white">
+                {t("projects.title")}
+            </div>
+            <ul class="animate flex flex-col gap-4">
+                {
+                    projects.map((project) => (
+                        <li>
+                            <ProjectCard entry={project} />
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </Container>
+</PageLayout>
