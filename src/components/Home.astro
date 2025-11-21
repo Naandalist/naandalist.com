@@ -7,6 +7,7 @@ import ArrowCard from "@components/ArrowCard.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import Link from "@components/Link.astro";
 import Socials from "@components/Socials.astro";
+import LottieAnimation from "@components/LottieAnimation.astro";
 import { dateRange } from "@lib/utils";
 import { SITE, HOME } from "@constants";
 import defaultImage from "@assets/images/nanda-on-mount-merbabu.jpg";
@@ -81,9 +82,12 @@ const jsonLd = {
         set:html={JSON.stringify(jsonLd)}
     />
     <Container>
-        <h2 class="animate font-semibold text-white">
+        <h2 class="animate font-semibold text-white flex items-center gap-2">
             {t("home.greeting")}
-            <span class="text-xl">👋🏻</span>
+            <LottieAnimation
+                src="/hand wave.lottie"
+                class="w-8 h-8 -translate-y-1"
+            />
         </h2>
         <div class="space-y-16">
             <section>

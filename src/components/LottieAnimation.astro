@@ -1,0 +1,52 @@
+---
+interface Props {
+    src: string;
+    autoplay?: boolean;
+    loop?: boolean;
+    class?: string;
+}
+
+const { src, autoplay = true, loop = true, class: className } = Astro.props;
+---
+
+<div class={className}>
+    <canvas
+        data-lottie-src={src}
+        data-lottie-autoplay={autoplay}
+        data-lottie-loop={loop}
+        class="w-full h-full"></canvas>
+</div>
+
+<script>
+    import { DotLottie } from "@lottiefiles/dotlottie-web";
+
+    function initLottie() {
+        const canvases = document.querySelectorAll("canvas[data-lottie-src]");
+
+        canvases.forEach((canvas) => {
+            if (
+                canvas instanceof HTMLCanvasElement &&
+                !canvas.dataset.initialized
+            ) {
+                const src = canvas.dataset.lottieSrc;
+                const autoplay = canvas.dataset.lottieAutoplay === "true";
+                const loop = canvas.dataset.lottieLoop === "true";
+
+                new DotLottie({
+                    canvas,
+                    src: src || "",
+                    loop,
+                    autoplay,
+                });
+
+                canvas.dataset.initialized = "true";
+            }
+        });
+    }
+
+    // Initialize on load
+    initLottie();
+
+    // Initialize on view transitions
+    document.addEventListener("astro:page-load", initLottie);
+</script>

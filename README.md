@@ -54,9 +54,9 @@ MIT License - see [LICENSE](LICENSE) for details.
 ### Medium Priority
 - [x] **Refactor Scripts**: Move inline scripts from `Head.astro` to a separate client-side script file (e.g., `src/scripts/main.ts`) for better maintainability.
 - [x] **Code Quality**: Extract hardcoded strings (like "Hi, Naandalist here") to a constants file or content collection.
-- [ ] **SEO**: Verify `sitemap-index.xml` generation and ensure `robots.txt` is correctly configured.
+- [x] **SEO**: Verify `sitemap-index.xml` generation and ensure `robots.txt` is correctly configured.
 
 ### Low Priority
-- [ ] **UI Polish**: Add a "Skip to content" link for better keyboard navigation.
+- [x] **UI Polish**: Add a "Skip to content" link for better keyboard navigation.
 - [ ] **PWA**: Add a Web App Manifest and Service Worker for offline support.
 

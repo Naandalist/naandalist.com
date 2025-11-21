@@ -25,8 +25,14 @@ const { title, description, showHeader = true } = Astro.props;
     />
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="absolute left-0 top-0 -translate-y-full bg-neutral-900 px-4 py-2 text-neutral-100 transition-transform focus:translate-y-0 z-[100]"
+    >
+      Skip to content
+    </a>
     {showHeader && <Header />}
-    <main class={cn(showHeader ? "" : "py-0")}>
+    <main id="main-content" class={cn(showHeader ? "" : "py-0")}>
       <slot />
     </main>
     <Footer />
