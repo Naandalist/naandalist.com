@@ -1,65 +1,62 @@
 ---
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import PageLayout from "@layouts/PageLayout.astro";
-import Container from "@components/Container.astro";
-import { dateRange } from "@lib/utils";
+
 import { useTranslations } from "@i18n/utils";
+
+import Container from "@components/Container.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+import { dateRange } from "@lib/utils";
 
 const t = useTranslations("id");
 
 const collection = (await getCollection("work"))
-    .filter((work) => work.data.lang === "id")
-    .sort(
-        (a, b) =>
-            new Date(b.data.dateStart).valueOf() -
-            new Date(a.data.dateStart).valueOf(),
-    );
+  .filter((work) => work.data.lang === "id")
+  .sort(
+    (a, b) =>
+      new Date(b.data.dateStart).valueOf() -
+      new Date(a.data.dateStart).valueOf()
+  );
 
 const work = await Promise.all(
-    collection.map(async (item) => {
-        const { Content } = await item.render();
-        return { ...item, Content };
-    }),
+  collection.map(async (item) => {
+    const { Content } = await item.render();
+    return { ...item, Content };
+  })
 );
 ---
 
 <PageLayout title={t("work.title")} description={t("work.description")}>
-    <Container>
-        <div class="space-y-10">
-            <div class="animate font-semibold text-white">
-                {t("work.title")}
-            </div>
-            <ul class="flex flex-col space-y-4">
-                {
-                    work.map((entry) => (
-                        <li class="animate flex items-start gap-4">
-                            <Image
-                                src={entry.data.logoUrl}
-                                alt="Company logo"
-                                class="w-12 h-12 object-contain rounded mt-1"
-                            />
-                            <div>
-                                <div class="text-sm opacity-75">
-                                    {dateRange(
-                                        entry.data.dateStart,
-                                        entry.data.dateEnd,
-                                    )}
-                                </div>
-                                <div class="font-semibold text-white">
-                                    {entry.data.company}
-                                </div>
-                                <div class="text-sm opacity-75">
-                                    {entry.data.role}
-                                </div>
-                                <article>
-                                    <entry.Content />
-                                </article>
-                            </div>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-    </Container>
+  <Container>
+    <div class='space-y-10'>
+      <div class='animate font-semibold text-white'>
+        {t("work.title")}
+      </div>
+      <ul class='flex flex-col space-y-4'>
+        {
+          work.map((entry) => (
+            <li class='animate flex items-start gap-4'>
+              <Image
+                src={entry.data.logoUrl}
+                alt='Company logo'
+                class='w-12 h-12 object-contain rounded mt-1'
+              />
+              <div>
+                <div class='text-sm opacity-75'>
+                  {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+                </div>
+                <div class='font-semibold text-white'>{entry.data.company}</div>
+                <div class='text-sm opacity-75'>{entry.data.role}</div>
+                <article>
+                  <entry.Content />
+                </article>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
 </PageLayout>
