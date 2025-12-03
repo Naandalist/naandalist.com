@@ -34,7 +34,7 @@ const { Content } = await project.render();
 const t = useTranslations("en");
 
 // Determine which schemas to generate based on project type
-const schemas: Record<string, any>[] = [createCreativeWorkSchema(project)];
+const schemas: Record<string, unknown>[] = [createCreativeWorkSchema(project)];
 
 // Add SoftwareApplication schema for mobile apps
 if (project.data.category && project.data.platforms) {
