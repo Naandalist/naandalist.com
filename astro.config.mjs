@@ -12,6 +12,12 @@ export default defineConfig({
       applyBaseStyles: true,
     }),
   ],
+  redirects: {
+    "/posts/09-git-commit-message-convention/":
+      "/posts/git-commit-message-convention",
+    "/blog/09-git-commit-message-convention":
+      "/posts/git-commit-message-convention",
+  },
   build: {
     inlineStylesheets: "always",
   },
