@@ -6,8 +6,8 @@ import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
-import { SITE } from "@constants";
 import defaultImage from "@assets/images/nanda-on-mount-merbabu.jpg";
+import { SITE } from "@constants";
 
 interface Props {
   title: string;
@@ -21,78 +21,78 @@ const { title, description, image = defaultImage.src } = Astro.props;
 ---
 
 <!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/png" href="/favicon-blue.png" />
-<meta name="generator" content={Astro.generator} />
+<meta charset='utf-8' />
+<meta name='viewport' content='width=device-width,initial-scale=1' />
+<link rel='icon' type='image/png' href='/favicon-blue.png' />
+<meta name='generator' content={Astro.generator} />
 
 <!-- DNS Prefetch for external resources -->
-<link rel="dns-prefetch" href="https://vercel.live" />
+<link rel='dns-prefetch' href='https://vercel.live' />
 
 <!-- Font preloads - Critical for LCP -->
-<link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
-<link rel="preload" href={inter600} as="font" type="font/woff2" crossorigin />
+<link rel='preload' href={inter400} as='font' type='font/woff2' crossorigin />
+<link rel='preload' href={inter600} as='font' type='font/woff2' crossorigin />
 
 <!-- Preload LCP images - Critical for LCP -->
-<link rel="preload" href={defaultImage.src} as="image" fetchpriority="high" />
+<link rel='preload' href={defaultImage.src} as='image' fetchpriority='high' />
 <link
-  rel="preload"
-  href="/icons/skill-dev.svg"
-  as="image"
-  fetchpriority="high"
+  rel='preload'
+  href='/icons/skill-dev.svg'
+  as='image'
+  fetchpriority='high'
 />
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+<link rel='canonical' href={canonicalURL.href} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
-<meta name="author" content="Listiananda Apriliawan" />
+<meta name='title' content={title} />
+<meta name='description' content={description} />
+<meta name='author' content='Listiananda Apriliawan' />
 <meta
-  name="robots"
-  content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  name='robots'
+  content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
 />
-<meta name="googlebot" content="index, follow" />
-<meta name="language" content="en" />
-<meta name="revisit-after" content="7 days" />
-<meta name="rating" content="general" />
-<meta name="distribution" content="global" />
-<meta name="geo.region" content="ID" />
-<meta name="geo.country" content="Indonesia" />
+<meta name='googlebot' content='index, follow' />
+<meta name='language' content='en' />
+<meta name='revisit-after' content='7 days' />
+<meta name='rating' content='general' />
+<meta name='distribution' content='global' />
+<meta name='geo.region' content='ID' />
+<meta name='geo.country' content='Indonesia' />
 <meta
-  name="keywords"
-  content="naandalist, nanda, frontend engineer, react native, javascript, typescript, bun, nodejs, astro, tailwind css, web development, mobile development, hiking, mountain climbing, travel, programming, software engineer"
+  name='keywords'
+  content='naandalist, nanda, frontend engineer, react native, javascript, typescript, bun, nodejs, astro, tailwind css, web development, mobile development, hiking, mountain climbing, travel, programming, software engineer'
 />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.site)} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:site_name" content={SITE.NAME} />
-<meta property="og:locale" content="en_US" />
+<meta property='og:type' content='website' />
+<meta property='og:url' content={canonicalURL.href} />
+<meta property='og:title' content={title} />
+<meta property='og:description' content={description} />
+<meta property='og:image' content={new URL(image, Astro.site)} />
+<meta property='og:image:width' content='1200' />
+<meta property='og:image:height' content='630' />
+<meta property='og:image:type' content='image/png' />
+<meta property='og:site_name' content={SITE.NAME} />
+<meta property='og:locale' content='en_US' />
 
 <!-- WhatsApp -->
-<meta property="og:image:alt" content={`${title} - ${description}`} />
+<meta property='og:image:alt' content={`${title} - ${description}`} />
 
 <!-- LinkedIn -->
-<meta name="linkedin:owner" content="Listiananda Apriliawan" />
+<meta name='linkedin:owner' content='Listiananda Apriliawan' />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.site)} />
-<meta property="twitter:image:alt" content={`${title} - ${description}`} />
-<meta property="twitter:creator" content="@naandalist" />
-<meta property="twitter:site" content="@naandalist" />
+<meta property='twitter:card' content='summary_large_image' />
+<meta property='twitter:url' content={canonicalURL.href} />
+<meta property='twitter:title' content={title} />
+<meta property='twitter:description' content={description} />
+<meta property='twitter:image' content={new URL(image, Astro.site)} />
+<meta property='twitter:image:alt' content={`${title} - ${description}`} />
+<meta property='twitter:creator' content='@naandalist' />
+<meta property='twitter:site' content='@naandalist' />
 
 <!-- Analytics - Non-blocking -->
 <SpeedInsights />
@@ -100,15 +100,15 @@ const { title, description, image = defaultImage.src } = Astro.props;
 <script
   is:inline
   defer
-  src="https://cloud.umami.is/script.js"
-  data-website-id="618c1053-2686-489f-aef9-a4d31e9af690"></script>
+  src='https://cloud.umami.is/script.js'
+  data-website-id='618c1053-2686-489f-aef9-a4d31e9af690'></script>
 
 <!-- RSS Link -->
 <link
-  rel="alternate"
-  type="application/rss+xml"
+  rel='alternate'
+  type='application/rss+xml'
   title={SITE.NAME}
   href={new URL("rss.xml", Astro.site)}
 />
 
-<script src="../scripts/main.ts"></script>
+<script src='../scripts/main.ts'></script>

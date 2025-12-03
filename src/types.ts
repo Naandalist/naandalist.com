@@ -1,4 +1,5 @@
 export type Site = {
+  URL?: string;
   NAME: string;
   EMAIL: string;
   NUM_POSTS_ON_HOMEPAGE: number;

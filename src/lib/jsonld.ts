@@ -17,7 +17,9 @@
  */
 import type { CollectionEntry } from "astro:content";
 
-const SITE_URL = "https://www.naandalist.com";
+import { SITE } from "@constants";
+
+const SITE_URL = SITE?.URL ?? "https://naandalist.com";
 const AUTHOR = {
   "@type": "Person" as const,
   name: "Listiananda Apriliawan",

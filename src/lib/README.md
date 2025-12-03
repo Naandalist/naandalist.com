@@ -181,7 +181,7 @@ Update the constants in `/src/lib/jsonld.ts` if you need to change:
 - `AUTHOR`: Author information
 
 ```typescript
-const SITE_URL = "https://www.naandalist.com";
+const SITE_URL = "https://naandalist.com";
 const AUTHOR = {
   "@type": "Person" as const,
   name: "Listiananda Apriliawan",
