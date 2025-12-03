@@ -1,7 +1,7 @@
 ---
-title: "Pengerasan Aplikasi React Native Melampaui JailMonkey"
-subtitle: "Mengapa pemeriksaan root bukan keamanan yang sebenarnya"
-description: "Mengapa pemeriksaan root dan hook di React Native adalah kontrol yang lemah, dan mengapa keputusan keamanan harus berada di backend, bukan di dalam aplikasi."
+title: "Hardening Aplikasi React Native: Melampaui Sekadar JailMonkey"
+subtitle: "Mengapa pemeriksaan root bukan merupakan mekanisme keamanan yang substantif"
+description: "Analisis mengapa deteksi root dan hook pada React Native merupakan kontrol keamanan yang lemah, serta urgensi pemindahan keputusan keamanan ke sisi backend."
 date: "2025-11-14"
 lang: "id"
 keywords:
@@ -24,32 +24,32 @@ keywords:
 
 ![Neon Skies and Chrome Dreams](https://res.cloudinary.com/naandalistcloud/image/upload/v1763258345/naandalist.com/the_codex_of_eternal_flame_by_ai_agent_zero_djxveks-fullview_sjwcij.jpg)
 
-Sebagian besar aplikasi React Native yang "melakukan keamanan" dimulai dengan cara yang sama: instal library seperti [jail-monkey](https://www.npmjs.com/package/jail-monkey), baca beberapa boolean, blokir pengguna jika perangkat terlihat berisiko.
+Mayoritas aplikasi React Native yang berupaya menerapkan mekanisme keamanan sering kali memulai dengan pendekatan seragam: mengintegrasikan pustaka seperti [jail-monkey](https://www.npmjs.com/package/jail-monkey), membaca status boolean, dan memblokir akses pengguna apabila perangkat terindikasi memiliki risiko.
 
-Rasanya seperti perlindungan. Dalam praktiknya, ini hanyalah logging yang dimuliakan. Penyerang yang bertekad dengan [Frida](https://github.com/frida/frida/releases), [Magisk](https://github.com/topjohnwu/Magisk), atau APK yang ditambal dapat membalik boolean tersebut ke nilai apa pun yang mereka inginkan. Jika logika bisnis Anda mempercayai mereka, Anda kalah.
+Meskipun tampak sebagai bentuk perlindungan, pada praktiknya, mekanisme ini tidak lebih dari sekadar pencatatan log (_glorified logging_). Penyerang yang memiliki determinasi tinggi dapat memanfaatkan alat seperti [Frida](https://github.com/frida/frida/releases), [Magisk](https://github.com/topjohnwu/Magisk), atau memodifikasi paket aplikasi (APK) untuk memanipulasi nilai-nilai boolean tersebut sesuai kehendak mereka. Apabila logika bisnis aplikasi Anda bergantung sepenuhnya pada data sisi klien ini, maka integritas keamanan sistem Anda telah terkompromi.
 
-Tulisan ini memperlakukan klien sebagai musuh dan menjelaskan mengapa deteksi root dan hook adalah kontrol yang lemah dalam lingkungan itu.
+Artikel ini memosisikan sisi klien (perangkat pengguna) sebagai lingkungan yang tidak dapat dipercaya (_hostile environment_) dan menguraikan mengapa deteksi root dan hook merupakan kontrol keamanan yang lemah dalam konteks tersebut.
 
-## Mulai dengan model ancaman
+## Mulai dengan Model Ancaman (_Threat Model_)
 
-React Native berjalan di dalam proses yang sepenuhnya dikontrol oleh pengguna. Penyerang yang sebenarnya dapat:
+React Native beroperasi di dalam proses yang sepenuhnya berada di bawah kendali pengguna. Seorang penyerang yang kompeten memiliki kapabilitas untuk:
 
 <div align="center">
   <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1763260385/naandalist.com/Untitled_diagram-2025-11-16-023147_t9wdfs.svg" alt="attacking Flow Diagram" style="width: 50%;" />
-  <p style="font-size: 0.875rem;"><em>Diagram alur yang menunjukkan bagaimana penyerang mengontrol aplikasi</em></p>
+  <p style="font-size: 0.875rem;"><em>Diagram alur yang menunjukkan kontrol penyerang terhadap aplikasi</em></p>
 </div>
 
-Jika Anda tidak mengasumsikan itu, Anda tidak melakukan pekerjaan keamanan, Anda melakukan teater.
+Apabila asumsi ini tidak dijadikan landasan, maka upaya yang dilakukan bukanlah pembangunan keamanan sistem, melainkan sekadar "teater keamanan" (_security theater_).
 
-Dari titik itu, beberapa hal harus tidak dapat dinegosiasikan:
+Dari premis tersebut, beberapa prinsip fundamental harus ditegakkan:
 
-- Flag apa pun seperti **isRooted**, **isHooked**, **isDebugged** hanyalah data di dalam proses yang tidak dipercaya
-- Kondisional apa pun di JavaScript yang mengatur uang atau hak istimewa dapat dilewati atau ditulis ulang
-- Aset sebenarnya ada di backend: akun, pembayaran, promo, tindakan istimewa, API
+- Indikator apa pun seperti **isRooted**, **isHooked**, atau **isDebugged** hanyalah data yang berada dalam proses yang tidak tepercaya.
+- Logika kondisional apa pun dalam JavaScript yang mengatur akses terhadap aset finansial atau hak istimewa dapat diabaikan atau dimodifikasi.
+- Aset yang sesungguhnya berada di sisi backend: akun pengguna, transaksi pembayaran, promosi, tindakan istimewa, dan API.
 
-## Mengapa pemeriksaan sisi klien tidak otoritatif
+## Mengapa Validasi Sisi Klien Tidak Otoritatif
 
-Pola tipikal: instal `jail-monkey`, kumpulkan objek risiko, bercabang padanya.
+Pola tipikal yang sering diterapkan: menginstal `jail-monkey`, mengumpulkan objek risiko, dan melakukan percabangan logika berdasarkan data tersebut.
 
 ```ts
 import JailMonkey from "jail-monkey";
@@ -65,7 +65,7 @@ export function getDeviceRiskSignal() {
 }
 ```
 
-Di tempat lain:
+Di bagian lain kode:
 
 ```ts
 const risk = getDeviceRiskSignal();
@@ -75,9 +75,9 @@ if (risk.isJailBroken || risk.hookDetected || risk.isDebuggedMode) {
 }
 ```
 
-Di perangkat normal ini "berfungsi." Di perangkat yang bermusuhan ini hanyalah API yang dikontrol penyerang.
+Pada perangkat standar, pendekatan ini berfungsi. Namun, pada perangkat yang dikuasai penyerang, ini hanyalah antarmuka pemrograman (API) yang dikendalikan oleh penyerang.
 
-Hook Frida sederhana di Android:
+Sebuah _hook_ Frida sederhana pada Android dapat memanipulasi hasil tersebut:
 
 ```java
 Java.perform(function () {
@@ -95,60 +95,60 @@ Java.perform(function () {
 });
 ```
 
-Untuk detail lebih lanjut contoh Frida melewati semua pemeriksaan, lihat [script](https://codeshare.frida.re/@RohindhR/react-native-jail-monkey-bypass-all-checks/) ini
+Untuk demonstrasi lebih mendalam mengenai bagaimana Frida dapat melewati seluruh pemeriksaan tersebut, referensi dapat dilihat pada [skrip ini](https://codeshare.frida.re/@RohindhR/react-native-jail-monkey-bypass-all-checks/).
 
-Jalankan ini di aplikasi dan setiap panggilan ke JailMonkey berbohong demi penyerang. Aplikasi percaya perangkat bersih sementara sepenuhnya diinstrumentasi.
+Apabila skrip tersebut dijalankan pada aplikasi, setiap pemanggilan fungsi ke JailMonkey akan memberikan informasi palsu yang menguntungkan penyerang. Aplikasi akan menganggap perangkat dalam kondisi aman, padahal sedang dalam instrumentasi penuh.
 
-Apa pun yang dihitung murni di perangkat klien adalah input yang tidak dipercaya. Ini dapat berguna sebagai sinyal, tetapi tidak pernah sebagai otoritas akhir untuk tindakan bernilai tinggi.
+Segala sesuatu yang dikomputasi murni pada perangkat klien merupakan input yang tidak tepercaya (_untrusted input_). Data tersebut dapat bermanfaat sebagai sinyal awal, namun tidak boleh dijadikan otoritas final untuk tindakan yang bernilai tinggi.
 
-## Pindahkan penegakan ke backend
+## Pindahkan Penegakan Keamanan ke Backend
 
-Jika klien tidak dapat dipercaya, penegakan pindah ke backend. Pemeriksaan klien berhenti menjadi hakim dan menjadi petunjuk.
+Mengingat klien tidak dapat dipercaya, maka penegakan aturan keamanan harus dipindahkan ke backend. Pemeriksaan di sisi klien beralih fungsi dari penentu keputusan menjadi sekadar indikator.
 
-Untuk alur berisiko tinggi, backend harus menjawab tiga pertanyaan sebelum menyetujui sesuatu yang penting:
+Untuk alur proses yang berisiko tinggi, backend harus memvalidasi tiga aspek krusial sebelum menyetujui permintaan:
 
-1. Perangkat dan instance aplikasi apa yang diklaim oleh permintaan ini
-2. Apakah saluran jaringan cukup terlindungi dari intersepsi dan gangguan
-3. Apakah permintaan spesifik ini sudah digunakan sebelumnya
+1.  **Identitas Perangkat dan Aplikasi:** Dari perangkat dan instansi aplikasi mana permintaan ini diklaim berasal?
+2.  **Keamanan Saluran Komunikasi:** Apakah saluran jaringan terlindungi secara memadai dari intersepsi dan manipulasi?
+3.  **Integritas Permintaan (_Replay Protection_):** Apakah permintaan spesifik ini telah digunakan sebelumnya?
 
-Itu dipetakan ke tiga area luas:
+Hal ini memetakan pada tiga area strategis:
 
-1. Sinyal integritas perangkat dan aplikasi yang sulit dipalsukan
-2. Konfigurasi transport yang kuat
-3. Desain permintaan yang menolak replay
+1.  Sinyal integritas perangkat dan aplikasi yang sulit dipalsukan (_Device Attestation_).
+2.  Konfigurasi keamanan transport yang kuat (seperti _TLS Pinning_).
+3.  Desain protokol permintaan yang resisten terhadap serangan _replay_.
 
-Detailnya berbeda berdasarkan platform dan stack, tetapi arahnya selalu sama. Server memutuskan berdasarkan bukti yang diverifikasi server, bukan pada boolean yang dilaporkan klien.
+Detail implementasi teknis bervariasi antar platform, namun prinsip dasarnya tetap konsisten: Server mengambil keputusan berdasarkan bukti yang diverifikasi secara independen oleh server, bukan berdasarkan klaim boolean yang dikirimkan oleh klien.
 
-## Pemeriksaan kewarasan red team
+## Validasi Empiris (_Red Team Sanity Check_)
 
-Tes mandiri cepat lebih jujur daripada slide deck apa pun.
+Pengujian mandiri secara empiris jauh lebih valid dibandingkan presentasi teoretis mana pun.
 
-Ambil build produksi Anda dan:
+Lakukan pengujian pada _build_ produksi Anda dengan langkah-langkah berikut:
 
-1. Instal di perangkat atau emulator yang di-root atau di-jailbreak
-2. Lampirkan Frida dan paksa semua flag "risiko" Anda ke nilai aman
-3. Coba selesaikan login, alur uang, dan alur voucher
+1.  Instalasi pada perangkat atau emulator yang telah di-_root_ atau di-_jailbreak_.
+2.  Lampirkan Frida dan manipulasi seluruh indikator "risiko" menjadi nilai aman (_false_).
+3.  Lakukan percobaan login, transaksi finansial, atau klaim voucher.
 
-Jika semuanya masih berfungsi seperti biasa, maka backend Anda tidak menegakkan apa pun yang penting selain "klien mengatakan itu aman."
+Apabila seluruh proses tersebut masih dapat berjalan tanpa hambatan, hal ini mengindikasikan bahwa backend Anda tidak menegakkan validasi substantif selain mempercayai klaim keamanan dari klien.
 
-Selanjutnya, simulasikan pengaturan MITM dasar dengan alat proxy seperti [Burp Suite](https://portswigger.net/burp/documentation/desktop/mobile/config-android-device):
+Selanjutnya, simulasikan serangan _Man-in-the-Middle_ (MITM) dasar menggunakan alat proksi seperti [Burp Suite](https://portswigger.net/burp/documentation/desktop/mobile/config-android-device):
 
-1. Instal sertifikat root kustom di perangkat
-2. Proxy traffic dan lihat apakah Anda dapat membaca dan mengedit permintaan HTTPS dari aplikasi Anda
+1.  Instal sertifikat _root_ kustom pada perangkat.
+2.  Lakukan proksi lalu lintas data dan observasi apakah Anda dapat membaca serta memodifikasi permintaan HTTPS dari aplikasi.
 
-Jika traffic sepenuhnya terlihat dan dapat dimodifikasi, keamanan transport lemah dan intersepsi sepele.
+Apabila lalu lintas data terlihat jelas dan dapat dimodifikasi, maka keamanan transport sistem Anda lemah dan rentan terhadap intersepsi.
 
-Akhirnya:
+Terakhir:
 
-1. Tangkap satu permintaan istimewa yang berhasil
-2. Replay tanpa melalui UI normal
+1.  Tangkap satu permintaan istimewa yang berhasil (contoh: transfer dana).
+2.  Lakukan _replay_ (pengiriman ulang) permintaan tersebut tanpa melalui antarmuka pengguna (UI) aplikasi.
 
-Jika backend menerimanya lagi, Anda tidak memiliki perlindungan replay yang efektif. Siapa pun yang dapat menangkap satu permintaan valid dapat mengulanginya.
+Apabila backend menerima permintaan tersebut kembali, maka sistem Anda tidak memiliki perlindungan _replay_ yang efektif. Siapa pun yang mampu menangkap satu permintaan valid memiliki kemampuan untuk mengulangi tindakan tersebut.
 
 ## Kesimpulan
 
-Tulisan ini berpendapat untuk berhenti mempercayai klien dan berhenti membiarkannya memutuskan apa yang aman. Pemeriksaan root, pemeriksaan hook, dan library serupa dapat tetap ada, tetapi hanya sebagai sensor berisik yang memberi makan backend, bukan sebagai gerbang di sekitar uang atau hak istimewa.
+Artikel ini mengadvokasi penghentian kepercayaan implisit terhadap klien dan penyerahan keputusan keamanan kepada klien. Pemeriksaan _root_, deteksi _hook_, dan pustaka sejenis dapat tetap dipertahankan, namun hanya berfungsi sebagai sensor data (_noisy sensors_) yang mengirimkan sinyal ke backend, bukan sebagai gerbang keamanan utama untuk aset finansial atau hak istimewa.
 
-Pekerjaan sebenarnya ada di sisi server: verifikasi integritas perangkat dan aplikasi dengan attestation, lindungi transport dengan TLS pinning, dan rancang alur sensitif di sekitar perlindungan replay berbasis nonce sehingga permintaan yang ditangkap tidak dapat digunakan kembali.
+Pekerjaan keamanan yang substantif berada di sisi server: memverifikasi integritas perangkat dan aplikasi melalui _attestation_, melindungi saluran komunikasi dengan _TLS pinning_, dan merancang alur sensitif menggunakan perlindungan _replay_ berbasis _nonce_ sehingga permintaan yang tertangkap tidak dapat digunakan kembali.
 
-Tidak ada sistem yang sempurna aman, tetapi tumpukan kontrol ini membuat serangan lebih berisik, lebih kompleks, dan jauh lebih mahal daripada membalik beberapa boolean di klien yang di-hook.
+Tidak ada sistem yang memiliki keamanan absolut, namun penerapan lapisan kontrol ini menjadikan upaya serangan jauh lebih sulit, kompleks, dan memakan biaya tinggi dibandingkan sekadar memanipulasi nilai boolean pada klien yang telah diinstrumentasi.
