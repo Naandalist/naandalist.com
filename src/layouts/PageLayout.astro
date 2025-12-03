@@ -1,10 +1,12 @@
 ---
 import { cn } from "@lib/utils";
+
 import "../styles/global.css";
 import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import CodeCopyButton from "@components/CodeCopyButton.astro";
+
 import { SITE } from "@constants";
 
 type Props = {
@@ -17,22 +19,19 @@ const { title, description, showHeader = true } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <Head
-      title={title ? `${title} | ${SITE.NAME}` : SITE.NAME}
-      description={description}
-    />
+    <Head title={title || SITE.NAME} description={description} />
   </head>
   <body>
     <a
-      href="#main-content"
-      class="absolute left-0 top-0 -translate-y-full bg-neutral-900 px-4 py-2 text-neutral-100 transition-transform focus:translate-y-0 z-[100]"
+      href='#main-content'
+      class='absolute left-0 top-0 -translate-y-full bg-neutral-900 px-4 py-2 text-neutral-100 transition-transform focus:translate-y-0 z-[100]'
     >
       Skip to content
     </a>
     {showHeader && <Header />}
-    <main id="main-content" class={cn(showHeader ? "" : "py-0")}>
+    <main id='main-content' class={cn(showHeader ? "" : "py-0")}>
       <slot />
     </main>
     <Footer />
