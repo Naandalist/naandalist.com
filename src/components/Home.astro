@@ -9,7 +9,6 @@ import { useTranslations } from "@i18n/utils";
 import ArrowCard from "@components/ArrowCard.astro";
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
-import LottieAnimation from "@components/LottieAnimation.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import Socials from "@components/Socials.astro";
 
@@ -86,9 +85,8 @@ const jsonLd = {
     set:html={JSON.stringify(jsonLd)}
   />
   <Container>
-    <h2 class='animate font-semibold text-white flex items-center gap-2'>
-      {t("home.greeting")}
-      <LottieAnimation src='/hand wave.lottie' class='w-8 h-8 -translate-y-1' />
+    <h2 class='animate font-semibold text-white'>
+      {t("home.greeting")} 👋
     </h2>
     <div class='space-y-16'>
       <section>
