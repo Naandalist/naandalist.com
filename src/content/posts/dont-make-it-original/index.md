@@ -80,5 +80,3 @@ Worse, that standard often becomes an intellectual-sounding excuse to procrastin
 Just start.
 
 Once again, nothing is truly original in this world. All human creations can be traced back to previous sources genealogically.
-
-If there is an item that is truly original, then it is not human-made. For example, the Qur'an. Let anybody finding a similar object that existed before. Even Allah challenges to imitate it, and until now no one has been able to. At-Thur (52): 34.

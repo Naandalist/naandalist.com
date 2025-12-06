@@ -77,6 +77,3 @@ Masalahnya, standar itu tidak realistis. Lebih buruk lagi, standar itu sering me
 Mulai saja dulu.
 
 Sekali lagi tidak ada yang benar-benar orisinal di dunia ini. Semua hal hasil karya manusia bisa ditelusuri sumber sebelumnya secara genealogis.
-
-kalaupun ada suatu barang yang benar-benar orisinal maka itu bukan buatan manusia. Misalnya Al-Qur'an, Jangankan menemukan benda yang serupa yang sudah ada sebelumnya. Bahkan Allah mengajukan tantangan untuk menirunya, sampai saat ini tidak ada yang bisa.
-At-Thur (52): 34.
