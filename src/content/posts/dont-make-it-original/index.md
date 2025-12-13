@@ -12,7 +12,7 @@ keywords:
 ---
 
 <div align="center">
-  <img src="https://res.cloudinary.com/naandalistcloud/image/upload/fl_preserve_transparency/v1764958662/naandalist.com/watching_by_jjfwh_dl0zbed-pre_i6pwpm.jpg?_s=public-apps" alt="attacking Flow Diagram" />
+  <img src="https://res.cloudinary.com/naandalistcloud/image/upload/fl_preserve_transparency/v1764958662/naandalist.com/watching_by_jjfwh_dl0zbed-pre_i6pwpm.jpg?_s=public-apps" alt="Great Work Doesn't Always Have to Be Original" />
 </div>
 
 Nothing is truly new in this world.

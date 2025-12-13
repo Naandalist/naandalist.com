@@ -44,7 +44,7 @@ Users can monitor the latest provincial and embarkation quotas, review payment s
 - **Permissions**: minimum as needed for features; no broad storage access
 - **Data sources**: endpoints and official information releases related to Hajj; source references displayed within the app
 - **Policy & Support**:
-  - Site / Privacy Policy: https://naandalist.github.io/info-hajj-app
+  - Site / Privacy Policy: https://infohaji.naandalist.com/privacy
   - Support: support@naandalist.com
 
 ## Download
