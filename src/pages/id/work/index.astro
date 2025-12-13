@@ -31,9 +31,9 @@ const work = await Promise.all(
 <PageLayout title={t("work.title")} description={t("work.description")}>
   <Container>
     <div class='space-y-10'>
-      <div class='animate font-semibold text-white'>
+      <h1 class='animate font-semibold text-white'>
         {t("work.title")}
-      </div>
+      </h1>
       <ul class='flex flex-col space-y-4'>
         {
           work.map((entry) => (

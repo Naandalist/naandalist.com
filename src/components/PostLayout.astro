@@ -10,8 +10,8 @@ import BackToPrev from "@components/BackToPrev.astro";
 import { useTranslations } from "@i18n/utils";
 
 interface Props {
-    post: CollectionEntry<"posts">;
-    lang?: "en" | "id";
+  post: CollectionEntry<"posts">;
+  lang?: "en" | "id";
 }
 
 const { post, lang = "en" } = Astro.props;
@@ -23,30 +23,30 @@ const backLink = lang === "id" ? "/id/posts" : "/posts";
 ---
 
 <PageLayout
-    title={post.data.title}
-    description={post.data.description || post.data.subtitle}
+  title={post.data.title}
+  description={post.data.description || post.data.subtitle}
 >
-    <JsonLd schema={jsonLd} />
-    <Container>
-        <div class="animate">
-            <BackToPrev href={backLink}> {t("posts.back")} </BackToPrev>
+  <JsonLd schema={jsonLd} />
+  <Container>
+    <div class='animate'>
+      <BackToPrev href={backLink}> {t("posts.back")} </BackToPrev>
+    </div>
+    <div class='space-y-1 my-10'>
+      <div class='animate flex items-center gap-1.5'>
+        <div class='font-base text-sm'>
+          <FormattedDate date={post.data.date} />
         </div>
-        <div class="space-y-1 my-10">
-            <div class="animate flex items-center gap-1.5">
-                <div class="font-base text-sm">
-                    <FormattedDate date={post.data.date} />
-                </div>
-                &bull;
-                <div class="font-base text-sm">
-                    {readingTime(post.body)}
-                </div>
-            </div>
-            <div class="animate text-2xl font-semibold text-white">
-                {post.data.title}
-            </div>
+        &bull;
+        <div class='font-base text-sm'>
+          {readingTime(post.body)}
         </div>
-        <article class="animate">
-            <Content />
-        </article>
-    </Container>
+      </div>
+      <h1 class='animate text-2xl font-semibold text-white'>
+        {post.data.title}
+      </h1>
+    </div>
+    <article class='animate'>
+      <Content />
+    </article>
+  </Container>
 </PageLayout>

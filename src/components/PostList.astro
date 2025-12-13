@@ -35,9 +35,9 @@ const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a));
 <PageLayout title={t("posts.title")} description={t("posts.description")}>
   <Container>
     <div class='space-y-10'>
-      <div class='animate font-semibold text-white'>
+      <h1 class='animate font-semibold text-white'>
         {t("posts.title")}
-      </div>
+      </h1>
       <div class='space-y-4'>
         {
           years.map((year) => (
