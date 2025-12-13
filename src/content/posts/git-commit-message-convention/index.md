@@ -1,7 +1,7 @@
 ---
 title: "Git Commit Message Standards"
 subtitle: "Discover how proper commit messages lead to a cleaner codebase"
-description: "Practical guide to writing clear, consistent Git commit messages using the conventional commits format, with types, scopes, and concise summaries that make history easier to read and maintain."
+description: "Guide to writing clear and consistent Git commit messages using conventional commits format for better code history readability."
 date: "Jun 29 2025"
 keywords:
   - Git commit messages

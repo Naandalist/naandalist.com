@@ -1,7 +1,7 @@
 ---
 title: "Great Work Doesn't Always Have to Be Original"
 subtitle: "Exploring the fine line between copying, stealing, and creating something new."
-description: "A reflection on creativity and originality. Why nothing is truly new in this world, and how to 'steal' ideas ethically to birth authentic work."
+description: "A reflection on creativity and originality. Why nothing is truly new and how to ethically draw inspiration from existing ideas."
 date: "Dec 5 2025"
 lang: "en"
 keywords:

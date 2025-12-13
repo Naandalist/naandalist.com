@@ -1,7 +1,7 @@
 ---
 title: "Respon API Parsial untuk UX yang Lebih Baik"
 subtitle: "Utamakan Pengalaman Pengguna, Kesempurnaan Data Nomor Dua"
-description: "Pola praktis untuk mengembalikan respon API secara parsial agar pengguna bisa melihat data utama dengan cepat, sementara data yang lambat dimuat belakangan menggunakan track ID. Mengurangi waktu tunggu dan mencegah pengguna kabur."
+description: "Pola praktis mengembalikan respon API secara parsial agar pengguna melihat data utama cepat, sementara data lambat dimuat belakangan mengurangi pengguna kabur."
 date: "2025-11-16"
 lang: "id"
 keywords:

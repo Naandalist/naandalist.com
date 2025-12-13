@@ -1,7 +1,7 @@
 ---
 title: "Standar Pesan Commit Git"
 subtitle: "Bagaimana pesan commit yang terstruktur menghasilkan basis kode yang lebih bersih dan terpelihara"
-description: "Panduan komprehensif untuk menulis pesan commit Git yang jelas dan konsisten menggunakan format conventional commits, mencakup tipe, cakupan, dan deskripsi untuk meningkatkan keterbacaan riwayat kode."
+description: "Panduan menulis pesan commit Git yang jelas dan konsisten menggunakan format conventional commits untuk riwayat kode yang lebih mudah dibaca."
 date: "Jun 29 2025"
 lang: "id"
 keywords:
