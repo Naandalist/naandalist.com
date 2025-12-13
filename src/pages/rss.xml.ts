@@ -24,11 +24,17 @@ export async function GET(context: Context) {
     title: HOME.TITLE,
     description: HOME.DESCRIPTION,
     site: context.site,
-    items: items.map((item) => ({
-      title: item.data.title,
-      description: item.data.description,
-      pubDate: item.data.date,
-      link: `/${item.collection}/${item.slug}/`,
-    })),
+    items: items.map((item) => {
+      // Remove /indexid suffix from slug for Indonesian content
+      const cleanSlug = item.slug.replace(/\/indexid$/, "");
+      // Add language prefix for Indonesian content
+      const langPrefix = item.data.lang === "id" ? "/id" : "";
+      return {
+        title: item.data.title,
+        description: item.data.description,
+        pubDate: item.data.date,
+        link: `${langPrefix}/${item.collection}/${cleanSlug}/`,
+      };
+    }),
   });
 }

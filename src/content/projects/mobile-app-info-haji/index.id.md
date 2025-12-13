@@ -44,7 +44,7 @@ Pengguna dapat memantau kuota provinsi dan embarkasi terbaru, meninjau status pe
 - **Izin**: minimum sesuai kebutuhan fitur; tanpa akses penyimpanan luas
 - **Sumber data**: endpoint dan rilis informasi resmi terkait haji; rujukan sumber ditampilkan di dalam aplikasi
 - **Kebijakan & Dukungan**:
-  - Situs / Kebijakan Privasi: https://naandalist.github.io/info-hajj-app
+  - Situs / Kebijakan Privasi: https://infohaji.naandalist.com/privacy
   - Dukungan: support@naandalist.com
 
 ## Unduh
