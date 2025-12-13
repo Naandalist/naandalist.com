@@ -9,7 +9,9 @@ type Props = {
 
 const { entry, lang = "en" } = Astro.props;
 const baseUrl = lang === "id" ? "/id" : "";
-const projectUrl = `${baseUrl}/projects/${entry.slug}`;
+// Clean the slug to remove /indexid suffix that comes from index.id.md files
+const cleanSlug = entry.slug.replace(/\/indexid$/, "");
+const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
 ---
 
 <div

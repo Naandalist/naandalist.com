@@ -12,7 +12,9 @@ const displayText =
     ? (entry as CollectionEntry<"posts">).data.subtitle
     : entry.data.description;
 const baseUrl = lang === "id" ? "/id" : "";
-const entryUrl = `${baseUrl}/${entry.collection}/${entry.slug}`;
+// Clean the slug to remove /indexid suffix that comes from index.id.md files
+const cleanSlug = entry.slug.replace(/\/indexid$/, "");
+const entryUrl = `${baseUrl}/${entry.collection}/${cleanSlug}`;
 ---
 
 <a

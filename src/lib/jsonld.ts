@@ -32,6 +32,10 @@ const AUTHOR = {
  * @returns BlogPosting JSON-LD schema
  */
 export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
+  const cleanSlug = post.slug
+    .replace(/\/index\.id$/, "")
+    .replace(/\/index$/, "");
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -43,7 +47,7 @@ export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
     publisher: AUTHOR,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${SITE_URL}/posts/${post.slug}`,
+      "@id": `${SITE_URL}/posts/${cleanSlug}`,
     },
     keywords: post.data.keywords?.join(", ") || post.data.title,
     articleBody: post.body,
@@ -56,6 +60,10 @@ export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
  * @returns CreativeWork JSON-LD schema
  */
 export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
+  const cleanSlug = project.slug
+    .replace(/\/index\.id$/, "")
+    .replace(/\/index$/, "");
+
   return {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -63,7 +71,7 @@ export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
     description: project.data.description,
     datePublished: project.data.date.toISOString(),
     author: AUTHOR,
-    url: `${SITE_URL}/projects/${project.slug}`,
+    url: `${SITE_URL}/projects/${cleanSlug}`,
     keywords: project.data.title,
   };
 }
