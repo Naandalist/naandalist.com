@@ -34,7 +34,8 @@
     "preview:network": "astro preview --host",
     "astro": "astro",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "verify:routes": "node scripts/verify-routes.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.10",

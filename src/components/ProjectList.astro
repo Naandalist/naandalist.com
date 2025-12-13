@@ -30,7 +30,7 @@ const projects = (await getCollection("projects"))
         {
           projects.map((project) => (
             <li>
-              <ProjectCard entry={project} />
+              <ProjectCard entry={project} lang={lang} />
             </li>
           ))
         }

@@ -5,7 +5,7 @@ import PostLayout from "@components/PostLayout.astro";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("posts"))
-    .filter((post) => !post.data.draft)
+    .filter((post) => !post.data.draft && post.data.lang === "en")
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return posts.map((post) => ({
     params: { slug: post.slug },

@@ -22,10 +22,16 @@ export async function getStaticPaths() {
   const projects = (await getCollection("projects"))
     .filter((post) => !post.data.draft && post.data.lang === "id")
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: project,
-  }));
+  return projects.map((project) => {
+    // Remove /index.id or /indexid suffix from the slug
+    const slug = project.slug
+      .replace(/\/index\.id$|\/indexid$/, "")
+      .replace(/\/indexid$/, "");
+    return {
+      params: { slug },
+      props: project,
+    };
+  });
 }
 type Props = CollectionEntry<"projects">;
 

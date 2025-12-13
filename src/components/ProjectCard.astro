@@ -4,32 +4,35 @@ import type { CollectionEntry } from "astro:content";
 
 type Props = {
   entry: CollectionEntry<"projects">;
+  lang?: "en" | "id";
 };
 
-const { entry } = Astro.props;
+const { entry, lang = "en" } = Astro.props;
+const baseUrl = lang === "id" ? "/id" : "";
+const projectUrl = `${baseUrl}/projects/${entry.slug}`;
 ---
 
 <div
-  class="group relative flex flex-col sm:flex-row gap-4 p-4 rounded-lg border border-white/20 transition-all duration-300 hover:bg-white/5 hover:border-white/30"
+  class='group relative flex flex-col sm:flex-row gap-4 p-4 rounded-lg border border-white/20 transition-all duration-300 hover:bg-white/5 hover:border-white/30'
 >
   <!-- Project Image/Preview -->
   <a
-    href={`/projects/${entry.slug}`}
-    class="relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-gradient-to-r from-cyan-500 to-blue-500"
+    href={projectUrl}
+    class='relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-gradient-to-r from-cyan-500 to-blue-500'
   >
     {
       entry.data.imageUrl ? (
         <Image
           src={entry.data.imageUrl}
           alt={`${entry.data.title} preview`}
-          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
         />
       ) : (
-        <div class="flex h-full w-full items-center justify-center">
+        <div class='flex h-full w-full items-center justify-center'>
           <img
-            src="/icons/image.svg"
-            alt="Project placeholder"
-            class="h-12 w-12 opacity-20"
+            src='/icons/image.svg'
+            alt='Project placeholder'
+            class='h-12 w-12 opacity-20'
           />
         </div>
       )
@@ -37,27 +40,27 @@ const { entry } = Astro.props;
   </a>
 
   <!-- Content -->
-  <div class="flex flex-1 flex-col gap-2">
+  <div class='flex flex-1 flex-col gap-2'>
     <!-- Title and Description -->
-    <a href={`/projects/${entry.slug}`} class="block">
+    <a href={projectUrl} class='block'>
       <h3
-        class="font-semibold text-lg text-white group-hover:underline decoration-2 underline-offset-2"
+        class='font-semibold text-lg text-white group-hover:underline decoration-2 underline-offset-2'
       >
         {entry.data.title}
       </h3>
-      <p class="text-sm text-white/70 mt-1 line-clamp-2">
+      <p class='text-sm text-white/70 mt-1 line-clamp-2'>
         {entry.data.description}
       </p>
     </a>
 
     <!-- Tech Stack and External Link -->
-    <div class="flex items-end justify-between gap-2 mt-auto">
+    <div class='flex items-end justify-between gap-2 mt-auto'>
       <!-- Tech Stack -->
       {
         entry.data.techStack && entry.data.techStack.length > 0 && (
-          <div class="flex flex-wrap items-center gap-1.5">
+          <div class='flex flex-wrap items-center gap-1.5'>
             {entry.data.techStack.map((tech: string) => (
-              <span class="text-xs px-2 py-0.5 rounded-md bg-white/10 text-white/70">
+              <span class='text-xs px-2 py-0.5 rounded-md bg-white/10 text-white/70'>
                 {tech}
               </span>
             ))}
@@ -70,15 +73,15 @@ const { entry } = Astro.props;
         (entry.data.liveURL || entry.data.repoURL) && (
           <a
             href={entry.data.liveURL || entry.data.repoURL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="shrink-0 p-2 rounded-md hover:opacity-70 transition-opacity duration-200 ml-auto translate-y-0.5"
-            aria-label="Open project link"
+            target='_blank'
+            rel='noopener noreferrer'
+            class='shrink-0 p-2 rounded-md hover:opacity-70 transition-opacity duration-200 ml-auto translate-y-0.5'
+            aria-label='Open project link'
           >
             <img
-              src="/icons/top-right.svg"
-              alt="External link"
-              class="w-4 h-4"
+              src='/icons/top-right.svg'
+              alt='External link'
+              class='w-4 h-4'
             />
           </a>
         )
