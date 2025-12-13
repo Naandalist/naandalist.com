@@ -12,13 +12,13 @@ export const SITE: Site = {
 export const HOME: Metadata = {
   TITLE: "Naandalist – Frontend Engineer",
   DESCRIPTION:
-    "Listiananda Apriliawan is a frontend engineer in Indonesia building Android and iOS apps with React Native and TypeScript.",
+    "Frontend Engineer from Indonesia building Android and iOS applications with React Native. Explore projects, technical writings, and professional experience.",
 };
 
 export const POSTS: Metadata = {
   TITLE: "Posts",
   DESCRIPTION:
-    "Articles written by Naandalist on React Native, mobile, and related topics.",
+    "Technical articles and insights on React Native, mobile app development, best practices, security, and modern development patterns.",
 };
 
 export const WORK: Metadata = {
@@ -30,7 +30,7 @@ export const WORK: Metadata = {
 export const PROJECTS: Metadata = {
   TITLE: "Projects",
   DESCRIPTION:
-    "Selected projects by Naandalist, with links to code and live demos.",
+    "Portfolio of web and mobile projects built with React Native, Laravel, WordPress, and modern technologies. Includes source code and live demonstrations.",
 };
 
 export const SOCIALS: Socials = [
