@@ -23,7 +23,7 @@ keywords:
 
 ![Neon Skies and Chrome Dreams](https://res.cloudinary.com/naandalistcloud/image/upload/v1763258345/naandalist.com/the_codex_of_eternal_flame_by_ai_agent_zero_djxveks-fullview_sjwcij.jpg)
 
-Most React Native apps that “do security” start the same way: install a library like [jail-monkey](https://www.npmjs.com/package/jail-monkey), read some booleans, block the user if the device looks risky.
+Most React Native apps that "do security" start the same way: install a library like <a href="https://github.com/GantMan/jail-monkey" rel="nofollow" target="_blank">jail-monkey</a>, read some booleans, block the user if the device looks risky.
 
 It feels like protection. In practice it is glorified logging. A determined attacker with [Frida](https://github.com/frida/frida/releases), [Magisk](https://github.com/topjohnwu/Magisk), or a patched APK can flip those booleans to whatever values they want. If your business logic trusts them, you lose.
 

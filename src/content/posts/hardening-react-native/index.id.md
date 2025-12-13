@@ -24,7 +24,7 @@ keywords:
 
 ![Neon Skies and Chrome Dreams](https://res.cloudinary.com/naandalistcloud/image/upload/v1763258345/naandalist.com/the_codex_of_eternal_flame_by_ai_agent_zero_djxveks-fullview_sjwcij.jpg)
 
-Mayoritas aplikasi React Native yang berupaya menerapkan mekanisme keamanan sering kali memulai dengan pendekatan seragam: mengintegrasikan pustaka seperti [jail-monkey](https://www.npmjs.com/package/jail-monkey), membaca status boolean, dan memblokir akses pengguna apabila perangkat terindikasi memiliki risiko.
+Mayoritas aplikasi React Native yang berupaya menerapkan mekanisme keamanan sering kali memulai dengan pendekatan seragam: mengintegrasikan pustaka seperti <a href="https://github.com/GantMan/jail-monkey" rel="nofollow" target="_blank">jail-monkey</a>, membaca status boolean, dan memblokir akses pengguna apabila perangkat terindikasi memiliki risiko.
 
 Meskipun tampak sebagai bentuk perlindungan, pada praktiknya, mekanisme ini tidak lebih dari sekadar pencatatan log (_glorified logging_). Penyerang yang memiliki determinasi tinggi dapat memanfaatkan alat seperti [Frida](https://github.com/frida/frida/releases), [Magisk](https://github.com/topjohnwu/Magisk), atau memodifikasi paket aplikasi (APK) untuk memanipulasi nilai-nilai boolean tersebut sesuai kehendak mereka. Apabila logika bisnis aplikasi Anda bergantung sepenuhnya pada data sisi klien ini, maka integritas keamanan sistem Anda telah terkompromi.
 
