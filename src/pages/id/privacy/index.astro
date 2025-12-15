@@ -1,0 +1,171 @@
+---
+import { SITE, PRIVACY_ID } from "@constants";
+
+import BackToPrev from "@components/BackToPrev.astro";
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+---
+
+<PageLayout title={PRIVACY_ID.TITLE} description={PRIVACY_ID.DESCRIPTION}>
+  <Container>
+    <div class='space-y-10'>
+      <BackToPrev href='/id'>Kembali ke beranda</BackToPrev>
+      <article class='prose prose-invert prose-neutral max-w-none'>
+        <h1 class='animate font-semibold text-white'>Kebijakan Privasi</h1>
+        <p class='animate text-sm opacity-75'>Berlaku sejak 15 Desember 2025</p>
+
+        <section class='animate space-y-4'>
+          <p>
+            <strong>{SITE.NAME}</strong> berkomitmen untuk melindungi privasi Anda
+            secara online. Kami percaya bahwa perlindungan privasi pribadi yang lebih
+            baik di Web tidak hanya akan melindungi pengguna kami, tetapi juga meningkatkan
+            kepercayaan pengguna dan pada akhirnya partisipasi mereka dalam aktivitas
+            online. Tujuan dari kebijakan ini adalah untuk memberi tahu Anda tentang
+            jenis informasi yang kami kumpulkan ketika Anda mengunjungi situs kami,
+            bagaimana kami dapat menggunakan informasi tersebut, apakah kami mengungkapkannya
+            kepada siapa pun, dan pilihan yang Anda miliki terkait penggunaan informasi
+            kami.
+          </p>
+          <p>
+            Dengan menggunakan situs kami di{" "}
+            <Link href={SITE.URL} external>{SITE.URL}</Link>, Anda menyetujui
+            Kebijakan Privasi ini dan{" "}
+            <Link href='/id/terms'>Syarat dan Ketentuan</Link> kami.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Bagaimana Kami Mengumpulkan Informasi</h2>
+          <p>
+            Bagian ini memberikan informasi tentang data yang kami kumpulkan dan
+            teknologi yang kami gunakan.
+          </p>
+
+          <h3 class='text-white'>1. Cookies</h3>
+          <p>
+            Kami mungkin menggunakan "cookies" untuk meningkatkan pengalaman
+            Anda di situs kami. Cookies adalah file teks kecil yang disimpan di
+            perangkat Anda yang membantu kami memahami bagaimana pengunjung
+            berinteraksi dengan situs web kami. Cookies memungkinkan kami untuk
+            memantau metrik agregat seperti jumlah total pengunjung dan halaman
+            yang dilihat, membantu kami mengoptimalkan situs dan memberikan
+            pengalaman terbaik.
+          </p>
+          <p>
+            Browser web Anda mungkin diatur untuk menerima cookies secara
+            default, tetapi Anda dapat memilih untuk memblokir cookies di
+            pengaturan browser Anda. Perlu diingat bahwa memblokir cookies dapat
+            menyebabkan beberapa fitur tidak berfungsi dengan baik.
+          </p>
+
+          <h3 class='text-white'>2. Informasi Perangkat</h3>
+          <p>
+            Kami mungkin mengumpulkan informasi tentang browser Internet,
+            komputer, tablet, ponsel, atau perangkat lain yang digunakan untuk
+            mengakses situs kami. Ini membantu memastikan bahwa situs web kami
+            dioptimalkan untuk berbagai perangkat dan memberikan pengalaman
+            pengguna yang konsisten.
+          </p>
+
+          <h3 class='text-white'>3. Analitik</h3>
+          <p>
+            Kami menggunakan layanan analitik pihak ketiga (seperti Umami
+            Analytics) untuk memahami pola penggunaan dan browsing di situs
+            kami. Informasi yang dikumpulkan mungkin termasuk istilah pencarian,
+            klik, jenis browser, dan halaman yang dilihat. Kami menggunakan
+            informasi ini untuk meningkatkan situs kami dan menyajikan konten
+            yang relevan. Analitik kami dikonfigurasi untuk menghormati privasi
+            pengguna dan tidak mengumpulkan informasi yang dapat
+            mengidentifikasi pribadi.
+          </p>
+
+          <h3 class='text-white'>4. File Log</h3>
+          <p>
+            Kami mungkin secara otomatis mencatat informasi anonim tertentu
+            tentang pengunjung, termasuk namun tidak terbatas pada: situs web
+            perujuk, alamat IP (dianonimkan jika memungkinkan), jenis browser,
+            dan halaman yang dilihat. Data ini membantu kami memahami bagaimana
+            pengunjung menemukan dan menggunakan situs kami.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Informasi yang Tidak Kami Kumpulkan</h2>
+          <p>Ini adalah situs web portofolio dan blog pribadi. Kami tidak:</p>
+          <ul>
+            <li>Memerlukan pendaftaran atau akun pengguna</li>
+            <li>
+              Mengumpulkan informasi pribadi seperti nama, alamat email, atau
+              nomor telepon (kecuali Anda secara sukarela menghubungi kami)
+            </li>
+            <li>Memproses pembayaran atau mengumpulkan informasi keuangan</li>
+            <li>
+              Menjual atau membagikan data Anda kepada pihak ketiga untuk tujuan
+              pemasaran
+            </li>
+          </ul>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Layanan Pihak Ketiga</h2>
+          <p>
+            Situs web kami mungkin berisi tautan ke situs web pihak ketiga atau
+            menyematkan konten dari layanan eksternal (seperti GitHub, YouTube,
+            atau platform media sosial). Pihak ketiga ini mungkin memiliki
+            kebijakan privasi dan pengumpulan data mereka sendiri. Kami tidak
+            bertanggung jawab atas praktik privasi situs eksternal tersebut.
+          </p>
+          <p>
+            Ketika Anda mengklik tautan eksternal atau berinteraksi dengan
+            konten yang disematkan, Anda harus meninjau kebijakan privasi
+            layanan pihak ketiga tersebut.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Keamanan Data</h2>
+          <p>
+            Kami mengambil langkah-langkah yang wajar untuk melindungi informasi
+            apa pun yang dikumpulkan melalui situs kami. Namun, tidak ada metode
+            transmisi melalui Internet atau penyimpanan elektronik yang 100%
+            aman. Meskipun kami berusaha untuk melindungi informasi Anda, kami
+            tidak dapat menjamin keamanan mutlak.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Privasi Anak-Anak</h2>
+          <p>
+            Situs web kami tidak ditujukan untuk anak-anak di bawah usia 13
+            tahun. Kami tidak dengan sengaja mengumpulkan informasi pribadi dari
+            anak-anak. Jika Anda yakin kami secara tidak sengaja telah
+            mengumpulkan informasi dari anak-anak, silakan hubungi kami agar
+            kami dapat segera menghapusnya.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Perubahan Kebijakan Privasi</h2>
+          <p>
+            Kami berhak untuk memperbarui atau mengubah Kebijakan Privasi ini
+            kapan saja. Setiap perubahan akan diposting di halaman ini dengan
+            tanggal efektif yang diperbarui. Kami mendorong Anda untuk meninjau
+            kebijakan ini secara berkala untuk tetap mendapat informasi tentang
+            bagaimana kami melindungi informasi Anda.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Hubungi Kami</h2>
+          <p>
+            Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini atau
+            praktik data kami, silakan hubungi kami di:{" "}
+            <Link href={`mailto:${SITE.EMAIL}`} external>{SITE.EMAIL}</Link>
+          </p>
+        </section>
+      </article>
+    </div>
+  </Container>
+</PageLayout>

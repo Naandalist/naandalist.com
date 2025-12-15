@@ -56,6 +56,9 @@ export const ui = {
     "work.title": "Work",
     "work.description":
       "Professional career showcasing roles as Frontend Engineer, Full-stack Developer, and technical contributions across startups and enterprises.",
+    "footer.analytic": "Analytic",
+    "footer.terms": "Terms of Use",
+    "footer.privacy": "Privacy Policy",
   },
   id: {
     "home.title": "Beranda",
@@ -108,5 +111,8 @@ export const ui = {
     "work.title": "Pekerjaan",
     "work.description":
       "Karir profesional menampilkan peran sebagai Frontend Engineer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",
+    "footer.analytic": "Analitik",
+    "footer.terms": "Syarat Penggunaan",
+    "footer.privacy": "Kebijakan Privasi",
   },
 } as const;

@@ -1,0 +1,164 @@
+---
+import { SITE, PRIVACY } from "@constants";
+
+import BackToPrev from "@components/BackToPrev.astro";
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+---
+
+<PageLayout title={PRIVACY.TITLE} description={PRIVACY.DESCRIPTION}>
+  <Container>
+    <div class='space-y-10'>
+      <BackToPrev href='/'>Back to home</BackToPrev>
+      <article class='prose prose-invert prose-neutral max-w-none'>
+        <h1 class='animate font-semibold text-white'>Privacy Policy</h1>
+        <p class='animate text-sm opacity-75'>
+          Effective as of December 15, 2025
+        </p>
+
+        <section class='animate space-y-4'>
+          <p>
+            <strong>{SITE.NAME}</strong> is committed to protecting your privacy
+            online. We believe that greater protection of personal privacy on the
+            Web will not only protect our users, but also increase user confidence
+            and ultimately their participation in online activities. The purpose
+            of this policy is to inform you about the types of information we gather
+            when you visit our site, how we may use that information, whether we
+            disclose it to anyone, and the choices you have regarding our use of
+            the information.
+          </p>
+          <p>
+            By using our site at{" "}
+            <Link href={SITE.URL} external>{SITE.URL}</Link>, you consent to
+            this Privacy Policy and our{" "}
+            <Link href='/terms'>Terms of Use</Link>.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>How We Gather Information</h2>
+          <p>
+            This section provides information about the data we collect and the
+            technologies we utilize.
+          </p>
+
+          <h3 class='text-white'>1. Cookies</h3>
+          <p>
+            We may use "cookies" to improve your experience on our site. Cookies
+            are small text files stored on your device that help us understand
+            how visitors interact with our website. They allow us to monitor
+            aggregate metrics such as total number of visitors and pages viewed,
+            helping us optimize our site and deliver the best possible
+            experience.
+          </p>
+          <p>
+            Your web browser is likely set to accept cookies by default, but you
+            may choose to block cookies in your browser's settings. Note that
+            blocking cookies may result in some features not functioning
+            properly.
+          </p>
+
+          <h3 class='text-white'>2. Device Information</h3>
+          <p>
+            We may collect information regarding the Internet browser, computer,
+            tablet, mobile phone, or other device used to access our site. This
+            helps ensure that our website is optimized for various devices and
+            provides a consistent user experience.
+          </p>
+
+          <h3 class='text-white'>3. Analytics</h3>
+          <p>
+            We use third-party analytics services (such as Umami Analytics) to
+            understand usage and browsing patterns on our site. The collected
+            information may include search terms, click-throughs, browser type,
+            and pages viewed. We utilize this information to improve our site
+            and deliver relevant content. Our analytics are configured to
+            respect user privacy and do not collect personally identifiable
+            information.
+          </p>
+
+          <h3 class='text-white'>4. Log Files</h3>
+          <p>
+            We may automatically log certain anonymous information about
+            visitors, including but not limited to: the referring website, IP
+            address (anonymized where possible), browser type, and pages viewed.
+            This data helps us understand how visitors find and use our site.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Information We Do Not Collect</h2>
+          <p>This is a personal portfolio and blog website. We do not:</p>
+          <ul>
+            <li>Require user registration or accounts</li>
+            <li>
+              Collect personal information such as names, email addresses, or
+              phone numbers (unless you voluntarily contact us)
+            </li>
+            <li>Process payments or collect financial information</li>
+            <li>
+              Sell or share your data with third parties for marketing purposes
+            </li>
+          </ul>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Third-Party Services</h2>
+          <p>
+            Our website may contain links to third-party websites or embed
+            content from external services (such as GitHub, YouTube, or social
+            media platforms). These third parties may have their own privacy and
+            data collection policies. We are not responsible for the privacy
+            practices of these external sites.
+          </p>
+          <p>
+            When you click on external links or interact with embedded content,
+            you should review the privacy policies of those third-party
+            services.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Data Security</h2>
+          <p>
+            We take reasonable measures to protect any information collected
+            through our site. However, no method of transmission over the
+            Internet or electronic storage is 100% secure. While we strive to
+            protect your information, we cannot guarantee absolute security.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Children's Privacy</h2>
+          <p>
+            Our website is not directed at children under the age of 13. We do
+            not knowingly collect personal information from children. If you
+            believe we have inadvertently collected information from a child,
+            please contact us so we can promptly remove it.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Changes to This Privacy Policy</h2>
+          <p>
+            We reserve the right to update or modify this Privacy Policy at any
+            time. Any changes will be posted on this page with an updated
+            effective date. We encourage you to review this policy periodically
+            to stay informed about how we protect your information.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>Contact Us</h2>
+          <p>
+            If you have any questions about this Privacy Policy or our data
+            practices, please feel free to contact us at:{" "}
+            <Link href={`mailto:${SITE.EMAIL}`} external>{SITE.EMAIL}</Link>
+          </p>
+        </section>
+      </article>
+    </div>
+  </Container>
+</PageLayout>

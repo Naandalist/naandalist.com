@@ -1,0 +1,141 @@
+---
+import { SITE, TERMS } from "@constants";
+
+import BackToPrev from "@components/BackToPrev.astro";
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+---
+
+<PageLayout title={TERMS.TITLE} description={TERMS.DESCRIPTION}>
+  <Container>
+    <div class='space-y-10'>
+      <BackToPrev href='/'>Back to home</BackToPrev>
+      <article class='prose prose-invert prose-neutral max-w-none'>
+        <h1 class='animate font-semibold text-white'>Terms of Use</h1>
+        <p class='animate text-sm opacity-75'>
+          Effective as of December 15, 2025
+        </p>
+
+        <section class='animate space-y-4'>
+          <p>
+            Welcome to <strong>{SITE.NAME}</strong> ("we", "us", or "our"). By accessing
+            and using this website at{" "}
+            <Link href={SITE.URL} external>{SITE.URL}</Link>, you agree to be
+            bound by these Terms of Use. Please read them carefully before using
+            this site.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>1. Acceptance of Terms</h2>
+          <p>
+            By accessing or using this website, you acknowledge that you have
+            read, understood, and agree to be bound by these Terms of Use. If
+            you do not agree with any part of these terms, please do not use
+            this website.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>2. Use of Content</h2>
+          <p>
+            All content on this website, including but not limited to articles,
+            code snippets, images, and project descriptions, is provided for
+            informational and educational purposes only. Unless otherwise
+            stated:
+          </p>
+          <ul>
+            <li>
+              You may read, share, and reference the content for personal,
+              non-commercial purposes.
+            </li>
+            <li>
+              You must provide proper attribution when referencing or quoting
+              content from this site.
+            </li>
+            <li>
+              You may not republish, sell, or redistribute content without prior
+              written permission.
+            </li>
+          </ul>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>3. Intellectual Property</h2>
+          <p>
+            All original content, design elements, and code published on this
+            website are the intellectual property of {SITE.NAME} unless otherwise
+            noted. Open-source projects may be subject to their own licenses as specified
+            in their respective repositories.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>4. Third-Party Links</h2>
+          <p>
+            This website may contain links to third-party websites or services.
+            We are not responsible for the content, privacy policies, or
+            practices of any third-party sites. Accessing these links is at your
+            own risk.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>5. Disclaimer</h2>
+          <p>
+            The information provided on this website is offered "as is" without
+            any warranties, expressed or implied. We do not guarantee the
+            accuracy, completeness, or usefulness of any information. Any
+            reliance you place on such information is strictly at your own risk.
+          </p>
+          <p>
+            Code examples and technical guides are provided for educational
+            purposes and may require modifications for your specific use case.
+            We are not responsible for any damages or issues arising from the
+            use of code or advice found on this site.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>6. Limitation of Liability</h2>
+          <p>
+            In no event shall {SITE.NAME}, its owner, or contributors be liable
+            for any direct, indirect, incidental, special, or consequential
+            damages arising out of or in connection with your use of this
+            website or reliance on any information provided herein.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>7. Privacy</h2>
+          <p>
+            We respect your privacy. This website may use analytics tools to
+            understand visitor behavior and improve user experience. No personal
+            data is sold or shared with third parties for marketing purposes.
+            For more details, please review our Privacy Policy.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>8. Changes to Terms</h2>
+          <p>
+            We reserve the right to modify these Terms of Use at any time. Any
+            changes will be effective immediately upon posting on this page. We
+            encourage you to review these terms periodically for any updates.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>9. Contact</h2>
+          <p>
+            If you have any questions or concerns about these Terms of Use, you
+            may contact us at:{" "}
+            <Link href={`mailto:${SITE.EMAIL}`} external>{SITE.EMAIL}</Link>
+          </p>
+        </section>
+      </article>
+    </div>
+  </Container>
+</PageLayout>

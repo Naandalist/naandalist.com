@@ -33,6 +33,30 @@ export const PROJECTS: Metadata = {
     "Portfolio of web and mobile projects built with React Native, Laravel, WordPress, and modern technologies. Includes source code and live demonstrations.",
 };
 
+export const TERMS: Metadata = {
+  TITLE: "Terms of Use",
+  DESCRIPTION:
+    "Terms of use and conditions for using Naandalist website. Read our policies regarding content usage, intellectual property, and disclaimers.",
+};
+
+export const TERMS_ID: Metadata = {
+  TITLE: "Syarat dan Ketentuan",
+  DESCRIPTION:
+    "Syarat dan ketentuan penggunaan situs web Naandalist. Baca kebijakan kami mengenai penggunaan konten, hak kekayaan intelektual, dan penafian.",
+};
+
+export const PRIVACY: Metadata = {
+  TITLE: "Privacy Policy",
+  DESCRIPTION:
+    "Privacy policy for Naandalist website. Learn about how we collect, use, and protect your information when you visit our site.",
+};
+
+export const PRIVACY_ID: Metadata = {
+  TITLE: "Kebijakan Privasi",
+  DESCRIPTION:
+    "Kebijakan privasi situs web Naandalist. Pelajari bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda saat mengunjungi situs kami.",
+};
+
 export const SOCIALS: Socials = [
   {
     NAME: "linkedin",

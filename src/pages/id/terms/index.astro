@@ -1,0 +1,143 @@
+---
+import { SITE, TERMS_ID } from "@constants";
+
+import BackToPrev from "@components/BackToPrev.astro";
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+---
+
+<PageLayout title={TERMS_ID.TITLE} description={TERMS_ID.DESCRIPTION}>
+  <Container>
+    <div class='space-y-10'>
+      <BackToPrev href='/id'>Kembali ke beranda</BackToPrev>
+      <article class='prose prose-invert prose-neutral max-w-none'>
+        <h1 class='animate font-semibold text-white'>Syarat dan Ketentuan</h1>
+        <p class='animate text-sm opacity-75'>Berlaku sejak 15 Desember 2025</p>
+
+        <section class='animate space-y-4'>
+          <p>
+            Selamat datang di <strong>{SITE.NAME}</strong> ("kami" atau "kita").
+            Dengan mengakses dan menggunakan situs web ini di{" "}
+            <Link href={SITE.URL} external>{SITE.URL}</Link>, Anda setuju untuk
+            terikat oleh Syarat dan Ketentuan ini. Harap baca dengan seksama
+            sebelum menggunakan situs ini.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>1. Penerimaan Syarat</h2>
+          <p>
+            Dengan mengakses atau menggunakan situs web ini, Anda mengakui bahwa
+            Anda telah membaca, memahami, dan setuju untuk terikat oleh Syarat
+            dan Ketentuan ini. Jika Anda tidak setuju dengan bagian mana pun
+            dari syarat ini, harap jangan gunakan situs web ini.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>2. Penggunaan Konten</h2>
+          <p>
+            Semua konten di situs web ini, termasuk namun tidak terbatas pada
+            artikel, cuplikan kode, gambar, dan deskripsi proyek, disediakan
+            untuk tujuan informasi dan edukasi saja. Kecuali dinyatakan lain:
+          </p>
+          <ul>
+            <li>
+              Anda dapat membaca, membagikan, dan mereferensikan konten untuk
+              keperluan pribadi dan non-komersial.
+            </li>
+            <li>
+              Anda harus memberikan atribusi yang tepat saat mereferensikan atau
+              mengutip konten dari situs ini.
+            </li>
+            <li>
+              Anda tidak boleh menerbitkan ulang, menjual, atau mendistribusikan
+              kembali konten tanpa izin tertulis sebelumnya.
+            </li>
+          </ul>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>3. Hak Kekayaan Intelektual</h2>
+          <p>
+            Semua konten asli, elemen desain, dan kode yang dipublikasikan di
+            situs web ini adalah milik intelektual {SITE.NAME} kecuali dinyatakan
+            lain. Proyek open-source mungkin tunduk pada lisensi masing-masing sebagaimana
+            ditentukan dalam repositori terkait.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>4. Tautan Pihak Ketiga</h2>
+          <p>
+            Situs web ini mungkin berisi tautan ke situs web atau layanan pihak
+            ketiga. Kami tidak bertanggung jawab atas konten, kebijakan privasi,
+            atau praktik situs pihak ketiga mana pun. Mengakses tautan ini
+            adalah risiko Anda sendiri.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>5. Penafian</h2>
+          <p>
+            Informasi yang disediakan di situs web ini ditawarkan "apa adanya"
+            tanpa jaminan apa pun, baik tersurat maupun tersirat. Kami tidak
+            menjamin keakuratan, kelengkapan, atau kegunaan informasi apa pun.
+            Setiap kepercayaan yang Anda tempatkan pada informasi tersebut
+            sepenuhnya atas risiko Anda sendiri.
+          </p>
+          <p>
+            Contoh kode dan panduan teknis disediakan untuk tujuan edukasi dan
+            mungkin memerlukan modifikasi untuk kasus penggunaan spesifik Anda.
+            Kami tidak bertanggung jawab atas kerusakan atau masalah apa pun
+            yang timbul dari penggunaan kode atau saran yang ditemukan di situs
+            ini.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>6. Batasan Tanggung Jawab</h2>
+          <p>
+            Dalam keadaan apa pun {SITE.NAME}, pemilik, atau kontributornya
+            tidak akan bertanggung jawab atas kerusakan langsung, tidak
+            langsung, insidental, khusus, atau konsekuensial yang timbul dari
+            atau sehubungan dengan penggunaan Anda atas situs web ini atau
+            kepercayaan pada informasi yang disediakan di sini.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>7. Privasi</h2>
+          <p>
+            Kami menghormati privasi Anda. Situs web ini mungkin menggunakan
+            alat analitik untuk memahami perilaku pengunjung dan meningkatkan
+            pengalaman pengguna. Tidak ada data pribadi yang dijual atau
+            dibagikan kepada pihak ketiga untuk tujuan pemasaran. Untuk detail
+            lebih lanjut, silakan tinjau Kebijakan Privasi kami.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>8. Perubahan Syarat</h2>
+          <p>
+            Kami berhak untuk mengubah Syarat dan Ketentuan ini kapan saja.
+            Setiap perubahan akan berlaku segera setelah diposting di halaman
+            ini. Kami mendorong Anda untuk meninjau syarat ini secara berkala
+            untuk mengetahui pembaruan.
+          </p>
+        </section>
+
+        <section class='animate space-y-4'>
+          <h2 class='text-white'>9. Kontak</h2>
+          <p>
+            Jika Anda memiliki pertanyaan atau kekhawatiran tentang Syarat dan
+            Ketentuan ini, Anda dapat menghubungi kami di:{" "}
+            <Link href={`mailto:${SITE.EMAIL}`} external>{SITE.EMAIL}</Link>
+          </p>
+        </section>
+      </article>
+    </div>
+  </Container>
+</PageLayout>
