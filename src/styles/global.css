@@ -70,3 +70,8 @@ html.scrolled #back-to-top,
 html #back-to-top:focus-visible {
   @apply opacity-100 pointer-events-auto;
 }
+
+/* Hide ul lists in work section on home page */
+.work-summary-home ul {
+  @apply hidden;
+}
