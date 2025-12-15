@@ -30,8 +30,8 @@ import PageLayout from "@layouts/PageLayout.astro";
           </p>
           <p>
             Dengan menggunakan situs kami di{" "}
-            <Link href={SITE.URL} external>{SITE.URL}</Link>, Anda menyetujui
-            Kebijakan Privasi ini dan{" "}
+            <Link href={SITE.URL ?? "#"} external>{SITE.URL}</Link>, Anda
+            menyetujui Kebijakan Privasi ini dan{" "}
             <Link href='/id/terms'>Syarat dan Ketentuan</Link> kami.
           </p>
         </section>

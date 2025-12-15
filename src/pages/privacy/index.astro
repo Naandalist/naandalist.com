@@ -31,8 +31,8 @@ import PageLayout from "@layouts/PageLayout.astro";
           </p>
           <p>
             By using our site at{" "}
-            <Link href={SITE.URL} external>{SITE.URL}</Link>, you consent to
-            this Privacy Policy and our{" "}
+            <Link href={SITE.URL ?? "#"} external>{SITE.URL}</Link>, you consent
+            to this Privacy Policy and our{" "}
             <Link href='/terms'>Terms of Use</Link>.
           </p>
         </section>

@@ -20,9 +20,9 @@ import PageLayout from "@layouts/PageLayout.astro";
           <p>
             Selamat datang di <strong>{SITE.NAME}</strong> ("kami" atau "kita").
             Dengan mengakses dan menggunakan situs web ini di{" "}
-            <Link href={SITE.URL} external>{SITE.URL}</Link>, Anda setuju untuk
-            terikat oleh Syarat dan Ketentuan ini. Harap baca dengan seksama
-            sebelum menggunakan situs ini.
+            <Link href={SITE.URL ?? "#"} external>{SITE.URL}</Link>, Anda setuju
+            untuk terikat oleh Syarat dan Ketentuan ini. Harap baca dengan
+            seksama sebelum menggunakan situs ini.
           </p>
         </section>
 

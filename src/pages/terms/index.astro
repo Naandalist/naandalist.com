@@ -22,9 +22,9 @@ import PageLayout from "@layouts/PageLayout.astro";
           <p>
             Welcome to <strong>{SITE.NAME}</strong> ("we", "us", or "our"). By accessing
             and using this website at{" "}
-            <Link href={SITE.URL} external>{SITE.URL}</Link>, you agree to be
-            bound by these Terms of Use. Please read them carefully before using
-            this site.
+            <Link href={SITE.URL ?? "#"} external>{SITE.URL}</Link>, you agree
+            to be bound by these Terms of Use. Please read them carefully before
+            using this site.
           </p>
         </section>
 
