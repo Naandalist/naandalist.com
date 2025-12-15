@@ -10,19 +10,19 @@ export const ui = {
     "home.title": "Home",
     "home.description":
       "Frontend Engineer specializing in JavaScript and TypeScript. Explore my projects, technical writings, and professional engineering experience.",
-    "home.greeting": "Hi, Naandalist here",
-    "home.intro": "I'm Listiananda Apriliawan, a Frontend Engineer at",
+    "home.greeting": "LISTIANANDA APRILIAWAN",
+    "home.intro": "A Frontend Engineer at",
     "home.intro.airpaz": "Airpaz",
-    "home.intro.desc": "an online travel agency. I build and maintain",
+    "home.intro.desc": "an online travel agency. He build and maintain",
     "home.intro.android": "Android",
     "home.intro.and": "and",
     "home.intro.ios": "iOS",
     "home.intro.features":
       "features using React Native, TypeScript, Bun, and Node.js.",
     "home.prev":
-      "Previously, I worked as a full-stack developer, building web app with Laravel, and and I still use Kotlin for native Android when needed.",
+      "Previously, he worked as a full-stack developer, building web app with Laravel, and and he still use Kotlin for native Android when needed.",
     "home.hobby":
-      "When i am not shipping code, i am usually somewhere on a mountain, chasing cold air and quiet views. I've reached the summits of",
+      "When he is not shipping code, he is usually somewhere on a mountain, chasing cold air and quiet views. He has reached the summits of",
     "home.hobby.dempo": "Mount Dempo",
     "home.hobby.dempo.loc": "(South Sumatra)",
     "home.hobby.lawu": "Mount Lawu",
@@ -34,11 +34,11 @@ export const ui = {
     "home.hobby.other": "and other peaks across Indonesia.",
     "home.skills": "Technical Skills",
     "home.work": "Work Experience",
-    "home.work.seeAll": "See all work",
+    "home.work.seeAll": "More",
     "home.projects": "Recent projects",
-    "home.projects.seeAll": "See all projects",
+    "home.projects.seeAll": "More",
     "home.posts": "Latest posts",
-    "home.posts.seeAll": "See all posts",
+    "home.posts.seeAll": "More",
     "home.connect": "Let's Connect",
     "home.connect.desc1":
       "Naandalist is the username I use for most of my public accounts.",
@@ -61,20 +61,20 @@ export const ui = {
     "home.title": "Beranda",
     "home.description":
       "Frontend Engineer mengkhususkan diri dalam JavaScript dan TypeScript. Jelajahi proyek, tulisan teknis, dan pengalaman rekayasa profesional saya.",
-    "home.greeting": "Hai, Naandalist di sini",
-    "home.intro": "Saya Listiananda Apriliawan, Frontend Engineer di",
+    "home.greeting": "LISTIANANDA APRILIAWAN",
+    "home.intro": "Frontend Engineer di",
     "home.intro.airpaz": "Airpaz",
     "home.intro.desc":
-      "sebuah agen perjalanan daring. Saya membangun dan memelihara fitur",
+      "sebuah agen perjalanan online. Dia membangun dan memelihara fitur",
     "home.intro.android": "Android",
     "home.intro.and": "dan",
     "home.intro.ios": "iOS",
     "home.intro.features":
       "menggunakan React Native, TypeScript, Bun, dan Node.js.",
     "home.prev":
-      "Sebelumnya, saya bekerja sebagai full-stack developer, membangun aplikasi web dengan Laravel, dan saya masih menggunakan Kotlin untuk Android native jika diperlukan.",
+      "Sebelumnya, dia bekerja sebagai full-stack developer, membangun aplikasi web dengan Laravel, dan dia masih menggunakan Kotlin untuk Android native jika diperlukan.",
     "home.hobby":
-      "Saat tidak menulis kode, saya biasanya berada di gunung, mencari udara dingin dan pemandangan tenang. Saya telah mencapai puncak",
+      "Saat tidak menulis kode, dia biasanya berada di gunung, mencari udara dingin dan pemandangan tenang. Dia telah mencapai puncak",
     "home.hobby.dempo": "Gunung Dempo",
     "home.hobby.dempo.loc": "(Sumatera Selatan)",
     "home.hobby.lawu": "Gunung Lawu",

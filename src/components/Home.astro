@@ -86,7 +86,7 @@ const jsonLd = {
   />
   <Container>
     <h1 class='animate font-semibold text-white'>
-      {t("home.greeting")} 👋
+      {t("home.greeting")}
     </h1>
     <div class='space-y-16'>
       <section>
@@ -173,7 +173,9 @@ const jsonLd = {
 
         <section class='animate space-y-6 mt-10'>
           <div class=''>
-            <p class='font-semibold text-white'>
+            <p
+              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+            >
               {t("home.skills")}
             </p>
             <div class='flex flex-wrap items-center gap-2 mt-5'>
@@ -189,11 +191,15 @@ const jsonLd = {
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3 class='font-semibold text-white'>
+            <h3
+              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+            >
               {t("home.work")}
             </h3>
             <Link href={lang === "en" ? "/work" : "/id/work"}>
-              {t("home.work.seeAll")}
+              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+                {t("home.work.seeAll")}
+              </span>
             </Link>
           </div>
           <ul class='flex flex-col space-y-4'>
@@ -225,11 +231,15 @@ const jsonLd = {
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3 class='font-semibold text-white'>
+            <h3
+              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+            >
               {t("home.projects")}
             </h3>
             <Link href={lang === "en" ? "/projects" : "/id/projects"}>
-              {t("home.projects.seeAll")}
+              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+                {t("home.projects.seeAll")}
+              </span>
             </Link>
           </div>
           <div class='flex flex-col gap-4'>
@@ -243,11 +253,15 @@ const jsonLd = {
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3 class='font-semibold text-white'>
+            <h3
+              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+            >
               {t("home.posts")}
             </h3>
             <Link href={lang === "en" ? "/posts" : "/id/posts"}>
-              {t("home.posts.seeAll")}
+              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+                {t("home.posts.seeAll")}
+              </span>
             </Link>
           </div>
           <ul class='flex flex-col gap-4'>
