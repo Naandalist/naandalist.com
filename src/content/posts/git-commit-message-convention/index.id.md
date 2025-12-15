@@ -21,7 +21,7 @@ Penggunaan Git yang efektif melampaui sekadar menyimpan perubahan kode. Salah sa
 
 Pesan commit berfungsi sebagai dokumentasi mikro yang menjelaskan konteks dan alasan di balik setiap perubahan kode. Pesan commit yang ditulis dengan baik bukan hanya sekadar catatan, melainkan instrumen komunikasi vital bagi pengembang di masa depan—termasuk diri Anda sendiri—untuk memahami evolusi basis kode tanpa kebingungan.
 
-![Git Commit](https://miro.medium.com/v2/resize:fit:4800/format:webp/0*h4BR91VxYGy_lSZi)
+![Git Commit](https://res.cloudinary.com/naandalistcloud/image/upload/v1765818946/naandalist.com/0_h4BR91VxYGy_lSZi_el4qb6.webp)
 
 ### Mengapa Standarisasi Pesan Commit Diperlukan?
 

@@ -20,7 +20,7 @@ Ready to level up Git game? Let's talk about crafting commit messages that are n
 
 Think of commit messages as little notes to future self, and teammates, explaining the "why" behind code. A good commit message can save hours of head-scratching down the line.
 
-![Git Commit](https://miro.medium.com/v2/resize:fit:4800/format:webp/0*h4BR91VxYGy_lSZi)
+![Git Commit](https://res.cloudinary.com/naandalistcloud/image/upload/v1765818946/naandalist.com/0_h4BR91VxYGy_lSZi_el4qb6.webp)
 
 ### Why Bother with Commit Standards?
 
