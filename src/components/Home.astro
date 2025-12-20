@@ -23,6 +23,8 @@ interface Props {
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 
+const introPara2 = `${t("home.intro.paragraph2")} React ${t("home.intro.paragraph2.and")} Astro${t("home.intro.paragraph2.end")}`;
+
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft && post.data.lang === lang)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -76,6 +78,7 @@ const jsonLd = {
     "Mobile Development",
     "Frontend Development",
     "Coding",
+    "Personal Portofolio",
   ],
 };
 ---
@@ -94,74 +97,26 @@ const jsonLd = {
       <section>
         <article class='space-y-4'>
           <p class='animate'>
-            {t("home.intro")}
-            <Link href='https://www.airpaz.com/en' aria-label='Airpaz' external>
-              {t("home.intro.airpaz")}
-            </Link>, {t("home.intro.desc")}
-            <Link
-              href='https://play.google.com/store/apps/details?id=com.atnetwork.airpazdev&hl=id'
-              aria-label='Android'
-              external
-            >
-              {t("home.intro.android")}
-            </Link>
-            {t("home.intro.and")}
-            <Link
-              href='https://apps.apple.com/id/app/airpaz-pesawat-hotel/id1066890405?l=id'
-              aria-label='iOS'
-              external
-            >
-              {t("home.intro.ios")}
-            </Link>
-            {t("home.intro.features")}
+            {t("home.intro.paragraph1")} <Link
+              href='https://reactnative.dev/'
+              aria-label='React Native'
+              external>React Native</Link
+            > {t("home.intro.paragraph1.end")} <Link
+              href='https://www.typescriptlang.org/'
+              aria-label='TypeScript'
+              external>TypeScript</Link
+            > {t("home.intro.paragraph1.tooling")} <Link
+              href='https://nodejs.org/en'
+              aria-label='Node.js'
+              external>Node.js</Link
+            > {t("home.intro.paragraph1.needed")}
+          </p>
+          <p class='animate'>
+            {introPara2}
           </p>
         </article>
 
-        <div class='relative col-span-2 sm:col-span-1 animate'>
-          <article class='space-y-4'>
-            <p class='animate'>
-              {t("home.prev")}
-            </p>
-          </article>
-        </div>
-        <div class='relative col-span-2 sm:col-span-1 animate'>
-          <article class='space-y-4'>
-            <p class='animate'>
-              {t("home.hobby")}
-              <Link
-                href='https://www.instagram.com/p/CzHlYyyS9OY/'
-                aria-label='Mount Dempo'
-                external
-              >
-                {t("home.hobby.dempo")}
-              </Link>
-              {t("home.hobby.dempo.loc")}, <Link
-                href='https://www.instagram.com/p/CYIjqaBrvzP/'
-                aria-label='Mount Lawu'
-                external
-              >
-                {t("home.hobby.lawu")}
-              </Link>
-              {t("home.hobby.lawu.loc")},
-              <Link
-                href='https://www.instagram.com/p/C1pDP4ZLsnE/'
-                aria-label='Mount Merbabu'
-                external
-              >
-                {t("home.hobby.merbabu")}
-              </Link>
-              {t("home.hobby.merbabu.loc")}, <Link
-                href='https://www.instagram.com/p/DOLp0lnkXrb/?img_index=8'
-                aria-label='Mount Papandayan'
-                external
-              >
-                {t("home.hobby.papandayan")}
-              </Link>
-              {t("home.hobby.papandayan.loc")}, {t("home.hobby.other")}
-            </p>
-          </article>
-        </div>
-        <div class='relative col-span-2 sm:col-span-1 animate'>
+        <figure class='relative col-span-2 sm:col-span-1 animate mt-4'>
           <Image
             alt='Naandalist hiking on Mount Merbabu'
             src={defaultImage}
@@ -171,7 +126,10 @@ const jsonLd = {
             loading='eager'
             fetchpriority='high'
           />
-        </div>
+          <figcaption class='text-sm text-white/60 mt-3'>
+            {t("home.image.caption")}
+          </figcaption>
+        </figure>
 
         <section class='animate space-y-6 mt-10'>
           <div class=''>
