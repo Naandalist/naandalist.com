@@ -35,6 +35,17 @@ export const ui = {
     "home.connect.desc2":
       "For hiring opportunities, collaboration, or freelance work. You can reach me at",
     "home.connect.or": "or via links below.",
+    "posts.title": "Posts",
+    "posts.description":
+      "Articles and insights on React Native, mobile development, best practices, and technical topics by Naandalist.",
+    "posts.back": "Back to posts",
+    "projects.title": "Projects",
+    "projects.description":
+      "Portfolio of web and mobile projects featuring React Native apps, WordPress sites, and full-stack applications with source code and live demos.",
+    "projects.back": "Back to projects",
+    "work.title": "Work",
+    "work.description":
+      "Professional career showcasing roles as Frontend Engineer, Full-stack Developer, and technical contributions across startups and enterprises.",
     "footer.analytic": "Analytic",
     "footer.terms": "Terms of Use",
     "footer.privacy": "Privacy Policy",
@@ -69,6 +80,17 @@ export const ui = {
     "home.connect.desc2":
       "Untuk peluang kerja, kolaborasi, atau pekerjaan lepas. Anda dapat menghubungi saya di",
     "home.connect.or": "atau melalui tautan di bawah ini.",
+    "posts.title": "Tulisan",
+    "posts.description":
+      "Artikel dan wawasan tentang React Native, pengembangan mobile, praktik terbaik, dan topik teknis oleh Naandalist.",
+    "posts.back": "Kembali ke tulisan",
+    "projects.title": "Proyek",
+    "projects.description":
+      "Portofolio proyek web dan mobile mencakup aplikasi React Native, situs WordPress, dan aplikasi full-stack dengan kode sumber dan demo langsung.",
+    "projects.back": "Kembali ke proyek",
+    "work.title": "Pekerjaan",
+    "work.description":
+      "Karir profesional menampilkan peran sebagai Frontend Engineer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",
     "footer.analytic": "Analitik",
     "footer.terms": "Syarat Penggunaan",
     "footer.privacy": "Kebijakan Privasi",
