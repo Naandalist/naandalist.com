@@ -1,6 +1,6 @@
 ---
 company: "Airpaz Internasional"
-role: "Frontend Engineer"
+role: "Frontend Developer"
 dateStart: "04/08/2025"
 dateEnd: "Current"
 logoUrl: "@assets/logo-company/airpaz-logo.png"

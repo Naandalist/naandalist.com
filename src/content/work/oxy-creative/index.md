@@ -1,6 +1,6 @@
 ---
 company: "Oxy Creative. Inc"
-role: "Software Engineer"
+role: "Software Developer"
 dateStart: "02/01/2020"
 dateEnd: "11/27/2022"
 logoUrl: "@assets/logo-company/oxy-creative-logo.png"

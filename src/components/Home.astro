@@ -58,7 +58,7 @@ const jsonLd = {
   alternateName: "Naandalist",
   url: SITE.URL ?? "https://naandalist.com",
   image: `${SITE.URL ?? "https://naandalist.com"}/images/nanda-on-mount-merbabu.jpg`,
-  jobTitle: "Frontend Engineer",
+  jobTitle: "Frontend Developer",
   worksFor: {
     "@type": "Organization",
     name: "Airpaz",
@@ -97,19 +97,23 @@ const jsonLd = {
       <section>
         <article class='space-y-4'>
           <p class='animate'>
-            {t("home.intro.paragraph1")} <Link
+            {t("home.intro.paragraph1")}
+            <Link
               href='https://reactnative.dev/'
               aria-label='React Native'
               external>React Native</Link
-            > {t("home.intro.paragraph1.end")} <Link
+            >
+            {t("home.intro.paragraph1.end")}
+            <Link
               href='https://www.typescriptlang.org/'
               aria-label='TypeScript'
               external>TypeScript</Link
-            > {t("home.intro.paragraph1.tooling")} <Link
-              href='https://nodejs.org/en'
-              aria-label='Node.js'
-              external>Node.js</Link
-            > {t("home.intro.paragraph1.needed")}
+            >
+            {t("home.intro.paragraph1.tooling")}
+            <Link href='https://nodejs.org/en' aria-label='Node.js' external
+              >Node.js</Link
+            >
+            {t("home.intro.paragraph1.needed")}
           </p>
           <p class='animate'>
             {introPara2}

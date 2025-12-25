@@ -10,9 +10,9 @@ export const SITE: Site = {
 };
 
 export const HOME: Metadata = {
-  TITLE: "Naandalist – Frontend Engineer",
+  TITLE: "Naandalist – Frontend Developer",
   DESCRIPTION:
-    "Frontend Engineer from Indonesia building Android and iOS applications with React Native. Explore projects, technical writings, and professional experience.",
+    "Frontend Developer from Indonesia building Android and iOS applications with React Native. Explore projects, technical writings, and professional experience.",
 };
 
 export const POSTS: Metadata = {

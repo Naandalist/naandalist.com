@@ -1,6 +1,6 @@
 ---
 company: "AIA Singapore, Pte.Ltd"
-role: "Senior Engineer"
+role: "Senior Developer"
 dateStart: "02/1/2023"
 dateEnd: "04/08/2025"
 logoUrl: "@assets/logo-company/aia-logo.png"

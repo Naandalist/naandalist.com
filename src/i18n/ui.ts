@@ -9,10 +9,10 @@ export const ui = {
   en: {
     "home.title": "Home",
     "home.description":
-      "Frontend Engineer specializing in JavaScript and TypeScript. Explore my projects, technical writings, and professional engineering experience.",
+      "Frontend Developer specializing in JavaScript and TypeScript. Explore my projects, technical writings, and professional engineering experience.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
-      "Frontend Engineer with 4+ years of experience building Android & iOS features in",
+      "Frontend Developer with 4+ years of experience building Android & iOS features in",
     "home.intro.paragraph1.end": "and",
     "home.intro.paragraph1.tooling": ", with",
     "home.intro.paragraph1.needed": "tooling when needed.",
@@ -45,7 +45,7 @@ export const ui = {
     "projects.back": "Back to projects",
     "work.title": "Work",
     "work.description":
-      "Professional career showcasing roles as Frontend Engineer, Full-stack Developer, and technical contributions across startups and enterprises.",
+      "Professional career showcasing roles as Frontend Developer, Full-stack Developer, and technical contributions across startups and enterprises.",
     "footer.analytic": "Analytic",
     "footer.terms": "Terms of Use",
     "footer.privacy": "Privacy Policy",
@@ -53,10 +53,10 @@ export const ui = {
   id: {
     "home.title": "Beranda",
     "home.description":
-      "Frontend Engineer yang terbiasa dengan JavaScript dan TypeScript. Jelajahi proyek, catatan tulisan teknis, dan pengalaman saya.",
+      "Frontend Developer yang terbiasa dengan JavaScript dan TypeScript. Jelajahi proyek, catatan tulisan teknis, dan pengalaman saya.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
-      "Frontend Engineer dengan 4+ tahun pengalaman membangun fitur Android & iOS di",
+      "Frontend Developer dengan 4+ tahun pengalaman membangun fitur Android & iOS di",
     "home.intro.paragraph1.end": "dan",
     "home.intro.paragraph1.tooling": ", dengan",
     "home.intro.paragraph1.needed": "ketika diperlukan.",
@@ -90,7 +90,7 @@ export const ui = {
     "projects.back": "Kembali ke proyek",
     "work.title": "Pekerjaan",
     "work.description":
-      "Karir profesional menampilkan peran sebagai Frontend Engineer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",
+      "Karir profesional menampilkan peran sebagai Frontend Developer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",
     "footer.analytic": "Analitik",
     "footer.terms": "Syarat Penggunaan",
     "footer.privacy": "Kebijakan Privasi",
