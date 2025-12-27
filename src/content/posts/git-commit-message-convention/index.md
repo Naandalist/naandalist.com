@@ -1,5 +1,5 @@
 ---
-title: "Git Commit Message Guide (Conventional Commits)"
+title: "Git Commit Message Standard"
 subtitle: "Discover how proper commit messages lead to a cleaner codebase"
 description: "How to use a simple Conventional Commits standard for Git commit messages—types, scope, examples, and best practices to improve reviews and debugging."
 date: "Jun 29 2025"
