@@ -1,7 +1,7 @@
 ---
-title: "Standar Pesan Commit Git"
-subtitle: "Bagaimana pesan commit yang terstruktur menghasilkan basis kode yang lebih bersih dan terpelihara"
-description: "Panduan menulis pesan commit Git yang jelas dan konsisten menggunakan format conventional commits untuk riwayat kode yang lebih mudah dibaca."
+title: "Cara Membuat Commit Message yang Baik"
+subtitle: "Temukan bagaimana pesan commit yang tepat menghasilkan codebase yang lebih tertata dan rapi"
+description: "Cara menggunakan standar Conventional Commits yang sederhana untuk pesan commit Git—tipe, scope, contoh, dan praktik terbaik untuk meningkatkan review dan debugging."
 date: "Jun 29 2025"
 lang: "id"
 keywords:
@@ -17,83 +17,175 @@ keywords:
   - commit conventions
 ---
 
-Penggunaan Git yang efektif melampaui sekadar menyimpan perubahan kode. Salah satu aspek krusial yang sering diabaikan dalam pengembangan perangkat lunak kolaboratif adalah kualitas pesan commit.
+## Commit Message yang Benar-Benar Berguna
 
-Pesan commit berfungsi sebagai dokumentasi mikro yang menjelaskan konteks dan alasan di balik setiap perubahan kode. Pesan commit yang ditulis dengan baik bukan hanya sekadar catatan, melainkan instrumen komunikasi vital bagi pengembang di masa depan—termasuk diri Anda sendiri—untuk memahami evolusi basis kode tanpa kebingungan.
+Seharusnya commit message bukanlah sekedar catatan asal jadi. Ia adalah kontrak dengan diri Anda di masa depan dan rekan setim Anda: apa yang berubah, di mana itu berubah, dan mengapa itu penting. Ketika histori commit mudah dibaca, code review berjalan lebih cepat, debugging menjadi lebih efisien, dan rilis lebih mudah dipahami.
 
-![Git Commit](https://res.cloudinary.com/naandalistcloud/image/upload/v1765818946/naandalist.com/0_h4BR91VxYGy_lSZi_el4qb6.webp)
+![Git Commit](https://res.cloudinary.com/naandalistcloud/image/upload/v1766840794/naandalist.com/0_h4BR91VxYGy_lSZi_el4qb6-gitcommit_ojg2ag.webp "Ilustrasi Git commit")
 
-### Mengapa Standarisasi Pesan Commit Diperlukan?
+## Mengapa Standar Commit Itu Berharga
 
-Mungkin timbul pertanyaan mengenai urgensi menerapkan aturan ketat pada sesuatu yang tampak sepele seperti pesan commit. Namun, pendekatan terstandarisasi menawarkan manfaat substansial bagi siklus hidup pengembangan perangkat lunak:
+Anda bisa saja "sekadar commit dan lanjut", tetapi Anda akan kesulitan di masa depan kelak. Sebagian besar tim merasakan akibatnya ketika mereka perlu melacak regresi, mengaudit perubahan, atau melakukan onboarding insinyur baru yang harus memahami basis kode dengan cepat.
 
-1.  **Kejelasan Universal (Clarity):** Ketika setiap commit mengikuti pola yang dapat diprediksi, anggota tim dapat dengan cepat memahami esensi perubahan tanpa perlu menelusuri detail kode baris demi baris.
-2.  **Efisiensi Peninjauan Kode (Code Review):** Peninjau (reviewer) dapat mengidentifikasi dan memprioritaskan bagian kode yang relevan dengan lebih cepat, mempercepat proses integrasi.
-3.  **Kemudahan Penelusuran (Traceability):** Dalam proses debugging, kemampuan untuk melacak kapan sebuah bug diperkenalkan atau fitur ditambahkan menjadi jauh lebih sederhana dengan riwayat commit yang terstruktur.
+Standar commit yang konsisten membantu Anda:
 
-### Anatomi Pesan Commit yang Efektif
+- Memindai `git log` dan memahami maksud tanpa membuka file.
+- Mengurangi waktu review karena konteks sudah jelas sebelum membaca diff.
+- Menyelidiki bug lebih cepat dengan menemukan titik pengenalan yang paling mungkin.
+- Mengaktifkan otomatisasi untuk changelog dan catatan rilis dengan lebih sedikit pekerjaan manual.
 
-Struktur yang paling banyak diadopsi di industri saat ini mengacu pada spesifikasi _Conventional Commits_. Format ini menawarkan struktur yang logis dan mudah diproses, baik oleh manusia maupun mesin:
+Jika tim Anda sering melakukan pengiriman (ship), ini bukan preferensi kosmetik. Ini adalah kebersihan operasional.
 
-```md
-<type>(<scope>): <short description>
+## Format Conventional Commits
+
+Gunakan pola yang dapat diprediksi yang mudah dipindai:
+
+```
+<type>(<scope>): <short summary>
 ```
 
-#### `<type>`: Klasifikasi Perubahan
+- type: jenis perubahan apa ini
+- scope (opsional tapi disarankan): bagian dari basis kode yang terpengaruh
+- short summary: apa yang Anda lakukan, ditulis dalam bentuk perintah (imperative mood)
 
-Komponen ini mengkategorikan jenis perubahan yang dilakukan. Ini adalah informasi pertama yang diproses oleh pembaca. Berikut adalah klasifikasi tipe standar yang umum digunakan:
+Jika Anda menginginkan referensi resmi, ikuti [spesifikasi Conventional Commits](https://www.conventionalcommits.org/).
 
-| Tipe         | Deskripsi                                                                                                                                                       |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **feat**     | Penambahan fitur baru atau peningkatan fungsionalitas yang signifikan bagi pengguna (_feature_).                                                                |
-| **fix**      | Perbaikan kesalahan pada kode (_bug fix_). Commit ini menyelesaikan masalah yang mencegah sistem bekerja sebagaimana mestinya.                                  |
-| **docs**     | Perubahan yang hanya berdampak pada dokumentasi, seperti pembaruan README atau penambahan komentar kode, tanpa mengubah logika program.                         |
-| **style**    | Perubahan gaya penulisan kode (_code style_) seperti spasi, indentasi, atau titik koma. Perubahan ini tidak mempengaruhi makna atau perilaku kode.              |
-| **refactor** | Restrukturisasi kode yang tidak mengubah perilaku eksternal atau fungsionalitasnya. Tujuannya adalah meningkatkan kualitas kode internal tanpa mengubah output. |
-| **test**     | Penambahan pengujian baru atau koreksi pada pengujian yang sudah ada.                                                                                           |
-| **chore**    | Tugas pemeliharaan rutin yang tidak mengubah kode aplikasi atau pengujian, seperti pembaruan dependensi atau perubahan konfigurasi build.                       |
-| **build**    | Perubahan yang mempengaruhi sistem build atau dependensi eksternal (contoh: `package.json`, konfigurasi webpack).                                               |
-| **ci**       | Perubahan pada file konfigurasi dan skrip integrasi berkelanjutan (_Continuous Integration_), seperti GitHub Actions atau Jenkins.                              |
-| **perf**     | Perubahan kode yang secara spesifik ditujukan untuk meningkatkan performa sistem.                                                                               |
+## Tipe yang Sebaiknya Anda Gunakan (dan Kapan)
 
-### `(<scope>)`: Cakupan Perubahan _(Opsional)_
+Pilih satu tipe per commit. Jika Anda membutuhkan beberapa tipe, commit tersebut mungkin terlalu besar dan harus dipisah berdasarkan tujuannya.
 
-Cakupan atau _scope_ memberikan konteks tambahan mengenai bagian basis kode mana yang terdampak. Meskipun opsional, penggunaan scope sangat disarankan untuk memberikan kejelasan instan.
+| Tipe | Gunakan ketika Anda... |
+| --- | --- |
+| feat | menambahkan fitur baru atau peningkatan yang berarti |
+| fix | menyelesaikan bug atau regresi |
+| docs | mengubah dokumentasi saja (README, panduan, komentar) |
+| style | menerapkan perubahan format tanpa perubahan perilaku |
+| refactor | merestrukturisasi kode tanpa mengubah perilaku eksternal |
+| test | menambahkan atau memodifikasi tes |
+| chore | melakukan pekerjaan pemeliharaan (deps, tooling, config kecil) |
+| build | mengubah sistem build atau pengaturan dependensi eksternal |
+| ci | mengubah konfigurasi pipeline CI/CD |
+| perf | meningkatkan performa dengan cara yang terukur atau dapat dibenarkan dengan jelas |
 
-Sebagai contoh, jika perubahan dilakukan pada sistem autentikasi, scope yang digunakan bisa berupa `(auth)`. Jika perubahan terjadi pada komponen antarmuka tombol, scope bisa berupa `(button-component)`.
+## Scope: Detail Kecil, Manfaat Besar
 
-### `<short description>`: Deskripsi Ringkas
+Scope menjawab pertanyaan sederhana: di mana perubahan ini terjadi? Ini membuat riwayat commit dapat dicari dan mengurangi ambiguitas.
 
-Ini adalah ringkasan padat dari perubahan yang dilakukan. Aturan emas dalam penulisan deskripsi ini adalah menggunakan **bentuk imperatif** (_imperative mood_).
+Pola scope umum meliputi:
+- auth, checkout, payments, api, ui, infra, docs
 
-Bentuk imperatif berarti menulis seolah-olah Anda sedang memberikan perintah atau instruksi.
+Contoh:
+- feat(auth): Add refresh token rotation
+- fix(checkout): Prevent double submit on pay button
+- refactor(api): Consolidate retry logic
 
-- Gunakan **"Add user login"** (Tambahkan login pengguna), bukan "Added user login" atau "Adding user login".
-- Gunakan **"Fix form submission issue"** (Perbaiki masalah pengiriman formulir), bukan "Fixed bug..."
+## Ringkasan Singkat: Tulis Seperti Sebuah Perintah
 
-Deskripsi harus ringkas, idealnya tidak lebih dari 50-70 karakter, untuk memastikan keterbacaan yang optimal dalam log git satu baris (_oneline log_).
+Ringkasan yang baik terbaca seperti instruksi yang jelas. Gunakan kata kerja imperatif:
 
-### Contoh Penerapan
+- Add, Fix, Update, Remove, Refactor, Improve, Simplify, Prevent
 
-Berikut adalah beberapa contoh penerapan standar ini dalam skenario nyata:
+Hindari ringkasan yang samar seperti "fix bug" atau "update stuff." Mereka tidak memberikan nilai apa pun ketika Anda meninjau kembali riwayat.
 
-- `feat(user-profile): Add avatar upload functionality`
-  _(Menambahkan fungsionalitas unggah avatar pada profil pengguna)_
-- `fix(login): Correct invalid password error message`
-  _(Memperbaiki pesan kesalahan untuk kata sandi yang tidak valid pada modul login)_
-- `docs: Update installation guide in README`
-  _(Memperbarui panduan instalasi pada berkas README)_
-- `style(dashboard): Format code to adhere to linting rules`
-  _(Memformat kode dashboard agar sesuai dengan aturan linting)_
-- `refactor(api): Simplify data fetching logic`
-  _(Menyederhanakan logika pengambilan data pada lapisan API)_
-- `test(checkout): Add unit tests for payment processing`
-  _(Menambahkan unit test untuk proses pembayaran pada fitur checkout)_
-- `chore: Update Node.js dependency to 18.x`
-  _(Memperbarui dependensi Node.js ke versi 18.x)_
+Pedoman agar tetap mudah dibaca:
+- Gunakan bentuk imperatif (Add, Fix, Improve), bukan bentuk lampau (Added, Fixed).
+- Tetap ringkas (targetkan 50–70 karakter).
+- Hindari menggabungkan perubahan yang tidak terkait dalam satu commit.
 
-### Kesimpulan
+Baik ✅ :
+- Add avatar upload
+- Fix form submission error
+- Improve image preload strategy
 
-Mengadopsi standar pesan commit bukan sekadar formalitas administratif, melainkan langkah strategis untuk meningkatkan kualitas alur kerja pengembangan. Dengan disiplin ini, tim pengembang dapat menciptakan basis kode yang lebih transparan, mudah dipelihara, dan profesional.
+Buruk ❌:
+- Added avatar upload
+- Fix bug
+- Some changes
 
-Penerapan pedoman ini secara konsisten akan memberikan dampak positif jangka panjang terhadap efisiensi kolaborasi dan manajemen proyek perangkat lunak Anda.
+## Ketika Anda Butuh Konteks Lebih: Tambahkan Body
+
+Jika "mengapa"-nya tidak jelas, tulis body. Di sinilah Anda merekam maksud, kompromi (trade-offs), dan batasan. Ini sangat berharga ketika perbaikannya halus atau keputusannya kontroversial.
+
+Struktur sederhana yang bekerja dengan baik:
+
+```
+feat(auth): Add refresh token rotation
+
+Why:
+- Reduce forced logouts on mobile
+- Limit token replay risk
+
+How:
+- Rotate on refresh
+- Revoke previous token id in storage
+
+Notes:
+- Requires API v2 endpoint /auth/refresh
+```
+
+Jika alur kerja Anda memerlukan keterlacakan (traceability), tambahkan referensi ke tiket atau masalah secara konsisten:
+
+- Refs: PAY-214
+
+## Perubahan yang Memutus Kompatibilitas (Breaking Changes)
+
+Jika sebuah commit memutus kompatibilitas, jangan sembunyikan. Nyatakan dengan jelas dan sertakan apa yang harus dilakukan pengguna hilir untuk bermigrasi.
+
+Ini bukan pilihan. Breaking changes yang tersembunyi adalah salah satu cara tercepat untuk menghancurkan kepercayaan pada sebuah repositori.
+
+Contoh:
+
+```
+feat(api): Rename /v1/orders endpoint
+
+BREAKING CHANGE: Clients must migrate from /v1/orders to /v2/orders.
+```
+
+## Contoh Siap Pakai
+
+- feat(user-profile): Add avatar upload
+- fix(login): Show correct error for invalid password
+- docs(readme): Add local setup steps for iOS
+- style(ui): Format files to satisfy lint rules
+- refactor(api): Simplify pagination query building
+- test(checkout): Add unit tests for payment validation
+- chore(deps): Bump Node.js to 18.x
+- build: Upgrade webpack to v5
+- ci: Add GitHub Actions workflow for release
+- perf(images): Reduce LCP by preloading hero image
+
+## Kesalahan Umum (dan Cara Memperbaikinya)
+
+- Vague commits (“fix stuff”): tulis apa yang Anda perbaiki dan di mana.
+- Oversized commits: pisahkan berdasarkan tujuan agar riwayat tetap dapat digunakan.
+- Missing context: tambahkan body ketika keputusannya tidak terbukti dengan sendirinya.
+- Overusing chore: gunakan build dan ci ketika kategori tersebut cocok; simpan chore untuk pemeliharaan yang sebenarnya.
+
+## FAQ
+
+### Haruskah saya selalu menyertakan scope?
+
+Tidak selalu, tetapi untuk repositori non-trivial, scope biasanya membuahkan hasil. Ini meningkatkan kemampuan pemindaian (scan-ability) dan membuat pencarian riwayat lebih mudah.
+
+### Apakah “chore” baik untuk segala sesuatu yang bukan fitur?
+
+Tidak. Menggunakan chore secara berlebihan meruntuhkan makna. Gunakan build dan ci jika sesuai, dan simpan chore untuk pemeliharaan rutin.
+
+### Bagaimana jika saya menggunakan squash merge dan GitHub menggunakan judul PR?
+
+Maka judul PR Anda menjadi pesan commit Anda. Terapkan standar yang sama untuk judul PR, atau tegakkan melalui template PR.
+
+### Apakah saya perlu ID tiket di dalam commit?
+
+Jika tim Anda bergantung pada keterlacakan (traceability), ya. Tambahkan mereka secara konsisten, lebih baik sebagai baris referensi daripada memadati ringkasan.
+
+## Kesimpulan
+
+Standar commit adalah daya ungkit. Riwayat yang bersih mengurangi biaya code review, debugging, dan onboarding.
+
+Gunakan pola ini:
+```
+<type>(<scope>): <short summary>
+```
+
+Tambahkan body ketika "mengapa"-nya penting. Konsistensi mengalahkan kesempurnaan.
