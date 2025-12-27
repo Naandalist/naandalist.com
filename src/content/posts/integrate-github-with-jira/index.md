@@ -1,7 +1,7 @@
 ---
-title: "Integrate GitHub Enterprise Server with Jira"
+title: "Integrate GitHub with Jira"
 subtitle: "Make Work Traceable from Issue to PR"
-description: "Step-by-step guide to connect GitHub Enterprise Server (GHES) with Jira using a GitHub App, network allowlisting or a secure gateway, and workflow conventions (issue keys) so Jira shows real dev activity."
+description: "How to connect GitHub with Jira using a GitHub App, network allowlisting or a secure gateway, and workflow conventions (issue keys) so Jira shows real dev activity."
 date: "2025-12-27"
 keywords:
   - GitHub Enterprise Server
@@ -19,7 +19,7 @@ keywords:
 ---
 
 
-Integrating GitHub Enterprise Server (GHES) with Jira is one of those “small setup, big payoff” moves: your Jira issues stop being static tickets and start showing real development activity—branches, commits, pull requests, and more—in the context of the work itself.
+Integrating GitHub Enterprise Server (GHES) with Jira is one of those “small setup, big payoff” moves: your Jira issues stop being static tickets and start showing real development activity - branches, commits, pull requests, and more - in the context of the work itself.
 
 <div align="center">
   <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1766842153/naandalist.com/neon_cyberpunk_alley_by_n1ghtw1re_dkhcupt-414w-2x_rmhor5.jpg" alt="Integrate GitHub Enterprise Server with Jira" />
@@ -49,7 +49,7 @@ If your GHES sits behind a firewall (common), Jira must be able to communicate w
 
 If your GHES has a public-facing URL, you can allow access from Atlassian IP addresses.
 
-If your GHES does not have a public-facing URL—or you want extra security—use a locked, public-facing gateway approach and provide Jira with:
+If your GHES does not have a public-facing URL - or you want extra security - use a locked, public-facing gateway approach and provide Jira with:
 - a gateway server URL
 - a request header name
 - an API key value

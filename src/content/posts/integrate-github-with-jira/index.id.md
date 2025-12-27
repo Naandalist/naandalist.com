@@ -1,7 +1,7 @@
 ---
-title: "Integrasi GitHub Enterprise Server dengan Jira"
+title: "Integrasi GitHub dengan Jira"
 subtitle: "Lacak Pekerjaan dari Issue hingga PR"
-description: "Cara menghubungkan GitHub Enterprise Server (GHES) dengan Jira menggunakan GitHub App, pengaturan jaringan (firewall/gateway), dan konvensi alur kerja (issue keys) agar Jira menampilkan aktivitas pengembangan yang nyata."
+description: "Cara menghubungkan GitHub dengan Jira menggunakan GitHub App, pengaturan jaringan (firewall/gateway), dan konvensi alur kerja (issue keys) agar Jira menampilkan aktivitas pengembangan yang nyata."
 date: "2025-12-27"
 lang: "id"
 keywords:
@@ -20,7 +20,7 @@ keywords:
 ---
 
 
-Mengintegrasikan GitHub Enterprise Server (GHES) dengan Jira adalah salah satu langkah "usaha kecil, hasil besar": issue Jira Anda tidak lagi hanya menjadi tiket statis melainkan mulai menampilkan aktivitas pengembangan yang nyata—branch, commit, pull request, dan lainnya—dalam konteks pekerjaan itu sendiri.
+Mengintegrasikan GitHub Enterprise Server (GHES) dengan Jira adalah salah satu langkah "usaha kecil, hasil besar": issue Jira Anda tidak lagi hanya menjadi tiket statis melainkan mulai menampilkan aktivitas pengembangan yang nyata - branch, commit, pull request, dan lainnya - dalam konteks pekerjaan itu sendiri.
 
 <div align="center">
   <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1766842153/naandalist.com/neon_cyberpunk_alley_by_n1ghtw1re_dkhcupt-414w-2x_rmhor5.jpg" alt="Integrate GitHub Enterprise Server with Jira" />
@@ -50,7 +50,7 @@ Jika GHES Anda berada di belakang firewall (kasus yang umum), Jira harus dapat b
 
 Jika GHES Anda memiliki URL yang menghadap ke publik, Anda dapat mengizinkan akses dari alamat IP Atlassian.
 
-Jika GHES Anda tidak memiliki URL yang menghadap ke publik—atau Anda menginginkan keamanan ekstra—gunakan pendekatan gateway publik terkunci dan berikan Jira:
+Jika GHES Anda tidak memiliki URL yang menghadap ke publik - atau Anda menginginkan keamanan ekstra - gunakan pendekatan gateway publik terkunci dan berikan Jira:
 - URL server gateway
 - Nama header permintaan (request header name)
 - Nilai kunci API (API key value)
