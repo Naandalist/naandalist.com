@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-import defaultImage from "@assets/images/nanda-on-mount-merbabu.jpg";
+import defaultImage from "@assets/images/listiananda-apriliawan.webp";
 import { SITE } from "@constants";
 import { useTranslations } from "@i18n/utils";
 
@@ -11,7 +11,6 @@ import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
 import NpmjsCard from "@components/NpmjsCard.astro";
 import ProjectCard from "@components/ProjectCard.astro";
-import Socials from "@components/Socials.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
@@ -63,7 +62,7 @@ const jsonLd = {
   name: "Listiananda Apriliawan",
   alternateName: "Naandalist",
   url: SITE.URL ?? "https://naandalist.com",
-  image: `${SITE.URL ?? "https://naandalist.com"}/images/nanda-on-mount-merbabu.jpg`,
+  image: `${SITE.URL ?? "https://naandalist.com"}/images/listiananda-apriliawan.webp`,
   jobTitle: "Frontend Developer",
   worksFor: {
     "@type": "Organization",
