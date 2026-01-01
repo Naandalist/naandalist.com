@@ -52,6 +52,15 @@ export const ui = {
     "work.title": "Work",
     "work.description":
       "Professional career showcasing roles as Frontend Developer, Full-stack Developer, and technical contributions across startups and enterprises.",
+    "contact.title": "Contact",
+    "contact.description":
+      "Get in touch with me for collaboration, freelance opportunities, or just to say hello.",
+    "contact.getInTouch": "Lets Connect",
+    "contact.email": "Email",
+    "contact.followMe": "Follow Me",
+    "contact.availability": "Availability",
+    "contact.availabilityDesc":
+      "I'm always open to discussing new projects, creative ideas, and opportunities to be part of your vision.",
     "footer.analytic": "Analytic",
     "footer.terms": "Terms of Use",
     "footer.privacy": "Privacy Policy",
@@ -103,6 +112,15 @@ export const ui = {
     "work.title": "Pekerjaan",
     "work.description":
       "Karir profesional menampilkan peran sebagai Frontend Developer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",
+    "contact.title": "Kontak",
+    "contact.description":
+      "Hubungi saya untuk kolaborasi, peluang freelance, atau hanya untuk mengucapkan salam.",
+    "contact.getInTouch": "Mari Terhubung",
+    "contact.email": "Email",
+    "contact.followMe": "Ikuti Saya",
+    "contact.availability": "Ketersediaan",
+    "contact.availabilityDesc":
+      "Saya selalu terbuka untuk mendiskusikan proyek baru, ide kreatif, dan peluang untuk menjadi bagian dari visi Anda.",
     "footer.analytic": "Analitik",
     "footer.terms": "Syarat Penggunaan",
     "footer.privacy": "Kebijakan Privasi",

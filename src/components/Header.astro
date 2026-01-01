@@ -1,30 +1,31 @@
 ---
-import Container from "@components/Container.astro";
 import { SITE } from "@constants";
+
+import Container from "@components/Container.astro";
 
 const currentPath = Astro.url.pathname;
 
 const navItems = [
   { href: "/posts", label: "posts", icon: "/icons/newspaper.svg" },
-  { href: "/work", label: "work", icon: "/icons/briefcase.svg" },
   { href: "/projects", label: "projects", icon: "/icons/rocket.svg" },
+  { href: "/contact", label: "contact", icon: "/icons/contact.svg" },
 ];
 ---
 
 <header>
   <Container>
-    <div class="flex flex-wrap gap-y-2 justify-between">
-      <a href="/" class="inline-block no-underline">
-        <div class="font-semibold text-current">
+    <div class='flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0'>
+      <a href='/' class='inline-block no-underline'>
+        <div class='font-semibold text-current'>
           {SITE.NAME}
         </div>
       </a>
-      <nav class="flex gap-3">
+      <nav class='flex flex-wrap gap-3'>
         {
           navItems.map(({ href, label, icon }) => {
             const isActive = currentPath.startsWith(href);
             return (
-              <a href={href} class="inline-block no-underline">
+              <a href={href} class='inline-block no-underline'>
                 <button
                   class={`relative group w-fit flex items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-colors duration-300 ease-in-out ${
                     isActive
@@ -32,7 +33,7 @@ const navItems = [
                       : "hover:bg-white/5 hover:text-white border-transparent"
                   }`}
                 >
-                  <img src={icon} alt="" class="w-4 h-4" />
+                  <img src={icon} alt='' class='w-4 h-4' />
                   {label}
                 </button>
               </a>

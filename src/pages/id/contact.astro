@@ -1,0 +1,56 @@
+---
+import { useTranslations } from "@i18n/utils";
+
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+import Socials from "@components/Socials.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+interface Props {
+  lang?: "en" | "id";
+}
+
+const { lang = "id" } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<PageLayout title={t("contact.title")} description={t("contact.description")}>
+  <Container>
+    <div class='space-y-10'>
+      <div>
+        <h1 class='animate font-semibold text-white'>
+          {t("contact.title")}
+        </h1>
+      </div>
+
+      <section class='animate space-y-6'>
+        <div>
+          <h2 class='text-lg font-semibold text-white mb-4'>
+            {t("contact.getInTouch")}
+          </h2>
+          <p class='text-white/70 mb-6'>
+            {t("contact.description")}
+          </p>
+        </div>
+
+        <div class='space-y-4'>
+          <div>
+            <Socials />
+          </div>
+        </div>
+      </section>
+
+      <section class='animate space-y-6 mt-10'>
+        <div>
+          <h2 class='text-lg font-semibold text-white mb-4'>
+            {t("contact.availability")}
+          </h2>
+          <p class='text-white/70'>
+            {t("contact.availabilityDesc")}
+          </p>
+        </div>
+      </section>
+    </div>
+  </Container>
+</PageLayout>

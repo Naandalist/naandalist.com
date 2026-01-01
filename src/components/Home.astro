@@ -87,9 +87,11 @@ const jsonLd = {
     "Personal Portofolio",
   ],
 };
+
+const pageTitle = "Naandalist: Listiananda Apriliawan";
 ---
 
-<PageLayout title={t("home.title")} description={t("home.description")}>
+<PageLayout title={pageTitle} description={t("home.description")}>
   <script
     is:inline
     type='application/ld+json'
@@ -276,12 +278,10 @@ const jsonLd = {
                 href='mailto:dev@naandalist.com'
                 aria-label='Email Naandalist'
               >
-                dev@naandalist.com
+                dev@naandalist.com.
               </Link>
-              {t("home.connect.or")}
             </p>
           </article>
-          <Socials />
         </section>
       </section>
     </div>
