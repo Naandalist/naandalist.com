@@ -24,6 +24,8 @@ export const ui = {
     "home.skills": "Technical Skills",
     "home.work": "Work Experience",
     "home.work.seeAll": "More",
+    "home.npmjs": "Open Source Packages",
+    "home.npmjs.seeAll": "More",
     "home.projects": "Recent projects",
     "home.projects.seeAll": "More",
     "home.posts": "Latest posts",
@@ -43,6 +45,10 @@ export const ui = {
     "projects.description":
       "Portfolio of web and mobile projects featuring React Native apps, WordPress sites, and full-stack applications with source code and live demos.",
     "projects.back": "Back to projects",
+    "npmjs.title": "NPM Packages",
+    "npmjs.description":
+      "Open source NPM packages for JavaScript and TypeScript developers, featuring utilities, tools, and libraries.",
+    "npmjs.back": "Back to packages",
     "work.title": "Work",
     "work.description":
       "Professional career showcasing roles as Frontend Developer, Full-stack Developer, and technical contributions across startups and enterprises.",
@@ -68,8 +74,10 @@ export const ui = {
     "home.skills": "Keahlian Teknis",
     "home.work": "Pengalaman Kerja",
     "home.work.seeAll": "Lihat semua pekerjaan",
+    "home.npmjs": "Open Source",
+    "home.npmjs.seeAll": "Selengkapnya",
     "home.projects": "Proyek Terbaru",
-    "home.projects.seeAll": "Lihat semua proyek",
+    "home.projects.seeAll": "Selengkapnya",
     "home.posts": "Tulisan Terbaru",
     "home.posts.seeAll": "Lihat semua tulisan",
     "home.image.caption":
@@ -88,6 +96,10 @@ export const ui = {
     "projects.description":
       "Portofolio proyek web dan mobile mencakup aplikasi React Native, situs WordPress, dan aplikasi full-stack dengan kode sumber dan demo langsung.",
     "projects.back": "Kembali ke proyek",
+    "npmjs.title": "Paket NPM",
+    "npmjs.description":
+      "Paket NPM open source untuk pengembang JavaScript dan TypeScript, berisi utilitas, alat, dan library.",
+    "npmjs.back": "Kembali ke paket",
     "work.title": "Pekerjaan",
     "work.description":
       "Karir profesional menampilkan peran sebagai Frontend Developer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",

@@ -1,0 +1,61 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+
+import { useTranslations } from "@i18n/utils";
+
+import BackToPrev from "@components/BackToPrev.astro";
+import Container from "@components/Container.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+import { readingTime } from "@lib/utils";
+
+export async function getStaticPaths() {
+  const packages = (await getCollection("npmjs"))
+    .filter((pkg) => !pkg.data.draft && pkg.data.lang === "en")
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return packages.map((pkg) => ({
+    params: { slug: pkg.slug },
+    props: pkg,
+  }));
+}
+type Props = CollectionEntry<"npmjs">;
+
+const pkg = Astro.props;
+const { Content } = await pkg.render();
+const t = useTranslations("en");
+---
+
+<PageLayout title={pkg.data.title} description={pkg.data.description}>
+  <Container>
+    <div class='animate'>
+      <BackToPrev href='/npmjs'> {t("npmjs.back")} </BackToPrev>
+    </div>
+    <div class='space-y-1 my-10'>
+      <div class='animate flex items-center gap-1.5'>
+        <div class='font-base text-sm'>
+          <FormattedDate date={pkg.data.date} />
+        </div>
+        &bull;
+        <div class='font-base text-sm'>
+          {readingTime(pkg.body)}
+        </div>
+        {
+          pkg.data.version && (
+            <>
+              &bull;
+              <div class='font-base text-sm'>v{pkg.data.version}</div>
+            </>
+          )
+        }
+      </div>
+      <div class='animate text-2xl font-semibold text-white'>
+        {pkg.data.title}
+      </div>
+    </div>
+    <article class='animate'>
+      <Content />
+    </article>
+  </Container>
+</PageLayout>

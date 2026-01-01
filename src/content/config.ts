@@ -47,4 +47,21 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = { posts, work, projects };
+const npmjs = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    lastUpdated: z.coerce.date().optional(),
+    draft: z.boolean().optional(),
+    npmURL: z.string().optional(),
+    repoURL: z.string().optional(),
+    version: z.string().optional(),
+    license: z.string().optional(),
+    keywords: z.array(z.string()).optional(),
+    lang: z.enum(["en", "id"]).optional().default("en"),
+  }),
+});
+
+export const collections = { posts, work, projects, npmjs };

@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+
+import { useTranslations } from "@i18n/utils";
+
+import Container from "@components/Container.astro";
+import NpmjsCard from "@components/NpmjsCard.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+interface Props {
+  lang?: "en" | "id";
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
+const npmPackages = (await getCollection("npmjs"))
+  .filter((pkg) => !pkg.data.draft && pkg.data.lang === lang)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<PageLayout title={t("npmjs.title")} description={t("npmjs.description")}>
+  <Container>
+    <div class='space-y-10'>
+      <h1 class='animate font-semibold text-white'>
+        {t("npmjs.title")}
+      </h1>
+      <ul class='animate flex flex-col gap-4'>
+        {
+          npmPackages.map((pkg) => (
+            <li>
+              <NpmjsCard entry={pkg} lang={lang} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</PageLayout>

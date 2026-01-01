@@ -3,6 +3,7 @@ title: "Hardening React Native Apps Beyond JailMonkey"
 subtitle: "Why root checks are not real security"
 description: "Why root and hook checks in React Native are weak controls, and why security decisions must live on the backend instead of inside the app."
 date: "2025-11-14"
+
 keywords:
   - React Native security
   - mobile app hardening
