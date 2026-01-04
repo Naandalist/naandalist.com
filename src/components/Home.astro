@@ -25,19 +25,69 @@ const t = useTranslations(lang);
 
 const introPara2 = `${t("home.intro.paragraph2")} React ${t("home.intro.paragraph2.and")} Astro${t("home.intro.paragraph2.end")}`;
 
+const FEATURED_POSTS: string[] = [
+  "Great Work Doesn't Always Have to Be Original",
+  "Partial API Responses for Better UX",
+  "Hardening React Native Apps Beyond JailMonkey",
+];
+
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft && post.data.lang === lang)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .filter((post) =>
+    FEATURED_POSTS.length > 0 ? FEATURED_POSTS.includes(post.data.title) : true,
+  )
+  .sort((a, b) => {
+    if (FEATURED_POSTS.length > 0) {
+      return (
+        FEATURED_POSTS.indexOf(a.data.title) -
+        FEATURED_POSTS.indexOf(b.data.title)
+      );
+    }
+    return b.data.date.valueOf() - a.data.date.valueOf();
+  })
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
+
+const FEATURED_PROJECTS: string[] = ["Info Haji", "Kamus KBBI VI"];
 
 const projects = (await getCollection("projects"))
   .filter((project) => !project.data.draft && project.data.lang === lang)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .filter((project) =>
+    FEATURED_PROJECTS.length > 0
+      ? FEATURED_PROJECTS.includes(project.data.title)
+      : true,
+  )
+  .sort((a, b) => {
+    if (FEATURED_PROJECTS.length > 0) {
+      return (
+        FEATURED_PROJECTS.indexOf(a.data.title) -
+        FEATURED_PROJECTS.indexOf(b.data.title)
+      );
+    }
+    return b.data.date.valueOf() - a.data.date.valueOf();
+  })
   .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
+
+const FEATURED_NPM_PACKAGES: string[] = [
+  "@naandalist/patch-package",
+  "secure-file-validator",
+];
 
 const npmPackages = (await getCollection("npmjs"))
   .filter((pkg) => !pkg.data.draft && pkg.data.lang === lang)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .filter((pkg) =>
+    FEATURED_NPM_PACKAGES.length > 0
+      ? FEATURED_NPM_PACKAGES.includes(pkg.data.title)
+      : true,
+  )
+  .sort((a, b) => {
+    if (FEATURED_NPM_PACKAGES.length > 0) {
+      return (
+        FEATURED_NPM_PACKAGES.indexOf(a.data.title) -
+        FEATURED_NPM_PACKAGES.indexOf(b.data.title)
+      );
+    }
+    return b.data.date.valueOf() - a.data.date.valueOf();
+  })
   .slice(0, SITE.NUM_NPMJS_ON_HOMEPAGE);
 
 const allwork = (await getCollection("work"))
@@ -45,7 +95,7 @@ const allwork = (await getCollection("work"))
   .sort(
     (a, b) =>
       new Date(b.data.dateStart).valueOf() -
-      new Date(a.data.dateStart).valueOf()
+      new Date(a.data.dateStart).valueOf(),
   )
   .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE);
 
@@ -53,7 +103,7 @@ const work = await Promise.all(
   allwork.map(async (item) => {
     const { Content } = await item.render();
     return { ...item, Content };
-  })
+  }),
 );
 
 const jsonLd = {
@@ -93,104 +143,104 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
 <PageLayout title={pageTitle} description={t("home.description")}>
   <script
     is:inline
-    type='application/ld+json'
+    type="application/ld+json"
     set:html={JSON.stringify(jsonLd)}
   />
   <Container>
-    <h1 class='animate font-semibold text-white'>
+    <h1 class="animate font-semibold text-white">
       {t("home.greeting")}
     </h1>
-    <div class='space-y-16'>
+    <div class="space-y-16">
       <section>
-        <article class='space-y-4'>
-          <p class='animate'>
+        <article class="space-y-4">
+          <p class="animate">
             {t("home.intro.paragraph1")}
             <Link
-              href='https://reactnative.dev/'
-              aria-label='React Native'
+              href="https://reactnative.dev/"
+              aria-label="React Native"
               external>React Native</Link
             >
             {t("home.intro.paragraph1.end")}
             <Link
-              href='https://www.typescriptlang.org/'
-              aria-label='TypeScript'
+              href="https://www.typescriptlang.org/"
+              aria-label="TypeScript"
               external>TypeScript</Link
             >
             {t("home.intro.paragraph1.tooling")}
-            <Link href='https://nodejs.org/en' aria-label='Node.js' external
+            <Link href="https://nodejs.org/en" aria-label="Node.js" external
               >Node.js</Link
             >
             {t("home.intro.paragraph1.needed")}
           </p>
-          <p class='animate'>
+          <p class="animate">
             {introPara2}
           </p>
         </article>
 
-        <figure class='relative col-span-2 sm:col-span-1 animate mt-4'>
+        <figure class="relative col-span-2 sm:col-span-1 animate mt-4">
           <Image
-            alt='Naandalist hiking on Mount Merbabu'
+            alt="Naandalist hiking on Mount Merbabu"
             src={defaultImage}
-            class='rounded-lg object-cover w-full h-full'
+            class="rounded-lg object-cover w-full h-full"
             width={800}
             height={600}
-            loading='eager'
-            fetchpriority='high'
+            loading="eager"
+            fetchpriority="high"
           />
-          <figcaption class='text-sm text-white/60 mt-3'>
+          <figcaption class="text-sm text-white/60 mt-3">
             {t("home.image.caption")}
           </figcaption>
         </figure>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class=''>
+        <section class="animate space-y-6 mt-10">
+          <div class="">
             <p
-              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+              class="text-xs font-medium uppercase tracking-[0.18em] text-white"
             >
               {t("home.skills")}
             </p>
-            <div class='flex flex-wrap items-center gap-2 mt-5'>
+            <div class="flex flex-wrap items-center gap-2 mt-5">
               <img
-                src='/icons/skill-dev.svg'
-                alt='Tech stack icons'
-                class='animate'
-                fetchpriority='high'
+                src="/icons/skill-dev.svg"
+                alt="Tech stack icons"
+                class="animate"
+                fetchpriority="high"
               />
             </div>
           </div>
         </section>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+        <section class="animate space-y-6 mt-10">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
             <h3
-              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+              class="text-xs font-medium uppercase tracking-[0.18em] text-white"
             >
               {t("home.work")}
             </h3>
             <Link href={lang === "en" ? "/work" : "/id/work"}>
-              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+              <span class="text-xs font-medium uppercase tracking-[0.18em]">
                 {t("home.work.seeAll")}
               </span>
             </Link>
           </div>
-          <ul class='flex flex-col space-y-4'>
+          <ul class="flex flex-col space-y-4">
             {
               work.map((entry) => (
-                <li class='animate flex items-start gap-4'>
+                <li class="animate flex items-start gap-4">
                   <Image
                     src={entry.data.logoUrl}
-                    alt='Company logo'
-                    class='w-12 h-12 object-contain rounded mt-1'
+                    alt="Company logo"
+                    class="w-12 h-12 object-contain rounded mt-1"
                   />
                   <div>
-                    <div class='text-sm opacity-75'>
+                    <div class="text-sm opacity-75">
                       {dateRange(entry.data.dateStart, entry.data.dateEnd)}
                     </div>
-                    <div class='font-semibold text-white'>
+                    <div class="font-semibold text-white">
                       {entry.data.company}
                     </div>
-                    <div class='text-sm opacity-75'>{entry.data.role}</div>
-                    <article class='work-summary-home'>
+                    <div class="text-sm opacity-75">{entry.data.role}</div>
+                    <article class="work-summary-home">
                       <entry.Content />
                     </article>
                   </div>
@@ -200,37 +250,37 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
           </ul>
         </section>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+        <section class="animate space-y-6 mt-10">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
             <h3
-              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+              class="text-xs font-medium uppercase tracking-[0.18em] text-white"
             >
               {t("home.npmjs")}
             </h3>
             <Link href={lang === "en" ? "/npmjs" : "/id/npmjs"}>
-              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+              <span class="text-xs font-medium uppercase tracking-[0.18em]">
                 {t("home.npmjs.seeAll")}
               </span>
             </Link>
           </div>
-          <div class='flex flex-col gap-4'>
+          <div class="flex flex-col gap-4">
             {npmPackages.map((pkg) => <NpmjsCard entry={pkg} lang={lang} />)}
           </div>
         </section>
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+        <section class="animate space-y-6 mt-10">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
             <h3
-              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+              class="text-xs font-medium uppercase tracking-[0.18em] text-white"
             >
               {t("home.projects")}
             </h3>
             <Link href={lang === "en" ? "/projects" : "/id/projects"}>
-              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+              <span class="text-xs font-medium uppercase tracking-[0.18em]">
                 {t("home.projects.seeAll")}
               </span>
             </Link>
           </div>
-          <div class='flex flex-col gap-4'>
+          <div class="flex flex-col gap-4">
             {
               projects.map((project) => (
                 <ProjectCard entry={project} lang={lang} />
@@ -239,20 +289,20 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
           </div>
         </section>
 
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+        <section class="animate space-y-6 mt-10">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
             <h3
-              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+              class="text-xs font-medium uppercase tracking-[0.18em] text-white"
             >
               {t("home.posts")}
             </h3>
             <Link href={lang === "en" ? "/posts" : "/id/posts"}>
-              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+              <span class="text-xs font-medium uppercase tracking-[0.18em]">
                 {t("home.posts.seeAll")}
               </span>
             </Link>
           </div>
-          <ul class='flex flex-col gap-4'>
+          <ul class="flex flex-col gap-4">
             {
               posts.map((post) => (
                 <li>
@@ -263,22 +313,20 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
           </ul>
         </section>
 
-        <section class='animate space-y-4 mt-10'>
-          <h3 class='font-semibold text-white'>
+        <section class="animate space-y-4 mt-10">
+          <h3 class="font-semibold text-white">
             {t("home.connect")}
           </h3>
           <article>
-            <p class='animate'>
+            <p class="animate">
               {t("home.connect.desc1")}
             </p>
-            <p class='animate'>
+            <p class="animate">
               {t("home.connect.desc2")}
-              <Link
-                href='mailto:dev@naandalist.com'
-                aria-label='Email Naandalist'
-              >
-                dev@naandalist.com.
+              <Link href="/contact" aria-label={t("home.connect.contactLink")}>
+                {t("home.connect.contactLink")}
               </Link>
+              {t("home.connect.desc3")}
             </p>
           </article>
         </section>

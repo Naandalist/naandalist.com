@@ -35,7 +35,9 @@ export const ui = {
     "home.connect.desc1":
       "Naandalist is the username I use for most of my public accounts.",
     "home.connect.desc2":
-      "For hiring opportunities, collaboration, or freelance work. You can reach me at",
+       "For hiring opportunities, collaboration, or freelance work, feel free to ",
+    "home.connect.contactLink": "contact",
+    "home.connect.desc3": " me anytime.",
     "home.connect.or": "or via links below.",
     "posts.title": "Posts",
     "posts.description":
@@ -95,7 +97,9 @@ export const ui = {
     "home.connect.desc1":
       "Naandalist adalah nama pengguna yang saya gunakan untuk sebagian besar akun publik saya.",
     "home.connect.desc2":
-      "Untuk peluang kerja, kolaborasi, atau pekerjaan lepas. Anda dapat menghubungi saya di",
+      "Untuk peluang kerja, kolaborasi, atau pekerjaan lepas, jangan ragu untuk ",
+    "home.connect.contactLink": "menghubungi",
+    "home.connect.desc3": " saya kapan saja.",
     "home.connect.or": "atau melalui tautan di bawah ini.",
     "posts.title": "Tulisan",
     "posts.description":
