@@ -12,7 +12,7 @@ const cleanSlug = entry.slug.replace(/\/indexid$/, "");
 const packageUrl = `${baseUrl}/npmjs/${cleanSlug}`;
 
 const defaultThumbnail =
-  "https://res.cloudinary.com/naandalistcloud/image/upload/v1767252550/naandalist.com/ETPwXGaXsAA2qTD_tup0cm.png";
+  "https://res.cloudinary.com/naandalistcloud/image/upload/w_384,h_256,c_fill,q_auto,f_auto/v1767252550/naandalist.com/ETPwXGaXsAA2qTD_tup0cm.png";
 ---
 
 <div
@@ -27,6 +27,10 @@ const defaultThumbnail =
       src={defaultThumbnail}
       alt={`${entry.data.title} preview`}
       class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+      width='384'
+      height='256'
+      loading='lazy'
+      decoding='async'
     />
   </a>
 

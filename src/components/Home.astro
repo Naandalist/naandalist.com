@@ -177,13 +177,13 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
           </p>
         </article>
 
-        <figure class='relative col-span-2 sm:col-span-1 animate mt-4'>
+        <figure class='relative col-span-2 sm:col-span-1 mt-4'>
           <Image
             alt='Naandalist hiking on Mount Merbabu'
             src={defaultImage}
             class='rounded-lg object-cover w-full h-full'
-            width={800}
-            height={600}
+            width={744}
+            height={392}
             loading='eager'
             fetchpriority='high'
           />
@@ -204,6 +204,8 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
                 src='/icons/skill-dev.svg'
                 alt='Tech stack icons'
                 class='animate'
+                width='667'
+                height='48'
                 fetchpriority='high'
               />
             </div>
@@ -212,11 +214,11 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3
+            <h2
               class='text-xs font-medium uppercase tracking-[0.18em] text-white'
             >
               {t("home.work")}
-            </h3>
+            </h2>
             <Link href={lang === "en" ? "/work" : "/id/work"}>
               <span class='text-xs font-medium uppercase tracking-[0.18em]'>
                 {t("home.work.seeAll")}
@@ -231,6 +233,8 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
                     src={entry.data.logoUrl}
                     alt='Company logo'
                     class='w-12 h-12 object-contain rounded mt-1'
+                    width={96}
+                    height={96}
                   />
                   <div>
                     <div class='text-sm opacity-75'>
@@ -252,11 +256,11 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3
+            <h2
               class='text-xs font-medium uppercase tracking-[0.18em] text-white'
             >
               {t("home.npmjs")}
-            </h3>
+            </h2>
             <Link href={lang === "en" ? "/npmjs" : "/id/npmjs"}>
               <span class='text-xs font-medium uppercase tracking-[0.18em]'>
                 {t("home.npmjs.seeAll")}
@@ -269,11 +273,11 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
         </section>
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3
+            <h2
               class='text-xs font-medium uppercase tracking-[0.18em] text-white'
             >
               {t("home.projects")}
-            </h3>
+            </h2>
             <Link href={lang === "en" ? "/projects" : "/id/projects"}>
               <span class='text-xs font-medium uppercase tracking-[0.18em]'>
                 {t("home.projects.seeAll")}
@@ -291,11 +295,11 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
 
         <section class='animate space-y-6 mt-10'>
           <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h3
+            <h2
               class='text-xs font-medium uppercase tracking-[0.18em] text-white'
             >
               {t("home.posts")}
-            </h3>
+            </h2>
             <Link href={lang === "en" ? "/posts" : "/id/posts"}>
               <span class='text-xs font-medium uppercase tracking-[0.18em]'>
                 {t("home.posts.seeAll")}
@@ -314,9 +318,9 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
         </section>
 
         <section class='animate space-y-4 mt-10'>
-          <h3 class='font-semibold text-white'>
+          <h2 class='font-semibold text-white'>
             {t("home.connect")}
-          </h3>
+          </h2>
           <article>
             <p class='animate'>
               {t("home.connect.desc1")}

@@ -54,12 +54,23 @@ article {
 }
 
 .animate {
-  @apply opacity-0 translate-y-3;
   @apply transition-all duration-700 ease-out;
+  @starting-style {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
 }
 
-.animate.show {
-  @apply opacity-100 translate-y-0;
+/* Fallback for browsers without @starting-style support */
+@supports not (selector(:has(*))) {
+  .animate {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  .animate.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 html #back-to-top {
