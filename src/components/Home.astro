@@ -34,7 +34,7 @@ const FEATURED_POSTS: string[] = [
 const posts = (await getCollection("posts"))
   .filter((post) => !post.data.draft && post.data.lang === lang)
   .filter((post) =>
-    FEATURED_POSTS.length > 0 ? FEATURED_POSTS.includes(post.data.title) : true
+    FEATURED_POSTS.length > 0 ? FEATURED_POSTS.includes(post.data.title) : true,
   )
   .sort((a, b) => {
     if (FEATURED_POSTS.length > 0) {
@@ -47,14 +47,19 @@ const posts = (await getCollection("posts"))
   })
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
-const FEATURED_PROJECTS: string[] = ["Info Haji", "Kamus KBBI VI"];
+const FEATURED_PROJECTS: string[] = [
+  "AIA eBenefits App",
+  "Airpaz: Flights & Hotels",
+  "Info Haji",
+  "Kamus KBBI VI",
+];
 
 const projects = (await getCollection("projects"))
   .filter((project) => !project.data.draft && project.data.lang === lang)
   .filter((project) =>
     FEATURED_PROJECTS.length > 0
       ? FEATURED_PROJECTS.includes(project.data.title)
-      : true
+      : true,
   )
   .sort((a, b) => {
     if (FEATURED_PROJECTS.length > 0) {
@@ -77,7 +82,7 @@ const npmPackages = (await getCollection("npmjs"))
   .filter((pkg) =>
     FEATURED_NPM_PACKAGES.length > 0
       ? FEATURED_NPM_PACKAGES.includes(pkg.data.title)
-      : true
+      : true,
   )
   .sort((a, b) => {
     if (FEATURED_NPM_PACKAGES.length > 0) {
@@ -95,7 +100,7 @@ const allwork = (await getCollection("work"))
   .sort(
     (a, b) =>
       new Date(b.data.dateStart).valueOf() -
-      new Date(a.data.dateStart).valueOf()
+      new Date(a.data.dateStart).valueOf(),
   )
   .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE);
 
@@ -103,7 +108,7 @@ const work = await Promise.all(
   allwork.map(async (item) => {
     const { Content } = await item.render();
     return { ...item, Content };
-  })
+  }),
 );
 
 const jsonLd = {
