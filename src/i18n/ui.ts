@@ -30,7 +30,7 @@ export const ui = {
     "home.projects.seeAll": "All projects",
     "home.posts": "Latest posts",
     "home.posts.seeAll": "All posts",
-    "home.image.caption": "Off the keyboard, I'm usually on a trail.",
+    "home.image.caption": "My workspace 😎",
     "home.connect": "Let's Connect",
     "home.connect.desc1":
       "Naandalist is the username I use for most of my public accounts.",
@@ -91,8 +91,7 @@ export const ui = {
     "home.projects.seeAll": "Lihat semua proyek",
     "home.posts": "Tulisan Terbaru",
     "home.posts.seeAll": "Lihat semua tulisan",
-    "home.image.caption":
-      "Ketika tidak sedang coding, saya biasanya mendaki gunung.",
+    "home.image.caption": "Ruang kerjaku",
     "home.connect": "Mari Terhubung",
     "home.connect.desc1":
       "Naandalist adalah nama pengguna yang saya gunakan untuk sebagian besar akun publik saya.",
