@@ -25,74 +25,19 @@ const t = useTranslations(lang);
 
 const introPara2 = `${t("home.intro.paragraph2")} React ${t("home.intro.paragraph2.and")} Astro${t("home.intro.paragraph2.end")}`;
 
-const FEATURED_POSTS: string[] = [
-  "Great Work Doesn't Always Have to Be Original",
-  "Partial API Responses for Better UX",
-  "Hardening React Native Apps Beyond JailMonkey",
-];
-
 const posts = (await getCollection("posts"))
-  .filter((post) => !post.data.draft && post.data.lang === lang)
-  .filter((post) =>
-    FEATURED_POSTS.length > 0 ? FEATURED_POSTS.includes(post.data.title) : true,
-  )
-  .sort((a, b) => {
-    if (FEATURED_POSTS.length > 0) {
-      return (
-        FEATURED_POSTS.indexOf(a.data.title) -
-        FEATURED_POSTS.indexOf(b.data.title)
-      );
-    }
-    return b.data.date.valueOf() - a.data.date.valueOf();
-  })
+  .filter((post) => !post.data.draft && post.data.lang === lang && post.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
-const FEATURED_PROJECTS: string[] = [
-  "AIA eBenefits App",
-  "Airpaz: Flights & Hotels",
-  "Info Haji",
-  "Kamus KBBI VI",
-];
-
 const projects = (await getCollection("projects"))
-  .filter((project) => !project.data.draft && project.data.lang === lang)
-  .filter((project) =>
-    FEATURED_PROJECTS.length > 0
-      ? FEATURED_PROJECTS.includes(project.data.title)
-      : true,
-  )
-  .sort((a, b) => {
-    if (FEATURED_PROJECTS.length > 0) {
-      return (
-        FEATURED_PROJECTS.indexOf(a.data.title) -
-        FEATURED_PROJECTS.indexOf(b.data.title)
-      );
-    }
-    return b.data.date.valueOf() - a.data.date.valueOf();
-  })
+  .filter((project) => !project.data.draft && project.data.lang === lang && project.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
 
-const FEATURED_NPM_PACKAGES: string[] = [
-  "@naandalist/patch-package",
-  "secure-file-validator",
-];
-
 const npmPackages = (await getCollection("npmjs"))
-  .filter((pkg) => !pkg.data.draft && pkg.data.lang === lang)
-  .filter((pkg) =>
-    FEATURED_NPM_PACKAGES.length > 0
-      ? FEATURED_NPM_PACKAGES.includes(pkg.data.title)
-      : true,
-  )
-  .sort((a, b) => {
-    if (FEATURED_NPM_PACKAGES.length > 0) {
-      return (
-        FEATURED_NPM_PACKAGES.indexOf(a.data.title) -
-        FEATURED_NPM_PACKAGES.indexOf(b.data.title)
-      );
-    }
-    return b.data.date.valueOf() - a.data.date.valueOf();
-  })
+  .filter((pkg) => !pkg.data.draft && pkg.data.lang === lang && pkg.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_NPMJS_ON_HOMEPAGE);
 
 const allwork = (await getCollection("work"))

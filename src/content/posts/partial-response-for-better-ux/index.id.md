@@ -3,6 +3,7 @@ title: "Respon API Parsial untuk UX yang Lebih Baik"
 subtitle: "Utamakan Pengalaman Pengguna, Kesempurnaan Data Nomor Dua"
 description: "Pola praktis mengembalikan respon API secara parsial agar pengguna melihat data utama cepat, sementara data lambat dimuat belakangan mengurangi pengguna kabur."
 date: "2025-11-16"
+featured: true
 lang: "id"
 keywords:
   - API design

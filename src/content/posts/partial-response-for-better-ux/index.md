@@ -3,6 +3,7 @@ title: "Partial API Responses for Better UX"
 subtitle: "UX First, Purity Second"
 description: "Pattern for returning partial API responses so users see real data quickly while slower fields load in the background, reducing drop-off."
 date: "2025-11-16"
+featured: true
 keywords:
   - API design
   - UX optimization

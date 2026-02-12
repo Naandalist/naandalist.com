@@ -3,6 +3,7 @@ title: "Airpaz: Pesawat & Hotel"
 description: "Aplikasi pemesanan perjalanan lengkap untuk tiket pesawat dan hotel murah. Terbang dan menginap di mana saja dengan mudah."
 date: "2016-01-01"
 lastUpdated: "2026-01-12"
+featured: true
 imageUrl: "@assets/images/thumbnail-airpaz.webp"
 liveURL: "https://apps.apple.com/id/app/airpaz-pesawat-hotel/id1066890405?l=id"
 repoURL: ""

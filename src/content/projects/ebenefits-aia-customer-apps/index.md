@@ -3,6 +3,7 @@ title: "AIA eBenefits App"
 description: "Designed exclusively for Singapore members of the AIA Employee Benefits Scheme, AIA eBenefits App makes it easy for you to access your insurance benefits any time, anywhere."
 date: "2020-07-15"
 lastUpdated: "2026-01-06"
+featured: true
 imageUrl: "@assets/images/thumbnail-ebenefits-app.webp"
 liveURL: "https://apps.apple.com/id/app/aia-ebenefits-app/id1523776118?l=id"
 repoURL: ""

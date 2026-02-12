@@ -3,6 +3,7 @@ title: "secure-file-validator"
 description: "Library validasi file yang aman untuk Node.js yang melakukan pengecekan signature dan validasi konten untuk melindungi aplikasi dari unggahan file berbahaya."
 date: "2025-10-01"
 lastUpdated: "2025-10-15"
+featured: true
 npmURL: "https://www.npmjs.com/package/secure-file-validator"
 repoURL: "https://github.com/Naandalist/secure-file-validator"
 version: "1.1.0"

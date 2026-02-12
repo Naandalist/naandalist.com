@@ -3,6 +3,7 @@ title: "Kamus KBBI VI"
 description: "A mobile dictionary app for Indonesian language with 10K+ downloads on Google Play Store"
 date: "2025-11-11"
 lastUpdated: "2025-11-12"
+featured: true
 imageUrl: "@assets/images/thumbnail-kbbi-app.webp"
 liveURL: "https://play.google.com/store/apps/details?id=com.naandalist.kamus_kbbi"
 repoURL: "https://github.com/Naandalist/kbbi-app"

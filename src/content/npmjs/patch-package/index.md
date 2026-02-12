@@ -3,6 +3,7 @@ title: "@naandalist/patch-package"
 description: "A security-enhanced fork of patch-package that fixes vulnerabilities while maintaining full compatibility."
 date: "2025-10-01"
 lastUpdated: "2025-10-15"
+featured: true
 npmURL: "https://www.npmjs.com/package/@naandalist/patch-package"
 repoURL: "https://github.com/naandalist/patch-package"
 version: "8.1.6"

@@ -3,6 +3,7 @@ title: "Hardening Aplikasi React Native: Melampaui Sekadar JailMonkey"
 subtitle: "Mengapa pemeriksaan root bukan merupakan mekanisme keamanan yang substantif"
 description: "Analisis mengapa deteksi root dan hook pada React Native merupakan kontrol keamanan yang lemah, serta urgensi pemindahan keputusan keamanan ke sisi backend."
 date: "2025-11-14"
+featured: true
 lang: "id"
 keywords:
   - React Native security

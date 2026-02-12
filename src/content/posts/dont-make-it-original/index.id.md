@@ -3,6 +3,7 @@ title: "Karya yang Hebat Tidak Harus Selalu Orisinal"
 subtitle: "Menelusuri batas tipis antara meniru, mencuri, dan menciptakan sesuatu yang baru."
 description: "Refleksi tentang kreativitas dan orisinalitas. Mengapa tidak ada yang benar-benar baru dan bagaimana etis menggali inspirasi dari ide yang ada."
 date: "Dec 5 2025"
+featured: true
 lang: "id"
 keywords:
   - Kreativitas

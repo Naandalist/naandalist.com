@@ -3,6 +3,7 @@ title: "AIA eBenefits App"
 description: "Dirancang khusus untuk anggota Skema Manfaat Karyawan AIA Singapura, Aplikasi AIA eBenefits memudahkan Anda untuk mengakses manfaat asuransi Anda kapan saja, di mana saja."
 date: "2020-07-15"
 lastUpdated: "2026-01-06"
+featured: true
 imageUrl: "@assets/images/thumbnail-ebenefits-app.webp"
 liveURL: "https://apps.apple.com/id/app/aia-ebenefits-app/id1523776118?l=id"
 repoURL: ""

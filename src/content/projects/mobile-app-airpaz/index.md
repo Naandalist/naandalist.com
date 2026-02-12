@@ -3,6 +3,7 @@ title: "Airpaz: Flights & Hotels"
 description: "Your one-stop travel booking app. Book cheap flights and hotels, enjoy exclusive deals, and manage your bookings with ease."
 date: "2016-01-01"
 lastUpdated: "2026-01-12"
+featured: true
 imageUrl: "@assets/images/thumbnail-airpaz.webp"
 liveURL: "https://apps.apple.com/id/app/airpaz-pesawat-hotel/id1066890405"
 repoURL: ""

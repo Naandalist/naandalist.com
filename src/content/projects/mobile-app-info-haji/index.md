@@ -3,6 +3,7 @@ title: "Info Haji"
 description: "Check portion number, departure estimation, province quota, and payment status."
 date: "2025-11-11"
 lastUpdated: "2025-11-10"
+featured: true
 imageUrl: "@assets/images/thumbnail-infohaji-app.webp"
 liveURL: "https://play.google.com/store/apps/details?id=com.naandalist.info_haji"
 repoURL: "https://github.com/Naandalist/info-hajj-app"
