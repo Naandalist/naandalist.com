@@ -7,6 +7,8 @@
 
 Personal website built with Astro, featuring a clean design and optimized for speed.
 
+This app is live at [naandalist.com](https://naandalist.com/).
+
 ## Tech Stack
 
 - Astro 5
