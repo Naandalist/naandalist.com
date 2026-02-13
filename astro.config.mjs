@@ -7,7 +7,9 @@ export default defineConfig({
   site: "https://naandalist.com",
   integrations: [
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes("/privacy") && !page.includes("/terms"),
+    }),
     tailwind({
       applyBaseStyles: true,
     }),
