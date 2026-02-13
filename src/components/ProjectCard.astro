@@ -30,6 +30,8 @@ const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
           class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
           width={384}
           height={256}
+          widths={[384, 768]}
+          sizes="(max-width: 640px) 100vw, 384px"
         />
       ) : (
         <div class='flex h-full w-full items-center justify-center'>
