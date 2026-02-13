@@ -122,3 +122,4 @@ bun run build      # Verify no type errors
 - **Astro only**: No JSX/React in this project
 - **Sitemap excludes pages**: `/privacy/` and `/terms/` are filtered from sitemap
 - **Before editing**: Always check the file structure and context first — ask questions if unsure
+- **NEVER commit or push**: The user handles all git operations manually. Do not use `git commit`, `git push`, `git rebase`, or any destructive git commands. You may only read git status or view diffs.

@@ -235,3 +235,4 @@ bun run verify:routes  # Verify i18n paths
 6. **Sitemap excludes pages**: `/privacy/` and `/terms/` filtered from sitemap
 7. **JSON-LD for SEO**: Use schemas in `src/lib/jsonld.ts` for rich snippets
 8. **Before requesting edits**: Always read the file first to understand context
+9. **NEVER commit or push to git** — The user commits and pushes manually. Only use Bash for reading git status or viewing diffs. Never use `git commit`, `git push`, `git rebase`, etc.
