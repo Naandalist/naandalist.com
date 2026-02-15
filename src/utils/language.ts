@@ -3,6 +3,7 @@
  */
 
 export type Language = "en" | "id";
+const INDONESIAN_PATH_PREFIX = /^\/id(?:\/|$)/;
 
 /**
  * Detects the current language from a URL pathname
@@ -10,7 +11,7 @@ export type Language = "en" | "id";
  * @returns The detected language code
  */
 export function detectLanguage(pathname: string): Language {
-  return pathname.startsWith("/id") ? "id" : "en";
+  return INDONESIAN_PATH_PREFIX.test(pathname) ? "id" : "en";
 }
 
 /**
@@ -25,9 +26,10 @@ export function getAlternateLanguagePath(
 ): string {
   if (currentLang === "id") {
     // Remove /id prefix for English
-    return pathname.replace(/^\/id/, "") || "/";
-  } else {
-    // Add /id prefix for Indonesian
-    return "/id" + pathname;
+    const englishPath = pathname.replace(/^\/id(?=\/|$)/, "");
+    return englishPath || "/";
   }
+
+  // Add /id prefix for Indonesian
+  return pathname === "/" ? "/id/" : `/id${pathname}`;
 }

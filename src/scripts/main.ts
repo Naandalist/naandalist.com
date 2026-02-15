@@ -1,14 +1,25 @@
+let isScrollListenerBound = false;
+
 function init() {
   onScroll();
   animate();
 
   const backToTop = document.getElementById("back-to-top");
-  backToTop?.addEventListener("click", (event) => scrollToTop(event));
+  if (backToTop && backToTop.dataset.boundClick !== "true") {
+    backToTop.addEventListener("click", scrollToTop);
+    backToTop.dataset.boundClick = "true";
+  }
 
   const backToPrev = document.getElementById("back-to-prev");
-  backToPrev?.addEventListener("click", () => window.history.back());
+  if (backToPrev && backToPrev.dataset.boundClick !== "true") {
+    backToPrev.addEventListener("click", goToPreviousPage);
+    backToPrev.dataset.boundClick = "true";
+  }
 
-  document.addEventListener("scroll", onScroll);
+  if (!isScrollListenerBound) {
+    document.addEventListener("scroll", onScroll, { passive: true });
+    isScrollListenerBound = true;
+  }
 }
 
 function animate() {
@@ -37,5 +48,9 @@ function scrollToTop(event: Event) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => init());
-document.addEventListener("astro:page-load", () => init());
+function goToPreviousPage() {
+  window.history.back();
+}
+
+document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("astro:page-load", init);
