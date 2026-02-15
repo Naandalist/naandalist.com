@@ -17,7 +17,25 @@ interface Props {
   image?: string;
   noindex?: boolean;
   disableHreflang?: boolean;
+  ogType?: "website" | "article";
+  articlePublishedTime?: Date | string;
+  articleModifiedTime?: Date | string;
+  articleAuthor?: string;
+  articleTags?: string[];
 }
+
+const toISODateTime = (value?: Date | string) => {
+  if (!value) {
+    return undefined;
+  }
+
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.valueOf())) {
+    return undefined;
+  }
+
+  return date.toISOString();
+};
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const lang = getLangFromUrl(Astro.url);
@@ -42,6 +60,11 @@ const {
   image = defaultImage.src,
   noindex = false,
   disableHreflang = false,
+  ogType = "website",
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthor = "Listiananda Apriliawan",
+  articleTags = [],
 } = Astro.props;
 const imageURL = new URL(image, Astro.site);
 const imageExtension = imageURL.pathname.split(".").pop()?.toLowerCase();
@@ -54,6 +77,8 @@ const imageMimeTypeMap: Record<string, string> = {
   avif: "image/avif",
 };
 const ogImageType = imageExtension ? imageMimeTypeMap[imageExtension] : undefined;
+const articlePublishedTimeISO = toISODateTime(articlePublishedTime);
+const articleModifiedTimeISO = toISODateTime(articleModifiedTime);
 const robotsContent = noindex
   ? "noindex, nofollow"
   : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
@@ -124,7 +149,7 @@ const robotsContent = noindex
 />
 
 <!-- Open Graph / Facebook -->
-<meta property='og:type' content='website' />
+<meta property='og:type' content={ogType} />
 <meta property='og:url' content={canonicalURL.href} />
 <meta property='og:title' content={title} />
 <meta property='og:description' content={description} />
@@ -134,6 +159,20 @@ const robotsContent = noindex
 {ogImageType && <meta property='og:image:type' content={ogImageType} />}
 <meta property='og:site_name' content={SITE.NAME} />
 <meta property='og:locale' content={ogLocale} />
+{
+  ogType === "article" && (
+    <>
+      {articlePublishedTimeISO && (
+        <meta property='article:published_time' content={articlePublishedTimeISO} />
+      )}
+      {articleModifiedTimeISO && (
+        <meta property='article:modified_time' content={articleModifiedTimeISO} />
+      )}
+      <meta property='article:author' content={articleAuthor} />
+      {articleTags.map((tag) => <meta property='article:tag' content={tag} />)}
+    </>
+  )
+}
 
 <!-- WhatsApp -->
 <meta property='og:image:alt' content={`${title} - ${description}`} />

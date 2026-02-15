@@ -25,6 +25,10 @@ const backLink = lang === "id" ? "/id/posts" : "/posts";
 <PageLayout
   title={post.data.title}
   description={post.data.description || post.data.subtitle}
+  ogType='article'
+  articlePublishedTime={post.data.date}
+  articleModifiedTime={post.data.date}
+  articleTags={post.data.keywords ?? []}
 >
   <JsonLd schema={jsonLd} />
   <Container>
