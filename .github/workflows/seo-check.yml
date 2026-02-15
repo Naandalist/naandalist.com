@@ -1,4 +1,4 @@
-name: SEO Checks
+name: SEO Check
 
 on:
   pull_request:
