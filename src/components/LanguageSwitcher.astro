@@ -4,19 +4,30 @@ import { detectLanguage, getAlternateLanguagePath } from "@utils/language";
 const currentPath = Astro.url.pathname;
 const currentLang = detectLanguage(currentPath);
 const alternatePath = getAlternateLanguagePath(currentPath, currentLang);
+const isNotFoundPath = currentPath === "/404" || currentPath === "/404/";
+const englishPath = isNotFoundPath
+    ? "/"
+    : currentLang === "en"
+      ? currentPath
+      : alternatePath;
+const indonesianPath = isNotFoundPath
+    ? "/id/"
+    : currentLang === "id"
+      ? currentPath
+      : alternatePath;
 
 const languages = [
     {
         code: "en",
         label: "English",
         flag: "/icons/flag-en.svg",
-        path: currentLang === "en" ? currentPath : alternatePath,
+        path: englishPath,
     },
     {
         code: "id",
         label: "Indonesia",
         flag: "/icons/flag-id.svg",
-        path: currentLang === "id" ? currentPath : alternatePath,
+        path: indonesianPath,
     },
 ];
 
