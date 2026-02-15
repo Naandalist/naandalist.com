@@ -1,13 +1,17 @@
 ---
 import { type CollectionEntry } from "astro:content";
-import PageLayout from "@layouts/PageLayout.astro";
+
+import { useTranslations } from "@i18n/utils";
+
+import BackToPrev from "@components/BackToPrev.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import JsonLd from "@components/JsonLd.astro";
-import { readingTime } from "@lib/utils";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
 import { createBlogPostingSchema } from "@lib/jsonld";
-import BackToPrev from "@components/BackToPrev.astro";
-import { useTranslations } from "@i18n/utils";
+import { readingTime } from "@lib/utils";
 
 interface Props {
   post: CollectionEntry<"posts">;
