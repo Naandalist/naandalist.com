@@ -70,7 +70,7 @@ export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
     publisher: AUTHOR,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${SITE_URL}${langPrefix}/posts/${cleanSlug}`,
+      "@id": `${SITE_URL}${langPrefix}/posts/${cleanSlug}/`,
     },
     inLanguage: post.data.lang,
     keywords: post.data.keywords?.join(", ") || post.data.title,
@@ -94,7 +94,7 @@ export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
     description: project.data.description,
     datePublished: project.data.date.toISOString(),
     author: AUTHOR,
-    url: `${SITE_URL}${langPrefix}/projects/${cleanSlug}`,
+    url: `${SITE_URL}${langPrefix}/projects/${cleanSlug}/`,
     inLanguage: project.data.lang,
     keywords: project.data.title,
   };
