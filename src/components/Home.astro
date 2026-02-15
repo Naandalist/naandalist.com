@@ -282,7 +282,10 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
             </p>
             <p class='animate'>
               {t("home.connect.desc2")}
-              <Link href='/contact' aria-label={t("home.connect.contactLink")}>
+              <Link
+                href={lang === "en" ? "/contact" : "/id/contact"}
+                aria-label={t("home.connect.contactLink")}
+              >
                 {t("home.connect.contactLink")}
               </Link>
               {t("home.connect.desc3")}

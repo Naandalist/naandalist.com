@@ -1,21 +1,37 @@
 ---
 import { SITE } from "@constants";
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
 import Container from "@components/Container.astro";
 
 const currentPath = Astro.url.pathname;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const langPrefix = lang === "id" ? "/id" : "";
 
 const navItems = [
-  { href: "/posts", label: "posts", icon: "/icons/newspaper.svg" },
-  { href: "/projects", label: "projects", icon: "/icons/rocket.svg" },
-  { href: "/contact", label: "contact", icon: "/icons/contact.svg" },
+  {
+    href: `${langPrefix}/posts`,
+    label: t("posts.title"),
+    icon: "/icons/newspaper.svg",
+  },
+  {
+    href: `${langPrefix}/projects`,
+    label: t("projects.title"),
+    icon: "/icons/rocket.svg",
+  },
+  {
+    href: `${langPrefix}/contact`,
+    label: t("contact.title"),
+    icon: "/icons/contact.svg",
+  },
 ];
 ---
 
 <header>
   <Container>
-    <div class='flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0'>
-      <a href='/' class='inline-block no-underline'>
+    <div class='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0'>
+      <a href={langPrefix || "/"} class='inline-block no-underline'>
         <div class='font-semibold text-current'>
           {SITE.NAME}
         </div>
@@ -23,19 +39,19 @@ const navItems = [
       <nav class='flex flex-wrap gap-3'>
         {
           navItems.map(({ href, label, icon }) => {
-            const isActive = currentPath.startsWith(href);
+            const isActive =
+              currentPath === href || currentPath.startsWith(`${href}/`);
             return (
-              <a href={href} class='inline-block no-underline'>
-                <button
-                  class={`relative group w-fit flex items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-colors duration-300 ease-in-out ${
-                    isActive
-                      ? "bg-white/10 text-white border-white/20"
-                      : "hover:bg-white/5 hover:text-white border-transparent"
-                  }`}
-                >
-                  <img src={icon} alt='' class='w-4 h-4' />
-                  {label}
-                </button>
+              <a
+                href={href}
+                class={`inline-flex no-underline w-fit items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-colors duration-300 ease-in-out ${
+                  isActive
+                    ? "bg-white/10 text-white border-white/20"
+                    : "hover:bg-white/5 hover:text-white border-transparent"
+                }`}
+              >
+                <img src={icon} alt='' class='w-4 h-4' />
+                {label}
               </a>
             );
           })

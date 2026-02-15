@@ -20,6 +20,9 @@ import type { CollectionEntry } from "astro:content";
 import { SITE } from "@constants";
 
 const SITE_URL = SITE?.URL ?? "https://naandalist.com";
+const getLangPrefix = (lang: "en" | "id") => (lang === "id" ? "/id" : "");
+const getProjectImageUrl = (project: CollectionEntry<"projects">) =>
+  project.data.imageUrl ? `${SITE_URL}${project.data.imageUrl.src}` : undefined;
 const AUTHOR = {
   "@type": "Person" as const,
   name: "Listiananda Apriliawan",
@@ -35,6 +38,7 @@ export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
   const cleanSlug = post.slug
     .replace(/\/index\.id$/, "")
     .replace(/\/index$/, "");
+  const langPrefix = getLangPrefix(post.data.lang);
 
   return {
     "@context": "https://schema.org",
@@ -47,8 +51,9 @@ export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
     publisher: AUTHOR,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${SITE_URL}/posts/${cleanSlug}`,
+      "@id": `${SITE_URL}${langPrefix}/posts/${cleanSlug}`,
     },
+    inLanguage: post.data.lang,
     keywords: post.data.keywords?.join(", ") || post.data.title,
     articleBody: post.body,
   };
@@ -63,6 +68,7 @@ export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
   const cleanSlug = project.slug
     .replace(/\/index\.id$/, "")
     .replace(/\/index$/, "");
+  const langPrefix = getLangPrefix(project.data.lang);
 
   return {
     "@context": "https://schema.org",
@@ -71,7 +77,8 @@ export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
     description: project.data.description,
     datePublished: project.data.date.toISOString(),
     author: AUTHOR,
-    url: `${SITE_URL}/projects/${cleanSlug}`,
+    url: `${SITE_URL}${langPrefix}/projects/${cleanSlug}`,
+    inLanguage: project.data.lang,
     keywords: project.data.title,
   };
 }
@@ -83,9 +90,9 @@ export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
  * @returns SoftwareApplication JSON-LD schema
  */
 export function createSoftwareApplicationSchema(
-  project: CollectionEntry<"projects">
+  project: CollectionEntry<"projects">,
 ) {
-  const baseSchema: Record<string, any> = {
+  const baseSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: project.data.title,
@@ -99,14 +106,12 @@ export function createSoftwareApplicationSchema(
           : project.data.price,
       priceCurrency: "USD",
     },
-    image: project.data.imageUrl
-      ? `${SITE_URL}${project.data.imageUrl}`
-      : undefined,
+    image: getProjectImageUrl(project),
     publisher: {
       "@type": "Organization",
       name: "Naandalist Labs",
     },
-    inLanguage: "id",
+    inLanguage: project.data.lang,
   };
 
   if (project.data.liveURL) {
@@ -135,14 +140,14 @@ export function createSoftwareApplicationSchema(
  * @returns NewsMediaOrganization JSON-LD schema
  */
 export function createNewsMediaOrganizationSchema(
-  project: CollectionEntry<"projects">
+  project: CollectionEntry<"projects">,
 ) {
   return {
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
     name: project.data.title,
     url: project.data.liveURL,
-    logo: `${SITE_URL}${project.data.imageUrl}`,
+    logo: getProjectImageUrl(project),
     foundingLocation: "Sumatera Selatan, Indonesia",
     developer: AUTHOR,
   };

@@ -1,13 +1,14 @@
 ---
-import { cn } from "@lib/utils";
+import { SITE } from "@constants";
+import { getLangFromUrl } from "@i18n/utils";
 
 import "../styles/global.css";
+import CodeCopyButton from "@components/CodeCopyButton.astro";
+import Footer from "@components/Footer.astro";
 import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import CodeCopyButton from "@components/CodeCopyButton.astro";
 
-import { SITE } from "@constants";
+import { cn } from "@lib/utils";
 
 type Props = {
   title: string;
@@ -16,10 +17,11 @@ type Props = {
 };
 
 const { title, description, showHeader = true } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang={lang}>
   <head>
     <Head title={title || SITE.NAME} description={description} />
   </head>
