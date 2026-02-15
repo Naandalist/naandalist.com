@@ -13,6 +13,7 @@ import { cn } from "@lib/utils";
 type Props = {
   title: string;
   description: string;
+  image?: string;
   showHeader?: boolean;
   noindex?: boolean;
   disableHreflang?: boolean;
@@ -21,6 +22,7 @@ type Props = {
 const {
   title,
   description,
+  image,
   showHeader = true,
   noindex = false,
   disableHreflang = false,
@@ -34,6 +36,7 @@ const lang = getLangFromUrl(Astro.url);
     <Head
       title={title || SITE.NAME}
       description={description}
+      image={image}
       noindex={noindex}
       disableHreflang={disableHreflang}
     />

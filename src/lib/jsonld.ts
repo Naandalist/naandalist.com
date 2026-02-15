@@ -23,6 +23,25 @@ const SITE_URL = SITE?.URL ?? "https://naandalist.com";
 const getLangPrefix = (lang: "en" | "id") => (lang === "id" ? "/id" : "");
 const normalizeContentSlug = (slug: string) =>
   slug.replace(/\/index(?:\.id|id)?\/?$/, "");
+const normalizeSoftwarePrice = (price?: string) => {
+  if (!price) return "0";
+
+  const normalized = price.trim().toLowerCase();
+  if (normalized === "free" || normalized === "gratis") {
+    return "0";
+  }
+
+  const numericCandidate = normalized
+    .replace(/[^0-9.,-]/g, "")
+    .replace(",", ".");
+  const numericPrice = Number(numericCandidate);
+
+  if (Number.isFinite(numericPrice) && numericPrice >= 0) {
+    return numericPrice.toString();
+  }
+
+  return undefined;
+};
 const getProjectImageUrl = (project: CollectionEntry<"projects">) =>
   project.data.imageUrl ? `${SITE_URL}${project.data.imageUrl.src}` : undefined;
 const AUTHOR = {
@@ -90,20 +109,20 @@ export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
 export function createSoftwareApplicationSchema(
   project: CollectionEntry<"projects">,
 ) {
+  const normalizedPrice = normalizeSoftwarePrice(project.data.price);
   const baseSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: project.data.title,
     applicationCategory: project.data.category || "EducationalApplication",
     operatingSystem: project.data.platforms?.join(", ") || "Android",
-    offers: {
-      "@type": "Offer",
-      price:
-        project.data.price === "Free" || !project.data.price
-          ? "0"
-          : project.data.price,
-      priceCurrency: "USD",
-    },
+    offers: normalizedPrice
+      ? {
+          "@type": "Offer",
+          price: normalizedPrice,
+          priceCurrency: "USD",
+        }
+      : undefined,
     image: getProjectImageUrl(project),
     publisher: {
       "@type": "Organization",
