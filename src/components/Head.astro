@@ -24,6 +24,7 @@ const lang = getLangFromUrl(Astro.url);
 const ogLocale = lang === "id" ? "id_ID" : "en_US";
 const currentPath = Astro.url.pathname;
 const currentLang = detectLanguage(currentPath);
+const isHomePage = currentPath === "/" || currentPath === "/id/";
 const enPath =
   currentLang === "en"
     ? currentPath
@@ -74,14 +75,20 @@ const robotsContent = noindex
 <link rel='preload' href={inter400} as='font' type='font/woff2' crossorigin />
 <link rel='preload' href={inter600} as='font' type='font/woff2' crossorigin />
 
-<!-- Preload LCP images - Critical for LCP -->
-<link rel='preload' href={defaultImage.src} as='image' fetchpriority='high' />
-<link
-  rel='preload'
-  href='/icons/skill-dev.svg'
-  as='image'
-  fetchpriority='high'
-/>
+<!-- Preload home LCP images only -->
+{
+  isHomePage && (
+    <>
+      <link rel='preload' href={defaultImage.src} as='image' fetchpriority='high' />
+      <link
+        rel='preload'
+        href='/icons/skill-dev.svg'
+        as='image'
+        fetchpriority='high'
+      />
+    </>
+  )
+}
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL.href} />
