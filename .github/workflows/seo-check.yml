@@ -1,0 +1,30 @@
+name: SEO Checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Verify Routes
+        run: bun run verify:routes
+
+      - name: Verify SEO
+        run: bun run verify:seo
