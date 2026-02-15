@@ -51,6 +51,7 @@ module.exports = {
       {
         ignore: [
           "^astro:",
+          "^bun:test$",
           "^@components/",
           "^@layouts/",
           "^@lib/",
