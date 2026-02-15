@@ -35,6 +35,8 @@
     "astro": "astro",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "bun test",
+    "test:unit": "bun test",
     "verify:routes": "node scripts/verify-routes.mjs",
     "verify:seo": "node scripts/verify-seo.mjs"
   },
