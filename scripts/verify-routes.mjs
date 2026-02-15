@@ -50,14 +50,34 @@ function checkPath(dirPath, relativePath = "") {
           result.pass++;
           // Only log posts and projects routes for clarity
           if (relPath.includes("posts/") || relPath.includes("projects/")) {
+            // eslint-disable-next-line no-console
             console.log(`✅ ${relPath}`);
           }
         }
       }
     });
   } catch (error) {
+    result.fail++;
     result.errors.push(`Error reading directory ${dirPath}: ${error}`);
   }
 }
 
-checkPath(distPath);
+function run() {
+  if (!fs.existsSync(distPath)) {
+    console.error("❌ dist/ not found. Run `bun run build` first.");
+    process.exit(1);
+  }
+
+  checkPath(distPath);
+
+  if (result.fail > 0 || result.errors.length > 0) {
+    console.error(`❌ Route verification failed (${result.fail} issue(s)).`);
+    result.errors.forEach((error) => console.error(error));
+    process.exit(1);
+  }
+
+  // eslint-disable-next-line no-console
+  console.log(`✅ Route verification passed (${result.pass} routes checked).`);
+}
+
+run();
