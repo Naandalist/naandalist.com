@@ -56,7 +56,11 @@ if (project.slug.includes("news") || project.data.category === "News & Media") {
 }
 ---
 
-<PageLayout title={project.data.title} description={project.data.description}>
+<PageLayout
+  title={project.data.title}
+  description={project.data.description}
+  image={project.data.imageUrl?.src}
+>
   <JsonLd schema={schemas} />
   <Container>
     <div class='animate'>
