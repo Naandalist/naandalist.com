@@ -21,6 +21,8 @@ import { SITE } from "@constants";
 
 const SITE_URL = SITE?.URL ?? "https://naandalist.com";
 const getLangPrefix = (lang: "en" | "id") => (lang === "id" ? "/id" : "");
+const normalizeContentSlug = (slug: string) =>
+  slug.replace(/\/index(?:\.id|id)?\/?$/, "");
 const getProjectImageUrl = (project: CollectionEntry<"projects">) =>
   project.data.imageUrl ? `${SITE_URL}${project.data.imageUrl.src}` : undefined;
 const AUTHOR = {
@@ -35,9 +37,7 @@ const AUTHOR = {
  * @returns BlogPosting JSON-LD schema
  */
 export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
-  const cleanSlug = post.slug
-    .replace(/\/index\.id$/, "")
-    .replace(/\/index$/, "");
+  const cleanSlug = normalizeContentSlug(post.slug);
   const langPrefix = getLangPrefix(post.data.lang);
 
   return {
@@ -65,9 +65,7 @@ export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
  * @returns CreativeWork JSON-LD schema
  */
 export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
-  const cleanSlug = project.slug
-    .replace(/\/index\.id$/, "")
-    .replace(/\/index$/, "");
+  const cleanSlug = normalizeContentSlug(project.slug);
   const langPrefix = getLangPrefix(project.data.lang);
 
   return {
