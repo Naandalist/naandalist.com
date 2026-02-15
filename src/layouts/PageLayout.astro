@@ -14,16 +14,29 @@ type Props = {
   title: string;
   description: string;
   showHeader?: boolean;
+  noindex?: boolean;
+  disableHreflang?: boolean;
 };
 
-const { title, description, showHeader = true } = Astro.props;
+const {
+  title,
+  description,
+  showHeader = true,
+  noindex = false,
+  disableHreflang = false,
+} = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
-    <Head title={title || SITE.NAME} description={description} />
+    <Head
+      title={title || SITE.NAME}
+      description={description}
+      noindex={noindex}
+      disableHreflang={disableHreflang}
+    />
   </head>
   <body>
     <a

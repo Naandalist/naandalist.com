@@ -15,6 +15,8 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  noindex?: boolean;
+  disableHreflang?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -33,7 +35,16 @@ const idPath =
 const enAlternateURL = new URL(enPath, Astro.site);
 const idAlternateURL = new URL(idPath, Astro.site);
 
-const { title, description, image = defaultImage.src } = Astro.props;
+const {
+  title,
+  description,
+  image = defaultImage.src,
+  noindex = false,
+  disableHreflang = false,
+} = Astro.props;
+const robotsContent = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 ---
 
 <!-- Global Metadata -->
@@ -63,9 +74,15 @@ const { title, description, image = defaultImage.src } = Astro.props;
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL.href} />
-<link rel='alternate' hreflang='en' href={enAlternateURL.href} />
-<link rel='alternate' hreflang='id' href={idAlternateURL.href} />
-<link rel='alternate' hreflang='x-default' href={enAlternateURL.href} />
+{
+  !disableHreflang && (
+    <>
+      <link rel='alternate' hreflang='en' href={enAlternateURL.href} />
+      <link rel='alternate' hreflang='id' href={idAlternateURL.href} />
+      <link rel='alternate' hreflang='x-default' href={enAlternateURL.href} />
+    </>
+  )
+}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -74,9 +91,9 @@ const { title, description, image = defaultImage.src } = Astro.props;
 <meta name='author' content='Listiananda Apriliawan' />
 <meta
   name='robots'
-  content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+  content={robotsContent}
 />
-<meta name='googlebot' content='index, follow' />
+<meta name='googlebot' content={robotsContent} />
 <meta name='language' content={lang} />
 <meta name='revisit-after' content='7 days' />
 <meta name='rating' content='general' />
