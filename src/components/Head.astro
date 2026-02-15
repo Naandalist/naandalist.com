@@ -9,6 +9,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import defaultImage from "@assets/images/nanda-on-mount-merbabu.jpg";
 import { SITE } from "@constants";
 import { getLangFromUrl } from "@i18n/utils";
+import { detectLanguage, getAlternateLanguagePath } from "@utils/language";
 
 interface Props {
   title: string;
@@ -19,6 +20,18 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const lang = getLangFromUrl(Astro.url);
 const ogLocale = lang === "id" ? "id_ID" : "en_US";
+const currentPath = Astro.url.pathname;
+const currentLang = detectLanguage(currentPath);
+const enPath =
+  currentLang === "en"
+    ? currentPath
+    : getAlternateLanguagePath(currentPath, currentLang);
+const idPath =
+  currentLang === "id"
+    ? currentPath
+    : getAlternateLanguagePath(currentPath, currentLang);
+const enAlternateURL = new URL(enPath, Astro.site);
+const idAlternateURL = new URL(idPath, Astro.site);
 
 const { title, description, image = defaultImage.src } = Astro.props;
 ---
@@ -50,6 +63,9 @@ const { title, description, image = defaultImage.src } = Astro.props;
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL.href} />
+<link rel='alternate' hreflang='en' href={enAlternateURL.href} />
+<link rel='alternate' hreflang='id' href={idAlternateURL.href} />
+<link rel='alternate' hreflang='x-default' href={enAlternateURL.href} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
