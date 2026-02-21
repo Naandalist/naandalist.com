@@ -15,7 +15,7 @@ seo:
   additionalKeyphrases: ["openclaw review", "automate dev tasks", "open source ai assistant"]
 ---
 
-It was a rainy Tuesday night, and I was stuck. I’d spent 3 hours debugging my new `react-native-nfc-card-scanner` package, writing the 10th draft of the documentation, and manually updating my blog posts for the third time that week. I’d spent months building tools for other developers, but I’d never taken the time to build something for *myself* — until I found OpenClaw.
+It was a rainy Tuesday night, and I was stuck. I’d spent 3 hours debugging a new open-source developer tool, writing the 10th draft of the documentation, and manually updating my blog posts for the third time that week. I’d spent months building tools for other developers, but I’d never taken the time to build something for *myself* — until I found OpenClaw.
 
 ## What Made Me Try OpenClaw?
 I’d heard about AI assistants for developers, but most were either too expensive, too locked-down, or required me to share my private code with third-party services. Then I found OpenClaw, an open-source AI assistant that I could host on my own VPS, customize to my exact needs, and connect to the AI models I already trusted.
@@ -23,14 +23,14 @@ I’d heard about AI assistants for developers, but most were either too expensi
 I spent an afternoon setting it up on my existing VPS, and within a week, it had completely transformed how I worked. Here are the most unexpected, game-changing ways I’ve used OpenClaw in my daily workflow:
 
 ### 1. Building My Open-Source NFC Card Scanner Package Faster
-I’d been working on `react-native-nfc-card-scanner` for months, but I kept getting stuck on two things: writing clear, step-by-step documentation for new users, and debugging edge cases with EMV card parsing.
+I’d been working on a new open-source developer tool for months, but I kept getting stuck on two things: writing clear, step-by-step documentation for new users, and debugging edge cases with common API parsing.
 
 With OpenClaw, I could:
 - Paste error logs and ask it to explain the root cause in plain English
-- Ask it to rewrite the documentation draft into simpler, more approachable language for new React Native developers
-- Even generate sample code snippets for common use cases, like checking if a device supports NFC
+- Ask it to rewrite the documentation draft into simpler, more approachable language for new developers
+- Even generate sample code snippets for common use cases
 
-In just 3 days, I finished the package and published it to npm — something that would have taken me at least 2 weeks without OpenClaw.
+In just 3 days, I finished the tool and published it to npm — something that would have taken me at least 2 weeks without OpenClaw.
 
 ### 2. Automating My Blog Workflow
 I run [naandalist.com](https://naandalist.com), my personal blog where I share tutorials and stories about frontend development. Before OpenClaw, I spent 2-3 hours every week:

@@ -15,7 +15,7 @@ seo:
   additionalKeyphrases: ["review openclaw", "otomatiskan tugas dev", "asisten ai open source"]
 ---
 
-Ini adalah hari Selasa malam hujan, dan saya terjebak. Saya sudah menghabiskan 3 jam untuk mendebug paket `react-native-nfc-card-scanner` baru saya, menulis draf dokumentasi ke-10, dan secara manual memperbarui postingan blog saya untuk ketiga kalinya dalam seminggu. Saya telah menghabiskan bulan-bulan terakhir membangun alat untuk developer lain, tetapi saya tidak pernah meluangkan waktu untuk membangun sesuatu untuk *diri saya sendiri* — sampai saya menemukan OpenClaw.
+Ini adalah hari Selasa malam hujan, dan saya terjebak. Saya sudah menghabiskan 3 jam untuk mendebug alat developer open-source baru saya, menulis draf dokumentasi ke-10, dan secara manual memperbarui postingan blog saya untuk ketiga kalinya dalam seminggu. Saya telah menghabiskan bulan-bulan terakhir membangun alat untuk developer lain, tetapi saya tidak pernah meluangkan waktu untuk membangun sesuatu untuk *diri saya sendiri* — sampai saya menemukan OpenClaw.
 
 ## Apa yang Membuat Saya Mencoba OpenClaw?
 Saya telah mendengar tentang asisten AI untuk developer, tetapi sebagian besar baik terlalu mahal, terlalu terkunci, atau mengharuskan saya membagikan kode pribadi saya dengan layanan pihak ketiga. Kemudian saya menemukan OpenClaw, asisten AI open-source yang bisa saya host di VPS saya sendiri, sesuaikan dengan kebutuhan saya yang tepat, dan hubungkan ke model AI yang sudah saya percaya.
@@ -23,14 +23,14 @@ Saya telah mendengar tentang asisten AI untuk developer, tetapi sebagian besar b
 Saya menghabiskan sore hari untuk menyiapkannya di VPS saya yang sudah ada, dan dalam satu minggu, itu telah benar-benar mengubah cara saya bekerja. Berikut adalah cara-cara yang paling tidak terduga dan mengubah permainan yang saya gunakan OpenClaw dalam alur kerja sehari-hari saya:
 
 ### 1. Membangun Paket NFC Card Scanner Open-Source Saya Lebih Cepat
-Saya telah bekerja pada `react-native-nfc-card-scanner` selama beberapa bulan, tetapi saya terus terjebak pada dua hal: menulis dokumentasi yang jelas dan langkah demi langkah untuk pengguna baru, dan mendebug kasus edge dengan parsing kartu EMV.
+Saya telah bekerja pada alat developer open-source baru selama beberapa bulan, tetapi saya terus terjebak pada dua hal: menulis dokumentasi yang jelas dan langkah demi langkah untuk pengguna baru, dan mendebug kasus edge dengan parsing API umum.
 
 Dengan OpenClaw, saya bisa:
 - Menempelkan log error dan meminta penjelasan penyebab utama dalam Bahasa Indonesia yang mudah dipahami
-- Meminta ia menulis ulang draf dokumentasi menjadi bahasa yang lebih sederhana dan mudah diakses untuk developer React Native baru
-- Bahkan menghasilkan potongan kode sampel untuk kasus penggunaan umum, seperti memeriksa apakah perangkat mendukung NFC
+- Meminta ia menulis ulang draf dokumentasi menjadi bahasa yang lebih sederhana dan mudah diakses untuk developer baru
+- Bahkan menghasilkan potongan kode sampel untuk kasus penggunaan umum
 
-Hanya dalam 3 hari, saya menyelesaikan paket dan mempublikasikannya ke npm — sesuatu yang akan membutuhkan waktu setidaknya 2 minggu tanpa OpenClaw.
+Hanya dalam 3 hari, saya menyelesaikan alat dan mempublikasikannya ke npm — sesuatu yang akan membutuhkan waktu setidaknya 2 minggu tanpa OpenClaw.
 
 ### 2. Mengotomatiskan Alur Kerja Blog Saya
 Saya menjalankan [naandalist.com](https://naandalist.com), blog pribadi tempat saya berbagi tutorial dan cerita tentang pengembangan frontend. Sebelum OpenClaw, saya menghabiskan 2-3 jam setiap minggu:
