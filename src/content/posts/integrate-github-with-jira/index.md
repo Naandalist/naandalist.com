@@ -1,8 +1,9 @@
 ---
 title: "Integrate GitHub with Jira"
 subtitle: "Make Work Traceable from Issue to PR"
-description: "How to connect GitHub with Jira using a GitHub App, network allowlisting or a secure gateway, and workflow conventions (issue keys) so Jira shows real dev activity."
+description: "A field-tested guide to connect GitHub Enterprise Server with Jira, avoid common network and permission failures, and make issue-key discipline actually stick."
 date: "2025-12-27"
+lang: "en"
 keywords:
   - GitHub Enterprise Server
   - GHES
@@ -18,142 +19,63 @@ keywords:
   - repository permissions
 ---
 
-
-Integrating GitHub Enterprise Server (GHES) with Jira is one of those “small setup, big payoff” moves: your Jira issues stop being static tickets and start showing real development activity - branches, commits, pull requests, and more - in the context of the work itself.
+In multiple enterprise setups, I have seen GitHub-Jira integration look "installed" but still fail to provide useful delivery visibility. The root problem is usually not the connector itself, but weak network planning, overly broad repository access, and inconsistent issue-key usage in daily engineering flow.
 
 <div align="center">
   <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1766842153/naandalist.com/neon_cyberpunk_alley_by_n1ghtw1re_dkhcupt-414w-2x_rmhor5.jpg" alt="Integrate GitHub Enterprise Server with Jira" />
 </div>
 
+## What Improved After a Proper Integration
 
+When GHES is connected correctly, Jira issues stop behaving like static planning tickets and start reflecting real development movement through linked branches, commits, and pull requests. In practice, this improves planning-to-delivery handoff because PMs and engineering managers can review implementation progress from Jira without requesting manual updates, while engineers can trace issue history faster during incidents or release validation.
 
-## What You Get After Connecting GHES to Jira
+## Design Decisions to Make Before Setup
 
-When Jira is connected to GitHub Enterprise Server, Jira work items can display development activity such as branches, commits, and pull requests. This makes it easier to track progress directly from Jira boards and issue views.
+The most important decision is connectivity mode between Jira Cloud and your GHES environment. If GHES is internet-reachable with controlled exposure, allowlisting Atlassian traffic can be enough. If GHES is private behind firewall boundaries, a secure public gateway with strict header-based authentication is typically safer and easier to audit. In both models, if Jira cannot reliably reach the declared GHES endpoint, every downstream step will fail regardless of configuration quality.
 
-In practice, this helps with:
-- Faster status visibility for PMs and engineering managers
-- Cleaner handoffs between planning (Jira) and execution (GitHub)
-- Less manual copy-paste of links and updates
+## Connecting GHES in Jira Without Fragile Defaults
 
-## Prerequisites (Do Not Skip These)
+After declaring your GHES server in Jira, the integration still depends on a GitHub App that governs repository access and event flow. Automatic app creation is usually faster, but manual creation is a valid fallback when enterprise policy or version constraints block the automated path. I recommend naming the app by environment and ownership intent, for example `jira-integration-prod`, so rotation and incident handling remain clear across teams.
 
-Before you start, confirm:
-- You have Jira admin access (or someone who does)
-- You have GHES admin or equivalent permissions to create/manage GitHub Apps
-- Your GHES networking constraints are known (public URL vs behind a firewall)
+## Repository Scoping and Least Privilege
 
-If your GHES sits behind a firewall (common), Jira must be able to communicate with it. Atlassian provides two approaches: allowlist Atlassian IPs, or create a locked public gateway that Jira can use.
+One repeated mistake is connecting every repository on day one. That creates unnecessary noise in Jira and expands blast radius if app permissions are misconfigured. A safer rollout is to onboard one organization and a limited repository subset first, validate visibility quality in representative Jira issues, then expand in controlled phases. This approach reduces accidental data exposure and keeps governance reviews manageable.
 
-## Step 1: Prepare Network Access (Firewall / Gateway)
+## Workflow Discipline: Issue Keys Are the Real Multiplier
 
-If your GHES has a public-facing URL, you can allow access from Atlassian IP addresses.
+Technical integration alone is not enough. Jira can only map development activity accurately when issue keys are present in branch names, pull request titles, or commit messages.
 
-If your GHES does not have a public-facing URL - or you want extra security - use a locked, public-facing gateway approach and provide Jira with:
-- a gateway server URL
-- a request header name
-- an API key value
+```text
+PROJ-123-add-login-rate-limit
+PROJ-123 Add rate limiting to login
+fix(auth): prevent token refresh loop (PROJ-123)
+```
 
-This step is the most common failure point. If Jira cannot reach your GHES, nothing else matters.
+Without this discipline, teams often conclude that integration quality is poor, while the actual failure is naming convention drift in day-to-day development.
 
-## Step 2: Connect Your GitHub Enterprise Server in Jira
+## Validation and Troubleshooting in Real Environments
 
-In Jira, connect your GHES instance by entering the server URL in the required format, and (if you use a gateway) the header name and API key.
+Post-setup validation should focus on one known Jira issue and confirm whether branch, commit, and pull request links appear within a predictable time window. If signals do not appear, the most common causes are still network path failures, GitHub App permission gaps, or repository mismatch. If signals appear intermittently, investigate webhook delivery reliability and internal network controls before changing workflow rules.
 
-At this stage, Jira is establishing the “server connection.” The next step is what actually governs data flow and repository access: a GitHub App.
+## Risks and Tradeoffs
 
-## Step 3: Create the GitHub App (Automatic vs Manual)
+This integration increases traceability, but it also adds operational dependency between planning and source-control systems, so outages or policy changes in one side can reduce visibility on the other. Strict security configurations improve protection, yet they can increase setup complexity and maintenance load, especially in enterprises with segmented networks, frequent token rotation policies, and centralized access governance.
 
-After connecting GHES, Jira requires a GitHub App to manage the data flow to your Jira site, including which repositories are available and what Jira automations can be triggered via commit messages.
+## Lessons Learned
 
-### Automatic App Creation (Recommended)
+The strongest result comes when teams treat integration as a workflow contract, not a one-time admin task. In my experience, visibility quality depends less on completing the Jira UI steps and more on sustaining issue-key conventions, permission boundaries, and periodic validation checks after every major tooling or network change.
 
-Automatic creation is the most convenient path. Atlassian notes that automatic app creation requires a minimum GHES version to support it. 
+## Field Tips
 
-If your GHES meets the requirement:
-- Choose “Automatic app creation”
-- You will be redirected to GitHub to create the GitHub App
-- Name the app clearly (e.g., “jira-integration-prod”)
+Start with a pilot project that already has disciplined branch and PR naming, then use that project as the benchmark before scaling to other organizations or repositories. Keep ownership explicit by assigning one platform contact for network concerns and one engineering contact for workflow conventions, and review integration health after each release cycle so failures are detected before they become reporting blind spots.
 
-### Manual App Creation
+## Authoritative References
 
-If you cannot use automatic creation, you can create the GitHub App manually based on Jira-provided details. Atlassian provides a <a href="https://support.atlassian.com/jira-cloud-administration/docs/connect-a-github-enterprise-server-account-to-jira-software/" rel="nofollow">dedicated manual creation guide</a> for this flow. 
-
-## Step 4: Limit Access to the Right Repositories (Least Privilege)
-
-Do not connect everything “just because.” You want the integration to show development activity for the repos that actually map to Jira projects.
-
-A good rule:
-- Start with one org + a small set of repos
-- Validate the data appears correctly in Jira issues
-- Expand gradually
-
-This avoids accidental data exposure and reduces noise in Jira.
-
-## Step 5: Make Jira Issue Keys Non-Negotiable in Your Workflow
-
-The integration becomes valuable only when your team consistently references Jira issue keys in development artifacts.
-
-Enforce these conventions:
-- Branch names include the Jira issue key  
-  Example: PROJ-123-add-login-rate-limit
-- Pull request titles include the issue key  
-  Example: PROJ-123 Add rate limiting to login
-- Commit messages include the issue key where appropriate  
-  Example: fix(auth): prevent token refresh loop (PROJ-123)
-
-Once you do this, Jira can associate development activity with the right work items.
-
-If you want a strong standard for commit messages, use Conventional Commits and enforce it in PR reviews. For a deep dive, read [Git Commit Message Standard](https://naandalist.com/posts/git-commit-message-convention).
-
-## Step 6: Validate in Jira (What to Check)
-
-After setup, pick a Jira issue and confirm you can see development signals such as:
-- linked branches
-- related commits
-- pull requests
-
-If nothing appears:
-- it is usually networking/firewall access, or
-- the GitHub App permissions/repo access is misconfigured, or
-- your team is not using issue keys consistently.
-
-## Security and Scaling Notes
-
-If you operate multiple GHES instances (or multiple environments), Atlassian states you can connect multiple GitHub Servers to a single Jira account, and multiple GitHub Apps per server.
-
-One constraint to remember: each GitHub App can only be connected to a single Jira instance to prevent data leaks. 
-
-## Troubleshooting: Common Failure Modes
-
-### Jira cannot connect to GHES
-This is usually firewall/IP allowlist/gateway configuration. Re-check your network approach and ensure Jira can reach the GHES URL you provided.
-
-### GitHub App creation fails
-Use manual app creation as the fallback path following Atlassian’s guide.
-
-### Data is connected but nothing shows on Jira issues
-Almost always workflow discipline:
-- ensure issue keys exist in branch/PR/commit text
-- ensure the GitHub App has access to the correct repositories
-
-## FAQ
-
-### Can I connect multiple GitHub Enterprise Servers to one Jira site?
-Yes. Atlassian states you can connect multiple GitHub Servers to a single Jira account.
-
-### Can I connect multiple GitHub Apps to one GitHub Server?
-Yes. You can add multiple GitHub Apps per server to connect organizations as needed.
-
-### Can I reuse one GitHub App across multiple Jira sites?
-No. Atlassian notes each GitHub App can only be connected to one Jira instance to maintain security and prevent data leaks.
-
-### What is the fastest way to get value from this integration?
-Make Jira issue keys mandatory in branch names and PR titles. Without that discipline, the integration will look “installed” but not “useful.”
+- [Atlassian: Connect a GitHub Enterprise Server account to Jira Software](https://support.atlassian.com/jira-cloud-administration/docs/connect-a-github-enterprise-server-account-to-jira-software/)
+- [Atlassian: Link a GitHub account to Jira](https://support.atlassian.com/jira-software-cloud/docs/link-a-github-account/)
+- [GitHub Docs: About apps](https://docs.github.com/en/apps/overview)
+- [GitHub Docs: Creating a GitHub App](https://docs.github.com/en/apps/creating-github-apps)
 
 ## Conclusion
 
-Connecting GitHub Enterprise Server to Jira is straightforward, but usefulness depends on two things: reliable network access and consistent issue key conventions in your workflow.
-
-Do the setup carefully, start small, validate, then scale. Most teams fail not because the integration is hard, but because they never enforce the habits that make it meaningful.
-
+Integrating GHES with Jira is technically straightforward, but reliable value comes from disciplined execution in three areas: network reachability, least-privilege repository access, and consistent issue-key conventions. If those three are treated as first-class operational controls, Jira becomes a trustworthy view of engineering progress instead of a disconnected planning board.
