@@ -1,7 +1,7 @@
 ---
 title: "Respon API Parsial untuk UX yang Lebih Baik"
 subtitle: "Utamakan Pengalaman Pengguna, Kesempurnaan Data Nomor Dua"
-description: "Pola praktis mengembalikan respon API secara parsial agar pengguna melihat data utama cepat, sementara data lambat dimuat belakangan mengurangi pengguna kabur."
+description: "Pola kontrak API berbasis pengalaman lapangan untuk mengirim data inti lebih cepat, sementara field lambat diselesaikan asinkron tanpa memblokir layar penuh."
 date: "2025-11-16"
 featured: true
 lang: "id"
@@ -20,33 +20,17 @@ keywords:
 
 ![Neon Skies and Chrome Dreams](https://res.cloudinary.com/naandalistcloud/image/upload/v1763224844/naandalist.com/neon_skies_and_chrome_dreams_by_inkimagine_dk5niy4-pre_va6ndy.jpg)
 
-## Ketika Data yang "Sempurna" Justru Membunuh UX
+Saya menulis ini sebagai **5+ YOE engineer**.
 
-Produk kami punya masalah yang sangat sederhana tapi menyakitkan: halaman produknya lemot minta ampun.
+## Ketika "Data Lengkap" Menjadi Bug UX
 
-Di atas kertas, backend-nya sih _"jalan"_. Butuh waktu sekitar lima detik bagi server untuk memproses permintaan dan mengirimkan respon lengkap kembali ke klien. Tapi kenyataannya, data analitik menceritakan kisah yang berbeda: banyak pengguna menutup aplikasi setelah menunggu dua atau tiga detik. Menunggu lima detik mungkin wajar untuk upload file, tapi untuk membuka layar biasa, itu UX yang buruk.
+Di salah satu alur produksi, endpoint halaman produk kami mengembalikan payload lengkap dalam sekitar lima detik. Secara teknis benar, tetapi secara pengalaman pengguna jelas bermasalah. Data analitik sesi menunjukkan drop-off tinggi di detik kedua sampai ketiga, jadi banyak pengguna keluar sebelum melihat konten yang berarti.
 
-Setelah menggali sisi server, kami menemukan biang keroknya. Sebagian besar data bisa diambil dengan cepat: nama, deskripsi, penjual, alamat, dan sebagainya. Satu hal yang konsisten memperlambat segalanya adalah **harga**.
+Setelah profiling jalur request, kami menemukan ketimpangan yang jelas: field identitas produk relatif cepat, sedangkan harga bergantung pada pipeline downstream yang lebih lambat. Karena endpoint dirancang all-or-nothing, field paling lambat menahan seluruh respons. Kami tanpa sadar mengutamakan kemurnian payload sambil mengorbankan kepercayaan pengguna.
 
-API produk ini dirancang dengan prinsip "semua-atau-tidak-sama-sekali" (_all-or-nothing_), jadi setiap permintaan harus menunggu komponen yang paling lambat. Kolom harga menyandera seluruh respon API.
+## Kontrak yang Kami Terapkan
 
-## Dari Payload Sempurna ke Ketidaklengkapan yang Jujur
-
-Pada titik tertentu, pertanyaannya menjadi sangat mendasar: apakah pengguna benar-benar butuh _setiap_ kolom data muncul di detik yang sama?
-
-Analitik sudah menunjukkan bahwa jika tidak ada yang muncul dalam beberapa detik, pengguna akan menyerah dan pergi. Apa yang sebenarnya mereka butuhkan pertama kali adalah "identitas" produk: nama, gambar, dan info dasar. Harga memang penting, tapi tidak harus menjadi hal _pertama_ yang muncul di layar.
-
-Ini membawa kami ke pola pikir yang berbeda. Alih-alih memaksa API untuk selalu mengembalikan payload yang "sempurna", kami membiarkannya mengembalikan payload yang jujur meski tidak lengkap. Artinya: kirimkan semua data yang sudah siap, dan tandai secara eksplisit bagian mana yang masih tertunda. Di sisi klien (aplikasi), UI langsung merender apa pun yang tersedia, sambil menjaga status _loading_ hanya untuk bagian yang belum ada.
-
-Hasilnya? Pengguna melihat produk nyata dengan cepat, daripada harus menatap _spinner_ layar penuh yang menyembunyikan fakta bahwa 90% data sebenarnya sudah siap.
-
-## Cara Kerjanya
-
-Dalam praktiknya, polanya sederhana.
-
-Ketika klien memanggil `/product`, backend mencoba mengambil semua kolom dasar dan juga menghasilkan sebuah `track_id` yang mewakili proses pencarian harga yang sedang berjalan di latar belakang.
-
-Jika semuanya siap, responnya hanyalah objek JSON normal yang lengkap. Tapi jika harga masih diproses atau layanan harga (pricing service) sedang lambat, backend **tidak memblokir** seluruh respon. Ia mengembalikan data seperti ini:
+Kami mengubah kontrak dari "semua harus siap sekarang" menjadi "yang siap dikirim sekarang, yang tertunda dinyatakan eksplisit." Endpoint utama mengembalikan data inti secepat mungkin plus tracking token dan completion flag untuk field lambat.
 
 ```json
 {
@@ -61,19 +45,11 @@ Jika semuanya siap, responnya hanyalah objek JSON normal yang lengkap. Tapi jika
 }
 ```
 
-Maknanya jelas:
+Kontrak ini jujur secara semantik: produk ada, sebagian besar data siap, dan harga masih diproses.
 
-- Produk ada dan semua data inti sudah siap.
-- `track_id` adalah identitas untuk proses perhitungan harga di backend.
-- `price` belum tersedia (null).
-- `priceComplete: false` memberi tahu klien bahwa urusan ini belum selesai.
+## Endpoint Penyelesaian dan Perilaku UI
 
-Di sisi UI, klien:
-
-- Langsung merender produk menggunakan data yang sudah ada.
-- Menampilkan _skeleton_ atau status "memuat..." khusus di area harga karena `priceComplete` bernilai `false`.
-
-Alih-alih memanggil `/product` lagi (yang berat), klien sekarang menggunakan endpoint khusus yang ringan untuk melengkapi bagian yang hilang. Setelah jeda singkat, atau sesuai kebijakan _retry_, klien memanggil:
+Alih-alih memanggil ulang `/product`, klien menggunakan endpoint khusus dengan `track_id`.
 
 ```txt
 POST /getPrice
@@ -87,40 +63,11 @@ Content-Type: application/json
 }
 ```
 
-Backend mengecek status harga menggunakan `track_id` (dan opsional `productId`). Responnya masih bisa belum lengkap:
+Jika perhitungan harga masih berjalan, endpoint mengembalikan `priceComplete: false`; jika selesai, endpoint mengembalikan harga final dengan `priceComplete: true`. UI merender field identitas lebih dulu, menahan loading state hanya di komponen harga, dan menghentikan retry saat completion flag sudah terminal.
 
-```json
-{
-  "track_id": "track-999",
-  "price": null,
-  "priceComplete": false
-}
-```
+## Terminal Null Bukan "Masih Loading"
 
-Dalam kasus itu, klien tetap menahan status _loading_ dan mencoba `getPrice` lagi setelah jeda singkat. Ketika harga akhirnya siap, endpoint merespon dengan:
-
-```json
-{
-  "track_id": "track-999",
-  "price": 49.99,
-  "priceComplete": true
-}
-```
-
-Pada titik ini, UI mengganti _skeleton_ dengan harga asli dan berhenti melakukan _retry_. Detail pentingnya adalah:
-
-| Endpoint    | Tanggung Jawab                                                                   |
-| ----------- | -------------------------------------------------------------------------------- |
-| `/product`  | Data cepat, parsial: semua kolom "identitas" + `track_id` + flag `priceComplete` |
-| `/getPrice` | Mengubah "harga tertunda" menjadi "harga nyata" menggunakan `track_id`           |
-
-Setiap respon adalah objek JSON yang valid, dan klien selalu tahu persis bagian data mana yang masih dalam proses.
-
-### Ketika Server Menyerah Mencari Harga
-
-Ada satu kasus penting lagi: terkadang backend memutuskan untuk berhenti mencoba.
-
-Dalam situasi yang jarang terjadi, layanan harga mungkin terus gagal atau _time out_ berulang kali. Pada titik itu, backend dapat memutuskan untuk "menyerah" dan menandai pencarian harga sebagai selesai, meskipun tidak ada harga valid yang ditemukan. Respon dari `getPrice` kemudian terlihat seperti ini:
+Edge case yang paling penting adalah terminal failure, yaitu proses selesai tetapi harga tetap tidak tersedia.
 
 ```json
 {
@@ -130,20 +77,7 @@ Dalam situasi yang jarang terjadi, layanan harga mungkin terus gagal atau _time 
 }
 ```
 
-Secara semantik, ini berarti:
-
-- Proses pencarian harga sudah selesai.
-- Tidak ada harga yang bisa digunakan untuk produk ini.
-- Mencoba lagi (_retry_) tidak akan mengubah hasil.
-
-Di sisi UI, status ini harus diperlakukan berbeda dari kasus "masih memuat". Jika `priceComplete` bernilai `true` tapi `price` masih `null`, kita tidak boleh terus menampilkan _skeleton_ dan tidak boleh terus mencoba lagi.
-
-Sebaliknya, perilaku paling sederhana dan paling aman dalam kasus kami adalah memfilter produk-produk ini dari daftar dan tidak menampilkannya sama sekali, karena kami tidak dapat menawarkan harga yang valid kepada pengguna.
-
-Status ekstra ini membuat kontrak menjadi jujur di kedua arah:
-
-- _"Masih memproses, harap tunggu"_ (`priceComplete: false`).
-- _"Pemrosesan selesai, tidak ada harga"_ (`priceComplete: true` dengan `price: null`).
+State ini tidak boleh diperlakukan sebagai "masih memuat." Di implementasi kami, retry dihentikan dan fallback deterministik diterapkan (misalnya, item disembunyikan di daftar yang sensitif terhadap harga). Kejelasan state ini mencegah loading loop tanpa akhir dan perilaku UI yang tidak konsisten antar perangkat.
 
 ### Diagram Alur
 
@@ -152,10 +86,25 @@ Status ekstra ini membuat kontrak menjadi jujur di kedua arah:
   <p style="font-size: 0.875rem;"><em>Diagram alur yang menunjukkan pola respon parsial</em></p>
 </div>
 
-### Kesimpulan: Utamakan UX, Kerapian Data Belakangan
+## Risiko dan Tradeoff
 
-Respon parsial bukanlah protokol mewah atau fitur framework baru. Ini hanyalah pergeseran kecil dalam cara kita berpikir tentang respon API: alih-alih berpura-pura bahwa data itu harus selalu "lengkap" atau "tidak siap sama sekali," kita mengakui bahwa beberapa kolom data boleh datang terlambat.
+Respon parsial meningkatkan perceived performance, tetapi menambah kompleksitas kontrak karena backend dan klien harus menyepakati semantik state pending, complete, dan terminal failure secara ketat. Pola ini juga menambah beban operasional, termasuk tuning retry policy, ekspektasi idempotency, dan penanganan stale state saat pengguna berpindah layar dengan cepat atau melanjutkan aplikasi dari background.
 
-Dengan membiarkan server mengembalikan apa yang sudah siap dan menandai dengan jelas apa yang masih tertunda, kami mengurangi waktu tunggu yang dirasakan pengguna (_perceived loading time_) tanpa perlu menyentuh trik jaringan tingkat rendah atau _streaming_.
+## Pelajaran Berharga
 
-Bentuk JSON-nya mungkin jadi sedikit kurang "rapi" atau "murni", tapi UX-nya jadi jauh lebih baik. Pada akhirnya, pertukaran itulah yang membuat pola ini bisa berjalan aman di _production_ selama bertahun-tahun.
+Dampak terbesar justru datang dari pemodelan transisi state yang eksplisit, bukan dari optimasi infrastruktur kecil di awal. Saat state response dijadikan bagian formal dari kontrak API, perilaku UI menjadi lebih prediktif, observability menjadi lebih mudah, dan diskusi produk bergeser dari "kenapa loading lama" ke "state apa yang dilihat pengguna dan kenapa."
+
+## Tips dari Lapangan
+
+Mulailah dari satu field lambat yang penting untuk bisnis tetapi tidak wajib untuk first paint, lalu pisahkan field tersebut ke alur completion dengan tracking token yang jelas dan definisi state terminal yang tegas. Instrumentasikan setiap transisi state di backend dan klien, lalu uji jalur gagal sejak awal karena regresi UX pada pola ini biasanya muncul dari ambiguitas state terminal, bukan dari jalur sukses.
+
+## Referensi Otoritatif
+
+- [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
+- [MDN: 202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+- [Atlassian: Designing APIs for asynchronous operations](https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/#asynchronous-operations)
+- [Google: Material loading and progress indicators](https://m3.material.io/components/progress-indicators/overview)
+
+## Kesimpulan
+
+Respon parsial bukan trik framework, melainkan keputusan desain kontrak API. Dengan mengirim data yang siap lebih awal sambil memodelkan pekerjaan tertunda secara eksplisit, kami mendapat UX yang terasa lebih cepat tanpa berpura-pura dependensi lambat itu tidak ada. Payload mungkin terlihat kurang "murni," tetapi perjalanan pengguna menjadi jauh lebih baik dan lebih andal di production.
