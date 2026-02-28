@@ -10,7 +10,6 @@ import { useTranslations } from "@i18n/utils";
 import ArrowCard from "@components/ArrowCard.astro";
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
-import NpmjsCard from "@components/NpmjsCard.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
@@ -225,23 +224,6 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
             <h2
               class='text-xs font-medium uppercase tracking-[0.18em] text-white'
             >
-              {t("home.npmjs")}
-            </h2>
-            <Link href={lang === "en" ? "/npmjs" : "/id/npmjs"}>
-              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
-                {t("home.npmjs.seeAll")}
-              </span>
-            </Link>
-          </div>
-          <div class='flex flex-col gap-4'>
-            {npmPackages.map((pkg) => <NpmjsCard entry={pkg} lang={lang} />)}
-          </div>
-        </section>
-        <section class='animate space-y-6 mt-10'>
-          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
-            <h2
-              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
-            >
               {t("home.projects")}
             </h2>
             <Link href={lang === "en" ? "/projects" : "/id/projects"}>
@@ -254,6 +236,28 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
             {
               projects.map((project) => (
                 <ProjectCard entry={project} lang={lang} />
+              ))
+            }
+          </div>
+        </section>
+
+        <section class='animate space-y-6 mt-10'>
+          <div class='flex flex-wrap gap-y-2 items-center justify-between'>
+            <h2
+              class='text-xs font-medium uppercase tracking-[0.18em] text-white'
+            >
+              {t("home.npmjs")}
+            </h2>
+            <Link href={lang === "en" ? "/npmjs" : "/id/npmjs"}>
+              <span class='text-xs font-medium uppercase tracking-[0.18em]'>
+                {t("home.npmjs.seeAll")}
+              </span>
+            </Link>
+          </div>
+          <div class='flex flex-col gap-4'>
+            {
+              npmPackages.map((pkg) => (
+                <ArrowCard entry={pkg} lang={lang} />
               ))
             }
           </div>
