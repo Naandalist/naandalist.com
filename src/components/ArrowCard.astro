@@ -2,7 +2,10 @@
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
-  entry: CollectionEntry<"posts"> | CollectionEntry<"projects">;
+  entry:
+    | CollectionEntry<"posts">
+    | CollectionEntry<"projects">
+    | CollectionEntry<"npmjs">;
   lang?: "en" | "id";
 };
 
