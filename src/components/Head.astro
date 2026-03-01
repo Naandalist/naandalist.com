@@ -1,8 +1,4 @@
 ---
-import "@fontsource/inter/latin-400.css";
-import "@fontsource/inter/latin-600.css";
-import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2";
-import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
@@ -97,8 +93,8 @@ const robotsContent = noindex
 <link rel='preconnect' href='https://res.cloudinary.com' />
 
 <!-- Font preloads - Critical for LCP -->
-<link rel='preload' href={inter400} as='font' type='font/woff2' crossorigin />
-<link rel='preload' href={inter600} as='font' type='font/woff2' crossorigin />
+<link rel='preload' href='/fonts/JetBrainsMono-Regular.woff2' as='font' type='font/woff2' crossorigin />
+<link rel='preload' href='/fonts/JetBrainsMono-SemiBold.woff2' as='font' type='font/woff2' crossorigin />
 
 <!-- Preload home LCP images only -->
 {
