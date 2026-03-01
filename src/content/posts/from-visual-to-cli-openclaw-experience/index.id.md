@@ -1,5 +1,5 @@
 ---
-title: "Dari Visual ke CLI: Pengalaman Frontend Developer Pakai OpenClaw"
+title: "Dari Visual ke CLI: Pengalaman Pakai OpenClaw"
 subtitle: "Bagaimana OpenClaw TUI membuat operasi VPS terasa lebih interaktif."
 description: "Catatan pengalaman lapangan menggunakan OpenClaw TUI dan clawbot untuk mengelola workflow VPS berbasis CLI dengan cara yang lebih percakapan dan terarah."
 date: "2026-02-28"
