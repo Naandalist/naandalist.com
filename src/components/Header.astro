@@ -8,6 +8,8 @@ const currentPath = Astro.url.pathname;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const langPrefix = lang === "id" ? "/id" : "";
+const toggleMenuLabel =
+  lang === "id" ? "Buka menu navigasi" : "Open navigation menu";
 
 const navItems = [
   {
@@ -30,13 +32,58 @@ const navItems = [
 
 <header>
   <Container>
-    <div class='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0'>
-      <a href={langPrefix || "/"} class='inline-block no-underline'>
-        <div class='font-semibold text-current'>
-          {SITE.NAME}
-        </div>
-      </a>
-      <nav class='flex flex-wrap gap-3'>
+    <div
+      data-header-nav
+      class='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0'
+    >
+      <div class='flex items-center justify-between'>
+        <a href={langPrefix || "/"} class='inline-block no-underline'>
+          <div class='font-semibold text-current'>
+            {SITE.NAME}
+          </div>
+        </a>
+        <button
+          type='button'
+          class='sm:hidden inline-flex items-center justify-center rounded border border-white/20 p-2 text-white hover:bg-white/10 transition-colors'
+          data-menu-toggle
+          aria-controls='mobile-nav'
+          aria-expanded='false'
+          aria-label={toggleMenuLabel}
+        >
+          <svg
+            data-icon-open
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            class='size-5'
+            aria-hidden='true'
+          >
+            <line x1='3' y1='6' x2='21' y2='6'></line>
+            <line x1='3' y1='12' x2='21' y2='12'></line>
+            <line x1='3' y1='18' x2='21' y2='18'></line>
+          </svg>
+          <svg
+            data-icon-close
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            class='size-5 hidden'
+            aria-hidden='true'
+          >
+            <line x1='18' y1='6' x2='6' y2='18'></line>
+            <line x1='6' y1='6' x2='18' y2='18'></line>
+          </svg>
+        </button>
+      </div>
+      <nav class='hidden sm:flex flex-wrap gap-3'>
         {
           navItems.map(({ href, label, icon }) => {
             const isActive =
@@ -58,6 +105,68 @@ const navItems = [
           })
         }
       </nav>
+      <nav
+        id='mobile-nav'
+        data-mobile-nav
+        class='hidden sm:hidden flex flex-col gap-2 pt-1'
+      >
+        {
+          navItems.map(({ href, label, icon }) => {
+            const isActive =
+              currentPath === href || currentPath.startsWith(`${href}/`);
+            return (
+              <a
+                href={href}
+                class={`inline-flex no-underline w-full items-center gap-2 px-3 py-2 rounded border transition-colors duration-300 ease-in-out ${
+                  isActive
+                    ? "bg-white/10 text-white border-white/20 font-semibold"
+                    : "hover:bg-white/5 hover:text-white border-transparent"
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <img src={icon} alt='' class='w-4 h-4' />
+                {label}
+              </a>
+            );
+          })
+        }
+      </nav>
     </div>
   </Container>
 </header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector("[data-header-nav]");
+    if (!header) return;
+    const toggleButton = header.querySelector("[data-menu-toggle]");
+    const mobileNav = header.querySelector("[data-mobile-nav]");
+    const openIcon = header.querySelector("[data-icon-open]");
+    const closeIcon = header.querySelector("[data-icon-close]");
+    if (!toggleButton || !mobileNav || !openIcon || !closeIcon) return;
+
+    const setMenuState = (isOpen) => {
+      mobileNav.classList.toggle("hidden", !isOpen);
+      openIcon.classList.toggle("hidden", isOpen);
+      closeIcon.classList.toggle("hidden", !isOpen);
+      toggleButton.setAttribute("aria-expanded", String(isOpen));
+    };
+
+    setMenuState(false);
+
+    toggleButton.addEventListener("click", () => {
+      const isOpen = toggleButton.getAttribute("aria-expanded") === "true";
+      setMenuState(!isOpen);
+    });
+
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setMenuState(false));
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 640) {
+        setMenuState(false);
+      }
+    });
+  })();
+</script>
