@@ -33,6 +33,17 @@ const posts = (await getCollection("posts"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
+const featuredProjectOrder = [
+  "mobile-app-airpaz",
+  "ebenefits-aia-customer-apps",
+];
+
+const getFeaturedProjectPriority = (slug: string) => {
+  const normalizedSlug = slug.endsWith("/indexid") ? slug.slice(0, -8) : slug;
+  const index = featuredProjectOrder.indexOf(normalizedSlug);
+  return index === -1 ? Number.POSITIVE_INFINITY : index;
+};
+
 const projects = (await getCollection("projects"))
   .filter(
     (project) =>
@@ -40,7 +51,16 @@ const projects = (await getCollection("projects"))
       project.data.lang === lang &&
       project.data.featured,
   )
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .sort((a, b) => {
+    const priorityDiff =
+      getFeaturedProjectPriority(a.slug) - getFeaturedProjectPriority(b.slug);
+
+    if (priorityDiff !== 0) {
+      return priorityDiff;
+    }
+
+    return b.data.date.valueOf() - a.data.date.valueOf();
+  })
   .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
 
 const npmPackages = (await getCollection("npmjs"))
