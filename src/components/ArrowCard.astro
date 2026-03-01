@@ -15,26 +15,75 @@ const displayText =
     ? (entry as CollectionEntry<"posts">).data.subtitle
     : entry.data.description;
 const baseUrl = lang === "id" ? "/id" : "";
-// Clean the slug to remove /indexid suffix that comes from index.id.md files
 const cleanSlug = entry.slug.replace(/\/indexid$/, "");
 const entryUrl = `${baseUrl}/${entry.collection}/${cleanSlug}`;
 ---
 
 <a
   href={entryUrl}
-  class='relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-white/20 hover:bg-white/5 hover:text-white transition-colors duration-300 ease-in-out'
+  class='arrow-card relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-white/20 hover:bg-white/5 hover:text-white transition-colors duration-300 ease-in-out'
 >
   <div class='flex flex-col flex-1 truncate sm:whitespace-normal'>
-    <div class='font-semibold'>
+    <div class='font-semibold transition-colors duration-300 ease-in-out group-hover:text-link'>
       {entry.data.title}
     </div>
-    <div class='text-sm truncate sm:whitespace-normal'>
+    <div class='text-sm truncate'>
       {displayText}
     </div>
   </div>
-  <img
-    src='/icons/top-right.svg'
-    alt='Arrow'
-    class='absolute top-1/2 right-4 -translate-y-1/2 size-5'
-  />
+
+  <span
+    aria-hidden='true'
+    class='absolute top-1/2 right-4 -translate-y-1/2 size-5 text-current'
+  >
+    <svg
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      stroke-width='1.75'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      class='size-5 arrow-icon'
+    >
+      <path d='M7 17L17 7' class='arrow-icon__stem'></path>
+      <path d='M9 7H17V15' class='arrow-icon__head'></path>
+    </svg>
+  </span>
 </a>
+
+<style>
+  .arrow-card .arrow-icon {
+    transform-origin: center;
+    transition: transform 300ms ease;
+  }
+
+  .arrow-card .arrow-icon__stem,
+  .arrow-card .arrow-icon__head {
+    transition:
+      transform 300ms ease,
+      opacity 300ms ease;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .arrow-card:hover .arrow-icon {
+    transform: translate3d(1px, -1px, 0);
+  }
+
+  .arrow-card:hover .arrow-icon__stem {
+    transform: translate3d(1px, -1px, 0) scaleX(1.08);
+  }
+
+  .arrow-card:hover .arrow-icon__head {
+    transform: translate3d(1px, -1px, 0) scale(1.04);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arrow-card .arrow-icon,
+    .arrow-card .arrow-icon__stem,
+    .arrow-card .arrow-icon__head {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>
