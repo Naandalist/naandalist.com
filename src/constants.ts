@@ -5,7 +5,7 @@ export const SITE: Site = {
   URL: "https://naandalist.com",
   EMAIL: "dev@naandalist.com",
   NUM_POSTS_ON_HOMEPAGE: 3,
-  NUM_WORKS_ON_HOMEPAGE: 3,
+  NUM_WORKS_ON_HOMEPAGE: 4,
   NUM_PROJECTS_ON_HOMEPAGE: 5,
   NUM_NPMJS_ON_HOMEPAGE: 2,
 };
