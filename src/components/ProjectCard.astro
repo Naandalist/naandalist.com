@@ -11,7 +11,7 @@ type Props = {
 
 const { entry, lang = "en" } = Astro.props;
 const baseUrl = lang === "id" ? "/id" : "";
-// Clean the slug to remove /indexid suffix that comes from index.id.md files
+// Normalize the entry slug by stripping file extensions and trailing /index or /index.id segments
 const cleanSlug = normalizeSlug(entry.id);
 const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
 ---
