@@ -26,7 +26,7 @@ export async function GET(context: Context) {
     site: context.site,
     items: items.map((item) => {
       // Remove /indexid suffix from slug for Indonesian content
-      const cleanSlug = item.slug.replace(/\/indexid$/, "");
+      const cleanSlug = item.id.replace(/\.(md|mdx)$/, "").replace(/\/index(\.id)?$/, "");
       // Add language prefix for Indonesian content
       const langPrefix = item.data.lang === "id" ? "/id" : "";
       return {

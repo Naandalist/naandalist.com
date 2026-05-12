@@ -9,9 +9,9 @@ export async function getStaticPaths() {
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return posts.map((post) => {
     // Remove /index.id or /indexid suffix from the slug
-    const slug = post.slug
-      .replace(/\/index\.id$|\/indexid$/, "")
-      .replace(/\/indexid$/, "");
+    const slug = post.id
+      .replace(/\.(md|mdx)$/, "")
+      .replace(/\/index(\.id)?$/, "");
     return {
       params: { slug },
       props: post,
