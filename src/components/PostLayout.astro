@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
 
 import { useTranslations } from "@i18n/utils";
 
@@ -20,7 +20,7 @@ interface Props {
 
 const { post, lang = "en" } = Astro.props;
 const t = useTranslations(lang);
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 const jsonLd = createBlogPostingSchema(post);
 const backLink = lang === "id" ? "/id/posts" : "/posts";
@@ -46,7 +46,7 @@ const backLink = lang === "id" ? "/id/posts" : "/posts";
         </div>
         &bull;
         <div class='font-base text-sm'>
-          {readingTime(post.body)}
+          {readingTime(post.body ?? "")}
         </div>
       </div>
       <h1 class='animate text-2xl font-semibold text-white'>

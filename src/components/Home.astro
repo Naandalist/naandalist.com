@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 import profileImage from "@assets/images/banner-naandalist.webp";
 import { SITE } from "@constants";
@@ -53,7 +53,7 @@ const projects = (await getCollection("projects"))
   )
   .sort((a, b) => {
     const priorityDiff =
-      getFeaturedProjectPriority(a.slug) - getFeaturedProjectPriority(b.slug);
+      getFeaturedProjectPriority(a.id) - getFeaturedProjectPriority(b.id);
 
     if (priorityDiff !== 0) {
       return priorityDiff;
@@ -81,7 +81,7 @@ const allwork = (await getCollection("work"))
 
 const work = await Promise.all(
   allwork.map(async (item) => {
-    const { Content } = await item.render();
+    const { Content } = await render(item);
     return { ...item, Content };
   }),
 );

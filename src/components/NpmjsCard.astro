@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
+import { normalizeSlug } from "@lib/utils";
+
 type Props = {
   entry: CollectionEntry<"npmjs">;
   lang?: "en" | "id";
@@ -8,7 +10,7 @@ type Props = {
 
 const { entry, lang = "en" } = Astro.props;
 const baseUrl = lang === "id" ? "/id" : "";
-const cleanSlug = entry.slug.replace(/\/indexid$/, "");
+const cleanSlug = normalizeSlug(entry.id);
 const packageUrl = `${baseUrl}/npmjs/${cleanSlug}`;
 
 const defaultThumbnail =

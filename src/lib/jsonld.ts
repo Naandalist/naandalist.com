@@ -21,8 +21,8 @@ import { SITE } from "@constants";
 
 const SITE_URL = SITE?.URL ?? "https://naandalist.com";
 const getLangPrefix = (lang: "en" | "id") => (lang === "id" ? "/id" : "");
-const normalizeContentSlug = (slug: string) =>
-  slug.replace(/\/index(?:\.id|id)?\/?$/, "");
+const normalizeContentSlug = (id: string) =>
+  id.replace(/\.(md|mdx)$/, "").replace(/\/index(\.id)?$/, "");
 const normalizeSoftwarePrice = (price?: string) => {
   if (!price) return "0";
 
@@ -56,7 +56,7 @@ const AUTHOR = {
  * @returns BlogPosting JSON-LD schema
  */
 export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
-  const cleanSlug = normalizeContentSlug(post.slug);
+  const cleanSlug = normalizeContentSlug(post.id);
   const langPrefix = getLangPrefix(post.data.lang);
 
   return {
@@ -84,7 +84,7 @@ export function createBlogPostingSchema(post: CollectionEntry<"posts">) {
  * @returns CreativeWork JSON-LD schema
  */
 export function createCreativeWorkSchema(project: CollectionEntry<"projects">) {
-  const cleanSlug = normalizeContentSlug(project.slug);
+  const cleanSlug = normalizeContentSlug(project.id);
   const langPrefix = getLangPrefix(project.data.lang);
 
   return {
