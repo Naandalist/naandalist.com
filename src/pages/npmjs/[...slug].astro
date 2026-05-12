@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 
 import { useTranslations } from "@i18n/utils";
 
@@ -9,21 +9,21 @@ import FormattedDate from "@components/FormattedDate.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
-import { readingTime } from "@lib/utils";
+import { normalizeSlug, readingTime } from "@lib/utils";
 
 export async function getStaticPaths() {
   const packages = (await getCollection("npmjs"))
     .filter((pkg) => !pkg.data.draft && pkg.data.lang === "en")
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return packages.map((pkg) => ({
-    params: { slug: pkg.slug },
+    params: { slug: normalizeSlug(pkg.id) },
     props: pkg,
   }));
 }
 type Props = CollectionEntry<"npmjs">;
 
 const pkg = Astro.props;
-const { Content } = await pkg.render();
+const { Content } = await render(pkg);
 const t = useTranslations("en");
 ---
 
@@ -39,7 +39,7 @@ const t = useTranslations("en");
         </div>
         &bull;
         <div class='font-base text-sm'>
-          {readingTime(pkg.body)}
+          {readingTime(pkg.body ?? "")}
         </div>
         {
           pkg.data.version && (

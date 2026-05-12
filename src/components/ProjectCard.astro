@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
+import { normalizeSlug } from "@lib/utils";
+
 type Props = {
   entry: CollectionEntry<"projects">;
   lang?: "en" | "id";
@@ -9,8 +11,8 @@ type Props = {
 
 const { entry, lang = "en" } = Astro.props;
 const baseUrl = lang === "id" ? "/id" : "";
-// Clean the slug to remove /indexid suffix that comes from index.id.md files
-const cleanSlug = entry.slug.replace(/\/indexid$/, "");
+// Normalize the entry slug by stripping file extensions and trailing /index or /index.id segments
+const cleanSlug = normalizeSlug(entry.id);
 const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
 ---
 

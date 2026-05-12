@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 
 import { useTranslations } from "@i18n/utils";
 
@@ -17,9 +17,9 @@ export async function getStaticPaths() {
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return packages.map((pkg) => {
     // Remove /index.id or /indexid suffix from the slug
-    const slug = pkg.slug
-      .replace(/\/index\.id$|\/indexid$/, "")
-      .replace(/\/indexid$/, "");
+    const slug = pkg.id
+      .replace(/\.(md|mdx)$/, "")
+      .replace(/\/index(\.id)?$/, "");
     return {
       params: { slug },
       props: pkg,
@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"npmjs">;
 
 const pkg = Astro.props;
-const { Content } = await pkg.render();
+const { Content } = await render(pkg);
 const t = useTranslations("id");
 ---
 
@@ -45,7 +45,7 @@ const t = useTranslations("id");
         </div>
         &bull;
         <div class='font-base text-sm'>
-          {readingTime(pkg.body)}
+          {readingTime(pkg.body ?? "")}
         </div>
         {
           pkg.data.version && (
