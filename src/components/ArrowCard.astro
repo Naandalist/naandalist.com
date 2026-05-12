@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
+import { normalizeSlug } from "@lib/utils";
+
 type Props = {
   entry:
     | CollectionEntry<"posts">
@@ -15,7 +17,7 @@ const displayText =
     ? (entry as CollectionEntry<"posts">).data.subtitle
     : entry.data.description;
 const baseUrl = lang === "id" ? "/id" : "";
-const cleanSlug = entry.slug.replace(/\/indexid$/, "");
+const cleanSlug = normalizeSlug(entry.id);
 const entryUrl = `${baseUrl}/${entry.collection}/${cleanSlug}`;
 ---
 

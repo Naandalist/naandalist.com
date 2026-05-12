@@ -2,6 +2,10 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const viteEnvPath = require.resolve("vite/dist/client/env.mjs");
 
 export default defineConfig({
   site: "https://naandalist.com",
@@ -26,7 +30,20 @@ export default defineConfig({
   // Disable prefetch to eliminate critical request chain
   // Pages will still load quickly due to modern browser caching
   prefetch: false,
+  legacy: {
+    collectionsBackwardsCompat: true,
+  },
   vite: {
+    plugins: [
+      {
+        name: "resolve-vite-env",
+        enforce: "pre",
+        apply: "serve",
+        resolveId(id) {
+          if (id === "@vite/env") return viteEnvPath;
+        },
+      },
+    ],
     build: {
       cssCodeSplit: false,
       minify: "esbuild",

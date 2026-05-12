@@ -20,6 +20,12 @@ export function readingTime(html: string) {
   return `${readingTimeMinutes} min read`;
 }
 
+export function normalizeSlug(id: string): string {
+  return id
+    .replace(/\.(md|mdx)$/, "")
+    .replace(/\/index(\.id)?$/, "");
+}
+
 export function dateRange(startDate: Date, endDate?: Date | string): string {
   const startMonth = startDate.toLocaleString("default", { month: "short" });
   const startYear = startDate.getFullYear().toString();

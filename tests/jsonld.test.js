@@ -6,9 +6,9 @@ import {
   createSoftwareApplicationSchema,
 } from "../src/lib/jsonld";
 
-function createPostFixture(slug, lang, date = new Date("2025-01-01T00:00:00.000Z")) {
+function createPostFixture(id, lang, date = new Date("2025-01-01T00:00:00.000Z")) {
   return {
-    slug,
+    id,
     body: "Post body",
     data: {
       title: "Test Post",
@@ -21,9 +21,9 @@ function createPostFixture(slug, lang, date = new Date("2025-01-01T00:00:00.000Z
   };
 }
 
-function createProjectFixture({ slug, lang, price, liveURL }) {
+function createProjectFixture({ id, lang, price, liveURL }) {
   return {
-    slug,
+    id,
     data: {
       title: "Test Project",
       description: "Project description",
@@ -41,7 +41,7 @@ function createProjectFixture({ slug, lang, price, liveURL }) {
 describe("jsonld helpers", () => {
   test("normalizes blog slug and keeps canonical URL style", () => {
     const schema = createBlogPostingSchema(
-      createPostFixture("integrate-github-with-jira/index.id", "id"),
+      createPostFixture("integrate-github-with-jira/index.id.md", "id"),
     );
     const pageId = schema.mainEntityOfPage["@id"];
 
@@ -52,7 +52,7 @@ describe("jsonld helpers", () => {
   test("normalizes project slug from indexid suffix", () => {
     const schema = createCreativeWorkSchema(
       createProjectFixture({
-        slug: "mobile-app-airpaz/indexid",
+        id: "mobile-app-airpaz/index.id.md",
         lang: "en",
       }),
     );
@@ -63,14 +63,14 @@ describe("jsonld helpers", () => {
   test("maps Free/Gratis to numeric SoftwareApplication price", () => {
     const freeSchema = createSoftwareApplicationSchema(
       createProjectFixture({
-        slug: "my-app",
+        id: "my-app/index.md",
         lang: "en",
         price: "Free",
       }),
     );
     const gratisSchema = createSoftwareApplicationSchema(
       createProjectFixture({
-        slug: "my-app-id",
+        id: "my-app-id/index.id.md",
         lang: "id",
         price: "Gratis",
       }),
@@ -83,7 +83,7 @@ describe("jsonld helpers", () => {
   test("omits offers for invalid software price", () => {
     const schema = createSoftwareApplicationSchema(
       createProjectFixture({
-        slug: "my-app-invalid",
+        id: "my-app-invalid/index.md",
         lang: "en",
         price: "not-a-number",
       }),
