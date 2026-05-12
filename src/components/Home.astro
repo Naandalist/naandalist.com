@@ -13,7 +13,7 @@ import ProjectCard from "@components/ProjectCard.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
-import { dateRange } from "@lib/utils";
+import { dateRange, normalizeSlug } from "@lib/utils";
 
 interface Props {
   lang?: "en" | "id";
@@ -39,7 +39,7 @@ const featuredProjectOrder = [
 ];
 
 const getFeaturedProjectPriority = (slug: string) => {
-  const normalizedSlug = slug.endsWith("/indexid") ? slug.slice(0, -8) : slug;
+  const normalizedSlug = normalizeSlug(slug);
   const index = featuredProjectOrder.indexOf(normalizedSlug);
   return index === -1 ? Number.POSITIVE_INFINITY : index;
 };
