@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-**naandalist.com** is a personal portfolio and blog website for Listiananda Apriliawan. Built with Astro 5, Tailwind CSS, and MDX, featuring bilingual content (English/Indonesian) and a fully typed codebase.
+**naandalist.com** is a personal portfolio and blog website for Listiananda Apriliawan. Built with Astro 6, Tailwind CSS, and MDX, featuring bilingual content (English/Indonesian) and a fully typed codebase.
 
 ---
 
 ## Tech Stack
 
-- **Framework**: Astro 5 (`^5.17.1`)
+- **Framework**: Astro 6 (`^6.3.1`)
 - **Styling**: Tailwind CSS 3 + `@tailwindcss/typography`
 - **Content**: MDX via `@astrojs/mdx` + Astro Content Collections
 - **Language**: TypeScript 5 (strict mode)
@@ -30,6 +30,7 @@
 | `bun run lint:fix` | Auto-fix ESLint violations |
 | `bun run preview` | Preview prod build locally |
 | `bun run verify:routes` | Validate no malformed i18n paths in `dist/` |
+| `bun run verify:seo` | Validate SEO metadata across built pages |
 
 ---
 
