@@ -1,0 +1,102 @@
+---
+import { useTranslations } from "@i18n/utils";
+
+import Container from "@components/Container.astro";
+import FriendCard from "@components/FriendCard.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+interface Props {
+  lang?: "en" | "id";
+}
+
+const { lang = "id" } = Astro.props;
+const t = useTranslations(lang);
+
+const friends = [
+  {
+    name: "Aldo Ignata Chandra",
+    url: "https://ignata.dev/",
+    description: "Backend Engineer | Currently Learning Ruby, Golang & PHP",
+  },
+  {
+    name: "Linus Trovalds",
+    url: "https://example.com",
+    description:
+      "Creator of Linux and Git | Software Engineer | Open Source Advocate",
+  },
+  {
+    name: "Elon Musk",
+    url: "https://example.com",
+    description:
+      "CEO of SpaceX and Tesla | Innovator in Technology and Space Exploration",
+  },
+];
+---
+
+<PageLayout title={t("about.title")} description={t("about.description")}>
+  <Container>
+    <div class="space-y-10">
+      <div>
+        <h1 class="animate font-semibold text-white">
+          {t("about.title")}
+        </h1>
+      </div>
+
+      <section class="animate space-y-6">
+        <div>
+          <h2 class="text-lg font-semibold text-white mb-4">
+            {t("about.whatIsThis")}
+          </h2>
+          <p class="text-white/70 leading-relaxed">
+            {t("about.whatIsThisDesc")}
+          </p>
+        </div>
+      </section>
+
+      <section class="animate space-y-6">
+        <div>
+          <h2 class="text-lg font-semibold text-white mb-4">
+            {t("about.whyAstro")}
+          </h2>
+          <p class="text-white/70 leading-relaxed">
+            {t("about.whyAstroDesc")}
+          </p>
+        </div>
+      </section>
+
+      <section class="animate space-y-6">
+        <div>
+          <h2 class="text-lg font-semibold text-white mb-4">
+            {t("about.explore")}
+          </h2>
+          <p class="text-white/70 leading-relaxed">
+            {t("about.exploreDesc")}
+          </p>
+        </div>
+      </section>
+
+      <section class="animate space-y-6">
+        <div>
+          <h2 class="text-lg font-semibold text-white mb-4">
+            {t("about.friends")}
+          </h2>
+          <p class="text-white/70 leading-relaxed mb-6">
+            {t("about.friendsDesc")}
+          </p>
+          <div class="space-y-3">
+            {
+              friends.map((friend) => (
+                <FriendCard
+                  name={friend.name}
+                  url={friend.url}
+                  description={friend.description}
+                />
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </div>
+  </Container>
+</PageLayout>

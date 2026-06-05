@@ -54,6 +54,22 @@ export const ui = {
     "work.title": "Work",
     "work.description":
       "Professional career showcasing roles as Frontend Developer, Full-stack Developer, and technical contributions across startups and enterprises.",
+    "about.title": "About",
+    "about.description":
+      "Learn about naandalist.com a portfolio and space to explore coding with Astro.",
+    "about.whoAmI": "Who am I?",
+    "about.whatIsThis": "What is this website?",
+    "about.whatIsThisDesc":
+      "Naandalist.com is my personal portfolio and a dedicated space to share my journey as a developer. It showcases my work, projects, and technical writings and everything I'm passionate about in software engineering.",
+    "about.whyAstro": "Why Astro?",
+    "about.whyAstroDesc":
+      "I built this site with Astro because I wanted to explore a modern approach to web development. Astro's flexibility in building fast, content-focused sites perfectly aligns with my vision. Plus, I enjoy experimenting with new technologies and sharing my findings through this platform.",
+    "about.explore": "Explore & Learn",
+    "about.exploreDesc":
+      "Here you'll find everything from project portfolios and technical articles to open-source packages and professional experience. Feel free to explore, ask questions, or reach out if you'd like to collaborate!",
+    "about.friends": "Friends & Collaborators",
+    "about.friendsDesc":
+      "Meet some of the amazing developers and creators I collaborate with. Check out their work!",
     "contact.title": "Contact",
     "contact.description":
       "Get in touch with me for collaboration, freelance opportunities, or just to say hello.",
@@ -115,6 +131,22 @@ export const ui = {
     "work.title": "Pekerjaan",
     "work.description":
       "Karir profesional menampilkan peran sebagai Frontend Developer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",
+    "about.title": "Tentang",
+    "about.description":
+      "Pelajari tentang naandalist.com portfolio dan ruang untuk menjelajahi coding dengan Astro.",
+    "about.whoAmI": "Siapa saya?",
+    "about.whatIsThis": "Website ini adalah apa?",
+    "about.whatIsThisDesc":
+      "Naandalist.com adalah portfolio pribadi saya dan ruang khusus untuk berbagi perjalanan saya sebagai developer. Ini menampilkan pekerjaan, proyek, dan tulisan teknis saya—semua hal yang saya passion tentang dalam software engineering.",
+    "about.whyAstro": "Mengapa Astro?",
+    "about.whyAstroDesc":
+      "Saya membangun situs ini dengan Astro karena saya ingin menjelajahi pendekatan modern dalam pengembangan web. Fleksibilitas Astro dalam membangun situs yang cepat dan fokus pada konten sempurna sesuai dengan visi saya. Plus, saya menikmati bereksperimen dengan teknologi baru dan berbagi temuan saya melalui platform ini.",
+    "about.friends": "Teman & Kolaborator",
+    "about.friendsDesc":
+      "Temui beberapa developer dan kreator luar biasa yang saya kolaborasikan. Cek karya mereka!",
+    "about.explore": "Jelajahi & Pelajari",
+    "about.exploreDesc":
+      "Di sini Anda akan menemukan semuanya mulai dari portfolio proyek dan artikel teknis hingga paket open-source dan pengalaman profesional. Jangan ragu untuk menjelajahi, ajukan pertanyaan, atau hubungi saya jika Anda ingin berkolaborasi!",
     "contact.title": "Kontak",
     "contact.description":
       "Hubungi saya untuk kolaborasi, peluang freelance, atau hanya untuk mengucapkan salam.",

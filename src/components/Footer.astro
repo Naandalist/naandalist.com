@@ -11,41 +11,47 @@ const t = useTranslations(lang);
 const langPrefix = lang === "id" ? "/id" : "";
 ---
 
-<footer class='animate'>
+<footer class="animate">
   <Container>
-    <div class='flex flex-col gap-4 mb-8 md:mb-4'>
+    <div class="flex flex-col gap-4 mb-8 md:mb-4">
       <div
-        class='flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-3'
+        class="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-3"
       >
-        <div class='flex flex-wrap items-center gap-3'>
+        <div class="flex flex-wrap items-center gap-3">
           <a
-            href='https://cloud.umami.is/share/92PrHjYFQjK8KpPT'
-            target='_blank'
-            rel='noopener noreferrer'
-            class='text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20'
+            href="https://cloud.umami.is/share/92PrHjYFQjK8KpPT"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
           >
             {t("footer.analytic")}
           </a>
           <a
+            href={`${langPrefix}/about`}
+            class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
+          >
+            About
+          </a>
+          <a
             href={`${langPrefix}/terms`}
-            class='text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20'
+            class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
           >
             {t("footer.terms")}
           </a>
           <a
             href={`${langPrefix}/privacy`}
-            class='text-sm hover:text-white transition-colors duration-300 ease-in-out'
+            class="text-sm hover:text-white transition-colors duration-300 ease-in-out"
           >
             {t("footer.privacy")}
           </a>
         </div>
         <LanguageSwitcher />
       </div>
-      <div class='text-sm'>
+      <div class="text-sm">
         &copy; {currentYear}
         <a
           href={SITE.URL}
-          class='ml-3 hover:text-white transition-colors duration-300 ease-in-out'
+          class="ml-3 hover:text-white transition-colors duration-300 ease-in-out"
           >{SITE.NAME}</a
         >
       </div>
