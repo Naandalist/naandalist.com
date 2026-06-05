@@ -1,0 +1,44 @@
+---
+type Props = {
+  name: string;
+  url: string;
+  description: string;
+};
+
+const { name, url, description } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group relative flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-white/20 hover:bg-white/5 hover:text-white transition-colors duration-300 ease-in-out"
+>
+  <div class="flex flex-col flex-1 truncate sm:whitespace-normal">
+    <div
+      class="font-extrabold transition-colors duration-300 ease-in-out group-hover:text-link"
+    >
+      {name}
+    </div>
+    <div class="text-sm truncate">
+      {description}
+    </div>
+  </div>
+
+  <span
+    aria-hidden="true"
+    class="absolute top-1/2 right-4 -translate-y-1/2 size-5 text-current"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="size-5"
+    >
+      <path d="M7 17L17 7M17 7H7M17 7V17"></path>
+    </svg>
+  </span>
+</a>
