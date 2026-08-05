@@ -13,7 +13,7 @@ import ProjectCard from "@components/ProjectCard.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
-import { dateRange, normalizeSlug } from "@lib/utils";
+import { compareProjectsByFeaturedOrder, dateRange } from "@lib/utils";
 
 interface Props {
   lang?: "en" | "id";
@@ -23,26 +23,12 @@ const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 const siteUrl = SITE.URL ?? "https://naandalist.com";
 
-const introPara2 = `${t("home.intro.paragraph2")} React ${t("home.intro.paragraph2.and")} Astro${t("home.intro.paragraph2.end")}`;
-
 const posts = (await getCollection("posts"))
   .filter(
     (post) => !post.data.draft && post.data.lang === lang && post.data.featured,
   )
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
-
-const featuredProjectOrder = [
-  "web-ringkaskata",
-  "mobile-app-airpaz",
-  "ebenefits-aia-customer-apps",
-];
-
-const getFeaturedProjectPriority = (slug: string) => {
-  const normalizedSlug = normalizeSlug(slug);
-  const index = featuredProjectOrder.indexOf(normalizedSlug);
-  return index === -1 ? Number.POSITIVE_INFINITY : index;
-};
 
 const projects = (await getCollection("projects"))
   .filter(
@@ -51,16 +37,7 @@ const projects = (await getCollection("projects"))
       project.data.lang === lang &&
       project.data.featured,
   )
-  .sort((a, b) => {
-    const priorityDiff =
-      getFeaturedProjectPriority(a.id) - getFeaturedProjectPriority(b.id);
-
-    if (priorityDiff !== 0) {
-      return priorityDiff;
-    }
-
-    return b.data.date.valueOf() - a.data.date.valueOf();
-  })
+  .sort(compareProjectsByFeaturedOrder)
   .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
 
 const npmPackages = (await getCollection("npmjs"))
@@ -134,26 +111,50 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
       <section>
         <article class="space-y-4">
           <p class="animate">
-            {t("home.intro.paragraph1")}
+            {t("home.intro.paragraph1")} {" "}
             <Link
-              href="https://reactnative.dev/"
-              aria-label="React Native"
-              external>React Native</Link
-            >
-            {t("home.intro.paragraph1.end")}
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+              aria-label="JavaScript"
+              external>JavaScript</Link
+            >,
             <Link
               href="https://www.typescriptlang.org/"
               aria-label="TypeScript"
               external>TypeScript</Link
-            >
-            {t("home.intro.paragraph1.tooling")}
-            <Link href="https://nodejs.org/en" aria-label="Node.js" external
-              >Node.js</Link
-            >
-            {t("home.intro.paragraph1.needed")}
+            >,
+            <Link href="https://react.dev/" aria-label="React" external
+              >React</Link
+            >,
+            <Link
+              href="https://reactnative.dev/"
+              aria-label="React Native"
+              external>React Native</Link
+            >,
+            <Link href="https://nextjs.org/" aria-label="Next.js" external
+              >Next.js</Link
+            >, {t("home.intro.and")} {" "}
+            <Link href="https://astro.build/" aria-label="Astro" external
+              >Astro</Link
+            >.
           </p>
           <p class="animate">
-            {introPara2}
+            {t("home.intro.paragraph2")} {" "}
+            <Link href="https://nodejs.org/" aria-label="Node.js" external
+              >Node.js</Link
+            > {t("home.intro.and")} {" "}
+            <Link href="https://bun.sh/" aria-label="Bun" external>Bun</Link>{t(
+              "home.intro.paragraph2.database",
+            )} {" "}
+            <Link
+              href="https://www.postgresql.org/"
+              aria-label="PostgreSQL"
+              external>PostgreSQL</Link
+            > {t("home.intro.and")} {" "}
+            <Link
+              href="https://firebase.google.com/"
+              aria-label="Firebase"
+              external>Firebase</Link
+            >{t("home.intro.paragraph2.end")}
           </p>
         </article>
 

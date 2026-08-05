@@ -8,6 +8,8 @@ import ProjectCard from "@components/ProjectCard.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
+import { compareProjectsByFeaturedOrder } from "@lib/utils";
+
 interface Props {
   lang?: "en" | "id";
 }
@@ -17,7 +19,7 @@ const t = useTranslations(lang);
 
 const projects = (await getCollection("projects"))
   .filter((project) => !project.data.draft && project.data.lang === lang)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort(compareProjectsByFeaturedOrder);
 ---
 
 <PageLayout title={t("projects.title")} description={t("projects.description")}>

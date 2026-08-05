@@ -12,7 +12,10 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes("/privacy") && !page.includes("/terms"),
+      filter: (page) =>
+        !page.includes("/privacy") &&
+        !page.includes("/terms") &&
+        !page.includes("/resume"),
     }),
     tailwind({
       applyBaseStyles: true,
