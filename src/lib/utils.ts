@@ -26,6 +26,34 @@ export function normalizeSlug(id: string): string {
     .replace(/\/index(\.id)?$/, "");
 }
 
+const featuredProjectOrder = [
+  "web-ringkaskata",
+  "mobile-app-airpaz",
+  "ebenefits-aia-customer-apps",
+];
+
+type ProjectSortEntry = {
+  id: string;
+  data: {
+    date: Date;
+  };
+};
+
+export function compareProjectsByFeaturedOrder(
+  a: ProjectSortEntry,
+  b: ProjectSortEntry,
+) {
+  const aPriority = featuredProjectOrder.indexOf(normalizeSlug(a.id));
+  const bPriority = featuredProjectOrder.indexOf(normalizeSlug(b.id));
+  const normalizedAPriority =
+    aPriority === -1 ? Number.POSITIVE_INFINITY : aPriority;
+  const normalizedBPriority =
+    bPriority === -1 ? Number.POSITIVE_INFINITY : bPriority;
+  const priorityDiff = normalizedAPriority - normalizedBPriority;
+
+  return priorityDiff || b.data.date.valueOf() - a.data.date.valueOf();
+}
+
 export function dateRange(startDate: Date, endDate?: Date | string): string {
   const startMonth = startDate.toLocaleString("default", { month: "short" });
   const startYear = startDate.getFullYear().toString();

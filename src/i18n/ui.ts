@@ -12,15 +12,13 @@ export const ui = {
       "Frontend Developer specializing in JavaScript and TypeScript. Explore my projects, technical writings, and professional engineering experience.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
-      "Frontend Developer with 5+ years of experience building Android & iOS features in",
-    "home.intro.paragraph1.end": "and",
-    "home.intro.paragraph1.tooling": ", with",
-    "home.intro.paragraph1.needed": "tooling when needed.",
+      "Frontend Engineer with 5+ years of experience building web and cross-platform mobile applications using",
+    "home.intro.and": "and",
     "home.intro.paragraph2":
-      "Previously full-stack using Laravel, with additional web experience in",
-    "home.intro.paragraph2.and": "and",
+      "I also build backend services and REST APIs using",
+    "home.intro.paragraph2.database": ", work with",
     "home.intro.paragraph2.end":
-      ". I enjoy debugging production issues and tracing them to their root cause.",
+      ", and manage CI/CD pipelines and VPS deployments. I enjoy investigating production issues, tracing their root causes, and implementing appropriate fixes.",
     "home.skills": "Technical Skills",
     "home.work": "Work Experience",
     "home.work.seeAll": "All work experience",
@@ -89,15 +87,13 @@ export const ui = {
       "Frontend Developer yang terbiasa dengan JavaScript dan TypeScript. Jelajahi proyek, catatan tulisan teknis, dan pengalaman saya.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
-      "Frontend Developer dengan 5+ tahun pengalaman membangun fitur Android & iOS di",
-    "home.intro.paragraph1.end": "dan",
-    "home.intro.paragraph1.tooling": ", dengan",
-    "home.intro.paragraph1.needed": "ketika diperlukan.",
+      "Frontend Engineer dengan pengalaman lebih dari 5 tahun membangun aplikasi web dan mobile lintas platform menggunakan",
+    "home.intro.and": "dan",
     "home.intro.paragraph2":
-      "Sebelumnya full-stack menggunakan Laravel, dengan pengalaman pengembangan web di",
-    "home.intro.paragraph2.and": "dan",
+      "Saya juga membangun layanan backend dan REST API menggunakan",
+    "home.intro.paragraph2.database": ", bekerja dengan",
     "home.intro.paragraph2.end":
-      ". Saya terbiasa debugging isu di production dan melacak penyebab akar masalahnya.",
+      ", serta mengelola pipeline CI/CD dan deployment VPS. Saya menikmati proses menginvestigasi masalah production, menelusuri akar penyebabnya, dan menerapkan perbaikan yang sesuai.",
     "home.skills": "Keahlian Teknis",
     "home.work": "Pengalaman Kerja",
     "home.work.seeAll": "Lihat semua pengalaman kerja",

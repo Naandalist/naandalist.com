@@ -20,6 +20,8 @@ type Props = {
   articleAuthor?: string;
   articleTags?: string[];
   showHeader?: boolean;
+  showFooter?: boolean;
+  fullscreen?: boolean;
   noindex?: boolean;
   disableHreflang?: boolean;
 };
@@ -34,6 +36,8 @@ const {
   articleAuthor,
   articleTags,
   showHeader = true,
+  showFooter = true,
+  fullscreen = false,
   noindex = false,
   disableHreflang = false,
 } = Astro.props;
@@ -41,7 +45,7 @@ const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class={cn(fullscreen && "overflow-hidden")}>
   <head>
     <Head
       title={title || SITE.NAME}
@@ -56,7 +60,7 @@ const lang = getLangFromUrl(Astro.url);
       disableHreflang={disableHreflang}
     />
   </head>
-  <body>
+  <body class={cn(fullscreen && "overflow-hidden")}>
     <a
       href='#main-content'
       class='absolute left-0 top-0 -translate-y-full bg-neutral-900 px-4 py-2 text-neutral-100 transition-transform focus:translate-y-0 z-[100]'
@@ -64,10 +68,13 @@ const lang = getLangFromUrl(Astro.url);
       Skip to content
     </a>
     {showHeader && <Header />}
-    <main id='main-content' class={cn(showHeader ? "" : "py-0")}>
+    <main
+      id='main-content'
+      class={cn(showHeader ? "" : "py-0", fullscreen && "min-h-0")}
+    >
       <slot />
     </main>
-    <Footer />
+    {showFooter && <Footer />}
     <CodeCopyButton />
   </body>
 </html>
