@@ -4,7 +4,7 @@ subtitle: "Eksperimen kecil tentang metadata C2PA dan badge Content Credentials 
 description: "Eksperimen langsung untuk memahami cara LinkedIn menampilkan C2PA Content Credentials dan apa yang terjadi setelah metadata gambar dihapus."
 date: "2026-08-16T00:00:00Z"
 draft: false
-featured: false
+featured: true
 keywords:
   ["content credentials", "c2pa", "linkedin", "gambar buatan AI", "metadata"]
 lang: "id"
