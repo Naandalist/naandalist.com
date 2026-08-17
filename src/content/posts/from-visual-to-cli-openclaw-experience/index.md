@@ -3,7 +3,7 @@ title: "From Visual to CLI: My Experience Using OpenClaw"
 subtitle: "How OpenClaw TUI made VPS operations feel interactive."
 description: "A practical field note on using OpenClaw TUI and clawbot to manage CLI-only VPS workflows in a more conversational and actionable way."
 date: "2026-02-28"
-featured: true
+featured: false
 lang: "en"
 keywords:
   - OpenClaw

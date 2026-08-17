@@ -4,7 +4,7 @@ subtitle: "A small experiment with C2PA metadata and LinkedIn's Content Credenti
 description: "A hands-on experiment exploring how LinkedIn displays C2PA Content Credentials and what happens after an image's embedded metadata is removed."
 date: "2026-08-16T00:00:00Z"
 draft: false
-featured: false
+featured: true
 keywords:
   ["content credentials", "c2pa", "linkedin", "ai-generated images", "metadata"]
 lang: "en"
