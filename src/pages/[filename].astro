@@ -1,0 +1,39 @@
+---
+import { getResumeEntries, type ResumeEntry } from "@utils/resumes";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+export function getStaticPaths() {
+  return getResumeEntries().map((resume) => ({
+    params: { filename: resume.slug },
+    props: { resume },
+  }));
+}
+
+interface Props {
+  resume: ResumeEntry;
+}
+
+const { resume } = Astro.props;
+---
+
+<PageLayout
+  title={`${resume.title} — Resume`}
+  description={`Professional resume: ${resume.title}.`}
+  showHeader={false}
+  showFooter={false}
+  fullscreen={true}
+  noindex={true}
+  disableHreflang={true}
+>
+  <a
+    href={resume.pdfUrl}
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-neutral-900 focus:px-4 focus:py-2 focus:text-white"
+  >
+    Open or download the PDF directly
+  </a>
+  <iframe
+    src={`${resume.pdfUrl}#view=FitH&toolbar=1&navpanes=1`}
+    title={`${resume.title} PDF`}
+    class="block h-dvh w-full border-0 bg-white"></iframe>
+</PageLayout>

@@ -3,19 +3,28 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import { createRequire } from "module";
+import { getResumeEntries } from "./src/utils/resumes";
 
 const require = createRequire(import.meta.url);
 const viteEnvPath = require.resolve("vite/dist/client/env.mjs");
+const resumeRoutes = new Set(
+  getResumeEntries().map(({ slug }) => `/${encodeURIComponent(slug)}`),
+);
 
 export default defineConfig({
   site: "https://naandalist.com",
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) =>
-        !page.includes("/privacy") &&
-        !page.includes("/terms") &&
-        !page.includes("/resume"),
+      filter: (page) => {
+        const pathname = new URL(page).pathname.replace(/\/$/, "");
+
+        return (
+          !page.includes("/privacy") &&
+          !page.includes("/terms") &&
+          !resumeRoutes.has(pathname)
+        );
+      },
     }),
     tailwind({
       applyBaseStyles: true,
