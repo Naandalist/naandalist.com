@@ -47,13 +47,6 @@ const { resume } = Astro.props;
       Loading PDF…
     </div>
     <div data-pdf-pages class="mx-auto flex max-w-4xl flex-col gap-2"></div>
-    <a
-      data-pdf-fallback
-      href={resume.pdfUrl}
-      class="mx-auto hidden min-h-dvh max-w-sm items-center justify-center px-6 text-center text-neutral-900 underline"
-    >
-      PDF preview unavailable. Open PDF directly.
-    </a>
   </section>
   <iframe
     src={`${resume.pdfUrl}#view=FitH&toolbar=1&navpanes=1`}
@@ -72,10 +65,9 @@ const { resume } = Astro.props;
 
     const pages = viewer.querySelector<HTMLElement>("[data-pdf-pages]");
     const status = viewer.querySelector<HTMLElement>("[data-pdf-status]");
-    const fallback = viewer.querySelector<HTMLElement>("[data-pdf-fallback]");
     const pdfUrl = viewer.dataset.pdfUrl;
 
-    if (pages && status && fallback && pdfUrl) {
+    if (pages && status && pdfUrl) {
       try {
         const [{ GlobalWorkerOptions, getDocument }, { default: workerUrl }] =
           await Promise.all([
@@ -118,10 +110,7 @@ const { resume } = Astro.props;
         viewer.setAttribute("aria-busy", "false");
       } catch (error) {
         console.error("Unable to render PDF preview", error);
-        status.remove();
-        fallback.classList.remove("hidden");
-        fallback.classList.add("flex");
-        viewer.setAttribute("aria-busy", "false");
+        window.location.replace(pdfUrl);
       }
     }
   }
