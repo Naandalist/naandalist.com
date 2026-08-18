@@ -133,6 +133,14 @@ const { resume } = Astro.props;
   }
 
   @media (max-width: 767px), (hover: none) and (pointer: coarse) {
+    :global(html.pdfjs-mobile),
+    :global(html.pdfjs-mobile body) {
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      touch-action: pan-y pinch-zoom;
+      -webkit-overflow-scrolling: touch;
+    }
+
     :global(html.pdfjs-mobile) .mobile-pdf-viewer {
       display: block;
     }
