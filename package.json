@@ -42,7 +42,7 @@
     "verify:seo": "node scripts/verify-seo.mjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "7.0.0",
+    "@astrojs/mdx": "7.0.2",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/tailwind": "^6.0.2",
