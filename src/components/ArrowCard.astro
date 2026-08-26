@@ -23,7 +23,7 @@ const entryUrl = `${baseUrl}/${entry.collection}/${cleanSlug}`;
 
 <a
   href={entryUrl}
-  class='arrow-card relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-white/20 hover:bg-white/5 hover:text-white transition-colors duration-300 ease-in-out'
+  class='arrow-card relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-white/20 transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-white hover:border-link hover:shadow-[0_0_18px] hover:shadow-link/25'
 >
   <div class='flex flex-col flex-1 truncate sm:whitespace-normal'>
     <div
@@ -38,7 +38,7 @@ const entryUrl = `${baseUrl}/${entry.collection}/${cleanSlug}`;
 
   <span
     aria-hidden='true'
-    class='absolute top-1/2 right-4 -translate-y-1/2 size-5 text-current'
+    class='absolute top-1/2 right-4 -translate-y-1/2 size-5 text-current transition-colors duration-300 ease-in-out group-hover:text-link'
   >
     <svg
       viewBox='0 0 24 24'
