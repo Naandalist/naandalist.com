@@ -1,62 +1,87 @@
 ---
 title: "Ringkaskata.com"
-description: "Portal publikasi digital berbahasa Indonesia yang menyajikan artikel ringkas dan praktis seputar teknologi, budaya, isu sosial, dan tren terkini."
-date: "2026-03-02"
-lastUpdated: "2026-03-02"
+description: "Platform publikasi Indonesia independen yang saya dirikan bersama dan bangun end-to-end untuk membantu penulis menerbitkan cerita positif serta terverifikasi."
+date: "2026-02-01"
+lastUpdated: "2026-08-29"
 featured: true
 imageUrl: "@assets/images/thumbnail-ringkaskata.webp"
 liveURL: "https://ringkaskata.com/"
 repoURL: ""
-techStack: ["Next.js", "Cloudflare", "PostgreSQL", "SEO"]
+techStack:
+  [
+    "Next.js",
+    "TypeScript",
+    "Neon PostgreSQL",
+    "Drizzle ORM",
+    "Resend",
+    "TipTap",
+    "Cloudinary",
+    "Umami",
+  ]
 category: "Media & Publishing"
 platforms: ["Web"]
 price: "Gratis"
 keywords:
   [
     "Ringkaskata",
-    "berita",
-    "artikel",
-    "gaya hidup",
-    "teknologi",
-    "edukasi",
-    "Indonesia",
+    "publikasi Indonesia",
+    "Next.js",
+    "platform editorial",
+    "SEO",
+    "media independen",
   ]
 lang: "id"
 ---
 
-Ringkaskata.com adalah media publikasi digital yang berfokus pada tulisan ringkas dan praktis untuk pembaca Indonesia. Kontennya mencakup gaya hidup, teknologi, pendidikan, dan berbagai isu aktual dengan pengalaman baca yang nyaman di desktop maupun perangkat seluler.
+Ringkaskata adalah platform publikasi Indonesia independen yang saya dirikan bersama seorang lulusan jurnalistik. Saya membangun produknya secara end-to-end agar penulis freelance memiliki ruang untuk menerbitkan karya yang sering sulit lolos verifikasi di platform besar. Arah editorial kami sederhana: menghadirkan lebih banyak cerita yang bermanfaat, positif, dan terverifikasi di tengah noise serta misinformasi di internet.
 
 ![Tangkapan layar website Ringkaskata](@assets/images/thumbnail-ringkaskata.webp)
 
-## Sorotan
+## Peran Saya
 
-- Tata letak artikel ringan dan nyaman dibaca di desktop maupun perangkat seluler.
-- Cakupan topik luas yang relevan untuk pembaca Indonesia.
-- Konten editorial diperbarui secara berkala.
+Sebagai technical co-founder dan satu-satunya full-stack developer, saya memegang arsitektur, implementasi, deployment, serta seluruh technical trade-off—mulai dari situs publik hingga tools publikasi internal. Co-founder saya mengarahkan editorial, sementara empat kontributor penulis membuat dan mengirimkan artikel.
 
-## Audiens
+## Produk dan Workflow Editorial
 
-Platform ini ditujukan bagi pembaca yang membutuhkan wawasan langsung ke inti tanpa informasi berlebihan, termasuk pelajar, profesional, dan pembaca umum.
+Saya membangun dashboard admin khusus, bukan mengadopsi CMS generik. Kontributor menyiapkan artikel sebagai draft, kemudian admin yang berwenang meninjau dan menerbitkannya. Dashboard mendukung tiga level akses: guest, admin, dan superadmin.
 
-## Linimasa
+Untuk authoring, saya mengintegrasikan rich-text editor TipTap. Penulis dapat mencari gambar thumbnail melalui Unsplash API atau mengunggah aset sendiri ke Cloudinary. Alur ini menjaga proses publikasi tetap fokus sambil memberi tim editorial kontrol yang cukup terhadap kualitas dan presentasi konten.
 
-Proyek ini dipelihara secara aktif dan terus diperbarui melalui publikasi artikel baru serta penyegaran kategori berdasarkan prioritas editorial dan minat pembaca.
+## Arsitektur
 
-## Cakupan
+[Ringkaskata](https://ringkaskata.com/) berjalan sebagai aplikasi [Next.js](https://nextjs.org/) full-stack berbasis [TypeScript](https://www.typescriptlang.org/). [Neon](https://neon.com/) menyediakan database PostgreSQL serverless, dengan [Drizzle ORM](https://orm.drizzle.team/) sebagai type-safe schema dan query layer. [Resend](https://resend.com/) menangani akses admin tanpa password melalui magic link. Aplikasi dideploy di [Vercel](https://vercel.com/), dengan [Cloudflare](https://www.cloudflare.com/) digunakan untuk manajemen DNS.
 
-Ringkaskata.com mencakup beberapa klaster topik, di antaranya:
+Saya menambahkan sitemap generation, metadata halaman, dan integrasi [Google Search Console](https://search.google.com/search-console/about) untuk mendukung discoverability. [Ahrefs](https://ahrefs.com/) melengkapi Search Console untuk pemantauan SEO, sedangkan [Umami Cloud](https://umami.is/) menyediakan analytics pengunjung yang privacy-friendly dan gambaran aktivitas audiens.
 
-- Gaya hidup dan wawasan harian
-- Teknologi dan perkembangan digital
-- Pendidikan dan topik pembelajaran
-- Artikel umum seputar isu aktual
+### Tanggung Jawab Tech Stack
 
-## Privasi & Kepatuhan
+| Teknologi | Fungsi |
+| --- | --- |
+| [Next.js](https://nextjs.org/) | Menjalankan situs publik dan custom admin dashboard sebagai satu aplikasi full-stack. |
+| [TypeScript](https://www.typescriptlang.org/) | Memberikan type safety pada frontend, server logic, dan shared data contracts. |
+| [Neon PostgreSQL](https://neon.com/) | Menyimpan data aplikasi dan editorial dalam database PostgreSQL serverless yang terkelola. |
+| [Drizzle ORM](https://orm.drizzle.team/) | Mendefinisikan database schema dan menyediakan type-safe queries antara Next.js dan Neon. |
+| [Resend](https://resend.com/) | Mengirimkan passwordless magic link untuk autentikasi admin. |
+| [TipTap](https://tiptap.dev/) | Menyediakan rich-text authoring experience untuk draft artikel. |
+| [Unsplash API](https://unsplash.com/developers) | Membantu kontributor menemukan thumbnail artikel langsung dari dashboard. |
+| [Cloudinary](https://cloudinary.com/) | Menyimpan dan mengirimkan gambar yang diunggah secara manual oleh tim editorial. |
+| [Vercel](https://vercel.com/) | Menjadi hosting dan deployment platform Next.js melalui workflow yang framework-native. |
+| [Cloudflare](https://www.cloudflare.com/) | Mengelola domain dan DNS layer. |
+| [Google Search Console](https://search.google.com/search-console/about) + [Ahrefs](https://ahrefs.com/) | Memantau indexing, discoverability, keyword, dan performa pencarian. |
+| [Umami Cloud](https://umami.is/) | Memantau visitor dan content engagement melalui analytics yang privacy-friendly. |
 
-- **Situs publik**: konten dapat diakses langsung melalui browser.
-- **Pembaruan editorial**: artikel ditinjau dan diterbitkan secara berkelanjutan.
-- **Fokus pembaca**: struktur halaman dibuat bersih dan mudah dinavigasi.
+## Challenge: Hosting Resilience
 
-## Mengapa Ini Penting
+Sebuah insiden availability di awal proyek memperlihatkan friction pada ekosistem Cloudflare Workers untuk aplikasi Next.js ini. Saya mengevaluasi trade-off operasional lalu memigrasikan deployment ke Vercel. Migrasi ini memberi setup hosting yang lebih resilient dan native untuk Next.js, sambil tetap menggunakan Cloudflare untuk DNS.
 
-Ringkaskata.com membantu pembaca menemukan informasi yang relevan dan mudah dipahami dalam bahasa Indonesia, sehingga proses belajar harian dan mengikuti perkembangan isu menjadi lebih sederhana.
+## Discovery dan Impact
+
+Fondasi SEO mulai menghasilkan dampak: beberapa artikel yang sudah diterbitkan mulai muncul di Google Search. Saya memantau indexing dan performa pencarian melalui Google Search Console serta Ahrefs, lalu menggunakan Umami untuk memahami aktivitas pengunjung dan konten yang mendapat perhatian.
+
+## Workflow Engineering
+
+Saya menggunakan Codex sebagai thinking partner saat mengevaluasi technical trade-off. Codex mempercepat riset dan brainstorming, sementara keputusan arsitektur, implementasi, dan ownership produk tetap berada di tangan saya.
+
+## Kenapa Ini Penting
+
+Ringkaskata mengubah hambatan publikasi menjadi platform yang dimiliki sendiri: penulis memiliki ruang untuk menerbitkan karya, editor memiliki workflow yang terfokus, dan pembaca mendapat sumber cerita Indonesia yang lebih tenang serta bermanfaat.
