@@ -1,6 +1,6 @@
 ---
 title: "Info Haji"
-description: "A solo open-source React Native app that surfaces complete official Hajj data through a clearer experience while keeping pilgrim information on-device."
+description: "A clearer mobile client for complete official Hajj information."
 date: "2025-11-09"
 lastUpdated: "2026-08-29"
 featured: true

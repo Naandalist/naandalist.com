@@ -1,6 +1,6 @@
 ---
 title: "Kamus KBBI VI"
-description: "A free, ad-free Indonesian dictionary backed by a Python harvesting pipeline, an open JSON corpus, and fuzzy word discovery in React Native."
+description: "A free, ad-free Indonesian dictionary with fuzzy search."
 date: "2022-12-11"
 lastUpdated: "2026-08-29"
 featured: true

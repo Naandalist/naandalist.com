@@ -1,6 +1,6 @@
 ---
 title: "Ringkaskata.com"
-description: "Platform publikasi Indonesia independen yang saya dirikan bersama dan bangun end-to-end untuk membantu penulis menerbitkan cerita positif serta terverifikasi."
+description: "Platform independen untuk menerbitkan cerita positif Indonesia."
 date: "2026-02-01"
 lastUpdated: "2026-08-29"
 featured: true
@@ -39,7 +39,7 @@ Ringkaskata adalah platform publikasi Indonesia independen yang saya dirikan ber
 
 ## Peran Saya
 
-Sebagai technical co-founder dan satu-satunya full-stack developer, saya memegang arsitektur, implementasi, deployment, serta seluruh technical trade-off—mulai dari situs publik hingga tools publikasi internal. Co-founder saya mengarahkan editorial, sementara empat kontributor penulis membuat dan mengirimkan artikel.
+Sebagai technical co-founder dan satu-satunya full-stack developer, saya memegang arsitektur, implementasi, deployment, serta seluruh technical trade-off, mulai dari situs publik hingga tools publikasi internal. Co-founder saya mengarahkan editorial, sementara empat kontributor penulis membuat dan mengirimkan artikel.
 
 ## Produk dan Workflow Editorial
 

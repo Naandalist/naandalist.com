@@ -1,6 +1,6 @@
 ---
 title: "AIA eBenefits App"
-description: "Cara saya memodernisasi aplikasi asuransi production dari React Native 0.65 ke 0.74, meremediasi dependency risk, dan menyelesaikan issue customer intermiten."
+description: "Aplikasi mobile untuk mengakses employee benefits, eCard, klinik, dan klaim."
 date: "2023-02-01"
 lastUpdated: "2026-08-29"
 featured: true

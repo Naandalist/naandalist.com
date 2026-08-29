@@ -1,6 +1,6 @@
 ---
 title: "Kamus KBBI VI"
-description: "Kamus Indonesia gratis tanpa iklan dengan Python harvesting pipeline, corpus JSON terbuka, dan fuzzy word discovery di React Native."
+description: "Kamus Indonesia gratis tanpa iklan dengan fuzzy search."
 date: "2022-12-11"
 lastUpdated: "2026-08-29"
 featured: true
@@ -33,7 +33,7 @@ Ini adalah solo hobby project. Saya memegang product direction, UI design, imple
 
 Bagian tersulit dikerjakan sebelum mobile interface dapat mencari apa pun. Saya lebih dahulu menyusun daftar kosakata Bahasa Indonesia secara alfabetis dari A sampai Z. Setelah itu, saya membangun automasi Python untuk meminta dan mem-parse halaman detail setiap kata dari [website KBBI resmi](https://kbbi.kemdikbud.go.id/).
 
-Pipeline mengubah setiap entri menjadi structured JSON dan mengelompokkan output berdasarkan huruf awal serta kata. Pendekatan ini mempertahankan field yang lebih kaya seperti makna, contoh penggunaan, kata turunan, kategori, dan peribahasa—bukan mengurangi entri menjadi satu definisi saja.
+Pipeline mengubah setiap entri menjadi structured JSON dan mengelompokkan output berdasarkan huruf awal serta kata. Pendekatan ini mempertahankan field yang lebih kaya seperti makna, contoh penggunaan, kata turunan, kategori, dan peribahasa, bukan mengurangi entri menjadi satu definisi saja.
 
 Corpus hasil generasi dipublikasikan dalam [repository KBBI Harvester CDN](https://github.com/Naandalist/kbbi-harvester-cdn) yang open-source. Konten kamus tetap diatribusikan kepada otoritas Bahasa Indonesia; aplikasi dan pipeline ini merupakan interface independen serta tidak resmi terhadap sumber tersebut.
 

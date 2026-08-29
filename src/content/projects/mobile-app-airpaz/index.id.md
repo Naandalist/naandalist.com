@@ -1,6 +1,6 @@
 ---
 title: "Airpaz: Pemesanan Pesawat & Hotel"
-description: "Cara saya meningkatkan pengalaman pencarian hotel Airpaz, mengotomatisasi rilis mobile, dan memperkuat alur booking kritikal di Android serta iOS."
+description: "Aplikasi travel untuk booking pesawat dan hotel di berbagai negara."
 date: "2025-04-01"
 lastUpdated: "2026-08-29"
 featured: true
