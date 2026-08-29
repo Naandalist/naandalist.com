@@ -16,7 +16,6 @@ techStack:
     "Resend",
     "TipTap",
     "Cloudinary",
-    "Umami",
   ]
 category: "Media & Publishing"
 platforms: ["Web"]
@@ -55,20 +54,20 @@ Saya menambahkan sitemap generation, metadata halaman, dan integrasi [Google Sea
 
 ### Tanggung Jawab Tech Stack
 
-| Teknologi | Fungsi |
-| --- | --- |
-| [Next.js](https://nextjs.org/) | Menjalankan situs publik dan custom admin dashboard sebagai satu aplikasi full-stack. |
-| [TypeScript](https://www.typescriptlang.org/) | Memberikan type safety pada frontend, server logic, dan shared data contracts. |
-| [Neon PostgreSQL](https://neon.com/) | Menyimpan data aplikasi dan editorial dalam database PostgreSQL serverless yang terkelola. |
-| [Drizzle ORM](https://orm.drizzle.team/) | Mendefinisikan database schema dan menyediakan type-safe queries antara Next.js dan Neon. |
-| [Resend](https://resend.com/) | Mengirimkan passwordless magic link untuk autentikasi admin. |
-| [TipTap](https://tiptap.dev/) | Menyediakan rich-text authoring experience untuk draft artikel. |
-| [Unsplash API](https://unsplash.com/developers) | Membantu kontributor menemukan thumbnail artikel langsung dari dashboard. |
-| [Cloudinary](https://cloudinary.com/) | Menyimpan dan mengirimkan gambar yang diunggah secara manual oleh tim editorial. |
-| [Vercel](https://vercel.com/) | Menjadi hosting dan deployment platform Next.js melalui workflow yang framework-native. |
-| [Cloudflare](https://www.cloudflare.com/) | Mengelola domain dan DNS layer. |
-| [Google Search Console](https://search.google.com/search-console/about) + [Ahrefs](https://ahrefs.com/) | Memantau indexing, discoverability, keyword, dan performa pencarian. |
-| [Umami Cloud](https://umami.is/) | Memantau visitor dan content engagement melalui analytics yang privacy-friendly. |
+| Teknologi                                                                                               | Fungsi                                                                                     |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| [Next.js](https://nextjs.org/)                                                                          | Menjalankan situs publik dan custom admin dashboard sebagai satu aplikasi full-stack.      |
+| [TypeScript](https://www.typescriptlang.org/)                                                           | Memberikan type safety pada frontend, server logic, dan shared data contracts.             |
+| [Neon PostgreSQL](https://neon.com/)                                                                    | Menyimpan data aplikasi dan editorial dalam database PostgreSQL serverless yang terkelola. |
+| [Drizzle ORM](https://orm.drizzle.team/)                                                                | Mendefinisikan database schema dan menyediakan type-safe queries antara Next.js dan Neon.  |
+| [Resend](https://resend.com/)                                                                           | Mengirimkan passwordless magic link untuk autentikasi admin.                               |
+| [TipTap](https://tiptap.dev/)                                                                           | Menyediakan rich-text authoring experience untuk draft artikel.                            |
+| [Unsplash API](https://unsplash.com/developers)                                                         | Membantu kontributor menemukan thumbnail artikel langsung dari dashboard.                  |
+| [Cloudinary](https://cloudinary.com/)                                                                   | Menyimpan dan mengirimkan gambar yang diunggah secara manual oleh tim editorial.           |
+| [Vercel](https://vercel.com/)                                                                           | Menjadi hosting dan deployment platform Next.js melalui workflow yang framework-native.    |
+| [Cloudflare](https://www.cloudflare.com/)                                                               | Mengelola domain dan DNS layer.                                                            |
+| [Google Search Console](https://search.google.com/search-console/about) + [Ahrefs](https://ahrefs.com/) | Memantau indexing, discoverability, keyword, dan performa pencarian.                       |
+| [Umami Cloud](https://umami.is/)                                                                        | Memantau visitor dan content engagement melalui analytics yang privacy-friendly.           |
 
 ## Challenge: Hosting Resilience
 
