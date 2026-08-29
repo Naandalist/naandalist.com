@@ -1,6 +1,6 @@
 ---
 title: "Info Haji"
-description: "Aplikasi open-source React Native yang saya bangun sendiri untuk menyajikan data resmi haji secara lebih lengkap sambil menyimpan informasi jamaah di perangkat."
+description: "Aplikasi mobile untuk menyajikan informasi resmi haji lebih lengkap."
 date: "2025-11-09"
 lastUpdated: "2026-08-29"
 featured: true

@@ -1,6 +1,6 @@
 ---
 title: "Airpaz: Flight & Hotel Booking"
-description: "How I improved Airpaz's hotel search experience, automated mobile releases, and strengthened critical booking flows across Android and iOS."
+description: "A travel app for booking flights and hotels across multiple markets."
 date: "2025-04-01"
 lastUpdated: "2026-08-29"
 featured: true

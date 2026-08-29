@@ -1,6 +1,6 @@
 ---
 title: "Ringkaskata.com"
-description: "An independent Indonesian publishing platform I co-founded and built end-to-end, enabling writers to publish positive, verified stories."
+description: "An independent platform for publishing positive Indonesian stories."
 date: "2026-02-01"
 lastUpdated: "2026-08-29"
 featured: true
