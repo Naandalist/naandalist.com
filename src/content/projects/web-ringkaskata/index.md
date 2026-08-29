@@ -16,7 +16,6 @@ techStack:
     "Resend",
     "TipTap",
     "Cloudinary",
-    "Umami",
   ]
 category: "Media & Publishing"
 platforms: ["Web"]
@@ -55,20 +54,20 @@ I added sitemap generation, page metadata, and [Google Search Console](https://s
 
 ### Stack Responsibilities
 
-| Technology | Responsibility |
-| --- | --- |
-| [Next.js](https://nextjs.org/) | Runs the public publication and custom admin dashboard as one full-stack application. |
-| [TypeScript](https://www.typescriptlang.org/) | Adds type safety across the frontend, server logic, and shared data contracts. |
-| [Neon PostgreSQL](https://neon.com/) | Stores application and editorial data in a managed serverless PostgreSQL database. |
-| [Drizzle ORM](https://orm.drizzle.team/) | Defines the database schema and provides type-safe queries between Next.js and Neon. |
-| [Resend](https://resend.com/) | Delivers passwordless magic links for admin authentication. |
-| [TipTap](https://tiptap.dev/) | Provides the rich-text authoring experience for article drafts. |
-| [Unsplash API](https://unsplash.com/developers) | Lets contributors discover suitable article thumbnails from the dashboard. |
-| [Cloudinary](https://cloudinary.com/) | Stores and delivers images uploaded manually by the editorial team. |
-| [Vercel](https://vercel.com/) | Hosts and deploys the Next.js application through a framework-native workflow. |
-| [Cloudflare](https://www.cloudflare.com/) | Manages the domain and DNS layer. |
-| [Google Search Console](https://search.google.com/search-console/about) + [Ahrefs](https://ahrefs.com/) | Monitor indexing, discoverability, keywords, and search performance. |
-| [Umami Cloud](https://umami.is/) | Tracks privacy-friendly visitor and content engagement metrics. |
+| Technology                                                                                              | Responsibility                                                                        |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [Next.js](https://nextjs.org/)                                                                          | Runs the public publication and custom admin dashboard as one full-stack application. |
+| [TypeScript](https://www.typescriptlang.org/)                                                           | Adds type safety across the frontend, server logic, and shared data contracts.        |
+| [Neon PostgreSQL](https://neon.com/)                                                                    | Stores application and editorial data in a managed serverless PostgreSQL database.    |
+| [Drizzle ORM](https://orm.drizzle.team/)                                                                | Defines the database schema and provides type-safe queries between Next.js and Neon.  |
+| [Resend](https://resend.com/)                                                                           | Delivers passwordless magic links for admin authentication.                           |
+| [TipTap](https://tiptap.dev/)                                                                           | Provides the rich-text authoring experience for article drafts.                       |
+| [Unsplash API](https://unsplash.com/developers)                                                         | Lets contributors discover suitable article thumbnails from the dashboard.            |
+| [Cloudinary](https://cloudinary.com/)                                                                   | Stores and delivers images uploaded manually by the editorial team.                   |
+| [Vercel](https://vercel.com/)                                                                           | Hosts and deploys the Next.js application through a framework-native workflow.        |
+| [Cloudflare](https://www.cloudflare.com/)                                                               | Manages the domain and DNS layer.                                                     |
+| [Google Search Console](https://search.google.com/search-console/about) + [Ahrefs](https://ahrefs.com/) | Monitor indexing, discoverability, keywords, and search performance.                  |
+| [Umami Cloud](https://umami.is/)                                                                        | Tracks privacy-friendly visitor and content engagement metrics.                       |
 
 ## Challenge: Hosting Resilience
 

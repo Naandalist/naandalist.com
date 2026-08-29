@@ -32,6 +32,8 @@ const featuredProjectOrder = [
   "ebenefits-aia-customer-apps",
 ];
 
+const trailingProjectOrder = ["mobile-app-info-haji", "mobile-app-kbbi-vi"];
+
 type ProjectSortEntry = {
   id: string;
   data: {
@@ -43,15 +45,30 @@ export function compareProjectsByFeaturedOrder(
   a: ProjectSortEntry,
   b: ProjectSortEntry,
 ) {
-  const aPriority = featuredProjectOrder.indexOf(normalizeSlug(a.id));
-  const bPriority = featuredProjectOrder.indexOf(normalizeSlug(b.id));
+  const aSlug = normalizeSlug(a.id);
+  const bSlug = normalizeSlug(b.id);
+  const aPriority = featuredProjectOrder.indexOf(aSlug);
+  const bPriority = featuredProjectOrder.indexOf(bSlug);
   const normalizedAPriority =
     aPriority === -1 ? Number.POSITIVE_INFINITY : aPriority;
   const normalizedBPriority =
     bPriority === -1 ? Number.POSITIVE_INFINITY : bPriority;
   const priorityDiff = normalizedAPriority - normalizedBPriority;
 
-  return priorityDiff || b.data.date.valueOf() - a.data.date.valueOf();
+  if (priorityDiff) return priorityDiff;
+
+  const aTrailingPriority = trailingProjectOrder.indexOf(aSlug);
+  const bTrailingPriority = trailingProjectOrder.indexOf(bSlug);
+  const aIsTrailing = aTrailingPriority !== -1;
+  const bIsTrailing = bTrailingPriority !== -1;
+
+  if (aIsTrailing && bIsTrailing) {
+    return aTrailingPriority - bTrailingPriority;
+  }
+  if (aIsTrailing) return 1;
+  if (bIsTrailing) return -1;
+
+  return b.data.date.valueOf() - a.data.date.valueOf();
 }
 
 export function dateRange(startDate: Date, endDate?: Date | string): string {
