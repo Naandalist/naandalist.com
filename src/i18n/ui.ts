@@ -12,7 +12,7 @@ export const ui = {
       "Frontend Developer specializing in JavaScript and TypeScript. Explore my projects, technical writings, and professional engineering experience.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
-      "Frontend Engineer with 5+ years of experience building web and cross-platform mobile applications using",
+      "Frontend Engineer with 6+ years of experience building web and cross-platform mobile applications using",
     "home.intro.and": "and",
     "home.intro.paragraph2":
       "I also build backend services and REST APIs using",
@@ -87,7 +87,7 @@ export const ui = {
       "Frontend Developer yang terbiasa dengan JavaScript dan TypeScript. Jelajahi proyek, catatan tulisan teknis, dan pengalaman saya.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
-      "Frontend Engineer dengan pengalaman lebih dari 5 tahun membangun aplikasi web dan mobile lintas platform menggunakan",
+      "Frontend Engineer dengan pengalaman lebih dari 6 tahun membangun aplikasi web dan mobile lintas platform menggunakan",
     "home.intro.and": "dan",
     "home.intro.paragraph2":
       "Saya juga membangun layanan backend dan REST API menggunakan",
