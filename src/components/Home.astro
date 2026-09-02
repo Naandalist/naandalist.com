@@ -70,15 +70,15 @@ const jsonLd = {
   alternateName: "Naandalist",
   url: siteUrl,
   image: new URL(profileImage.src, siteUrl).href,
-  jobTitle: "Frontend Developer",
+  jobTitle: "Frontend Engineer",
   worksFor: {
     "@type": "Organization",
-    name: "Airpaz",
+    name: "Dicoding Indonesia",
   },
   sameAs: [
     "https://github.com/Naandalist",
     "https://www.linkedin.com/in/naandalist",
-    "https://twitter.com/naandalist",
+    "https://x.com/nawndalist",
   ],
   knowsAbout: [
     "React Native",
@@ -90,7 +90,7 @@ const jsonLd = {
     "Mobile Development",
     "Frontend Development",
     "Coding",
-    "Personal Portofolio",
+    "Personal Portfolio",
   ],
 };
 
@@ -160,7 +160,7 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
 
         <figure class="relative col-span-2 sm:col-span-1 mt-4">
           <Image
-            alt="Naandalist hiking on Mount Merbabu"
+            alt="Portrait of Listiananda Apriliawan against a blue illustrated background of coding doodles"
             src={profileImage}
             class="rounded-lg object-cover w-full h-full"
             width={744}
@@ -215,7 +215,7 @@ const pageTitle = "Naandalist: Listiananda Apriliawan";
                 <li class="animate flex items-start gap-4">
                   <Image
                     src={entry.data.logoUrl}
-                    alt="Company logo"
+                    alt={`${entry.data.company} logo`}
                     class="w-12 h-12 object-contain rounded mt-1"
                     width={96}
                     height={96}

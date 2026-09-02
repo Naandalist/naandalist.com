@@ -72,7 +72,7 @@ export const SOCIALS: Socials = [
   {
     NAME: "gmail",
     ICON: "/icons/gmail.svg",
-    HREF: "mailto:listiananda.apriliawan@gmail.com",
+    HREF: "mailto:dev@naandalist.com",
   },
   {
     NAME: "facebook",
