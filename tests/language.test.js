@@ -20,4 +20,23 @@ describe("language utilities", () => {
     expect(getAlternateLanguagePath("/", "en")).toBe("/id/");
     expect(getAlternateLanguagePath("/projects", "en")).toBe("/id/projects");
   });
+
+  test("language switcher targets resolve to existing locale routes", () => {
+    const switcherPaths = [
+      "/",
+      "/work",
+      "/projects",
+      "/posts",
+      "/npmjs",
+      "/contact",
+    ];
+
+    for (const englishPath of switcherPaths) {
+      const indonesianPath = getAlternateLanguagePath(englishPath, "en");
+      const backToEnglish = getAlternateLanguagePath(indonesianPath, "id");
+
+      expect(indonesianPath.startsWith("/id")).toBe(true);
+      expect(backToEnglish).toBe(englishPath === "/" ? "/" : englishPath);
+    }
+  });
 });

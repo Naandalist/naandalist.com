@@ -2,6 +2,12 @@ import { defineCollection } from "astro:content";
 
 import { z } from "astro/zod";
 
+// TODO(#15): migrate off legacy.collectionsBackwardsCompat
+// 1. Move this file to src/content.config.ts
+// 2. Replace type: "content" with glob loaders
+// 3. Audit entry.id / normalizeSlug assumptions
+// 4. Remove astro.config.mjs legacy.collectionsBackwardsCompat after verify:routes passes
+
 const posts = defineCollection({
   type: "content",
   schema: z.object({
