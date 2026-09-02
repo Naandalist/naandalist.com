@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+
+import { useTranslations } from "@i18n/utils";
+
+import Container from "@components/Container.astro";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+import { dateRange } from "@lib/utils";
+
+interface Props {
+  lang?: "en" | "id";
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
+const collection = (await getCollection("work"))
+  .filter((work) => work.data.lang === lang)
+  .sort(
+    (a, b) =>
+      new Date(b.data.dateStart).valueOf() -
+      new Date(a.data.dateStart).valueOf(),
+  );
+
+const work = await Promise.all(
+  collection.map(async (item) => {
+    const { Content } = await render(item);
+    return { ...item, Content };
+  }),
+);
+---
+
+<PageLayout title={t("work.title")} description={t("work.description")}>
+  <Container>
+    <div class="space-y-10">
+      <h1 class="animate font-semibold text-white">
+        {t("work.title")}
+      </h1>
+      <ul class="flex flex-col space-y-4">
+        {
+          work.map((entry) => (
+            <li class="animate flex items-start gap-4">
+              <Image
+                src={entry.data.logoUrl}
+                alt={`${entry.data.company} logo`}
+                class="w-12 h-12 object-contain rounded mt-1"
+                width={96}
+                height={96}
+                densities={[1, 2]}
+                format="webp"
+              />
+              <div>
+                <div class="text-sm opacity-75">
+                  {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+                </div>
+                <div class="font-semibold text-white">{entry.data.company}</div>
+                <div class="text-sm opacity-75">{entry.data.role}</div>
+                <article>
+                  <entry.Content />
+                </article>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</PageLayout>
