@@ -42,10 +42,6 @@ export default defineConfig({
   // Disable prefetch to eliminate critical request chain
   // Pages will still load quickly due to modern browser caching
   prefetch: false,
-  // TODO(#15): remove after glob-loader migration in src/content/config.ts
-  legacy: {
-    collectionsBackwardsCompat: true,
-  },
   vite: {
     plugins: [
       {

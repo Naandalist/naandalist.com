@@ -86,7 +86,7 @@ src/content/posts/my-article/
 
 ### 6. Content Collections
 
-Four collections in `src/content/config.ts`:
+Four collections in `src/content.config.ts`:
 
 - **posts** — blog articles (title, subtitle, description, date, draft, featured, keywords, lang)
 - **work** — employment history (company, role, logoUrl, dateStart, dateEnd, featured, lang)
