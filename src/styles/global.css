@@ -110,3 +110,19 @@ html #back-to-top:focus-visible {
 .work-summary-home ul {
   @apply hidden;
 }
+
+@media (hover: hover) and (pointer: fine) {
+  html.smooth-follower-on,
+  html.smooth-follower-on * {
+    cursor: none !important;
+  }
+}
+
+[data-smooth-follower-dot],
+[data-smooth-follower-ring] {
+  will-change: transform;
+}
+
+[data-smooth-follower-ring] {
+  transition: width 0.3s ease, height 0.3s ease;
+}
