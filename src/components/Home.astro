@@ -13,6 +13,7 @@ import ProjectCard from "@components/ProjectCard.astro";
 
 import PageLayout from "@layouts/PageLayout.astro";
 
+import { createPersonSchema } from "@lib/person-schema";
 import { compareProjectsByFeaturedOrder, dateRange } from "@lib/utils";
 
 interface Props {
@@ -63,36 +64,10 @@ const work = await Promise.all(
   }),
 );
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Listiananda Apriliawan",
-  alternateName: "Naandalist",
-  url: siteUrl,
+const jsonLd = createPersonSchema({
+  siteUrl,
   image: new URL(profileImage.src, siteUrl).href,
-  jobTitle: "Frontend Engineer",
-  worksFor: {
-    "@type": "Organization",
-    name: "Dicoding Indonesia",
-  },
-  sameAs: [
-    "https://github.com/Naandalist",
-    "https://www.linkedin.com/in/naandalist",
-    "https://x.com/nawndalist",
-  ],
-  knowsAbout: [
-    "React Native",
-    "TypeScript",
-    "JavaScript",
-    "Bun",
-    "Node.js",
-    "Web Development",
-    "Mobile Development",
-    "Frontend Development",
-    "Coding",
-    "Personal Portfolio",
-  ],
-};
+});
 
 const pageTitle = "Naandalist: Listiananda Apriliawan";
 ---
