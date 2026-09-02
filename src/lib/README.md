@@ -138,7 +138,7 @@ Creates a `WebSite` schema with search capability.
 
 ## Content Schema Requirements
 
-Make sure your content collections have the required fields. See `/src/content/config.ts` for the schema definitions.
+Make sure your content collections have the required fields. See `/src/content.config.ts` for the schema definitions.
 
 ### Posts Schema
 

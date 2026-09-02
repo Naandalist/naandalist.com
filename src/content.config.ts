@@ -1,15 +1,17 @@
 import { defineCollection } from "astro:content";
 
+import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-// TODO(#15): migrate off legacy.collectionsBackwardsCompat
-// 1. Move this file to src/content.config.ts
-// 2. Replace type: "content" with glob loaders
-// 3. Audit entry.id / normalizeSlug assumptions
-// 4. Remove astro.config.mjs legacy.collectionsBackwardsCompat after verify:routes passes
+const generateContentId = ({ entry }: { entry: string }) =>
+  entry.replace(/\.(md|mdx)$/, "");
 
 const posts = defineCollection({
-  type: "content",
+  loader: glob({
+    base: "./src/content/posts",
+    generateId: generateContentId,
+    pattern: "**/*.{md,mdx}",
+  }),
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
@@ -23,7 +25,11 @@ const posts = defineCollection({
 });
 
 const work = defineCollection({
-  type: "content",
+  loader: glob({
+    base: "./src/content/work",
+    generateId: generateContentId,
+    pattern: "**/*.{md,mdx}",
+  }),
   schema: ({ image }) =>
     z.object({
       company: z.string(),
@@ -37,7 +43,11 @@ const work = defineCollection({
 });
 
 const projects = defineCollection({
-  type: "content",
+  loader: glob({
+    base: "./src/content/projects",
+    generateId: generateContentId,
+    pattern: "**/*.{md,mdx}",
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -59,7 +69,11 @@ const projects = defineCollection({
 });
 
 const npmjs = defineCollection({
-  type: "content",
+  loader: glob({
+    base: "./src/content/npmjs",
+    generateId: generateContentId,
+    pattern: "**/*.{md,mdx}",
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
