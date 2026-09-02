@@ -7,6 +7,7 @@ import CodeCopyButton from "@components/CodeCopyButton.astro";
 import Footer from "@components/Footer.astro";
 import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
+import SmoothFollower from "@components/SmoothFollower.astro";
 
 import { cn } from "@lib/utils";
 
@@ -77,5 +78,6 @@ const t = useTranslations(lang);
     </main>
     {showFooter && <Footer />}
     <CodeCopyButton />
+    <SmoothFollower enabled={!fullscreen} />
   </body>
 </html>
