@@ -1,0 +1,129 @@
+---
+interface Props {
+  enabled?: boolean;
+}
+
+const { enabled = true } = Astro.props;
+---
+
+{
+  enabled && (
+    <div
+      data-smooth-follower
+      class="pointer-events-none fixed inset-0 z-[90] hidden"
+      aria-hidden="true"
+    >
+      <div data-smooth-follower-dot class="absolute rounded-full bg-white"></div>
+      <div
+        data-smooth-follower-ring
+        class="absolute rounded-full border border-white/80"
+      ></div>
+    </div>
+  )
+}
+
+<script>
+  const INTERACTIVE = "a, button, img, input, textarea, select, [role='button']";
+  const DOT_SMOOTHNESS = 0.2;
+  const RING_SMOOTHNESS = 0.1;
+  const DOT_SIZE = 8;
+  const RING_SIZE = 28;
+  const RING_HOVER_SIZE = 44;
+
+  const lerp = (start: number, end: number, factor: number) =>
+    start + (end - start) * factor;
+
+  const canEnableFollower = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return false;
+    }
+
+    return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  };
+
+  const initSmoothFollower = () => {
+    const root = document.querySelector<HTMLElement>("[data-smooth-follower]");
+    const dot = document.querySelector<HTMLElement>("[data-smooth-follower-dot]");
+    const ring = document.querySelector<HTMLElement>("[data-smooth-follower-ring]");
+
+    if (!root || !dot || !ring) return;
+
+    if (!canEnableFollower()) {
+      root.classList.add("hidden");
+      document.documentElement.classList.remove("smooth-follower-on");
+      return;
+    }
+
+    if (root.dataset.bound === "true") return;
+    root.dataset.bound = "true";
+    root.classList.remove("hidden");
+    document.documentElement.classList.add("smooth-follower-on");
+
+    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const dotPos = { x: mouse.x, y: mouse.y };
+    const ringPos = { x: mouse.x, y: mouse.y };
+    let hovering = false;
+    let frame = 0;
+    let visible = false;
+
+    const applySizes = () => {
+      const ringSize = hovering ? RING_HOVER_SIZE : RING_SIZE;
+      dot.style.width = `${DOT_SIZE}px`;
+      dot.style.height = `${DOT_SIZE}px`;
+      ring.style.width = `${ringSize}px`;
+      ring.style.height = `${ringSize}px`;
+    };
+
+    const paint = () => {
+      const ringSize = hovering ? RING_HOVER_SIZE : RING_SIZE;
+      dot.style.transform = `translate3d(${dotPos.x - DOT_SIZE / 2}px, ${dotPos.y - DOT_SIZE / 2}px, 0)`;
+      ring.style.transform = `translate3d(${ringPos.x - ringSize / 2}px, ${ringPos.y - ringSize / 2}px, 0)`;
+    };
+
+    const tick = () => {
+      dotPos.x = lerp(dotPos.x, mouse.x, DOT_SMOOTHNESS);
+      dotPos.y = lerp(dotPos.y, mouse.y, DOT_SMOOTHNESS);
+      ringPos.x = lerp(ringPos.x, mouse.x, RING_SMOOTHNESS);
+      ringPos.y = lerp(ringPos.y, mouse.y, RING_SMOOTHNESS);
+      paint();
+      frame = window.requestAnimationFrame(tick);
+    };
+
+    const onMouseMove = (event: MouseEvent) => {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+      if (!visible) {
+        visible = true;
+        root.style.opacity = "1";
+      }
+    };
+
+    const onPointerOver = (event: Event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      hovering = Boolean(target.closest(INTERACTIVE));
+      applySizes();
+    };
+
+    applySizes();
+    root.style.opacity = "0";
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("pointerover", onPointerOver, { passive: true });
+    frame = window.requestAnimationFrame(tick);
+
+    window.addEventListener(
+      "pagehide",
+      () => {
+        window.cancelAnimationFrame(frame);
+        window.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("pointerover", onPointerOver);
+        document.documentElement.classList.remove("smooth-follower-on");
+        root.dataset.bound = "false";
+      },
+      { once: true },
+    );
+  };
+
+  document.addEventListener("DOMContentLoaded", initSmoothFollower);
+  document.addEventListener("astro:page-load", initSmoothFollower);
+</script>
