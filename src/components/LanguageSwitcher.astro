@@ -1,138 +1,144 @@
 ---
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
 import { detectLanguage, getAlternateLanguagePath } from "@utils/language";
 
+interface Props {
+  placement?: "top" | "bottom";
+}
+
+const { placement = "bottom" } = Astro.props;
 const currentPath = Astro.url.pathname;
 const currentLang = detectLanguage(currentPath);
+const t = useTranslations(getLangFromUrl(Astro.url));
 const alternatePath = getAlternateLanguagePath(currentPath, currentLang);
 const isNotFoundPath = currentPath === "/404" || currentPath === "/404/";
 const englishPath = isNotFoundPath
-    ? "/"
-    : currentLang === "en"
-      ? currentPath
-      : alternatePath;
+  ? "/"
+  : currentLang === "en"
+    ? currentPath
+    : alternatePath;
 const indonesianPath = isNotFoundPath
-    ? "/id/"
-    : currentLang === "id"
-      ? currentPath
-      : alternatePath;
+  ? "/id/"
+  : currentLang === "id"
+    ? currentPath
+    : alternatePath;
 
 const languages = [
-    {
-        code: "en",
-        label: "English",
-        flag: "/icons/flag-en.svg",
-        path: englishPath,
-    },
-    {
-        code: "id",
-        label: "Indonesia",
-        flag: "/icons/flag-id.svg",
-        path: indonesianPath,
-    },
+  {
+    code: "en",
+    label: "English",
+    flag: "/icons/flag-en.svg",
+    path: englishPath,
+  },
+  {
+    code: "id",
+    label: "Indonesia",
+    flag: "/icons/flag-id.svg",
+    path: indonesianPath,
+  },
 ];
 
 const currentLanguage = languages.find((lang) => lang.code === currentLang);
+const menuPositionClass =
+  placement === "top"
+    ? "bottom-full mb-2"
+    : "top-full mt-2";
 ---
 
 <div class="relative language-switcher">
-    <button
-        type="button"
-        class="flex items-center gap-2 px-3 py-1.5 rounded border border-white/20 bg-white/5 text-sm font-medium transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25"
-        aria-label="Select language"
-        aria-haspopup="true"
+  <button
+    type="button"
+    class="flex items-center gap-2 px-3 py-1.5 rounded border border-white/20 bg-white/5 text-sm font-medium transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25"
+    aria-label={t("a11y.language")}
+    aria-haspopup="true"
+    aria-expanded="false"
+    data-language-toggle
+  >
+    <img
+      src={currentLanguage?.flag}
+      alt=""
+      class="w-4 h-3"
+    />
+    <span>{currentLanguage?.code.toUpperCase()}</span>
+    <svg
+      class="w-3 h-3 transition-transform duration-200 dropdown-arrow"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
     >
-        <img
-            src={currentLanguage?.flag}
-            alt={currentLanguage?.label}
-            class="w-4 h-3"
-        />
-        <span>{currentLanguage?.code.toUpperCase()}</span>
-        <svg
-            class="w-3 h-3 transition-transform duration-200 dropdown-arrow"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-        >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"></path>
-        </svg>
-    </button>
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
 
-    <div
-        class="absolute right-0 bottom-full mb-2 py-1 w-40 rounded-lg border border-white/20 bg-black/95 backdrop-blur-sm shadow-xl opacity-0 invisible transition-all duration-200 dropdown-menu z-50"
-        role="menu"
-    >
-        {
-            languages.map((lang) => (
-                <a
-                    href={lang.path}
-                    class={`flex items-center gap-3 px-4 py-2 text-sm transition-colors duration-150 ${
-                        lang.code === currentLang
-                            ? "bg-white/10 text-white font-medium"
-                            : "text-white/70 hover:bg-white/5 hover:text-white"
-                    }`}
-                    role="menuitem"
-                >
-                    <img src={lang.flag} alt={lang.label} class="w-5 h-4" />
-                    <span>{lang.label}</span>
-                    {lang.code === currentLang && (
-                        <svg
-                            class="w-4 h-4 ml-auto"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    )}
-                </a>
-            ))
-        }
-    </div>
+  <div
+    class={`absolute right-0 ${menuPositionClass} py-1 w-40 rounded-lg border border-white/20 bg-black/95 backdrop-blur-sm shadow-xl opacity-0 invisible transition-all duration-200 dropdown-menu z-50`}
+    role="menu"
+  >
+    {
+      languages.map((lang) => (
+        <a
+          href={lang.path}
+          class={`flex items-center gap-3 px-4 py-2 text-sm transition-colors duration-150 ${
+            lang.code === currentLang
+              ? "bg-white/10 text-white font-medium"
+              : "text-white/70 hover:bg-white/5 hover:text-white"
+          }`}
+          role="menuitem"
+          hreflang={lang.code}
+        >
+          <img src={lang.flag} alt="" class="w-5 h-4" />
+          <span>{lang.label}</span>
+          {lang.code === currentLang && (
+            <svg
+              class="w-4 h-4 ml-auto"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          )}
+        </a>
+      ))
+    }
+  </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const switchers = document.querySelectorAll(".language-switcher");
+  document.addEventListener("DOMContentLoaded", () => {
+    const switchers = document.querySelectorAll(".language-switcher");
 
-        switchers.forEach((switcher) => {
-            const button = switcher.querySelector("button");
-            const menu = switcher.querySelector(
-                ".dropdown-menu",
-            ) as HTMLElement;
-            const arrow = switcher.querySelector(
-                ".dropdown-arrow",
-            ) as HTMLElement;
+    switchers.forEach((switcher) => {
+      const button = switcher.querySelector("[data-language-toggle]");
+      const menu = switcher.querySelector(".dropdown-menu") as HTMLElement;
+      const arrow = switcher.querySelector(".dropdown-arrow") as HTMLElement;
 
-            if (!button || !menu || !arrow) return;
+      if (!button || !menu || !arrow) return;
 
-            button.addEventListener("click", (e) => {
-                e.stopPropagation();
-                const isOpen = menu.classList.contains("opacity-100");
+      const setOpen = (isOpen: boolean) => {
+        menu.classList.toggle("opacity-100", isOpen);
+        menu.classList.toggle("visible", isOpen);
+        menu.classList.toggle("opacity-0", !isOpen);
+        menu.classList.toggle("invisible", !isOpen);
+        arrow.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
+        button.setAttribute("aria-expanded", String(isOpen));
+      };
 
-                if (isOpen) {
-                    menu.classList.remove("opacity-100", "visible");
-                    menu.classList.add("opacity-0", "invisible");
-                    arrow.style.transform = "rotate(0deg)";
-                } else {
-                    menu.classList.remove("opacity-0", "invisible");
-                    menu.classList.add("opacity-100", "visible");
-                    arrow.style.transform = "rotate(180deg)";
-                }
-            });
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        setOpen(button.getAttribute("aria-expanded") !== "true");
+      });
 
-            // Close dropdown when clicking outside
-            document.addEventListener("click", () => {
-                menu.classList.remove("opacity-100", "visible");
-                menu.classList.add("opacity-0", "invisible");
-                arrow.style.transform = "rotate(0deg)";
-            });
-        });
+      document.addEventListener("click", () => setOpen(false));
     });
+  });
 </script>

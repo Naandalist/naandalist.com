@@ -80,6 +80,10 @@ export const ui = {
     "footer.analytic": "Analytic",
     "footer.terms": "Terms of Use",
     "footer.privacy": "Privacy Policy",
+    "footer.resume": "Resume",
+    "a11y.skip": "Skip to content",
+    "a11y.language": "Select language",
+    "nav.menu": "Open navigation menu",
   },
   id: {
     "home.title": "Beranda",
@@ -155,5 +159,9 @@ export const ui = {
     "footer.analytic": "Analitik",
     "footer.terms": "Syarat Penggunaan",
     "footer.privacy": "Kebijakan Privasi",
+    "footer.resume": "Resume",
+    "a11y.skip": "Lewati ke konten",
+    "a11y.language": "Pilih bahasa",
+    "nav.menu": "Buka menu navigasi",
   },
 } as const;
