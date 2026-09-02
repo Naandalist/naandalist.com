@@ -47,7 +47,7 @@ const navItems = [
         </a>
         <button
           type="button"
-          class="sm:hidden inline-flex items-center justify-center rounded border border-white/20 p-2 text-white transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25"
+          class="sm:hidden inline-flex items-center justify-center rounded border border-white/20 p-2 text-white transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-white hover:border-white/30 hover:shadow-[0_0_18px] hover:shadow-white/25"
           data-menu-toggle
           aria-controls="mobile-nav"
           aria-expanded="false"
@@ -94,7 +94,7 @@ const navItems = [
             return (
               <a
                 href={href}
-                class={`inline-flex no-underline w-fit items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25 ${
+                class={`inline-flex no-underline w-fit items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-white hover:border-white/30 hover:shadow-[0_0_18px] hover:shadow-white/25 ${
                   isActive
                     ? "bg-white/10 text-white border-white/20 font-semibold"
                     : "border-transparent"
@@ -120,7 +120,7 @@ const navItems = [
             return (
               <a
                 href={href}
-                class={`inline-flex no-underline w-full items-center gap-2 px-3 py-2 rounded border transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25 ${
+                class={`inline-flex no-underline w-full items-center gap-2 px-3 py-2 rounded border transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-white hover:border-white/30 hover:shadow-[0_0_18px] hover:shadow-white/25 ${
                   isActive
                     ? "bg-white/10 text-white border-white/20 font-semibold"
                     : "border-transparent"
