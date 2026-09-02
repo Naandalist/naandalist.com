@@ -1,26 +1,17 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 
 import PostLayout from "@components/PostLayout.astro";
 
+import { getLocalizedStaticPaths } from "@lib/collection-paths";
+
 export async function getStaticPaths() {
-  const posts = (await getCollection("posts"))
-    .filter((post) => !post.data.draft && post.data.lang === "id")
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-  return posts.map((post) => {
-    // Remove /index.id or /indexid suffix from the slug
-    const slug = post.id
-      .replace(/\.(md|mdx)$/, "")
-      .replace(/\/index(\.id)?$/, "");
-    return {
-      params: { slug },
-      props: post,
-    };
-  });
+  return getLocalizedStaticPaths("posts", "id");
 }
+
 type Props = CollectionEntry<"posts">;
 
 const post = Astro.props;
 ---
 
-<PostLayout post={post} lang='id' />
+<PostLayout post={post} lang="id" />

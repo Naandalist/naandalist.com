@@ -1,22 +1,17 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 
 import PostLayout from "@components/PostLayout.astro";
 
-import { normalizeSlug } from "@lib/utils";
+import { getLocalizedStaticPaths } from "@lib/collection-paths";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("posts"))
-    .filter((post) => !post.data.draft && post.data.lang === "en")
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-  return posts.map((post) => ({
-    params: { slug: normalizeSlug(post.id) },
-    props: post,
-  }));
+  return getLocalizedStaticPaths("posts", "en");
 }
+
 type Props = CollectionEntry<"posts">;
 
 const post = Astro.props;
 ---
 
-<PostLayout post={post} lang='en' />
+<PostLayout post={post} lang="en" />
