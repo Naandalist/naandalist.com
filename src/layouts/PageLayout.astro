@@ -1,6 +1,6 @@
 ---
 import { SITE } from "@constants";
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
 import "../styles/global.css";
 import CodeCopyButton from "@components/CodeCopyButton.astro";
@@ -42,6 +42,7 @@ const {
   disableHreflang = false,
 } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <!doctype html>
@@ -62,14 +63,14 @@ const lang = getLangFromUrl(Astro.url);
   </head>
   <body class={cn(fullscreen && "overflow-hidden")}>
     <a
-      href='#main-content'
-      class='absolute left-0 top-0 -translate-y-full bg-neutral-900 px-4 py-2 text-neutral-100 transition-transform focus:translate-y-0 z-[100]'
+      href="#main-content"
+      class="absolute left-0 top-0 -translate-y-full bg-neutral-900 px-4 py-2 text-neutral-100 transition-transform focus:translate-y-0 z-[100]"
     >
-      Skip to content
+      {t("a11y.skip")}
     </a>
     {showHeader && <Header />}
     <main
-      id='main-content'
+      id="main-content"
       class={cn(showHeader ? "" : "py-0", fullscreen && "min-h-0")}
     >
       <slot />

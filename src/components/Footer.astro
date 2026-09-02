@@ -3,49 +3,42 @@ import { SITE } from "@constants";
 import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
 import Container from "@components/Container.astro";
-import LanguageSwitcher from "@components/LanguageSwitcher.astro";
 
 const currentYear = new Date().getFullYear();
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const langPrefix = lang === "id" ? "/id" : "";
+const resumeHref = "/Listiananda-Apriliawan-Frontend-Engineer";
 ---
 
 <footer class="animate">
   <Container>
     <div class="flex flex-col gap-4 mb-8 md:mb-4">
-      <div
-        class="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-3"
-      >
-        <div class="flex flex-wrap items-center gap-3">
-          <!-- <a
-            href="https://cloud.umami.is/share/92PrHjYFQjK8KpPT"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
-          >
-            {t("footer.analytic")}
-          </a> -->
-          <a
-            href={`${langPrefix}/about`}
-            class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
-          >
-            About
-          </a>
-          <a
-            href={`${langPrefix}/terms`}
-            class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
-          >
-            {t("footer.terms")}
-          </a>
-          <a
-            href={`${langPrefix}/privacy`}
-            class="text-sm hover:text-white transition-colors duration-300 ease-in-out"
-          >
-            {t("footer.privacy")}
-          </a>
-        </div>
-        <LanguageSwitcher />
+      <div class="flex flex-wrap items-center gap-3">
+        <a
+          href={`${langPrefix}/about`}
+          class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
+        >
+          {t("about.title")}
+        </a>
+        <a
+          href={resumeHref}
+          class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
+        >
+          {t("footer.resume")}
+        </a>
+        <a
+          href={`${langPrefix}/terms`}
+          class="text-sm hover:text-white transition-colors duration-300 ease-in-out pr-3 border-r border-white/20"
+        >
+          {t("footer.terms")}
+        </a>
+        <a
+          href={`${langPrefix}/privacy`}
+          class="text-sm hover:text-white transition-colors duration-300 ease-in-out"
+        >
+          {t("footer.privacy")}
+        </a>
       </div>
       <div class="text-sm">
         &copy; {currentYear}

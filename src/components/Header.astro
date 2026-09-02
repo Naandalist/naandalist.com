@@ -3,24 +3,28 @@ import { SITE } from "@constants";
 import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
 import Container from "@components/Container.astro";
+import LanguageSwitcher from "@components/LanguageSwitcher.astro";
 
 const currentPath = Astro.url.pathname;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const langPrefix = lang === "id" ? "/id" : "";
-const toggleMenuLabel =
-  lang === "id" ? "Buka menu navigasi" : "Open navigation menu";
 
 const navItems = [
   {
-    href: `${langPrefix}/posts`,
-    label: t("posts.title"),
-    icon: "/icons/newspaper.svg",
+    href: `${langPrefix}/work`,
+    label: t("work.title"),
+    icon: "/icons/briefcase.svg",
   },
   {
     href: `${langPrefix}/projects`,
     label: t("projects.title"),
     icon: "/icons/rocket.svg",
+  },
+  {
+    href: `${langPrefix}/posts`,
+    label: t("posts.title"),
+    icon: "/icons/newspaper.svg",
   },
   {
     href: `${langPrefix}/contact`,
@@ -32,83 +36,83 @@ const navItems = [
 
 <header>
   <Container>
-    <div
-      data-header-nav
-      class='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0'
-    >
-      <div class='flex items-center justify-between'>
-        <a href={langPrefix || "/"} class='inline-block no-underline'>
-          <div class='font-semibold text-current'>
+    <div data-header-nav class="flex flex-col gap-3">
+      <div class="flex items-center justify-between gap-3">
+        <a href={langPrefix || "/"} class="inline-block no-underline shrink-0">
+          <div class="font-semibold text-current">
             {SITE.NAME}
           </div>
         </a>
-        <button
-          type='button'
-          class='sm:hidden inline-flex items-center justify-center rounded border border-white/20 p-2 text-white transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25'
-          data-menu-toggle
-          aria-controls='mobile-nav'
-          aria-expanded='false'
-          aria-label={toggleMenuLabel}
-        >
-          <svg
-            data-icon-open
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            stroke-width='2'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            class='size-5'
-            aria-hidden='true'
+        <div class="flex items-center gap-2">
+          <nav class="hidden sm:flex flex-wrap gap-2">
+            {
+              navItems.map(({ href, label, icon }) => {
+                const isActive =
+                  currentPath === href || currentPath.startsWith(`${href}/`);
+                return (
+                  <a
+                    href={href}
+                    class={`inline-flex no-underline w-fit items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25 ${
+                      isActive
+                        ? "bg-white/10 text-white border-white/20 font-semibold"
+                        : "border-transparent"
+                    }`}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    <img src={icon} alt="" class="w-4 h-4" />
+                    {label}
+                  </a>
+                );
+              })
+            }
+          </nav>
+          <LanguageSwitcher placement="bottom" />
+          <button
+            type="button"
+            class="sm:hidden inline-flex items-center justify-center rounded border border-white/20 p-2 text-white transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25"
+            data-menu-toggle
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+            aria-label={t("nav.menu")}
           >
-            <line x1='3' y1='6' x2='21' y2='6'></line>
-            <line x1='3' y1='12' x2='21' y2='12'></line>
-            <line x1='3' y1='18' x2='21' y2='18'></line>
-          </svg>
-          <svg
-            data-icon-close
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            stroke-width='2'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            class='size-5 hidden'
-            aria-hidden='true'
-          >
-            <line x1='18' y1='6' x2='6' y2='18'></line>
-            <line x1='6' y1='6' x2='18' y2='18'></line>
-          </svg>
-        </button>
+            <svg
+              data-icon-open
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <svg
+              data-icon-close
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5 hidden"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
       </div>
-      <nav class='hidden sm:flex flex-wrap gap-3'>
-        {
-          navItems.map(({ href, label, icon }) => {
-            const isActive =
-              currentPath === href || currentPath.startsWith(`${href}/`);
-            return (
-              <a
-                href={href}
-                class={`inline-flex no-underline w-fit items-center gap-2 px-3 py-1.5 flex-nowrap rounded border transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-link hover:border-link/30 hover:shadow-[0_0_18px] hover:shadow-link/25 ${
-                  isActive
-                    ? "bg-white/10 text-white border-white/20 font-semibold"
-                    : "border-transparent"
-                }`}
-                aria-current={isActive ? "page" : undefined}
-              >
-                <img src={icon} alt='' class='w-4 h-4' />
-                {label}
-              </a>
-            );
-          })
-        }
-      </nav>
       <nav
-        id='mobile-nav'
+        id="mobile-nav"
         data-mobile-nav
-        class='hidden sm:hidden flex flex-col gap-2 pt-1'
+        class="hidden sm:hidden flex flex-col gap-2"
       >
         {
           navItems.map(({ href, label, icon }) => {
@@ -124,7 +128,7 @@ const navItems = [
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
-                <img src={icon} alt='' class='w-4 h-4' />
+                <img src={icon} alt="" class="w-4 h-4" />
                 {label}
               </a>
             );
