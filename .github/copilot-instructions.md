@@ -2,7 +2,7 @@
 
 ## Project Context
 
-**naandalist.com** is a personal portfolio and blog website built with **Astro 6**, **Tailwind CSS 3**, **TypeScript** (strict mode), and **Markdown** content. It's bilingual (English + Indonesian), fully typed, and deployed on Vercel with analytics & performance monitoring.
+**naandalist.com** is a personal portfolio and blog website built with **Astro 7**, **Tailwind CSS 3**, **TypeScript** (strict mode), and **Markdown** content. It's bilingual (English + Indonesian), fully typed, and deployed on Vercel with analytics & performance monitoring.
 
 ---
 
@@ -127,7 +127,6 @@ src/
 │   ├── images/
 │   └── logo-company/
 ├── components/              # Astro UI components (PascalCase)
-│   ├── animate-ui/          # Animation utilities & primitives
 │   ├── ArrowCard.astro
 │   ├── Footer.astro
 │   ├── Header.astro
@@ -140,7 +139,6 @@ src/
 │   ├── projects/            # Portfolio projects (bilingual)
 │   ├── work/                # Employment history (bilingual)
 │   └── npmjs/               # NPM packages (bilingual)
-├── hooks/                   # Custom Astro/utility hooks
 ├── i18n/                    # Internationalization
 │   ├── ui.ts                # Typed translation strings
 │   └── utils.ts             # Locale helpers
@@ -159,17 +157,15 @@ src/
 │   ├── id/                  # Indonesian locale mirror
 │   │   ├── index.astro      # Home (ID)
 │   │   ├── contact.astro    # Contact (ID)
-│   │   ├── posts/           # Dynamic post routes (ID)
-│   │   ├── projects/        # Dynamic project routes (ID)
-│   │   ├── npmjs/           # Dynamic npm routes (ID)
+│   │   ├── posts/
+│   │   ├── projects/
+│   │   ├── npmjs/
 │   │   ├── work/
 │   │   ├── privacy/
 │   │   └── terms/
-│   ├── posts/               # Dynamic post routes (EN)
-│   │   ├── [...slug].astro
-│   │   └── index.astro
-│   ├── projects/            # Dynamic project routes (EN)
-│   ├── npmjs/               # Dynamic npm routes (EN)
+│   ├── posts/
+│   ├── projects/
+│   ├── npmjs/
 │   ├── work/
 │   ├── privacy/
 │   └── terms/
@@ -178,7 +174,8 @@ src/
 ├── styles/                  # Global styles
 │   └── global.css
 ├── utils/                   # Utility modules
-│   └── language.ts          # detectLanguage(), getAlternateLanguagePath()
+│   ├── language.ts          # detectLanguage(), getAlternateLanguagePath()
+│   └── resumes.ts
 ├── constants.ts             # SITE, HOME, POSTS, PROJECTS, NPMJS, SOCIALS config
 ├── types.ts                 # TypeScript interfaces: Site, Metadata, Socials
 └── env.d.ts                 # Astro environment types
@@ -187,9 +184,9 @@ Root files:
 ├── astro.config.mjs         # Astro config
 ├── tailwind.config.mjs      # Tailwind config
 ├── tsconfig.json            # TypeScript config with path aliases
-├── eslintrc.mjs             # ESLint config
+├── .eslintrc.cjs            # ESLint config
 ├── package.json             # Dependencies & scripts
-└── bun.lockb                # Bun lock file
+└── bun.lock                 # Bun lock file
 ```
 
 ---
@@ -207,7 +204,7 @@ Root files:
 | `src/utils/language.ts` | `detectLanguage()`, `getAlternateLanguagePath()`                            |
 | `astro.config.mjs`      | Astro config (integrations, sitemap, MDX, Tailwind, redirects, performance) |
 | `tsconfig.json`         | Path aliases (@constants, @lib, @components, etc.)                          |
-| `.eslintrc.mjs`         | ESLint rules (strict mode, quotes, semicolons, import ordering)             |
+| `.eslintrc.cjs`         | ESLint rules (strict mode, quotes, semicolons, import ordering)             |
 
 ---
 
