@@ -1,0 +1,40 @@
+---
+import { useTranslations } from "@i18n/utils";
+
+import Container from "@components/Container.astro";
+import ResumeCard from "@components/ResumeCard.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import { getResumeEntries } from "@utils/resumes";
+
+interface Props {
+  lang?: "en" | "id";
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+const resumes = getResumeEntries();
+---
+
+<PageLayout
+  title={t("resume.title")}
+  description={t("resume.description")}
+  noindex={true}
+>
+  <Container>
+    <div class="space-y-10">
+      <div class="animate space-y-2">
+        <h1 class="font-semibold text-white">{t("resume.title")}</h1>
+        <p class="text-sm text-white/70">{t("resume.choose")}</p>
+      </div>
+      <ul class="animate grid gap-4 sm:grid-cols-2">
+        {
+          resumes.map((resume) => (
+            <li>
+              <ResumeCard resume={resume} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</PageLayout>

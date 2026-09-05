@@ -22,6 +22,8 @@ export default defineConfig({
         return (
           !page.includes("/privacy") &&
           !page.includes("/terms") &&
+          pathname !== "/resume" &&
+          pathname !== "/id/resume" &&
           !resumeDetailRoutes.has(pathname)
         );
       },
@@ -39,8 +41,6 @@ export default defineConfig({
   build: {
     inlineStylesheets: "always",
   },
-  // Disable prefetch to eliminate critical request chain
-  // Pages will still load quickly due to modern browser caching
   prefetch: false,
   vite: {
     plugins: [
