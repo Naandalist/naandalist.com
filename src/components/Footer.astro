@@ -9,7 +9,7 @@ const currentYear = new Date().getFullYear();
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const langPrefix = lang === "id" ? "/id" : "";
-const resumeHref = "/resume";
+const resumeHref = `${langPrefix}/resume`;
 ---
 
 <footer class="animate">
