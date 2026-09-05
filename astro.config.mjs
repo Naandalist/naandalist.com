@@ -7,8 +7,8 @@ import { getResumeEntries } from "./src/utils/resumes";
 
 const require = createRequire(import.meta.url);
 const viteEnvPath = require.resolve("vite/dist/client/env.mjs");
-const resumeRoutes = new Set(
-  getResumeEntries().map(({ slug }) => `/${encodeURIComponent(slug)}`),
+const resumeDetailRoutes = new Set(
+  getResumeEntries().map(({ slug }) => `/resume/${encodeURIComponent(slug)}`),
 );
 
 export default defineConfig({
@@ -22,7 +22,7 @@ export default defineConfig({
         return (
           !page.includes("/privacy") &&
           !page.includes("/terms") &&
-          !resumeRoutes.has(pathname)
+          !resumeDetailRoutes.has(pathname)
         );
       },
     }),

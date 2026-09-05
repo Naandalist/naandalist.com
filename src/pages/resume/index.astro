@@ -1,0 +1,33 @@
+---
+import Container from "@components/Container.astro";
+import ResumeCard from "@components/ResumeCard.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import { getResumeEntries } from "@utils/resumes";
+
+const resumes = getResumeEntries();
+---
+
+<PageLayout
+  title="Resume"
+  description="Download or view available resumes for Listiananda Apriliawan."
+>
+  <Container>
+    <div class="space-y-10">
+      <div class="animate space-y-2">
+        <h1 class="font-semibold text-white">Resume</h1>
+        <p class="text-sm text-white/70">
+          Choose a resume to view.
+        </p>
+      </div>
+      <ul class="animate grid gap-4 sm:grid-cols-2">
+        {
+          resumes.map((resume) => (
+            <li>
+              <ResumeCard resume={resume} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</PageLayout>
