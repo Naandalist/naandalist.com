@@ -86,7 +86,7 @@ src/content/posts/my-article/
 
 ### 6. Content Collections
 
-Four collections in `src/content.config.ts`:
+Four collections in `src/content/config.ts`:
 
 - **posts** — blog articles (title, subtitle, description, date, draft, featured, keywords, lang)
 - **work** — employment history (company, role, logoUrl, dateStart, dateEnd, featured, lang)
@@ -132,6 +132,8 @@ src/
 │   ├── Header.astro
 │   ├── JsonLd.astro
 │   ├── PostLayout.astro
+│   ├── ResumeCard.astro
+│   ├── ResumeList.astro
 │   └── ...
 ├── content/                 # Astro Content Collections
 │   ├── config.ts            # Collection schemas & Zod validation
@@ -154,9 +156,13 @@ src/
 │   ├── 404.astro
 │   ├── robots.txt.ts        # robots.txt generation
 │   ├── rss.xml.ts           # RSS feed generation
+│   ├── resume/              # Resume index + PDF viewer (EN)
+│   │   ├── index.astro
+│   │   └── [slug].astro
 │   ├── id/                  # Indonesian locale mirror
 │   │   ├── index.astro      # Home (ID)
 │   │   ├── contact.astro    # Contact (ID)
+│   │   ├── resume/          # Resume index (ID)
 │   │   ├── posts/
 │   │   ├── projects/
 │   │   ├── npmjs/
@@ -175,7 +181,7 @@ src/
 │   └── global.css
 ├── utils/                   # Utility modules
 │   ├── language.ts          # detectLanguage(), getAlternateLanguagePath()
-│   └── resumes.ts
+│   └── resumes.ts           # Scan public/resume PDFs
 ├── constants.ts             # SITE, HOME, POSTS, PROJECTS, NPMJS, SOCIALS config
 ├── types.ts                 # TypeScript interfaces: Site, Metadata, Socials
 └── env.d.ts                 # Astro environment types
@@ -202,6 +208,7 @@ Root files:
 | `src/i18n/ui.ts`        | All UI translation strings (typed const)                                    |
 | `src/i18n/utils.ts`     | `getLangFromUrl()`, `useTranslations()`                                     |
 | `src/utils/language.ts` | `detectLanguage()`, `getAlternateLanguagePath()`                            |
+| `src/utils/resumes.ts`  | Lists PDF files from `public/resume/`                                       |
 | `astro.config.mjs`      | Astro config (integrations, sitemap, MDX, Tailwind, redirects, performance) |
 | `tsconfig.json`         | Path aliases (@constants, @lib, @components, etc.)                          |
 | `.eslintrc.cjs`         | ESLint rules (strict mode, quotes, semicolons, import ordering)             |
@@ -222,6 +229,13 @@ Root files:
 1. Create `src/content/projects/my-project/index.md` + `index.id.md`
 2. Include: `title`, `description`, `date`, `draft`, `featured`, `liveURL`, `repoURL`, `imageUrl`, `techStack`, `category`, `platforms`, `price`, `keywords`, `lang`
 
+### Add a resume PDF
+
+1. Put the file in `public/resume/` using `Listiananda-Apriliawan-{Role}.pdf`
+2. It appears on `/resume` and `/id/resume` automatically
+3. The viewer is `/resume/{slug}` where slug is the filename without `.pdf`
+4. The raw file stays at `/resume/{filename}.pdf`
+
 ### Create a new page
 
 1. Create `src/pages/my-page/index.astro` (EN)
@@ -240,16 +254,16 @@ bun run build      # Verify no type errors
 
 ## Integrations & Features
 
-| Integration                 | Purpose                                                     |
-| --------------------------- | ----------------------------------------------------------- |
-| **@astrojs/mdx**            | Content authoring (`.md` + Markdown syntax)                 |
-| **@astrojs/tailwind**       | Styling with Tailwind CSS 3                                 |
-| **@astrojs/sitemap**        | Auto-generated sitemap (excludes `/privacy/` and `/terms/`) |
-| **@astrojs/rss**            | RSS feed generation                                         |
-| **@vercel/analytics**       | Web analytics for user behavior                             |
-| **@vercel/speed-insights**  | Performance monitoring                                      |
-| **@fontsource/inter**       | Open-source Inter typeface                                  |
-| **@tailwindcss/typography** | Tailwind prose plugin for Markdown styling                  |
+| Integration                 | Purpose                                                                 |
+| --------------------------- | ----------------------------------------------------------------------- |
+| **@astrojs/mdx**            | Content authoring (`.md` + Markdown syntax)                             |
+| **@astrojs/tailwind**       | Styling with Tailwind CSS 3                                             |
+| **@astrojs/sitemap**        | Auto-generated sitemap (excludes privacy, terms, and resume pages)      |
+| **@astrojs/rss**            | RSS feed generation                                                     |
+| **@vercel/analytics**       | Web analytics for user behavior                                         |
+| **@vercel/speed-insights**  | Performance monitoring                                                  |
+| **@fontsource/inter**       | Open-source Inter typeface                                              |
+| **@tailwindcss/typography** | Tailwind prose plugin for Markdown styling                              |
 
 ---
 
@@ -259,7 +273,8 @@ bun run build      # Verify no type errors
 - **Bilingual content is mandatory**: Every content entry needs English + Indonesian versions
 - **Markdown only**: Content files are `.md` (Markdown), not MDX
 - **Astro components only**: No JSX/React components in this project
-- **Sitemap excludes**: `/privacy/` and `/terms/` pages are filtered from sitemap
+- **Sitemap excludes**: `/privacy/`, `/terms/`, `/resume`, `/id/resume`, and resume detail pages
+- **Resume pages are noindex**: list and PDF viewer are kept out of search results
 - **Prefetch disabled**: Manual prefetch disabled in config; modern browser caching handles performance
 - **Collections backwards compat**: Legacy collections mode enabled for compatibility
 - **Before editing**: Always check the file structure and context first — ask questions if unsure
