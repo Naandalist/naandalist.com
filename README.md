@@ -16,7 +16,7 @@ This app is live at [naandalist.com](https://naandalist.com/).
 - English and Indonesian routes
 - Blog posts, projects, work history, and npm package collections
 - MDX and type-safe Astro Content Collections
-- Responsive PDF resume viewer
+- Resume index at `/resume` and `/id/resume`, with PDF detail pages at `/resume/{slug}`
 - Generated sitemap, RSS feed, robots.txt, and structured metadata
 - Vercel Analytics and Speed Insights
 
