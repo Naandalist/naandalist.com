@@ -77,6 +77,10 @@ export const ui = {
     "contact.availability": "Availability",
     "contact.availabilityDesc":
       "I'm always open to discussing new projects, creative ideas, and opportunities to be part of your vision.",
+    "resume.title": "Resume",
+    "resume.description":
+      "Available resumes for Listiananda Apriliawan.",
+    "resume.choose": "Choose a resume to view.",
     "footer.analytic": "Analytic",
     "footer.terms": "Terms of Use",
     "footer.privacy": "Privacy Policy",
@@ -156,6 +160,10 @@ export const ui = {
     "contact.availability": "Ketersediaan",
     "contact.availabilityDesc":
       "Saya selalu terbuka untuk mendiskusikan proyek baru, ide kreatif, dan peluang untuk menjadi bagian dari visi Anda.",
+    "resume.title": "Resume",
+    "resume.description":
+      "Resume yang tersedia untuk Listiananda Apriliawan.",
+    "resume.choose": "Pilih resume untuk dilihat.",
     "footer.analytic": "Analitik",
     "footer.terms": "Syarat Penggunaan",
     "footer.privacy": "Kebijakan Privasi",
