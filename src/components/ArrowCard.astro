@@ -23,34 +23,32 @@ const entryUrl = `${baseUrl}/${entry.collection}/${cleanSlug}`;
 
 <a
   href={entryUrl}
-  class='arrow-card relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-white/20 transition-[color,border-color,box-shadow] duration-300 ease-in-out hover:text-white hover:border-link hover:shadow-[0_0_18px] hover:shadow-link/25'
+  class="arrow-card card-hover relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-white/20"
 >
-  <div class='flex flex-col flex-1 truncate sm:whitespace-normal'>
-    <div
-      class='font-extrabold transition-colors duration-300 ease-in-out group-hover:text-link'
-    >
+  <div class="flex flex-col flex-1 truncate sm:whitespace-normal">
+    <div class="font-extrabold text-white">
       {entry.data.title}
     </div>
-    <div class='text-sm truncate'>
+    <div class="text-sm truncate">
       {displayText}
     </div>
   </div>
 
   <span
-    aria-hidden='true'
-    class='absolute top-1/2 right-4 -translate-y-1/2 size-5 text-current transition-colors duration-300 ease-in-out group-hover:text-link'
+    aria-hidden="true"
+    class="absolute top-1/2 right-4 -translate-y-1/2 size-5 text-current"
   >
     <svg
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      stroke-width='1.75'
-      stroke-linecap='round'
-      stroke-linejoin='round'
-      class='size-5 arrow-icon'
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="size-5 arrow-icon"
     >
-      <path d='M7 17L17 7' class='arrow-icon__stem'></path>
-      <path d='M9 7H17V15' class='arrow-icon__head'></path>
+      <path d="M7 17L17 7" class="arrow-icon__stem"></path>
+      <path d="M9 7H17V15" class="arrow-icon__head"></path>
     </svg>
   </span>
 </a>
