@@ -25,33 +25,33 @@ const { entries, compact = false } = Astro.props;
 <ol class="relative">
   {
     entries.map((entry, index) => (
-      <li class="relative pl-6 pb-8 last:pb-0">
+      <li class="relative pl-6 pb-8 last:pb-0 sm:pl-36">
         {
           index < entries.length - 1 && (
             <span
               aria-hidden="true"
-              class="absolute left-[3px] top-3 -bottom-3 w-px bg-white/20"
+              class="absolute left-[3px] top-3 -bottom-3 w-px bg-white/20 sm:left-[7.25rem]"
             ></span>
           )
         }
         <span
           aria-hidden="true"
-          class="absolute left-0 top-2 z-10 size-2 rounded-full border-2 border-white/50 bg-neutral-900"
+          class="absolute left-0 top-2 z-10 size-2 rounded-full border-2 border-white/50 bg-neutral-900 sm:left-28"
         ></span>
-        <div class="flex items-start gap-4">
+        <p class="text-sm opacity-75 sm:absolute sm:left-0 sm:top-1 sm:w-28 sm:pr-3 sm:text-right">
+          {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+        </p>
+        <div class="mt-2 flex items-start gap-4 sm:mt-0">
           <Image
             src={entry.data.logoUrl}
             alt={`${entry.data.company} logo`}
-            class="mt-0.5 h-12 w-12 rounded object-contain"
+            class="mt-0.5 h-12 w-12 shrink-0 rounded object-contain"
             width={96}
             height={96}
             densities={[1, 2]}
             format="webp"
           />
           <div>
-            <div class="text-sm opacity-75">
-              {dateRange(entry.data.dateStart, entry.data.dateEnd)}
-            </div>
             <div class="font-semibold text-white">{entry.data.company}</div>
             <div class="text-sm opacity-75">{entry.data.role}</div>
             <article class={compact ? "work-summary-home" : undefined}>
