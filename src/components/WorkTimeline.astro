@@ -1,17 +1,12 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import { Image } from "astro:assets";
 
 import { dateRange } from "@lib/utils";
 
-type WorkTimelineEntry = {
-  data: {
-    company: string;
-    role: string;
-    logoUrl: string;
-    dateStart: Date | string;
-    dateEnd?: Date | string | null;
-  };
-  Content: astroHTML.JSX.Element | any;
+type WorkTimelineEntry = CollectionEntry<"work"> & {
+  Content: AstroComponentFactory;
 };
 
 type Props = {
