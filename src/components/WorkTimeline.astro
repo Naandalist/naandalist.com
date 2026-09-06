@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+
+import { dateRange } from "@lib/utils";
+
+type WorkTimelineEntry = {
+  data: {
+    company: string;
+    role: string;
+    logoUrl: string;
+    dateStart: Date | string;
+    dateEnd?: Date | string | null;
+  };
+  Content: astroHTML.JSX.Element | any;
+};
+
+type Props = {
+  entries: WorkTimelineEntry[];
+  compact?: boolean;
+};
+
+const { entries, compact = false } = Astro.props;
+---
+
+<ol class="relative">
+  {
+    entries.map((entry) => (
+      <li class="group relative pl-6 pb-8 last:pb-0">
+        <span
+          aria-hidden="true"
+          class="absolute left-[3px] top-2 bottom-0 w-px bg-white/20 group-last:hidden"
+        ></span>
+        <span
+          aria-hidden="true"
+          class="absolute left-0 top-2 size-2 rounded-full border-2 border-white/50 bg-neutral-900"
+        ></span>
+        <div class="flex items-start gap-4">
+          <Image
+            src={entry.data.logoUrl}
+            alt={`${entry.data.company} logo`}
+            class="mt-0.5 h-12 w-12 rounded object-contain"
+            width={96}
+            height={96}
+            densities={[1, 2]}
+            format="webp"
+          />
+          <div>
+            <div class="text-sm opacity-75">
+              {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+            </div>
+            <div class="font-semibold text-white">{entry.data.company}</div>
+            <div class="text-sm opacity-75">{entry.data.role}</div>
+            <article class={compact ? "work-summary-home" : undefined}>
+              <entry.Content />
+            </article>
+          </div>
+        </div>
+      </li>
+    ))
+  }
+</ol>
