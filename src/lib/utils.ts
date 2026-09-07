@@ -89,3 +89,55 @@ export function dateRange(startDate: Date, endDate?: Date | string): string {
 
   return `${startMonth} ${startYear} - ${endMonth} ${endYear}`;
 }
+
+function resolveWorkEndDate(endDate?: Date | string) {
+  if (!endDate || typeof endDate === "string") {
+    return new Date();
+  }
+
+  return endDate;
+}
+
+export function formatWorkTenure(
+  startDate: Date,
+  endDate?: Date | string,
+  lang: "en" | "id" = "en",
+) {
+  const end = resolveWorkEndDate(endDate);
+  let months =
+    (end.getFullYear() - startDate.getFullYear()) * 12 +
+    (end.getMonth() - startDate.getMonth()) +
+    1;
+
+  if (months < 1) months = 1;
+
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  const parts: string[] = [];
+
+  if (lang === "id") {
+    if (years) parts.push(`${years} thn`);
+    if (rest) parts.push(`${rest} bln`);
+    return parts.join(" ");
+  }
+
+  if (years) parts.push(years === 1 ? "1 yr" : `${years} yrs`);
+  if (rest) parts.push(rest === 1 ? "1 mo" : `${rest} mos`);
+  return parts.join(" ");
+}
+
+export function formatWorkPeriod(
+  startDate: Date,
+  endDate?: Date | string,
+  lang: "en" | "id" = "en",
+) {
+  const startLabel = `${startDate.toLocaleString("en-US", { month: "short" })} ${startDate.getFullYear()}`;
+  const isCurrent = !endDate || typeof endDate === "string";
+  const endLabel = isCurrent
+    ? lang === "id"
+      ? "Sekarang"
+      : "Present"
+    : `${endDate.toLocaleString("en-US", { month: "short" })} ${endDate.getFullYear()}`;
+
+  return `${startLabel} - ${endLabel} · ${formatWorkTenure(startDate, endDate, lang)}`;
+}

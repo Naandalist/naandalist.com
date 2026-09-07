@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
-import { Image } from "astro:assets";
 
-import { dateRange } from "@lib/utils";
+import { getLangFromUrl } from "@i18n/utils";
+import { formatWorkPeriod } from "@lib/utils";
 
 type WorkTimelineEntry = CollectionEntry<"work"> & {
   Content: AstroComponentFactory;
@@ -15,44 +15,36 @@ type Props = {
 };
 
 const { entries, compact = false } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <ol class="relative">
   {
     entries.map((entry, index) => (
-      <li class="relative pl-6 pb-8 last:pb-0">
+      <li class="relative pl-7 pb-8 last:pb-0">
         {
           index < entries.length - 1 && (
             <span
               aria-hidden="true"
-              class="absolute left-[3px] top-3 -bottom-3 w-px bg-white/20"
+              class="absolute left-[5px] top-4 -bottom-4 w-[2px] bg-white/20"
             ></span>
           )
         }
         <span
           aria-hidden="true"
-          class="absolute left-0 top-2 z-10 size-2 rounded-full border-2 border-white/50 bg-neutral-900"
+          class="absolute left-0 top-1.5 z-10 size-[12px] rounded-full bg-white/45"
         ></span>
-        <div class="flex items-start gap-4">
-          <Image
-            src={entry.data.logoUrl}
-            alt={`${entry.data.company} logo`}
-            class="mt-0.5 h-12 w-12 rounded object-contain"
-            width={96}
-            height={96}
-            densities={[1, 2]}
-            format="webp"
-          />
-          <div>
-            <div class="text-sm opacity-75">
-              {dateRange(entry.data.dateStart, entry.data.dateEnd)}
-            </div>
-            <div class="font-semibold text-white">{entry.data.company}</div>
-            <div class="text-sm opacity-75">{entry.data.role}</div>
-            <article class={compact ? "work-summary-home" : undefined}>
-              <entry.Content />
-            </article>
-          </div>
+        <div>
+          <h3 class="text-base font-semibold leading-snug text-white">
+            {entry.data.role}
+          </h3>
+          <p class="mt-0.5 text-sm text-white/55">
+            {formatWorkPeriod(entry.data.dateStart, entry.data.dateEnd, lang)}
+          </p>
+          <p class="text-sm text-white/55">{entry.data.company}</p>
+          <article class:list={["mt-3", compact && "work-summary-home"]}>
+            <entry.Content />
+          </article>
         </div>
       </li>
     ))
