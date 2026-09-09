@@ -16,7 +16,6 @@ This app is live at [naandalist.com](https://naandalist.com/).
 - English and Indonesian routes
 - Blog posts, projects, work history, and npm package collections
 - MDX and type-safe Astro Content Collections
-- Resume index at `/resume` and `/id/resume`, with PDF detail pages at `/resume/{slug}`
 - Generated sitemap, RSS feed, robots.txt, and structured metadata
 - Vercel Analytics and Speed Insights
 
@@ -59,15 +58,15 @@ The site will be available at `http://localhost:4321`.
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `bun dev` | Start the local development server |
-| `bun run build` | Type-check and build the production site |
-| `bun run preview` | Preview the production build locally |
-| `bun run lint` | Run ESLint |
-| `bun test` | Run unit tests |
-| `bun run verify:routes` | Verify generated routes |
-| `bun run verify:seo` | Verify generated SEO metadata |
+| Command                 | Description                              |
+| ----------------------- | ---------------------------------------- |
+| `bun dev`               | Start the local development server       |
+| `bun run build`         | Type-check and build the production site |
+| `bun run preview`       | Preview the production build locally     |
+| `bun run lint`          | Run ESLint                               |
+| `bun test`              | Run unit tests                           |
+| `bun run verify:routes` | Verify generated routes                  |
+| `bun run verify:seo`    | Verify generated SEO metadata            |
 
 ## License
 
