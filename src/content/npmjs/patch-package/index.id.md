@@ -1,9 +1,9 @@
 ---
 title: "@naandalist/patch-package"
 description: "Fork patch-package dengan peningkatan keamanan yang memperbaiki kerentanan sambil mempertahankan kompatibilitas penuh."
-date: "2025-10-01"
-lastUpdated: "2025-10-15"
-featured: true
+date: "2024-08-13T12:06:11Z"
+lastUpdated: "2025-11-08T16:11:15Z"
+featured: false
 npmURL: "https://www.npmjs.com/package/@naandalist/patch-package"
 repoURL: "https://github.com/naandalist/patch-package"
 version: "8.1.6"
