@@ -1,11 +1,12 @@
 ---
 title: "@naandalist/honocoroko"
 description: "Library TypeScript untuk transliterasi teks antara huruf Latin dan aksara Jawa (Aksara Jawa/Hanacaraka)."
-date: "2025-10-01"
-lastUpdated: "2025-10-15"
+date: "2025-07-31T17:13:52Z"
+lastUpdated: "2026-09-06T13:56:21Z"
+featured: true
 npmURL: "https://www.npmjs.com/package/@naandalist/honocoroko"
 repoURL: "https://github.com/Naandalist/honocoroko"
-version: "1.2.1"
+version: "1.4.0"
 license: "MIT"
 keywords:
   [
@@ -16,7 +17,6 @@ keywords:
     "transliteration",
     "indonesia",
     "jawa",
-    "typescript",
   ]
 lang: "id"
 ---
@@ -72,17 +72,16 @@ const {
 ### Contoh Dasar
 
 ```typescript
-// Konversi teks Latin ke aksara Jawa
-const javanese = toHonocoroko("hanacaraka");
-console.log(javanese); // ꦲꦤꦕꦫꦏ
+toHonocoroko("hanacaraka"); // ꦲꦤꦕꦫꦏ
+toHonocoroko("bisa"); // ꦧꦶꦱ
+toHonocoroko("bakso"); // ꦧꦏ꧀ꦱꦺꦴ
+toHonocoroko("wong"); // ꦮꦺꦴꦁ
 
-// Konversi aksara Jawa kembali ke Latin
-const latin = fromHonocoroko("ꦲꦤꦕꦫꦏ");
-console.log(latin); // hanacaraka
+fromHonocoroko("ꦧꦶꦱ"); // "bisa"
+fromHonocoroko(toHonocoroko("wong")); // "wong"
 
-// Menggunakan fungsi transliterate generik
-const result1 = transliterate("hanacaraka", "toHonocoroko");
-const result2 = transliterate("ꦲꦤꦕꦫꦏ", "fromHonocoroko");
+transliterate("bisa", "toHonocoroko");
+transliterate("ꦧꦶꦱ", "fromHonocoroko");
 ```
 
 ### Proyek TypeScript

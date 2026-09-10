@@ -1,12 +1,12 @@
 ---
 title: "secure-file-validator"
-description: "Library validasi file yang aman untuk Node.js yang melakukan pengecekan signature dan validasi konten untuk melindungi aplikasi dari unggahan file berbahaya."
-date: "2025-10-01"
-lastUpdated: "2025-10-15"
+description: "Library validasi file yang aman dengan pengecekan signature dan validasi konten."
+date: "2024-11-06T17:00:17Z"
+lastUpdated: "2026-09-05T18:21:11Z"
 featured: true
 npmURL: "https://www.npmjs.com/package/secure-file-validator"
 repoURL: "https://github.com/Naandalist/secure-file-validator"
-version: "1.1.0"
+version: "2.0.0"
 license: "MIT"
 keywords:
   [
@@ -17,30 +17,24 @@ keywords:
     "signature-check",
     "file-security",
     "esm",
-    "typescript",
   ]
 lang: "id"
 ---
 
 # secure-file-validator
 
-Library validasi file yang aman untuk Node.js yang melakukan pengecekan signature dan validasi konten. Library ini melindungi aplikasi dari unggahan file berbahaya dengan memvalidasi tipe file, memeriksa signature file, dan memindai pola mencurigakan.
+Helper Node.js tanpa dependency untuk pengecekan tipe unggahan: ekstensi, ukuran, magic number, plus kebijakan konten PDF dan SVG yang ringkas.
 
-Library ini dibangun mengikuti panduan keamanan standar industri:
-
-- [OWASP Unrestricted File Upload Prevention](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)
-- [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html)
-- [NIST Security Guidelines for File Uploads](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf)
+Selaras dengan bagian pengecekan tipe file dari [OWASP Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload) dan [CWE-434](https://cwe.mitre.org/data/definitions/434.html). Bukan antivirus. Bukan stack keamanan unggahan yang lengkap.
 
 ## Fitur
 
-- Validasi signature file yang aman
-- Pemindaian pola konten untuk kode berbahaya
-- Dukungan untuk berbagai tipe file (JPEG, PNG, GIF, PDF, SVG)
-- Pemeriksaan keamanan bawaan untuk file PDF dan SVG
-- Fitur whitelist untuk menangani deteksi false positive
-- Tanpa dependensi
-- Validasi ukuran file yang dapat dikustomisasi
+- Validasi ekstensi, ukuran, dan magic number
+- Kebijakan token nama PDF (termasuk nama hex-escaped dan Flate stream)
+- Kebijakan SVG untuk script, `javascript:`, event handler, dan embed berisiko
+- Input path atau buffer / `Uint8Array`
+- Kode hasil yang stabil untuk branching di aplikasi
+- Tanpa dependency (Node.js 14.16+, ESM)
 
 ## Instalasi
 
@@ -50,167 +44,109 @@ npm install secure-file-validator
 
 ## Penggunaan
 
-### Penggunaan Dasar (Batas default 5MB)
+### Mulai cepat
 
-```typescript
+```javascript
 import { validateFile } from "secure-file-validator";
 
-try {
-  const result = await validateFile("path/ke/file/anda.pdf");
+const result = await validateFile("uploads/photo.jpg");
 
-  if (result.status) {
-    console.log("File valid:", result.message);
-  } else {
-    console.log("Validasi file gagal:", result.message);
-  }
-} catch (error) {
-  console.error("Error:", error);
+if (result.ok) {
+  // result.code === "OK"
+} else {
+  // result.code === "INVALID_SIGNATURE" | "PDF_JAVASCRIPT" | ...
+  console.error(result.code, result.message);
 }
 ```
 
-### Batas Ukuran File Kustom
+`result.status` masih ada sebagai alias deprecated dari `result.ok`.
 
-```typescript
-import { validateFile } from "secure-file-validator";
+### Dari buffer unggahan
 
-// Contoh: Set batas 10MB
-const TEN_MB = 10 * 1024 * 1024;
+```javascript
+import { validateFile, validateBytes } from "secure-file-validator";
 
-try {
-  const result = await validateFile("path/ke/file/anda.pdf", {
-    maxSizeInBytes: TEN_MB,
-  });
-
-  if (result.status) {
-    console.log("File valid:", result.message);
-  } else {
-    console.log("Validasi file gagal:", result.message);
-  }
-} catch (error) {
-  console.error("Error:", error);
-}
-```
-
-### Whitelist PDF untuk Penanganan False Positive
-
-Library ini menyertakan pemeriksaan keamanan untuk pola PDF yang berpotensi berbahaya. Namun, beberapa PDF yang sah mungkin mengandung pola seperti `/Metadata/`, `/OpenAction/`, atau `/JS/` yang ditandai sebagai mencurigakan. Anda dapat menggunakan opsi `pdfWhitelist` untuk mengizinkan pola tertentu:
-
-```typescript
-import { validateFile } from "secure-file-validator";
-
-const result = await validateFile("path/ke/file.pdf", {
-  pdfWhitelist: ["Metadata", "OpenAction", "JS"],
+const result = await validateFile(req.file.buffer, {
+  filename: req.file.originalname, // atau extension: ".png"
 });
 
-if (result.status) {
-  console.log("File valid:", result.message);
-} else {
-  console.log("Validasi file gagal:", result.message);
+if (!result.ok) {
+  throw new Error(result.code);
 }
+
+const sync = validateBytes(req.file.buffer, { extension: ".png" });
 ```
 
-Pola PDF yang tersedia untuk whitelist:
+Input buffer / `Uint8Array` wajib menyertakan `filename` atau `extension`. Ukuran dicek lewat `byteLength`.
 
-- `Metadata` - Metadata PDF (umumnya ditemukan di PDF yang sah)
-- `OpenAction` - Aksi otomatis saat PDF dibuka
-- `JS` - Singkatan JavaScript
-- `JavaScript` - Kode JavaScript
-- `Launch` - Aksi launch
-- `EmbeddedFile` - File yang disematkan
-- `XFA` - XML Forms Architecture
-- `Annots` - Anotasi
+## Tipe yang didukung
 
-> **Catatan:** Hanya whitelist pola yang Anda percayai. Whitelist pola mengurangi pemeriksaan keamanan dan harus dilakukan dengan hati-hati berdasarkan kasus penggunaan spesifik Anda.
+| Extension | Magic check |
+| --- | --- |
+| `.jpg` / `.jpeg` | `FF D8 FF` |
+| `.png` | `89 50 4E 47` |
+| `.gif` | `47 49 46 38` |
+| `.pdf` | `%PDF` + `%%EOF`, lalu kebijakan token |
+| `.svg` | `<?xml` atau `<svg`, lalu kebijakan SVG |
 
-## Tipe File yang Didukung
+Batas ukuran default: 5MB (`options.maxSizeInBytes`).
 
-| Kategori      | Tipe File |
-| ------------- | --------- |
-| Gambar        | JPEG/JPG  |
-| Gambar        | PNG       |
-| Gambar        | GIF       |
-| Dokumen       | PDF       |
-| Grafis Vektor | SVG       |
+## Kebijakan PDF
 
-## Referensi API
+| Token | Default | `code` |
+| --- | --- | --- |
+| `/Metadata` | allow | `PDF_METADATA` |
+| `/Annots` | allow | `PDF_ANNOTS` |
+| `/OpenAction` | allow | `PDF_OPEN_ACTION` |
+| `/JS`, `/JavaScript` | deny | `PDF_JAVASCRIPT` |
+| `/Launch` | deny | `PDF_LAUNCH` |
+| `/EmbeddedFile` | deny | `PDF_EMBEDDED_FILE` |
+| `/XFA` | deny | `PDF_XFA` |
+| `/RichMedia` | deny | `PDF_RICH_MEDIA` |
 
-### `validateFile(filePath, options)`
+```javascript
+const strict = await validateFile(pdfPath, {
+  pdf: { allowOpenAction: false },
+});
 
-Fungsi validasi utama yang melakukan semua pemeriksaan.
-
-| Parameter              | Tipe     | Deskripsi                         | Default  |
-| ---------------------- | -------- | --------------------------------- | -------- |
-| filePath               | string   | Path ke file yang akan divalidasi | required |
-| options                | Object   | Opsi konfigurasi                  | {}       |
-| options.maxSizeInBytes | number   | Ukuran file maksimum dalam bytes  | 5MB      |
-| options.pdfWhitelist   | string[] | Array pola PDF untuk whitelist    | []       |
-
-**Mengembalikan:** `Promise<{ status: boolean, message: string }>`
-
-### `validateFileContent(filePath, options)`
-
-Melakukan validasi khusus konten.
-
-| Parameter            | Tipe     | Deskripsi                         | Default  |
-| -------------------- | -------- | --------------------------------- | -------- |
-| filePath             | string   | Path ke file yang akan divalidasi | required |
-| options              | Object   | Opsi konfigurasi                  | {}       |
-| options.pdfWhitelist | string[] | Array pola PDF untuk whitelist    | []       |
-
-**Mengembalikan:** `Promise<{ status: boolean, message: string }>`
-
-### `checkFileSignature(buffer, signatures)`
-
-Memeriksa buffer file terhadap signature yang diketahui.
-
-| Parameter  | Tipe                 | Deskripsi                       |
-| ---------- | -------------------- | ------------------------------- |
-| buffer     | Buffer               | Buffer file untuk diperiksa     |
-| signatures | Array<Array<number>> | Signature valid untuk diperiksa |
-
-**Mengembalikan:** `boolean`
-
-## Contoh Hasil
-
-```typescript
-// Validasi berhasil
-{
-  status: true,
-  message: "Content validation passed"
-}
-
-// Validasi gagal (ukuran file)
-{
-  status: false,
-  message: "File size exceeds limit of 5MB"
-}
-
-// Validasi gagal (tipe file tidak valid)
-{
-  status: false,
-  message: "Invalid file extension"
-}
-
-// Validasi gagal (konten berbahaya)
-{
-  status: false,
-  message: "Suspicious pattern detected: /<script/i"
-}
+// Berbahaya: mematikan pengecekan script
+const trusted = await validateFile(pdfPath, {
+  pdf: { allowJavaScript: true },
+});
 ```
 
-## Keterbatasan
+## Kebijakan SVG
 
-- Hanya mendukung tipe file yang ditentukan
-- Tidak ada dukungan pemrosesan stream
-- Konten file binary tidak dianalisis secara mendalam
-- Pencocokan pola dilakukan pada representasi string file
+Selalu ditolak: `<script>`, `javascript:`, event handler (`onload=` …), `<!ENTITY`.
 
-## Kontribusi
+Ditolak secara default, bisa diubah lewat `options.svg`:
 
-Kontribusi sangat diterima! Silakan ajukan Pull Request. Untuk perubahan besar, silakan buka issue terlebih dahulu untuk mendiskusikan apa yang ingin Anda ubah.
+| Rule | Default | `code` |
+| --- | --- | --- |
+| `foreignObject` | deny | `SVG_FOREIGN_OBJECT` |
+| `data:` URI | deny | `SVG_DATA_URI` |
+| external `href` | deny | `SVG_EXTERNAL_HREF` |
+
+```javascript
+await validateFile(svgPath, {
+  svg: { allowDataUri: true },
+});
+```
+
+## Bentuk hasil
+
+```javascript
+{
+  ok: false,
+  status: false, // alias deprecated dari ok
+  code: "PDF_JAVASCRIPT",
+  message: "Suspicious PDF name token detected: /JavaScript",
+  details: { token: "JavaScript" }
+}
+```
 
 ## Lisensi
 
 MIT
 
-Untuk detail lebih lanjut, silakan kunjungi [repositori GitHub](https://github.com/Naandalist/secure-file-validator).
+Untuk detail lebih lanjut, kunjungi [repositori GitHub](https://github.com/Naandalist/secure-file-validator).

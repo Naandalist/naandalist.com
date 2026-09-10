@@ -1,11 +1,12 @@
 ---
 title: "@naandalist/honocoroko"
-description: "A TypeScript library for transliterating text between Latin and Javanese script (Aksara Jawa/Hanacaraka)."
-date: "2025-10-01"
-lastUpdated: "2025-10-15"
+description: "TypeScript library for transliterating text between Latin and Javanese script (Aksara Jawa/Hanacaraka)."
+date: "2025-07-31T17:13:52Z"
+lastUpdated: "2026-09-06T13:56:21Z"
+featured: true
 npmURL: "https://www.npmjs.com/package/@naandalist/honocoroko"
 repoURL: "https://github.com/Naandalist/honocoroko"
-version: "1.2.1"
+version: "1.4.0"
 license: "MIT"
 keywords:
   [
@@ -16,7 +17,6 @@ keywords:
     "transliteration",
     "indonesia",
     "jawa",
-    "typescript",
   ]
 lang: "en"
 ---
@@ -72,17 +72,16 @@ const {
 ### Basic Examples
 
 ```typescript
-// Convert Latin text to Javanese script
-const javanese = toHonocoroko("hanacaraka");
-console.log(javanese); // ꦲꦤꦕꦫꦏ
+toHonocoroko("hanacaraka"); // ꦲꦤꦕꦫꦏ
+toHonocoroko("bisa"); // ꦧꦶꦱ
+toHonocoroko("bakso"); // ꦧꦏ꧀ꦱꦺꦴ
+toHonocoroko("wong"); // ꦮꦺꦴꦁ
 
-// Convert Javanese script back to Latin
-const latin = fromHonocoroko("ꦲꦤꦕꦫꦏ");
-console.log(latin); // hanacaraka
+fromHonocoroko("ꦧꦶꦱ"); // "bisa"
+fromHonocoroko(toHonocoroko("wong")); // "wong"
 
-// Using the generic transliterate function
-const result1 = transliterate("hanacaraka", "toHonocoroko");
-const result2 = transliterate("ꦲꦤꦕꦫꦏ", "fromHonocoroko");
+transliterate("bisa", "toHonocoroko");
+transliterate("ꦧꦶꦱ", "fromHonocoroko");
 ```
 
 ### TypeScript Projects
