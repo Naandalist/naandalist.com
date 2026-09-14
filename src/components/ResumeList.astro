@@ -1,10 +1,11 @@
 ---
 import { useTranslations } from "@i18n/utils";
+import { getResumeEntries } from "@utils/resumes";
 
 import Container from "@components/Container.astro";
 import ResumeCard from "@components/ResumeCard.astro";
+
 import PageLayout from "@layouts/PageLayout.astro";
-import { getResumeEntries } from "@utils/resumes";
 
 interface Props {
   lang?: "en" | "id";
