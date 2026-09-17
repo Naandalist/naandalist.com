@@ -9,7 +9,7 @@ export const ui = {
   en: {
     "home.title": "Home",
     "home.description":
-      "Frontend Developer specializing in JavaScript and TypeScript. Explore my projects, technical writings, and professional engineering experience.",
+      "Frontend Engineer with 6+ years building web and cross-platform mobile apps using React Native, React, Next.js, Astro, JavaScript, and TypeScript.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
       "Frontend Engineer with 6+ years of experience building web and cross-platform mobile applications using",
@@ -43,7 +43,7 @@ export const ui = {
     "posts.back": "Back to posts",
     "projects.title": "Projects",
     "projects.description":
-      "Portfolio of web and mobile projects featuring React Native apps, WordPress sites, and full-stack applications with source code and live demos.",
+      "Portfolio of web and mobile projects featuring React Native apps, Next.js and Astro sites, and TypeScript applications with source code and live demos.",
     "projects.back": "Back to projects",
     "npmjs.title": "NPM Packages",
     "npmjs.description":
@@ -51,7 +51,7 @@ export const ui = {
     "npmjs.back": "Back to packages",
     "work.title": "Work",
     "work.description":
-      "Professional career showcasing roles as Frontend Developer, Full-stack Developer, and technical contributions across startups and enterprises.",
+      "Professional experience across roles as Frontend Engineer and technical contributions in startups and enterprises.",
     "about.title": "About",
     "about.description":
       "Learn about naandalist.com a portfolio and space to explore coding with Astro.",
@@ -92,7 +92,7 @@ export const ui = {
   id: {
     "home.title": "Beranda",
     "home.description":
-      "Frontend Developer yang terbiasa dengan JavaScript dan TypeScript. Jelajahi proyek, catatan tulisan teknis, dan pengalaman saya.",
+      "Frontend Engineer dengan pengalaman lebih dari 6 tahun membangun aplikasi web dan mobile lintas platform menggunakan React Native, React, Next.js, Astro, JavaScript, dan TypeScript.",
     "home.greeting": "LISTIANANDA APRILIAWAN",
     "home.intro.paragraph1":
       "Frontend Engineer dengan pengalaman lebih dari 6 tahun membangun aplikasi web dan mobile lintas platform menggunakan",
@@ -126,7 +126,7 @@ export const ui = {
     "posts.back": "Kembali ke tulisan",
     "projects.title": "Proyek",
     "projects.description":
-      "Portofolio proyek web dan mobile mencakup aplikasi React Native, situs WordPress, dan aplikasi full-stack dengan kode sumber dan demo langsung.",
+      "Portofolio proyek web dan mobile mencakup aplikasi React Native, situs Next.js dan Astro, serta aplikasi TypeScript dengan kode sumber dan demo langsung.",
     "projects.back": "Kembali ke proyek",
     "npmjs.title": "Paket NPM",
     "npmjs.description":
@@ -134,7 +134,7 @@ export const ui = {
     "npmjs.back": "Kembali ke paket",
     "work.title": "Pekerjaan",
     "work.description":
-      "Karir profesional menampilkan peran sebagai Frontend Developer, Full-stack Developer, dan kontribusi teknis di startup dan perusahaan besar.",
+      "Pengalaman profesional sebagai Frontend Engineer dan kontribusi teknis di startup maupun perusahaan besar.",
     "about.title": "Tentang",
     "about.description":
       "Pelajari tentang naandalist.com portfolio dan ruang untuk menjelajahi coding dengan Astro.",
