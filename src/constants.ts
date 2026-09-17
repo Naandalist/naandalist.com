@@ -11,9 +11,9 @@ export const SITE: Site = {
 };
 
 export const HOME: Metadata = {
-  TITLE: "Naandalist – Frontend Developer",
+  TITLE: "Naandalist – Frontend Engineer",
   DESCRIPTION:
-    "Frontend Developer from Indonesia building Android and iOS applications with React Native. Explore projects, technical writings, and professional experience.",
+    "Frontend Engineer from Indonesia building web and cross-platform mobile apps with React Native, React, Next.js, and Astro. Explore projects, technical writings, and professional experience.",
 };
 
 export const POSTS: Metadata = {
@@ -31,7 +31,7 @@ export const WORK: Metadata = {
 export const PROJECTS: Metadata = {
   TITLE: "Projects",
   DESCRIPTION:
-    "Portfolio of web and mobile projects built with React Native, Laravel, WordPress, and modern technologies. Includes source code and live demonstrations.",
+    "Portfolio of web and mobile projects built with React Native, React, Next.js, Astro, and TypeScript. Includes source code and live demonstrations.",
 };
 
 export const TERMS: Metadata = {
