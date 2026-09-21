@@ -1,8 +1,10 @@
+import { createRequire } from "module";
+
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import { createRequire } from "module";
+
 import { getResumeEntries } from "./src/utils/resumes";
 
 const require = createRequire(import.meta.url);
@@ -28,9 +30,6 @@ export default defineConfig({
         );
       },
     }),
-    tailwind({
-      applyBaseStyles: true,
-    }),
   ],
   redirects: {
     "/posts/09-git-commit-message-convention/":
@@ -44,6 +43,7 @@ export default defineConfig({
   prefetch: false,
   vite: {
     plugins: [
+      tailwindcss(),
       {
         name: "resolve-vite-env",
         enforce: "pre",
