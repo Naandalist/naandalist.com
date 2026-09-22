@@ -51,11 +51,20 @@ const t = useTranslations(lang);
     <script is:inline>
       (() => {
         try {
-          const theme = localStorage.getItem("theme");
-          document.documentElement.dataset.theme = theme === "light" ? "light" : "dark";
-          document.documentElement.style.colorScheme = document.documentElement.dataset.theme;
+          const savedTheme = localStorage.getItem("theme");
+          const systemTheme = window.matchMedia?.("(prefers-color-scheme: light)")
+            .matches
+            ? "light"
+            : "dark";
+          const theme =
+            savedTheme === "light" || savedTheme === "dark"
+              ? savedTheme
+              : systemTheme;
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
         } catch {
           document.documentElement.dataset.theme = "dark";
+          document.documentElement.style.colorScheme = "dark";
         }
       })();
     </script>
