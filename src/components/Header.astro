@@ -3,6 +3,8 @@ import { SITE } from "@constants";
 import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
 import Container from "@components/Container.astro";
+import NavIcon from "@components/NavIcon.astro";
+import ThemeToggle from "@components/ThemeToggle.astro";
 
 const currentPath = Astro.url.pathname;
 const lang = getLangFromUrl(Astro.url);
@@ -13,24 +15,24 @@ const navItems = [
   {
     href: `${langPrefix}/work`,
     label: t("work.title"),
-    icon: "/icons/briefcase.svg",
+    icon: "briefcase",
   },
   {
     href: `${langPrefix}/projects`,
     label: t("projects.title"),
-    icon: "/icons/rocket.svg",
+    icon: "rocket",
   },
   {
     href: `${langPrefix}/posts`,
     label: t("posts.title"),
-    icon: "/icons/newspaper.svg",
+    icon: "newspaper",
   },
   {
     href: `${langPrefix}/contact`,
     label: t("contact.title"),
-    icon: "/icons/contact.svg",
+    icon: "contact",
   },
-];
+] as const;
 ---
 
 <header>
@@ -45,48 +47,52 @@ const navItems = [
             {SITE.NAME}
           </div>
         </a>
-        <button
-          type="button"
-          class="sm:hidden inline-flex items-center justify-center rounded border border-white/20 p-2 text-white hover:bg-white/10 transition-colors"
-          data-menu-toggle
-          aria-controls="mobile-nav"
-          aria-expanded="false"
-          aria-label={t("nav.menu")}
-        >
-          <svg
-            data-icon-open
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="size-5"
-            aria-hidden="true"
+        <div class="flex items-center gap-2 sm:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            class="inline-flex items-center justify-center rounded border border-white/20 p-2 text-white hover:bg-white/10 transition-colors"
+            data-menu-toggle
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+            aria-label={t("nav.menu")}
           >
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-          <svg
-            data-icon-close
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="size-5 hidden"
-            aria-hidden="true"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+            <svg
+              data-icon-open
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <svg
+              data-icon-close
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5 hidden"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
       </div>
-      <nav class="hidden sm:flex flex-wrap gap-3">
+      <div class="hidden sm:flex items-center gap-3">
+        <nav class="flex flex-wrap gap-3">
         {
           navItems.map(({ href, label, icon }) => {
             const isActive =
@@ -101,13 +107,15 @@ const navItems = [
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
-                <img src={icon} alt="" class="w-4 h-4" />
+                <NavIcon name={icon} />
                 {label}
               </a>
             );
           })
         }
-      </nav>
+        </nav>
+        <ThemeToggle />
+      </div>
       <nav
         id="mobile-nav"
         data-mobile-nav
@@ -127,7 +135,7 @@ const navItems = [
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
-                <img src={icon} alt="" class="w-4 h-4" />
+                <NavIcon name={icon} />
                 {label}
               </a>
             );
