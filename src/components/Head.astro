@@ -11,6 +11,7 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  preloadImage?: string;
   noindex?: boolean;
   disableHreflang?: boolean;
   ogType?: "website" | "article";
@@ -54,6 +55,7 @@ const {
   title,
   description,
   image = defaultImage.src,
+  preloadImage,
   noindex = false,
   disableHreflang = false,
   ogType = "website",
@@ -98,18 +100,10 @@ const robotsContent = noindex
 <link rel='preload' href='/fonts/Inter-Regular.woff2' as='font' type='font/woff2' crossorigin />
 <link rel='preload' href='/fonts/Inter-SemiBold.woff2' as='font' type='font/woff2' crossorigin />
 
-<!-- Preload home LCP images only -->
+<!-- Preload the home LCP image only -->
 {
-  isHomePage && (
-    <>
-      <link rel='preload' href={defaultImage.src} as='image' fetchpriority='high' />
-      <link
-        rel='preload'
-        href='/icons/skill-dev.svg'
-        as='image'
-        fetchpriority='high'
-      />
-    </>
+  isHomePage && preloadImage && (
+    <link rel='preload' href={preloadImage} as='image' fetchpriority='high' />
   )
 }
 
