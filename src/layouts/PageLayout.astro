@@ -48,6 +48,17 @@ const t = useTranslations(lang);
 <!doctype html>
 <html lang={lang} class={cn(fullscreen && "overflow-hidden")}>
   <head>
+    <script is:inline>
+      (() => {
+        try {
+          const theme = localStorage.getItem("theme");
+          document.documentElement.dataset.theme = theme === "light" ? "light" : "dark";
+          document.documentElement.style.colorScheme = document.documentElement.dataset.theme;
+        } catch {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
     <Head
       title={title || SITE.NAME}
       description={description}

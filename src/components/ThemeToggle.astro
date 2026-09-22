@@ -1,0 +1,91 @@
+---
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<button
+  type="button"
+  class="theme-toggle inline-flex size-9 items-center justify-center rounded border border-white/20 bg-white/5 text-current hover:bg-white/10 active:scale-[0.96] motion-reduce:active:scale-100 transition-[background-color,color,transform] duration-150 ease"
+  data-theme-toggle
+  aria-label={t("a11y.theme")}
+  title={t("a11y.theme")}
+  data-light-label={t("theme.toLight")}
+  data-dark-label={t("theme.toDark")}
+>
+  <svg
+    data-theme-icon="sun"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="size-4"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+  </svg>
+  <svg
+    data-theme-icon="moon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="hidden size-4"
+    aria-hidden="true"
+  >
+    <path d="M20.4 14.1A8.5 8.5 0 0 1 9.9 3.6 8.5 8.5 0 1 0 20.4 14.1Z"></path>
+  </svg>
+  <span class="sr-only" data-theme-label></span>
+</button>
+
+<script>
+  const storageKey = "theme";
+
+  const setTheme = (theme: "dark" | "light") => {
+    const root = document.documentElement;
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+    localStorage.setItem(storageKey, theme);
+
+    document.querySelectorAll("[data-theme-toggle]").forEach((element) => {
+      const button = element as HTMLButtonElement;
+      const isLight = theme === "light";
+      const sunIcon = button.querySelector("[data-theme-icon='sun']");
+      const moonIcon = button.querySelector("[data-theme-icon='moon']");
+      if (sunIcon) sunIcon.classList.toggle("hidden", isLight);
+      if (moonIcon) moonIcon.classList.toggle("hidden", !isLight);
+      button.setAttribute("aria-pressed", String(isLight));
+      const labelText = isLight ? button.dataset.darkLabel : button.dataset.lightLabel;
+      if (!labelText) return;
+      button.setAttribute("aria-label", labelText);
+      button.setAttribute("title", labelText);
+      const label = button.querySelector("[data-theme-label]");
+      if (label) label.textContent = labelText;
+    });
+  };
+
+  const initThemeToggle = () => {
+    const theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+    setTheme(theme);
+    document.querySelectorAll("[data-theme-toggle]").forEach((element) => {
+      const button = element as HTMLButtonElement;
+      if (button.dataset.themeBound === "true") return;
+      button.addEventListener("click", () => {
+        document.documentElement.classList.add("theme-switching");
+        setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+        requestAnimationFrame(() => document.documentElement.classList.remove("theme-switching"));
+      });
+      button.dataset.themeBound = "true";
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", initThemeToggle);
+  document.addEventListener("astro:page-load", initThemeToggle);
+</script>
