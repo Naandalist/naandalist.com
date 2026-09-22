@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 
 import profileImage from "@assets/images/banner-naandalist.webp";
@@ -24,6 +24,12 @@ interface Props {
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 const siteUrl = SITE.URL ?? "https://naandalist.com";
+const lcpImage = await getImage({
+  src: profileImage,
+  width: 744,
+  height: 392,
+  format: "webp",
+});
 
 const posts = (await getCollection("posts"))
   .filter(
@@ -73,7 +79,11 @@ const jsonLd = createPersonSchema({
 const pageTitle = "Naandalist: Listiananda Apriliawan";
 ---
 
-<PageLayout title={pageTitle} description={t("home.description")}>
+<PageLayout
+  title={pageTitle}
+  description={t("home.description")}
+  preloadImage={lcpImage.src}
+>
   <script
     is:inline
     type="application/ld+json"

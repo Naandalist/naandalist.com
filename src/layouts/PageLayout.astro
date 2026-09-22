@@ -14,6 +14,7 @@ type Props = {
   title: string;
   description: string;
   image?: string;
+  preloadImage?: string;
   ogType?: "website" | "article";
   articlePublishedTime?: Date | string;
   articleModifiedTime?: Date | string;
@@ -30,6 +31,7 @@ const {
   title,
   description,
   image,
+  preloadImage,
   ogType = "website",
   articlePublishedTime,
   articleModifiedTime,
@@ -72,6 +74,7 @@ const t = useTranslations(lang);
       title={title || SITE.NAME}
       description={description}
       image={image}
+      preloadImage={preloadImage}
       ogType={ogType}
       articlePublishedTime={articlePublishedTime}
       articleModifiedTime={articleModifiedTime}
