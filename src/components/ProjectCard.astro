@@ -15,23 +15,25 @@ const cleanSlug = normalizeSlug(entry.id);
 const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
 const projectImage = entry.data.imageUrl;
 const mobileImageWidths = [384, 640, 768] as const;
-const mobileImageSrcset = projectImage
-  ? (
-      await Promise.all(
-        mobileImageWidths.map(async (width) => {
-          const image = await getImage({
-            src: projectImage,
-            width,
-            height: Math.round((width * 128) / 338),
-            fit: "cover",
-            format: "webp",
-          });
+let mobileImageSrcset = "";
 
-          return `${image.src} ${width}w`;
-        }),
-      )
-    ).join(", ")
-  : undefined;
+if (projectImage) {
+  mobileImageSrcset = (
+    await Promise.all(
+      mobileImageWidths.map(async (width) => {
+        const image = await getImage({
+          src: projectImage,
+          width,
+          height: Math.round((width * 128) / 338),
+          fit: "cover",
+          format: "webp",
+        });
+
+        return `${image.src} ${width}w`;
+      }),
+    )
+  ).join(", ");
+}
 ---
 
 <div
