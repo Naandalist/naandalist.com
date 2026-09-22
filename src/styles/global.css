@@ -83,6 +83,12 @@ html[data-theme="light"] header {
   backdrop-filter: none;
 }
 
+html[data-theme="light"].scrolled header {
+  background-color: rgb(245 239 227 / 0.7) !important;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
 html[data-theme="light"] :focus-visible {
   --tw-ring-offset-color: #f5efe3;
 }
