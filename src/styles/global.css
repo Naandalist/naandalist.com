@@ -52,6 +52,12 @@ html {
   color-scheme: dark;
 }
 
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-link: #a74420;
+  --color-link-hover: #843315;
+}
+
 html,
 body {
   @apply size-full;
@@ -62,6 +68,109 @@ body {
   @apply flex flex-col;
   @apply bg-neutral-900;
   @apply text-neutral-300;
+}
+
+/* Light palette: editorial paper, dark ink, and a restrained clay link accent. */
+html[data-theme="light"] body {
+  background: #f5efe3;
+  color: #645c53;
+}
+
+html[data-theme="light"] header {
+  background-color: #f5efe3 !important;
+  filter: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+html[data-theme="light"] :focus-visible {
+  --tw-ring-offset-color: #f5efe3;
+}
+
+html[data-theme="light"] .text-white,
+html[data-theme="light"] .hover\:text-white:hover,
+html[data-theme="light"] .group:hover .group-hover\:text-white {
+  color: #29231e !important;
+}
+
+html[data-theme="light"] .text-white\/70 {
+  color: #6a6158 !important;
+}
+
+html[data-theme="light"] .text-white\/60 {
+  color: #7b7167 !important;
+}
+
+html[data-theme="light"] .text-neutral-300,
+html[data-theme="light"] .text-neutral-400 {
+  color: #645c53 !important;
+}
+
+html[data-theme="light"] .bg-neutral-900,
+html[data-theme="light"] .bg-neutral-900\/10 {
+  background-color: #f5efe3 !important;
+}
+
+html[data-theme="light"] .bg-white\/5,
+html[data-theme="light"] .hover\:bg-white\/5:hover {
+  background-color: rgb(41 35 30 / 0.045) !important;
+}
+
+html[data-theme="light"] .bg-white\/10,
+html[data-theme="light"] .hover\:bg-white\/10:hover {
+  background-color: rgb(41 35 30 / 0.085) !important;
+}
+
+html[data-theme="light"] .bg-black\/95 {
+  background-color: rgb(250 246 239 / 0.95) !important;
+}
+
+html[data-theme="light"] .border-white\/20,
+html[data-theme="light"] .border-white\/40,
+html[data-theme="light"] .border-white\/50,
+html[data-theme="light"] .border-neutral-700 {
+  border-color: rgb(70 59 48 / 0.2) !important;
+}
+
+html[data-theme="light"] .outline-white\/10 {
+  outline-color: rgb(0 0 0 / 0.1) !important;
+}
+
+html[data-theme="light"] .card-hover:hover {
+  border-color: rgb(70 59 48 / 0.38) !important;
+  box-shadow: 0 8px 22px rgb(63 46 31 / 0.08) !important;
+}
+
+html[data-theme="light"] .work-timeline-connector {
+  background-color: rgb(70 59 48 / 0.28) !important;
+}
+
+html[data-theme="light"] .work-timeline-dot {
+  background-color: #f5efe3 !important;
+  border-color: #685d51 !important;
+}
+
+html[data-theme="light"] article {
+  --tw-prose-body: #645c53;
+  --tw-prose-headings: #29231e;
+  --tw-prose-bold: #29231e;
+  --tw-prose-links: #a74420;
+  --tw-prose-bullets: #a74420;
+  --tw-prose-counters: #a74420;
+  --tw-prose-hr: rgb(70 59 48 / 0.18);
+  --tw-prose-quotes: #3c342d;
+  --tw-prose-quote-borders: #b6542a;
+  --tw-prose-code: #3c342d;
+}
+
+html[data-theme="light"] article :where(h1, h2, h3, h4, h5, h6, th) {
+  color: #29231e !important;
+}
+
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
 }
 
 header {
@@ -82,6 +191,7 @@ article {
   @apply max-w-full prose prose-invert prose-img:mx-auto prose-img:my-auto;
   @apply prose-headings:font-semibold prose-p:font-sans;
   @apply prose-headings:text-white;
+  --tw-prose-invert-links: var(--color-link);
 }
 
 @layer utilities {

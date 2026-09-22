@@ -26,13 +26,13 @@ const { entries, compact = false } = Astro.props;
           index < entries.length - 1 && (
             <span
               aria-hidden="true"
-              class="absolute left-[3px] top-3 -bottom-3 w-px bg-white/20"
+              class="work-timeline-connector absolute left-[3px] top-3 -bottom-3 w-px bg-white/20"
             ></span>
           )
         }
         <span
           aria-hidden="true"
-          class="absolute left-0 top-2 z-10 size-2 rounded-full border-2 border-white/50 bg-neutral-900"
+          class="work-timeline-dot absolute left-0 top-2 z-10 size-2 rounded-full border-2 border-white/50 bg-neutral-900"
         ></span>
         <div class="flex items-start gap-4">
           <Image
