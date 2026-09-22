@@ -87,6 +87,9 @@ export const ui = {
     "footer.resume": "Resume",
     "a11y.skip": "Skip to content",
     "a11y.language": "Select language",
+    "a11y.theme": "Switch color theme",
+    "theme.toLight": "Switch to light theme",
+    "theme.toDark": "Switch to dark theme",
     "nav.menu": "Open navigation menu",
   },
   id: {
@@ -170,6 +173,9 @@ export const ui = {
     "footer.resume": "Resume",
     "a11y.skip": "Lewati ke konten",
     "a11y.language": "Pilih bahasa",
+    "a11y.theme": "Ganti tema warna",
+    "theme.toLight": "Beralih ke tema terang",
+    "theme.toDark": "Beralih ke tema gelap",
     "nav.menu": "Buka menu navigasi",
   },
 } as const;
