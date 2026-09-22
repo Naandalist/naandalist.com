@@ -20,7 +20,7 @@ const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
 >
   <a
     href={projectUrl}
-    class="relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-gradient-to-r from-cyan-500 to-blue-500"
+    class="relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-white/5 outline outline-1 -outline-offset-1 outline-white/10"
   >
     {
       entry.data.imageUrl ? (
@@ -74,7 +74,7 @@ const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
             href={entry.data.liveURL || entry.data.repoURL}
             target="_blank"
             rel="noopener noreferrer"
-            class="shrink-0 p-2 rounded-md hover:opacity-70 transition-opacity duration-200 ml-auto translate-y-0.5"
+            class="shrink-0 p-2 rounded-md hover:opacity-70 active:scale-[0.96] motion-reduce:active:scale-100 transition-[opacity,transform] duration-150 ease ml-auto translate-y-0.5"
             aria-label="Open project link"
           >
             <img
