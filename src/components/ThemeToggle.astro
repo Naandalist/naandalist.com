@@ -47,12 +47,35 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
 <script>
   const storageKey = "theme";
+  type Theme = "dark" | "light";
 
-  const setTheme = (theme: "dark" | "light") => {
+  const getDefaultTheme = (): Theme =>
+    window.matchMedia?.("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
+
+  const getTheme = (): Theme => {
+    try {
+      const savedTheme = localStorage.getItem(storageKey);
+      if (savedTheme === "light" || savedTheme === "dark") return savedTheme;
+    } catch {
+      return "dark";
+    }
+
+    return getDefaultTheme();
+  };
+
+  const setTheme = (theme: Theme, persist = true) => {
     const root = document.documentElement;
     root.dataset.theme = theme;
     root.style.colorScheme = theme;
-    localStorage.setItem(storageKey, theme);
+    if (persist) {
+      try {
+        localStorage.setItem(storageKey, theme);
+      } catch {
+        // Keep the selected theme for this page when storage is unavailable.
+      }
+    }
 
     document.querySelectorAll("[data-theme-toggle]").forEach((element) => {
       const button = element as HTMLButtonElement;
@@ -72,8 +95,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
   };
 
   const initThemeToggle = () => {
-    const theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
-    setTheme(theme);
+    setTheme(getTheme(), false);
     document.querySelectorAll("[data-theme-toggle]").forEach((element) => {
       const button = element as HTMLButtonElement;
       if (button.dataset.themeBound === "true") return;
