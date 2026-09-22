@@ -38,7 +38,7 @@ const { entries, compact = false } = Astro.props;
           <Image
             src={entry.data.logoUrl}
             alt={`${entry.data.company} logo`}
-            class="mt-0.5 h-12 w-12 rounded object-contain"
+            class="mt-0.5 h-12 w-12 rounded object-contain outline outline-1 -outline-offset-1 outline-white/10"
             width={96}
             height={96}
             densities={[1, 2]}
