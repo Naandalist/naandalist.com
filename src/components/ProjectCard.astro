@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 import { normalizeSlug } from "@lib/utils";
@@ -13,6 +13,25 @@ const { entry, lang = "en" } = Astro.props;
 const baseUrl = lang === "id" ? "/id" : "";
 const cleanSlug = normalizeSlug(entry.id);
 const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
+const projectImage = entry.data.imageUrl;
+const mobileImageWidths = [384, 640, 768] as const;
+const mobileImageSrcset = projectImage
+  ? (
+      await Promise.all(
+        mobileImageWidths.map(async (width) => {
+          const image = await getImage({
+            src: projectImage,
+            width,
+            height: Math.round((width * 128) / 338),
+            fit: "cover",
+            format: "webp",
+          });
+
+          return `${image.src} ${width}w`;
+        }),
+      )
+    ).join(", ")
+  : undefined;
 ---
 
 <div
@@ -23,16 +42,23 @@ const projectUrl = `${baseUrl}/projects/${cleanSlug}`;
     class="relative w-full sm:w-48 h-32 shrink-0 overflow-hidden rounded-md bg-white/5 outline outline-1 -outline-offset-1 outline-white/10"
   >
     {
-      entry.data.imageUrl ? (
-        <Image
-          src={entry.data.imageUrl}
-          alt={`${entry.data.title} preview`}
-          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          width={384}
-          height={256}
-          widths={[384, 768]}
-          sizes="(max-width: 640px) 100vw, 384px"
-        />
+      projectImage ? (
+        <picture>
+          <source
+            media="(max-width: 639px)"
+            srcset={mobileImageSrcset}
+            sizes="calc(100vw - 72px)"
+          />
+          <Image
+            src={projectImage}
+            alt={`${entry.data.title} preview`}
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            width={384}
+            height={256}
+            widths={[384, 768]}
+            sizes="384px"
+          />
+        </picture>
       ) : (
         <div class="flex h-full w-full items-center justify-center">
           <img
