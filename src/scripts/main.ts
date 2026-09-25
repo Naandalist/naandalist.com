@@ -1,3 +1,8 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 let isScrollListenerBound = false;
 
 function init() {
@@ -23,12 +28,32 @@ function init() {
 }
 
 function animate() {
-  const animateElements = document.querySelectorAll(".animate");
+  ScrollTrigger.getAll().forEach((t) => t.kill());
 
-  animateElements.forEach((element, index) => {
-    setTimeout(() => {
-      element.classList.add("show");
-    }, index * 150);
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  gsap.utils.toArray<HTMLElement>(".animate").forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 24 });
+
+    if (prefersReduced) {
+      gsap.set(el, { opacity: 1, y: 0 });
+      return;
+    }
+
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 0.4,
+      delay: i * 0.04,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 90%",
+        once: true,
+      },
+    });
   });
 }
 
