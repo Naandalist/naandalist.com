@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from "astro:transitions";
+
 import { SITE } from "@constants";
 import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
@@ -50,6 +52,7 @@ const t = useTranslations(lang);
 <!doctype html>
 <html lang={lang} class={cn(fullscreen && "overflow-hidden")}>
   <head>
+    <ClientRouter />
     <script is:inline>
       (() => {
         try {
