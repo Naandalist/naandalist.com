@@ -103,6 +103,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         document.documentElement.classList.add("theme-switching");
         setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
         requestAnimationFrame(() => document.documentElement.classList.remove("theme-switching"));
+        window.shakeElement?.(button);
       });
       button.dataset.themeBound = "true";
     });
