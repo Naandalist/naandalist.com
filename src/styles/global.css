@@ -246,6 +246,33 @@ article {
   }
 }
 
+/* Page-transition crossfade (Astro ClientRouter) */
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 150ms ease-out both vt-fade-out;
+}
+::view-transition-new(root) {
+  animation: 200ms ease-out both vt-fade-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 html #back-to-top {
   @apply opacity-0 pointer-events-none;
 }
