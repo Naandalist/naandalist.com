@@ -163,10 +163,15 @@ const navItems = [
     toggleButton.addEventListener("click", () => {
       const isOpen = toggleButton.getAttribute("aria-expanded") === "true";
       setMenuState(!isOpen);
+      window.shakeElement?.(toggleButton);
     });
 
     mobileNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => setMenuState(false));
+    });
+
+    header.querySelectorAll("nav a").forEach((link) => {
+      link.addEventListener("click", () => window.shakeElement?.(link));
     });
 
     window.addEventListener("resize", () => {
