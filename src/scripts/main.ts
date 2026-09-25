@@ -77,5 +77,21 @@ function goToPreviousPage() {
   window.history.back();
 }
 
+const SHAKE_KEYFRAMES = [
+  { transform: "rotate(0deg) scale(1)" },
+  { transform: "rotate(-12deg) scale(1.1)" },
+  { transform: "rotate(10deg) scale(1.1)" },
+  { transform: "rotate(-6deg) scale(1.05)" },
+  { transform: "rotate(3deg) scale(1)" },
+  { transform: "rotate(0deg) scale(1)" },
+];
+
+function shakeElement(el: HTMLElement) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  el.animate(SHAKE_KEYFRAMES, { duration: 500, easing: "ease-out" });
+}
+
+window.shakeElement = shakeElement;
+
 document.addEventListener("DOMContentLoaded", init);
 document.addEventListener("astro:page-load", init);
