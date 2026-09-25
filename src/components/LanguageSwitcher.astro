@@ -113,15 +113,17 @@ const menuPositionClass =
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  const initLanguageSwitchers = () => {
     const switchers = document.querySelectorAll(".language-switcher");
 
     switchers.forEach((switcher) => {
-      const button = switcher.querySelector("[data-language-toggle]");
+      const button = switcher.querySelector("[data-language-toggle]") as HTMLButtonElement;
       const menu = switcher.querySelector(".dropdown-menu") as HTMLElement;
       const arrow = switcher.querySelector(".dropdown-arrow") as HTMLElement;
 
       if (!button || !menu || !arrow) return;
+      if (button.dataset.langBound === "true") return;
+      button.dataset.langBound = "true";
 
       const setOpen = (isOpen: boolean) => {
         menu.classList.toggle("opacity-100", isOpen);
@@ -139,5 +141,8 @@ const menuPositionClass =
 
       document.addEventListener("click", () => setOpen(false));
     });
-  });
+  };
+
+  document.addEventListener("DOMContentLoaded", initLanguageSwitchers);
+  document.addEventListener("astro:page-load", initLanguageSwitchers);
 </script>
