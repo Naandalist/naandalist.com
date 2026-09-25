@@ -208,44 +208,6 @@ article {
   }
 }
 
-.animate {
-  @apply transition-[opacity,transform] duration-[240ms] ease-[cubic-bezier(0.23,1,0.32,1)];
-  @starting-style {
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-}
-
-/* Fallback for browsers without @starting-style support */
-@supports not (selector(:has(*))) {
-  .animate {
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-  .animate.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate {
-    @apply transition-opacity duration-200 ease-out;
-  }
-
-  .animate,
-  .animate.show {
-    transform: none;
-  }
-
-  .animate {
-    @starting-style {
-      opacity: 0;
-      transform: none;
-    }
-  }
-}
-
 /* Page-transition crossfade (Astro ClientRouter) */
 @keyframes vt-fade-out {
   to {
