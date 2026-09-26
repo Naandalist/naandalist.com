@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Zero One Group">
-  <rect width="128" height="128" rx="24" fill="#111111"/>
-  <text x="64" y="78" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#18dcff">01</text>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zero One Group">
+  <rect width="100" height="100" rx="48" fill="#000000"/>
+  <path d="M40.6847 38.1566C47.1059 38.1566 52.3295 43.4041 52.3295 49.8547C52.3295 56.3053 47.1059 61.5528 40.6847 61.5528C34.2634 61.5528 29.0398 56.3053 29.0398 49.8547C29.0398 43.4041 34.2634 38.1566 40.6847 38.1566ZM40.6847 26.0625C27.6041 26.0625 17 36.7143 17 49.8547C17 62.9951 27.6041 73.6476 40.6847 73.6476C53.7653 73.6476 64.3693 62.9951 64.3693 49.8547C64.3693 36.7143 53.7653 26.0625 40.6847 26.0625Z" fill="#FFFFFF"/>
+  <path d="M82.4171 26.0625V73.6484H68.8828V32.8606L75.65 26.0633H82.4171V26.0625ZM82.4171 26.0625V73.6484H68.8828" fill="#FFFFFF"/>
 </svg>
