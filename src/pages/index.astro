@@ -3,7 +3,7 @@ import BlogCard from '@/components/BlogCard.astro'
 import Container from '@/components/Container.astro'
 import Link from '@/components/Link.astro'
 import { ProjectsShowcase } from '@/components/features/ProjectsShowcase.tsx'
-import SpotifyPresence from '@/components/features/SpotifyPresence.tsx'
+import LastfmPresence from '@/components/features/LastfmPresence.tsx'
 import TechStackSlider from '@/components/features/TechStackSlider.tsx'
 import WakatimeBox from '@/components/features/WakatimeBox.tsx'
 import ResumeButton from '@/components/features/ResumeButton.astro'
@@ -109,9 +109,9 @@ const jsonLd = [
         <WakatimeBox omitLanguages={['Markdown', 'JSON']} client:visible />
       </div>
 
-      <div role="region" aria-label="Spotify Section"
+      <div role="region" aria-label="Last.fm Section"
         class="lg:col-span-6 flex h-44 sm:h-[210px] w-full flex-col items-start whitespace-nowrap rounded-lg border border-border bg-card/80 backdrop-blur-sm shadow-1 p-3 text-xs leading-loose text-foreground">
-        <SpotifyPresence client:visible />
+        <LastfmPresence client:visible />
       </div>
 
       <div role="region" aria-label="GitHub contributions"

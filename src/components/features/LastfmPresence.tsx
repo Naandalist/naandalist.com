@@ -1,6 +1,6 @@
 import { MoveUpRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { FaHeadphonesAlt, FaSpotify } from 'react-icons/fa'
+import { FaHeadphonesAlt, FaLastfm } from 'react-icons/fa'
 import { motion } from 'motion/react'
 import {
   getStaleWhileRevalidate,
@@ -18,7 +18,7 @@ interface Track {
   '@attr'?: { nowplaying: string }
 }
 
-const SpotifyPresence = () => {
+const LastfmPresence = () => {
   // Start empty on both server and client, then read the cache after mount.
   // Reading localStorage in the initializer makes the first client render differ from SSR.
   const [displayData, setDisplayData] = useState<Track | null>(null)
@@ -56,7 +56,7 @@ const SpotifyPresence = () => {
           <div className="mb-2 aspect-square w-28 max-w-[160px] animate-pulse rounded-lg border border-border bg-primary/10 md:w-full" />
           <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
             <div className="flex flex-col">
-              {/* Icon row: same height as the real icon and label, with the Spotify logo slot on md */}
+              {/* Icon row: same height as the real icon and label, with the Last.fm logo slot on md */}
               <span className="mt-1 mb-1 flex h-[22px] w-full items-center gap-2 sm:h-6">
                 <div className="size-[22px] shrink-0 animate-pulse rounded-full bg-primary/10" />
                 <div className="h-4 w-28 animate-pulse rounded-sm bg-primary/10" />
@@ -99,7 +99,7 @@ const SpotifyPresence = () => {
             animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
             transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.3 }}
           >
-            <FaSpotify size={36} className="text-muted-foreground/50" />
+            <FaLastfm size={36} className="text-muted-foreground/50" />
           </motion.div>
         </div>
 
@@ -109,7 +109,7 @@ const SpotifyPresence = () => {
             <span className="flex w-full items-center gap-2 text-sm text-muted-foreground">
               <FaHeadphonesAlt size={14} className="shrink-0" />
               Signal lost...
-              <FaSpotify size={24} className="ml-auto hidden shrink-0 text-muted-foreground/40 md:block" />
+              <FaLastfm size={24} className="ml-auto hidden shrink-0 text-muted-foreground/40 md:block" />
             </span>
             <span className="truncate text-lg font-bold leading-tight text-primary/80">
               Couldn't reach Last.fm API
@@ -183,7 +183,7 @@ const SpotifyPresence = () => {
                   ? 'Listening to...'
                   : 'Last played...'}
               </span>
-              <FaSpotify size={22} className="ml-auto hidden shrink-0 md:block" />
+              <FaLastfm size={22} className="ml-auto hidden shrink-0 md:block" />
             </span>
             <div className="flex flex-col">
               <span className="truncate text-base sm:text-xl font-bold leading-snug text-primary">
@@ -219,4 +219,4 @@ const SpotifyPresence = () => {
   )
 }
 
-export default SpotifyPresence
+export default LastfmPresence
