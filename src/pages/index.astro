@@ -7,7 +7,7 @@ import LastfmPresence from '@/components/features/LastfmPresence.tsx'
 import TechStackSlider from '@/components/features/TechStackSlider.tsx'
 import WakatimeBox from '@/components/features/WakatimeBox.tsx'
 import ResumeButton from '@/components/features/ResumeButton.astro'
-import ProfileFlipCard from '@/components/profile/ProfileFlipCard.tsx'
+import ProfileCard from '@/components/profile/ProfileCard.tsx'
 import { buttonVariants } from '@/components/ui/Button'
 import GithubGraph from '@/components/features/GithubGraph.tsx'
 import { SITE } from '@/consts'
@@ -78,7 +78,7 @@ const jsonLd = [
 <Layout title="Home" description={homeDescription} fullTitle="Listiananda Apriliawan" jsonLd={jsonLd}>
   <Container class="flex flex-col gap-y-6 reveal-stack">
     <section class="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,36rem)_1fr] lg:gap-10">
-      <ProfileFlipCard
+      <ProfileCard
         client:load
         name={author?.data.name ?? 'Listiananda Apriliawan'}
         role={home?.role ?? ''}
@@ -89,6 +89,7 @@ const jsonLd = [
           { kind: 'linkedin', label: 'naandalist', href: author?.data.linkedin ?? 'https://linkedin.com/in/naandalist' },
           { kind: 'github', label: 'naandalist', href: author?.data.github ?? 'https://github.com/naandalist' },
           { kind: 'photo', label: home?.galleryLabel ?? '', href: home?.galleryUrl ?? '/' },
+          { kind: 'chat', label: 'Ask my assistant', href: '/chat' },
         ]}
       />
       <div class="flex flex-col gap-4 border-l-2 border-border pl-4 sm:pl-6">

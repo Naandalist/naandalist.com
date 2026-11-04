@@ -8,8 +8,10 @@ describe('chat entry points', () => {
     expect(await Bun.file('src/components/chat/FloatingChatButton.tsx').exists()).toBe(false)
   })
 
-  it('keeps chat reachable from the profile card back and from the nav', async () => {
-    expect(await read('src/components/profile/ProfileFlipCard.tsx')).toContain('href="/chat"')
+  it('keeps chat reachable from the profile card links and from the nav', async () => {
+    const card = await read('src/pages/index.astro')
+    expect(card).toContain("kind: 'chat'")
+    expect(card).toContain("href: '/chat'")
     expect(await read('src/consts.ts')).toContain('/chat')
   })
 })
