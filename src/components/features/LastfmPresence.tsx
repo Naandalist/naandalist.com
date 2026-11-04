@@ -1,6 +1,6 @@
 import { MoveUpRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { FaHeadphonesAlt, FaLastfm } from 'react-icons/fa'
+import { FaHeadphonesAlt, FaLastfm, FaYoutube } from 'react-icons/fa'
 import { motion } from 'motion/react'
 import {
   getStaleWhileRevalidate,
@@ -16,6 +16,21 @@ interface Track {
   image: { '#text': string }[]
   url: string
   '@attr'?: { nowplaying: string }
+}
+
+// Pinned track shown while the Last.fm feed has no scrobbles yet. Remove
+// once scrobbling from YouTube Music is live.
+const PINNED_TRACK: Track = {
+  name: 'Formula 1 Theme (Live in Concert)',
+  artist: { '#text': 'Brian Tyler' },
+  album: { '#text': 'ARE WE DREAMING' },
+  image: [
+    { '#text': '' },
+    { '#text': '' },
+    { '#text': '' },
+    { '#text': 'https://i.ytimg.com/vi/8AYy-BcjRXg/maxresdefault.jpg' },
+  ],
+  url: 'https://www.youtube.com/watch?v=8AYy-BcjRXg',
 }
 
 const LastfmPresence = () => {
@@ -37,12 +52,19 @@ const LastfmPresence = () => {
       fetch('https://lastfm-last-played.biancarosa.com.br/naandalist/latest-song')
         .then((response) => response.json())
         .then((data) => {
+          // No scrobbles yet (or feed down): show the pinned track instead.
+          if (!data.track) {
+            setDisplayData(PINNED_TRACK)
+            setIsLoading(false)
+            return
+          }
           setCachedData(CACHE_KEYS.LASTFM, data.track, CACHE_TTL.LASTFM)
           setDisplayData(data.track)
           setIsLoading(false)
         })
         .catch((error) => {
           console.error('Error fetching latest song:', error)
+          setDisplayData(PINNED_TRACK)
           setIsLoading(false)
         })
     }
@@ -123,6 +145,7 @@ const LastfmPresence = () => {
       </motion.div>
     )
 
+  const isPinned = displayData === PINNED_TRACK
   const { name: song, artist, album, image, url } = displayData
 
   return (
@@ -140,7 +163,7 @@ const LastfmPresence = () => {
           height={160}
           loading="eager"
           decoding="async"
-          className="mb-2 w-28 max-w-[160px] rounded-lg border border-border grayscale md:w-full"
+          className="mb-2 aspect-square w-28 max-w-[160px] rounded-lg border border-border object-cover grayscale md:w-full"
           whileHover={{ scale: 1.05, rotate: 1.5 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         />
@@ -179,11 +202,17 @@ const LastfmPresence = () => {
                 <FaHeadphonesAlt size={22} className="shrink-0" />
               )}
               <span className="text-sm sm:text-base font-medium text-primary">
-                {displayData['@attr']?.nowplaying === 'true'
-                  ? 'Listening to...'
-                  : 'Last played...'}
+                {isPinned
+                  ? 'On repeat...'
+                  : displayData['@attr']?.nowplaying === 'true'
+                    ? 'Listening to...'
+                    : 'Last played...'}
               </span>
-              <FaLastfm size={22} className="ml-auto hidden shrink-0 md:block" />
+              {isPinned ? (
+                <FaYoutube size={22} className="ml-auto hidden shrink-0 md:block" />
+              ) : (
+                <FaLastfm size={22} className="ml-auto hidden shrink-0 md:block" />
+              )}
             </span>
             <div className="flex flex-col">
               <span className="truncate text-base sm:text-xl font-bold leading-snug text-primary">
@@ -207,8 +236,8 @@ const LastfmPresence = () => {
       </div>
       <a
         href={url}
-        aria-label="View on last.fm"
-        title="View on last.fm"
+        aria-label={isPinned ? 'Listen on YouTube' : 'View on last.fm'}
+        title={isPinned ? 'Listen on YouTube' : 'View on last.fm'}
         target="_blank"
         rel="noopener noreferrer"
         className="absolute bottom-0 right-0 m-3 flex w-fit items-end rounded-full border bg-secondary/50 p-3 text-primary transition-all duration-150 hover:rotate-12 hover:ring-1 hover:ring-primary"
