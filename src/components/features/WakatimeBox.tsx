@@ -127,6 +127,57 @@ const getLanguageIcon = (language: string): React.JSX.Element | null => {
   return Icon ? <Icon /> : null
 }
 
+/** Brand language colors (GitHub Linguist palette). These are third-party identities, not theme tokens. */
+const LANGUAGE_COLORS: Record<string, string> = {
+  typescript: '#3178c6',
+  javascript: '#f1e05a',
+  astro: '#ff5a03',
+  html: '#e34c26',
+  css: '#663399',
+  vue: '#41b883',
+  'vue.js': '#41b883',
+  rust: '#dea584',
+  go: '#00add8',
+  golang: '#00add8',
+  c: '#555555',
+  'c++': '#f34b7d',
+  'c#': '#178600',
+  csharp: '#178600',
+  'c-sharp': '#178600',
+  zig: '#ec915c',
+  java: '#b07219',
+  kotlin: '#a97bff',
+  scala: '#c22d40',
+  dart: '#00b4ab',
+  flutter: '#02569b',
+  swift: '#f05138',
+  python: '#3572a5',
+  ruby: '#701516',
+  php: '#4f5d95',
+  lua: '#000080',
+  bash: '#89e051',
+  sh: '#89e051',
+  shell: '#89e051',
+  zsh: '#89e051',
+  ocaml: '#3be133',
+  elixir: '#6e4a7e',
+  haskell: '#5e5086',
+  r: '#198ce7',
+  sql: '#e38c00',
+  postgresql: '#336791',
+  docker: '#2496ed',
+  dockerfile: '#2496ed',
+  prisma: '#2d3748',
+  graphql: '#e10098',
+  git: '#f05032',
+  markdown: '#083fa1',
+  yaml: '#cb171e',
+  tex: '#3d6117',
+}
+
+const getLanguageColor = (language: string): string | undefined =>
+  LANGUAGE_COLORS[language.toLowerCase()]
+
 interface Language {
   name: string
   hours: number
@@ -213,6 +264,7 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
 
   const CustomYAxisTick = ({ x, y, payload }: any) => {
     const icon = getLanguageIcon(payload.value.toLowerCase())
+    const color = getLanguageColor(payload.value)
     return (
       <g transform={`translate(${x},${y})`}>
         <title>{payload.value}</title>
@@ -220,7 +272,8 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
           {icon ? (
             React.cloneElement(icon, {
               size: 22,
-              className: 'text-neutral-900 dark:text-white',
+              color,
+              className: 'text-neutral-900 dark:text-white dark:brightness-125',
               'aria-hidden': 'true',
             })
           ) : (
