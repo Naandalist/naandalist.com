@@ -1,0 +1,40 @@
+# Pull Request Web Gate. Runs on pull requests to main only. Feature branches without a PR cost nothing.
+# Type check, token lint, test, build. Lighthouse runs locally (scripts/lighthouse-check.ts), not here:
+# shared runners give scores too unstable to gate on.
+
+name: Pull Request Web Gate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  gate:
+    name: Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # prisma.config.ts reads DATABASE_URL at postinstall. Dummy value, CI never connects to a database.
+      DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ hashFiles('bun.lock') }}
+      - name: Install
+        run: bun install --frozen-lockfile
+      - uses: actions/cache@v4
+        with:
+          path: .astro
+          key: astro-${{ github.head_ref }}-${{ github.sha }}
+          restore-keys: astro-${{ github.head_ref }}-
+      - name: Type check
+        run: bun run check
+      - name: Token lint
+        run: bun run check:tokens
+      - name: Test
+        run: bun test
+      - name: Build
+        run: bun run build

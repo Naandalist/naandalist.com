@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Lints before the commit exists, so CI never goes red for a forgotten check.
+# A commit is also refused with --no-verify by the dotagent hook.
+set -e
+cd "$(git rev-parse --show-toplevel)" || exit 1
+echo "==> type check"
+bun run check
+echo "==> token lint"
+bun run check:tokens
