@@ -3,22 +3,28 @@ import { describe, it, expect } from 'bun:test'
 const read = (p: string) => Bun.file(p).text()
 
 describe('profile card', () => {
-  it('has no visible flip button, only one that shows up when focused by keyboard', async () => {
-    const card = await read('src/components/profile/ProfileFlipCard.tsx')
-    expect(card).not.toContain('RotateCw')
-    expect(card).not.toMatch(/absolute right-3 top-3/)
-    expect((card.match(/sr-only focus-visible:not-sr-only/g) ?? []).length).toBe(2)
-    // The name stays a real heading, not the child of a role="button".
-    expect(card).not.toContain('role="button"')
+  it('does not flip: no flip state, back face, or tilt left in the card', async () => {
+    const card = await read('src/components/profile/ProfileCard.tsx')
+    expect(card).not.toMatch(/flipped|flip-face|flip-inner|flip-zone|tiltFromPointer|nextFlip/i)
+    const css = await read('src/styles/global.css')
+    expect(css).not.toMatch(/flip-scene|flip-tilt|flip-inner|flip-face|data-flipped/)
   })
 
-  it('can flip back by tapping the back face, since touch has no hover', async () => {
-    const card = await read('src/components/profile/ProfileFlipCard.tsx')
-    expect(card).toMatch(/flip-face-back[\s\S]{0,400}onClick/)
+  it('keeps the metal border glint as the only hover flourish', async () => {
+    const css = await read('src/styles/global.css')
+    expect(css).toContain('.metal')
+    expect(css).toMatch(/\.metal:hover::after \{ animation: metal-glint/)
+    expect(await read('src/components/profile/ProfileCard.tsx')).toContain('metal')
+  })
+
+  it('is a plain heading card, not a role="button"', async () => {
+    const card = await read('src/components/profile/ProfileCard.tsx')
+    expect(card).not.toContain('role="button"')
+    expect(card).toMatch(/<h2/)
   })
 
   it('shows the same square photo as About, without a border', async () => {
-    const card = await read('src/components/profile/ProfileFlipCard.tsx')
+    const card = await read('src/components/profile/ProfileCard.tsx')
     const img = card.match(/<img[\s\S]*?\/>/)?.[0] ?? ''
     expect(img).toContain('rounded-lg')
     expect(img).toContain('grayscale')
@@ -37,26 +43,26 @@ describe('profile card', () => {
   })
 
   it('uses a camera icon for the photo gallery link', async () => {
-    const card = await read('src/components/profile/ProfileFlipCard.tsx')
+    const card = await read('src/components/profile/ProfileCard.tsx')
     expect(card).toContain('Camera')
     expect(card).not.toContain('Globe')
     expect(await read('src/pages/index.astro')).toContain("kind: 'photo'")
   })
 
   it('stretches the text block to the photo height, name at the top and spelling at the bottom', async () => {
-    const card = await read('src/components/profile/ProfileFlipCard.tsx')
-    expect(card).toMatch(/data-flip-zone[\s\S]{0,160}items-stretch/)
+    const card = await read('src/components/profile/ProfileCard.tsx')
+    expect(card).toMatch(/flex items-stretch gap-4/)
     expect(card).toMatch(/min-w-0 flex flex-col justify-between/)
   })
 
-  it('is a shorter card on desktop', async () => {
-    const card = await read('src/components/profile/ProfileFlipCard.tsx')
-    expect(card).toContain('sm:h-72')
+  it('keeps the same card height as before', async () => {
+    const card = await read('src/components/profile/ProfileCard.tsx')
+    expect(card).toContain('h-80 sm:h-72')
     expect(card).not.toContain('sm:h-88')
   })
 
   it('uses a smaller photo and a stronger role line', async () => {
-    const card = await read('src/components/profile/ProfileFlipCard.tsx')
+    const card = await read('src/components/profile/ProfileCard.tsx')
     const img = card.match(/<img[\s\S]*?\/>/)?.[0] ?? ''
     expect(img).toContain('size-16 sm:size-20')
     expect(card).toMatch(/text-sm font-medium text-foreground sm:text-base">\{role\}/)
