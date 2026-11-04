@@ -188,7 +188,7 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
           .filter(
             (lang: { name: string }) => !omitLanguages.includes(lang.name),
           )
-          .slice(0, 4)
+          .slice(0, 5)
           .map(
             (
               lang: { name: string; total_seconds: number },
@@ -242,11 +242,11 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
 
   if (isLoading)
     return (
-      // Mirrors the real chart: p-4 content box split into four equal bands, a 22px icon slot, and bars
+      // Mirrors the real chart: p-4 content box split into five equal bands, a 22px icon slot, and bars
       // at 80% of the band. The spacer on the right keeps room for the value label.
       <div className="size-full p-4">
-        <div className="grid h-full grid-rows-4">
-          {['100%', '72%', '45%', '30%'].map((width) => (
+        <div className="grid h-full grid-rows-5">
+          {['100%', '72%', '45%', '30%', '20%'].map((width) => (
             <div key={width} className="flex">
               <div className="flex w-10 shrink-0 items-center pl-1">
                 <div className="size-[22px] animate-pulse rounded-full bg-primary/10" />
