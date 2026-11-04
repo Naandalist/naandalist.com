@@ -15,7 +15,8 @@ const STEP = CELL + GAP
 /** Used for the server render and the first client render, before the real width is known. */
 const DEFAULT_WEEKS = 26
 
-const LEVEL_CLASS = ['bg-foreground/10', 'bg-foreground/25', 'bg-foreground/45', 'bg-foreground/70', 'bg-foreground/95'] as const
+/** Level 0 (no activity) stays neutral; active days ramp up the additive (green) token. */
+const LEVEL_CLASS = ['bg-foreground/10', 'bg-additive/30', 'bg-additive/55', 'bg-additive/80', 'bg-additive'] as const
 
 export default function GithubGraph({ weeks: initialWeeks, total: initialTotal, profileUrl }: Props) {
   // Starts with the build-time data, then swaps in fresh data from /api/contributions after mount.
