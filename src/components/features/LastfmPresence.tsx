@@ -163,7 +163,7 @@ const LastfmPresence = () => {
           height={160}
           loading="eager"
           decoding="async"
-          className="mb-2 aspect-square w-28 max-w-[160px] rounded-lg border border-border object-cover grayscale md:w-full"
+          className="mb-2 aspect-square w-28 max-w-[160px] rounded-lg border border-border object-cover md:w-full"
           whileHover={{ scale: 1.05, rotate: 1.5 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         />

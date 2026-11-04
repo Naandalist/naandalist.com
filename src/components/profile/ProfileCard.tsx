@@ -53,7 +53,7 @@ export default function ProfileCard({ name, role, pronunciation, avatar, links }
           height={80}
           decoding="async"
           fetchPriority="high"
-          className="size-16 sm:size-20 shrink-0 rounded-lg object-cover grayscale contrast-125 bg-secondary/40"
+          className="size-16 sm:size-20 shrink-0 rounded-lg object-cover bg-secondary/40"
         />
         <div className="min-w-0 flex flex-col justify-between">
           <h2 className="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{name}</h2>

@@ -378,7 +378,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
               handleError()
             }}
             className={`h-full w-full object-cover transition-all duration-200 ease-out ${
-              hovered ? 'grayscale-0 scale-[1.02]' : 'grayscale scale-100'
+              hovered ? 'scale-[1.02]' : 'scale-100'
             }`}
           />
         ) : assetSrc ? (
@@ -390,7 +390,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
             decoding="async"
             onError={handleError}
             className={`h-full w-full object-cover transition-all duration-200 ease-out ${
-              hovered ? 'grayscale-0 scale-[1.02]' : 'grayscale scale-100'
+              hovered ? 'scale-[1.02]' : 'scale-100'
             }`}
           />
         ) : (
