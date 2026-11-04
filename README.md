@@ -17,13 +17,13 @@
 
 ### about this repo
 
-Source code for [naandalist.com](https://naandalist.com) built with Astro. This website showcases a portfolio, blog, AI chatbot assistant, and interactive widgets such as live Spotify presence, Wakatime coding analytics, and an interactive project showcase.
+Source code for [naandalist.com](https://naandalist.com) built with Astro. This website showcases a portfolio, blog, AI chatbot assistant, and interactive widgets such as live Last.fm presence, Hackatime coding analytics, and an interactive project showcase.
 
 Additional features developed from built-in features of the public template [Astro Erudite](https://github.com/jktrn/astro-erudite) by [jktrn](https://github.com/jktrn):
 
 - **AI Chatbot**: Personal conversational assistant answering questions using Retrieval-Augmented Generation (RAG) with [Pinecone Vector DB](https://pinecone.io), [Google Gemini / OpenAI](https://ai-sdk.dev), and [Vercel AI SDK](https://sdk.vercel.ai).
-- **Spotify Status**: Real-time live presence displaying currently playing and recently scrobbled tracks using [Spotify](https://spotify.com) and [Last.fm](https://last.fm) APIs with SWR caching.
-- **Wakatime Analytics**: Weekly coding time breakdown across languages directly from the [Wakatime API](https://wakatime.com) with dynamic dark/light mode icons.
+- **Last.fm Status**: Real-time live presence displaying currently playing and recently scrobbled tracks from [Last.fm](https://last.fm) (scrobbled from YouTube Music via the Web Scrobbler extension) through the lastfm-last-played proxy with SWR caching.
+- **Hackatime Analytics**: All-time coding time breakdown across languages directly from the [Hackatime API](https://hackatime.hackclub.com) with dynamic dark/light mode icons.
 - **Projects Showcase**: Interactive portfolio grid featuring smooth media video previews, modal dialogs, and responsive category filtering.
 - **Tech Stack Slider**: 3D-sculpted marquee slider displaying programming languages, frameworks, and cloud infrastructure tools.
 - **Blog**: MDX content collections with tags, reading time, and post navigation.
