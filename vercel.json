@@ -1,0 +1,17 @@
+{
+  "bunVersion": "1.4.x",
+  "headers": [
+    {
+      "source": "/fonts/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(static|assets)/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
+    },
+    {
+      "source": "/((?!_astro/|static/|assets/|fonts/|favicons/).*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate, no-transform" }]
+    }
+  ]
+}
