@@ -177,23 +177,28 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
 
     // Fetch fresh data if cache miss
     fetch(
-      'https://wakatime.com/share/@naandalist/5313bb35-0b69-4080-9b36-87d958bf7730.json',
+      'https://hackatime.hackclub.com/api/v1/users/Huruhara/stats?framework=all',
     )
       .then((response) => {
         if (!response.ok) throw new Error('Failed to fetch data')
         return response.json()
       })
       .then((data) => {
-        const filteredLanguages = data.data
+        const filteredLanguages = data.data.languages
           .filter(
             (lang: { name: string }) => !omitLanguages.includes(lang.name),
           )
           .slice(0, 4)
-          .map((lang: { name: string; hours: number }, index: number) => ({
-            name: lang.name,
-            hours: Number(lang.hours.toFixed(2)),
-            fill: colors[index % colors.length],
-          }))
+          .map(
+            (
+              lang: { name: string; total_seconds: number },
+              index: number,
+            ) => ({
+              name: lang.name,
+              hours: Number((lang.total_seconds / 3600).toFixed(2)),
+              fill: colors[index % colors.length],
+            }),
+          )
 
         // Cache the result for faster subsequent loads
         setCachedData(CACHE_KEYS.WAKATIME, filteredLanguages, CACHE_TTL.WAKATIME)
