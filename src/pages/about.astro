@@ -1,0 +1,86 @@
+---
+import EditorialProfileCard from '@/components/EditorialProfileCard.astro'
+import PhotoCollage from '@/components/features/PhotoCollage.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Container from '@/components/Container.astro'
+import AboutScene from '@/components/features/AboutScene.astro'
+import { renderInline } from '@/lib/inline-markup'
+import { Icon } from 'astro-icon/components'
+import { SITE } from '@/consts'
+import Layout from '@/layouts/Layout.astro'
+import { getEntry } from 'astro:content'
+import { describe, personLd, profilePageLd } from '@/lib/jsonld'
+
+const author = await getEntry('authors', 'naandalist')
+const about = author?.data.about
+const aboutUrl = new URL('/about/', Astro.site).href
+const aboutDescription = describe(about?.intro ?? SITE.DESCRIPTION)
+const jsonLd = [
+  profilePageLd({
+    url: aboutUrl,
+    person: personLd({
+      name: author?.data.name ?? 'Listiananda Apriliawan',
+      alternateName: 'Peka',
+      url: new URL('/', Astro.site).href,
+      image: new URL('/static/profile/avatar.png', Astro.site).href,
+      jobTitle: author?.data.home?.role ?? author?.data.role,
+      description: aboutDescription,
+      sameAs: [author?.data.github, author?.data.linkedin, author?.data.instagram, author?.data.twitter],
+    }),
+  }),
+]
+---
+
+<Layout title="About" description={aboutDescription} jsonLd={jsonLd}>
+  <Container class="flex flex-col gap-y-6">
+    <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
+
+    {author && (
+      <EditorialProfileCard
+        id={author.id}
+        name={author.data.name}
+        avatar={author.data.avatar}
+        bio={author.data.bio}
+        role={author.data.role}
+        location={author.data.location}
+        pronouns={author.data.pronouns}
+        github={author.data.github}
+        linkedin={author.data.linkedin}
+        instagram={author.data.instagram}
+        website={author.data.website}
+        mail={author.data.mail}
+        linkDisabled
+      />
+    )}
+
+    {about && (
+      <section class="reveal-stack grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-12" aria-label="About me">
+        <article class="about-card flex flex-col gap-4 p-6 lg:col-span-7">
+          <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{about.whoLabel}</p>
+          <h2 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{about.greeting}</h2>
+          <p class="text-base text-muted-foreground" set:html={renderInline(about.intro)} />
+        </article>
+
+        <AboutScene class="lg:col-span-5" label={about.sceneLabel} nickname={about.nickname} bubbles={about.bubbles} />
+
+        <article class="about-card flex flex-col gap-4 p-6 lg:col-span-12">
+          <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{about.buildLabel}</p>
+          <p class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{about.buildTitle}</p>
+          <p class="text-base text-muted-foreground" set:html={renderInline(about.buildBody)} />
+        </article>
+
+        {about.highlights.map((m, i) => (
+          <article class="about-card flex items-start gap-4 p-4 lg:col-span-4" style={`--i:${i}`}>
+            <span class="orb" aria-hidden="true"><Icon name={m.icon} class="size-6" /></span>
+            <div class="flex flex-col gap-1">
+              <h3 class="text-lg font-bold leading-tight text-primary/80">{m.title}</h3>
+              <p class="text-sm text-muted-foreground">{m.text}</p>
+            </div>
+          </article>
+        ))}
+      </section>
+    )}
+
+    <PhotoCollage />
+  </Container>
+</Layout>

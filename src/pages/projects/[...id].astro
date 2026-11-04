@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects')
+  return projects.map((p) => {
+    // Consistent slugify logic
+    const slug = p.data.name
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+    
+    return {
+      params: { id: slug },
+    }
+  })
+}
+
+return Astro.redirect('/?project=' + Astro.params.id)
+---

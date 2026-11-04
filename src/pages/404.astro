@@ -1,0 +1,75 @@
+---
+import ErrorPage from '@/components/ErrorPage.astro'
+import Link from '@/components/Link.astro'
+import { buttonVariants } from '@/components/ui/Button'
+import Layout from '@/layouts/Layout.astro'
+import { cn } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+import { getCollection } from 'astro:content'
+
+const recent = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+---
+
+<Layout title="Page not found" description="This page does not exist." noindex>
+  <ErrorPage
+    crumb="Not found"
+    icon="lucide:circle-help"
+    code="404"
+    codeLabel="Page not found"
+    title="Nothing here."
+    text="The link may be old, or the page moved. Head back home, or pick up from the blog."
+    bubbles={['Nothing at this address.', 'It may have moved, or the link is too old.']}
+  >
+    <Link href="/" class={cn(buttonVariants({ variant: 'outline' }), 'group flex gap-x-1.5')}>
+      <span class="transition-transform group-hover:-translate-x-1">&larr;</span> Home
+    </Link>
+    <Link href="/blog" class={cn(buttonVariants({ variant: 'outline' }))}>Blog</Link>
+
+    <!-- Shown only on a missing blog address, so a dead post link still leads somewhere useful. -->
+    <div slot="after" id="blog-recent" hidden class="flex flex-col gap-2">
+      <p class="text-sm text-muted-foreground">Maybe you wanted to read one of these?</p>
+      <ul class="flex flex-col gap-2">
+        {recent.map((p) => (
+          <li class="flex items-center gap-2">
+            <Icon name="lucide:file-text" class="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+            <Link href={`/blog/${p.id}`} class="text-foreground underline underline-offset-4">{p.data.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </ErrorPage>
+</Layout>
+
+<script is:inline>
+  // A missing blog address gets its own words. The page is static, so the default copy is in the HTML
+  // and this swaps it before the first paint. Without JavaScript the generic copy stays.
+  ;(() => {
+    const blog = {
+      title: 'This post is still a draft in my head.',
+      text: 'Nothing is published at this address. The title may have changed, or I never got around to writing it.',
+      label: 'Post not found',
+      bubbles: ['I looked through every shelf of the blog, and this post is not on any of them.', 'The posts below are real, so you can start with one of those instead.'],
+    }
+    const apply = () => {
+      const box = document.getElementById('blog-recent')
+      const isBlog = location.pathname.startsWith('/blog')
+      if (box) box.hidden = !isBlog
+      if (!isBlog) return
+      const set = (sel, text) => {
+        const el = document.querySelector(sel)
+        if (el) el.textContent = text
+      }
+      set('[data-error="title"]', blog.title)
+      set('[data-error="text"]', blog.text)
+      set('[data-scene="label"]', blog.label)
+      document.querySelectorAll('[data-scene="bubble"]').forEach((el, i) => {
+        if (blog.bubbles[i]) el.textContent = blog.bubbles[i]
+      })
+    }
+    apply()
+    document.addEventListener('astro:page-load', apply)
+  })()
+</script>

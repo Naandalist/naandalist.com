@@ -1,0 +1,21 @@
+---
+import Container from '@/components/Container.astro'
+import Layout from '@/layouts/Layout.astro'
+import ChatInterface from '@/components/chat/ChatInterface.tsx'
+---
+
+<Layout title="Chat with me" description="Chat with me - Ask anything about me">
+  <Container class="flex flex-col gap-y-6">
+    <div class="flex-1 min-h-[60dvh]">
+      <ChatInterface client:load />
+    </div>
+  </Container>
+</Layout>
+
+<style>
+  /* Ensure the chat interface takes full height */
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

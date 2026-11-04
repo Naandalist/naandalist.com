@@ -1,0 +1,160 @@
+---
+import BlogCard from '@/components/BlogCard.astro'
+import Container from '@/components/Container.astro'
+import Link from '@/components/Link.astro'
+import { ProjectsShowcase } from '@/components/features/ProjectsShowcase.tsx'
+import SpotifyPresence from '@/components/features/SpotifyPresence.tsx'
+import TechStackSlider from '@/components/features/TechStackSlider.tsx'
+import WakatimeBox from '@/components/features/WakatimeBox.tsx'
+import ResumeButton from '@/components/features/ResumeButton.astro'
+import ProfileFlipCard from '@/components/profile/ProfileFlipCard.tsx'
+import { buttonVariants } from '@/components/ui/Button'
+import GithubGraph from '@/components/features/GithubGraph.tsx'
+import { SITE } from '@/consts'
+import { loadContributions } from '@/lib/github'
+import { memo, withTimeout } from '@/lib/memo'
+import Layout from '@/layouts/Layout.astro'
+import { getImage } from 'astro:assets'
+import { getCollection, getEntry } from 'astro:content'
+import { describe, personLd, websiteLd } from '@/lib/jsonld'
+
+const author = await getEntry('authors', 'naandalist')
+const home = author?.data.home
+// Fetch the avatar at build time and serve it from this origin as webp (falls back to the remote URL).
+const avatarRemote = (author?.data.avatar ?? '/static/profile/avatar.png').replace('size=96', 'size=192')
+const avatarSrc = await memo('home-avatar', 60 * 60 * 1000, () =>
+  withTimeout(getImage({ src: avatarRemote, width: 160, height: 160, format: 'webp' }).then((i) => i.src), 6000, avatarRemote),
+).catch(() => avatarRemote)
+
+// Fetched at build time and cached in memory, so dev navigation does not wait on GitHub each time.
+// A GITHUB_TOKEN env var makes it use the GraphQL API.
+const contributions = await memo('home-contributions', 10 * 60 * 1000, () =>
+  loadContributions({ user: 'naandalist', token: import.meta.env.GITHUB_TOKEN }),
+)
+
+const blog = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE)
+
+const rawProjects = (await getCollection('projects'))
+  .sort((a, b) => {
+    // date is 'Month Year' string e.g. 'May 2025' — parse to Date for comparison
+    const toDate = (d?: string) => d ? new Date(d) : new Date(0)
+    return toDate(b.data.date).valueOf() - toDate(a.data.date).valueOf()
+  })
+const projectsData = rawProjects.map((p) => ({
+  name: p.data.name,
+  description: p.data.description,
+  tags: p.data.tags,
+  type: p.data.type ?? [],
+  asset: p.data.asset,
+  fallback: p.data.fallback,
+  link: p.data.link,
+  github: p.data.github,
+  date: p.data.date,
+  techStack: p.data.techStack,
+}))
+const siteUrl = new URL('/', Astro.site).href
+const homeDescription = describe(author?.data.home?.tagline ?? SITE.DESCRIPTION)
+const jsonLd = [
+  websiteLd({ name: SITE.TITLE, alternateName: ['naandalist'], url: siteUrl, description: homeDescription }),
+  {
+    '@context': 'https://schema.org',
+    ...personLd({
+      name: author?.data.name ?? 'Listiananda Apriliawan',
+      alternateName: 'Peka',
+      url: siteUrl,
+      image: new URL('/static/profile/avatar.png', siteUrl).href,
+      jobTitle: author?.data.home?.role ?? author?.data.role,
+      description: homeDescription,
+      email: author?.data.mail,
+      sameAs: [author?.data.github, author?.data.linkedin, author?.data.instagram, author?.data.twitter],
+    }),
+  },
+]
+---
+
+<Layout title="Home" description={homeDescription} fullTitle="Listiananda Apriliawan" jsonLd={jsonLd}>
+  <Container class="flex flex-col gap-y-6 reveal-stack">
+    <section class="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,36rem)_1fr] lg:gap-10">
+      <ProfileFlipCard
+        client:load
+        name={author?.data.name ?? 'Listiananda Apriliawan'}
+        role={home?.role ?? ''}
+        pronunciation={home?.pronunciation}
+        avatar={avatarSrc}
+        links={[
+          { kind: 'mail', label: author?.data.mail ?? 'me@naandalist.com', href: `mailto:${author?.data.mail ?? 'me@naandalist.com'}` },
+          { kind: 'linkedin', label: 'naandalist', href: author?.data.linkedin ?? 'https://linkedin.com/in/naandalist' },
+          { kind: 'github', label: 'naandalist', href: author?.data.github ?? 'https://github.com/naandalist' },
+          { kind: 'photo', label: home?.galleryLabel ?? '', href: home?.galleryUrl ?? '/' },
+        ]}
+      />
+      <div class="flex flex-col gap-4 border-l-2 border-border pl-4 sm:pl-6">
+        <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{home?.eyebrow}</p>
+        <h1 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{home?.headline}</h1>
+        <p class="max-w-md text-sm text-muted-foreground">
+          {home?.tagline}
+        </p>
+        <div class="shrink-0">
+          <ResumeButton resumeUrl={author?.data.resume} />
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-12">
+      <div role="region" aria-label="Wakatime Section"
+        class="lg:col-span-6 flex h-44 sm:h-[210px] w-full flex-col items-start whitespace-nowrap rounded-lg border border-border bg-card/80 backdrop-blur-sm shadow-1 p-3 text-xs leading-loose text-foreground">
+        <WakatimeBox omitLanguages={['Markdown', 'JSON']} client:visible />
+      </div>
+
+      <div role="region" aria-label="Spotify Section"
+        class="lg:col-span-6 flex h-44 sm:h-[210px] w-full flex-col items-start whitespace-nowrap rounded-lg border border-border bg-card/80 backdrop-blur-sm shadow-1 p-3 text-xs leading-loose text-foreground">
+        <SpotifyPresence client:visible />
+      </div>
+
+      <div role="region" aria-label="GitHub contributions"
+        class="flex min-h-60 sm:min-h-72 w-full min-w-0 flex-col rounded-lg border border-border bg-card/80 p-4 text-foreground shadow-1 backdrop-blur-sm lg:col-span-7">
+        <GithubGraph client:visible weeks={contributions.weeks} total={contributions.total} profileUrl="https://github.com/naandalist" />
+      </div>
+
+      <div role="region" aria-label="Tech Stack"
+        class="flex min-h-64 sm:min-h-72 w-full flex-col overflow-hidden rounded-lg border border-border bg-card/80 p-4 text-xs text-foreground shadow-1 backdrop-blur-sm lg:col-span-5">
+        <TechStackSlider client:idle />
+      </div>
+
+    </section>
+
+    <section class="flex flex-col gap-y-4">
+      <ProjectsShowcase projects={projectsData} client:load />
+    </section>
+
+    <section class="flex flex-col gap-y-4">
+      <div class="flex items-center gap-4">
+        <h2 class="shrink-0 font-title text-2xl max-sm:leading-tight sm:text-display-sm">Latest posts</h2>
+        {/* <div className="h-px flex-1 bg-border" /> */}
+      </div>
+      <ul class="not-prose flex flex-col gap-y-4">
+        {
+          blog.map((post) => (
+            <li>
+              <BlogCard entry={post} />
+            </li>
+          ))
+        }
+      </ul>
+      <div class="flex justify-center">
+        <Link
+          href="/blog"
+          class={buttonVariants({ variant: 'ghost' }) + ' group'}
+        >
+          See all posts <span
+            class="ml-1.5 transition-transform group-hover:translate-x-1"
+            >&rarr;</span
+          >
+        </Link>
+      </div>
+    </section>
+  </Container>
+</Layout>

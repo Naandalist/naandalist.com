@@ -1,0 +1,88 @@
+---
+import EditorialProfileCard from '@/components/EditorialProfileCard.astro'
+import BlogCard from '@/components/BlogCard.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Container from '@/components/Container.astro'
+import Layout from '@/layouts/Layout.astro'
+import { type CollectionEntry, getCollection } from 'astro:content'
+import { getImage } from 'astro:assets'
+
+export async function getStaticPaths() {
+  const authors = await getCollection('authors')
+  return authors.map((author) => ({
+    params: { id: author.id },
+    props: { author },
+  }))
+}
+
+type Props = {
+  author: CollectionEntry<'authors'>
+}
+
+const { author } = Astro.props
+
+let optimizedAvatar = author.data.avatar
+if (author.data.avatar && !author.data.avatar.startsWith("http")) {
+  try {
+    const img = await getImage({ src: author.data.avatar, width: 256, format: "webp", inferSize: true })
+    optimizedAvatar = img.src
+  } catch (e) {}
+}
+
+const allPosts = await getCollection('blog')
+const authorPosts = allPosts
+  .filter((post) => {
+    return post.data.authors && post.data.authors.includes(author.id)
+  })
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+---
+
+<Layout
+  title={`${author.data.name} (Author)`}
+  description={author.data.bio || `Profile of ${author.data.name}.`}
+>
+  <Container class="flex flex-col gap-y-6">
+    <Breadcrumbs
+      items={[
+        { href: '/about', label: 'About', icon: 'lucide:info' },
+        { label: author.data.name, icon: 'lucide:user' },
+      ]}
+    />
+
+    <section>
+      <EditorialProfileCard
+        id={author.id}
+        name={author.data.name}
+        avatar={optimizedAvatar}
+        bio={author.data.bio}
+        role={author.data.role}
+        location={author.data.location}
+        pronouns={author.data.pronouns}
+        github={author.data.github}
+        linkedin={author.data.linkedin}
+        instagram={author.data.instagram}
+        website={author.data.website}
+        mail={author.data.mail}
+        linkDisabled
+      />
+    </section>
+    <section class="flex flex-col gap-y-4">
+      <h2 class="text-2xl font-semibold">Posts by {author.data.name}</h2>
+      {
+        authorPosts.length > 0 ? (
+          <ul class="not-prose flex flex-col gap-4">
+            {authorPosts.filter(post => !post.data.draft).map((post) => (
+              <li>
+                <BlogCard entry={post} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="text-muted-foreground">
+            No posts available from this author.
+          </p>
+        )
+      }
+    </section>
+  </Container>
+</Layout>
