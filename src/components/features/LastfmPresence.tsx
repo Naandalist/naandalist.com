@@ -21,16 +21,16 @@ interface Track {
 // Pinned track shown while the Last.fm feed has no scrobbles yet. Remove
 // once scrobbling from YouTube Music is live.
 const PINNED_TRACK: Track = {
-  name: 'Formula 1 Theme (Live in Concert)',
-  artist: { '#text': 'Brian Tyler' },
-  album: { '#text': 'ARE WE DREAMING' },
+  name: 'Film Favorit',
+  artist: { '#text': 'Sheila on 7' },
+  album: { '#text': 'Film Favorit' },
   image: [
     { '#text': '' },
     { '#text': '' },
     { '#text': '' },
-    { '#text': 'https://i.ytimg.com/vi/8AYy-BcjRXg/maxresdefault.jpg' },
+    { '#text': 'https://i.ytimg.com/vi/cHKZ7eWiZjM/maxresdefault.jpg' },
   ],
-  url: 'https://www.youtube.com/watch?v=8AYy-BcjRXg',
+  url: 'https://www.youtube.com/watch?v=cHKZ7eWiZjM',
 }
 
 const LastfmPresence = () => {
