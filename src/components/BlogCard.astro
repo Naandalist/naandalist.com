@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets'
+import type { CollectionEntry } from 'astro:content'
+import Link from '@/components/Link.astro'
+import AvatarComponent from '@/components/ui/Avatar'
+import { Badge } from '@/components/ui/Badge'
+import { Separator } from '@/components/ui/Separator'
+import { parseAuthors } from '@/lib/server-utils'
+import { formatDate, readingTime } from '@/lib/utils'
+
+const { entry } = Astro.props as {
+  entry: CollectionEntry<'blog'>
+}
+
+const formattedDate = formatDate(entry.data.date)
+const readTime = readingTime(entry.body ?? '')
+const authors = await parseAuthors(entry.data.authors ?? [])
+---
+
+<div
+  class="not-prose rounded-lg border bg-card/80 backdrop-blur-sm p-(--space-card) shadow-1 transition-shadow duration-150 ease-out hover:shadow-2 motion-reduce:transition-none"
+>
+  <Link
+    href={`/${entry.collection}/${entry.id}`}
+    class="flex flex-col gap-4 sm:flex-row"
+  >
+    {
+      entry.data.image && (
+        <div class="w-full shrink-0 sm:w-[180px]">
+          <Image
+            src={entry.data.image}
+            alt={entry.data.title}
+            width={1300}
+            height={700}
+            format="webp"
+            class="aspect-video w-full rounded-md object-cover sm:h-full grayscale"
+          />
+        </div>
+      )
+    }
+    <div class="grow">
+      <h3 class="mb-1 text-xl font-semibold sm:text-2xl">
+        {entry.data.title}
+      </h3>
+      <p class="mb-2 text-base text-muted-foreground line-clamp-3 sm:line-clamp-2">
+        {entry.data.description}
+      </p>
+      <div
+        class="mb-2 flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground"
+      >
+        {
+          authors.length > 0 && (
+            <>
+              {authors.map((author) => (
+                <div class="flex items-center gap-x-1.5">
+                  <AvatarComponent
+                    client:load
+                    src={author.avatar}
+                    alt={author.name}
+                    fallback={author.name[0]}
+                    className="size-5 rounded-full"
+                  />
+                  <span>{author.name}</span>
+                </div>
+              ))}
+              <Separator orientation="vertical" className="h-4" />
+            </>
+          )
+        }
+        <span>{formattedDate}</span>
+        <Separator orientation="vertical" className="h-4" />
+        <span>{readTime}</span>
+      </div>
+      {
+        entry.data.tags && (
+          <div class="flex flex-wrap gap-2">
+            {entry.data.tags.map((tag) => (
+              <Badge variant="secondary">{tag}</Badge>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </Link>
+</div>

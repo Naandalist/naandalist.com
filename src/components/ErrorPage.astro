@@ -1,0 +1,37 @@
+---
+/**
+ * Shared layout for the error pages: a short message on the left and the scene card on the right,
+ * so every error looks like part of the About page and not like a dead end.
+ */
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Container from '@/components/Container.astro'
+import AboutScene from '@/components/features/AboutScene.astro'
+
+interface Props {
+  crumb: string
+  icon: string
+  /** Big number in the corner of the scene. */
+  code: string
+  codeLabel: string
+  title: string
+  text: string
+  bubbles: string[]
+  plant?: 'babys-breath' | 'dandelion'
+  animate?: boolean
+}
+
+const { crumb, icon, code, codeLabel, title, text, bubbles, plant, animate } = Astro.props
+---
+
+<Container class="flex grow flex-col gap-y-6">
+  <Breadcrumbs items={[{ label: crumb, icon }]} />
+  <section class="grid grid-cols-1 items-center gap-6 lg:grid-cols-12">
+    <div class="flex flex-col items-start gap-4 lg:col-span-7">
+      <h1 data-error="title" class="font-title text-4xl italic max-sm:leading-tight sm:text-display-sm text-foreground">{title}</h1>
+      <p data-error="text" class="max-w-md text-base text-muted-foreground">{text}</p>
+      <div class="flex flex-wrap gap-2"><slot /></div>
+    </div>
+    <AboutScene class="lg:col-span-5" label={codeLabel} nickname={code} bubbles={bubbles} plant={plant} animate={animate} />
+  </section>
+  <slot name="after" />
+</Container>

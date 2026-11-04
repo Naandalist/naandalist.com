@@ -1,0 +1,68 @@
+---
+import { getEntry } from 'astro:content'
+import { PiStarFourFill } from 'react-icons/pi'
+import { cn } from '@/lib/utils'
+import '@/styles/arrow-fill-button.css'
+
+interface Props {
+  className?: string
+  resumeUrl?: string
+}
+
+const { className } = Astro.props
+let { resumeUrl } = Astro.props
+
+if (!resumeUrl) {
+  const author = await getEntry('authors', 'naandalist')
+  resumeUrl = author?.data.resume || 'https://tr.ee/0gvXOd'
+}
+---
+
+<a
+  href={resumeUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={cn('obsidian-arrow-fill-btn font-mono group', className)}
+  style={{
+    '--btn-bg': 'hsl(var(--secondary))',
+    '--btn-text': 'hsl(var(--secondary-foreground))',
+    '--btn-fill-bg': 'hsl(var(--primary))',
+    '--btn-fill-text': 'hsl(var(--primary-foreground))',
+    '--btn-fill-bg-hover': 'hsl(var(--primary))',
+    '--btn-fill-text-hover': 'hsl(var(--primary-foreground))',
+    '--btn-arrow': 'hsl(var(--primary-foreground))',
+    '--btn-arrow-hover': 'hsl(var(--primary-foreground))',
+  }}
+>
+  <span class="obsidian-arrow-fill-btn__text flex items-center gap-1.5">
+    <PiStarFourFill className="size-2.5 text-foreground/80 inline-block" aria-hidden="true" />
+    Resume
+  </span>
+  <div aria-hidden="true" class="obsidian-arrow-fill-btn__circle">
+    <div class="obsidian-arrow-fill-btn__circle-text">
+      <span class="flex items-center gap-1.5">
+        <PiStarFourFill className="size-2.5 text-primary-foreground inline-block" aria-hidden="true" />
+        Resume
+      </span>
+      <svg
+        viewBox="0 0 10 10"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="obsidian-arrow-fill-btn__icon"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M0 5.625L7.625 5.625L4.125 9.125L5 10L10 5L5 0L4.125 0.875L7.625 4.375L0 4.375L0 5.625Z"
+          class="obsidian-arrow-fill-btn__path"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M0 5.625L7.625 5.625L4.125 9.125L5 10L10 5L5 0L4.125 0.875L7.625 4.375L0 4.375L0 5.625Z"
+          class="obsidian-arrow-fill-btn__path"
+        />
+      </svg>
+    </div>
+  </div>
+</a>

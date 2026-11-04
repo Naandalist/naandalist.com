@@ -1,0 +1,46 @@
+---
+import Container from '@/components/Container.astro'
+import Link from '@/components/Link.astro'
+import MobileMenu from '@/components/ui/MobileMenu'
+import { ModeToggle } from '@/components/ui/ModeToggle'
+import { SoundToggle } from '@/components/ui/SoundToggle'
+import Signature from '@/components/Signature.astro'
+import { NAV_LINKS } from '@/consts'
+import { Image } from 'astro:assets'
+import logo from '../../public/static/profile/avatar.png'
+---
+
+<header
+  class="sticky top-0 z-10 bg-background/50 backdrop-blur-md pt-safe"
+  transition:persist
+>
+  <Container>
+    <div class="flex flex-wrap items-center justify-between gap-3 py-3 sm:gap-4 sm:py-4">
+      <Link
+        href="/"
+        aria-label="naandalist"
+        class="flex shrink-0 items-center gap-2 transition-colors duration-150 hover:text-primary"
+      >
+        <Image src={logo} alt="" width={64} height={64} format="webp" loading="eager" fetchpriority="high" class="size-8" style="max-width:2rem;max-height:2rem;" />
+        <Signature />
+      </Link>
+      <div class="flex items-center gap-2 md:gap-4">
+        <nav class="hidden items-center gap-4 text-sm sm:gap-6 md:flex">
+          {
+            NAV_LINKS.map((item) => (
+              <Link
+                href={item.href}
+                class="capitalize text-foreground/60 transition-colors hover:text-foreground/80"
+              >
+                {item.label}
+              </Link>
+            ))
+          }
+        </nav>
+        <MobileMenu client:media="(max-width: 767px)" />
+        <SoundToggle client:load />
+        <ModeToggle client:load />
+      </div>
+    </div>
+  </Container>
+</header>

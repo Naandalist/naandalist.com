@@ -1,0 +1,86 @@
+---
+/**
+ * The site name in italic with a thin line under it, shown while a page change is slow. It does nothing on the first page load and
+ * for fast navigations, see src/lib/nav-loader.ts for the timing. It persists across page swaps.
+ */
+---
+
+<div id="nav-loader" class="nav-loader" data-state="idle" role="status" aria-live="polite" transition:persist>
+  <div class="nav-stage" aria-hidden="true">
+    <p class="nav-name">naandalist</p>
+    <span class="nav-line"><span class="nav-bar"></span></span>
+  </div>
+  <span class="sr-only" data-label>Loading page</span>
+</div>
+
+<style>
+  .nav-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    background: hsl(var(--background) / 0.9);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.15s ease-out, visibility 0s 0.15s;
+  }
+  .nav-loader[data-state='visible'] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.15s ease-out;
+  }
+  .nav-stage {
+    display: grid;
+    justify-items: stretch;
+    gap: 0.75rem;
+    color: hsl(var(--foreground));
+  }
+  .nav-name {
+    margin: 0;
+    font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: 3rem;
+    line-height: 1;
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+  /* A hairline with a short bar that sweeps across it, so the screen is never empty. */
+  .nav-line {
+    position: relative;
+    height: 1px;
+    overflow: hidden;
+    background: hsl(var(--foreground) / 0.18);
+  }
+  .nav-bar {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 40%;
+    background: hsl(var(--foreground));
+    transform: translateX(-100%);
+  }
+  .nav-loader[data-state='visible'] .nav-bar { animation: nav-sweep 1.1s ease-in-out infinite; }
+  @keyframes nav-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-loader[data-state='visible'] .nav-bar { animation: none; transform: none; width: 100%; opacity: 0.4; }
+  }
+</style>
+
+<script>
+  import { createNavLoader } from '@/lib/nav-loader'
+
+  const root = () => document.getElementById('nav-loader')
+  const loader = createNavLoader({
+    show: () => root()?.setAttribute('data-state', 'visible'),
+    hide: () => root()?.setAttribute('data-state', 'idle'),
+  })
+
+  document.addEventListener('astro:before-preparation', () => loader.start())
+  document.addEventListener('astro:after-swap', () => loader.done())
+</script>

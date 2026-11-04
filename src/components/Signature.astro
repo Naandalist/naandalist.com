@@ -1,0 +1,14 @@
+---
+import { SIGNATURE } from '@/lib/signature-path'
+---
+
+<!-- Decorative: the surrounding link carries the accessible name. -->
+<svg
+  class="signature h-6 w-auto"
+  viewBox={`0 0 ${SIGNATURE.width} ${SIGNATURE.height}`}
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={SIGNATURE.d}></path>
+</svg>

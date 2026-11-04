@@ -1,0 +1,130 @@
+---
+import '../styles/global.css'
+import '../styles/katex.css'
+
+import { SITE } from '@/consts'
+import { ClientRouter } from 'astro:transitions'
+import { serializeLd } from '@/lib/jsonld'
+
+interface Props {
+  title: string
+  description: string
+  image?: string
+  /** schema.org objects for this page, written as JSON-LD. */
+  jsonLd?: object[]
+  ogType?: 'website' | 'article'
+  noindex?: boolean
+  published?: Date
+  modified?: Date
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+
+const { title, description, image = '/static/profile/twitter-card.png', jsonLd = [], ogType = 'website', noindex = false, published, modified } = Astro.props
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+<meta name="generator" content={Astro.generator} />
+
+<link rel="canonical" href={canonicalURL} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title={SITE.TITLE} href="/rss.xml" />
+<link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+<link rel="preload" href="/fonts/GeistVF.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/GeistMonoVF.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin />
+
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex" />}
+
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png"/>
+<link rel="icon" href="/favicons/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#121212" />
+<meta name="msapplication-TileColor" content="#121212" />
+<meta name="theme-color" content="#121212" />
+
+<meta property="og:type" content={ogType} />
+{published && <meta property="article:published_time" content={published.toISOString()} />}
+{modified && <meta property="article:modified_time" content={modified.toISOString()} />}
+{jsonLd.length > 0 && <script is:inline type="application/ld+json" set:html={serializeLd(jsonLd)} />}
+<meta property="og:url" content={Astro.url} />
+<meta property="og:site_name" content={SITE.TITLE} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<link rel="preconnect" href="https://1.gravatar.com" />
+<link rel="preconnect" href="https://lastfm-last-played.biancarosa.com.br" crossorigin />
+<link rel="dns-prefetch" href="https://lastfm.freetls.fastly.net" />
+<link rel="dns-prefetch" href="https://photogallery.naandalist.com" />
+<ClientRouter />
+
+<script is:inline>
+  // The signature writes on every full page load; in-app navigation swaps <html> and clears it.
+  document.documentElement.dataset.sign = '1'
+  // First visit of a session: let intro animations play. Later page changes stay instant.
+  try {
+    if (!sessionStorage.getItem('revealed')) {
+      document.documentElement.dataset.reveal = '1'
+      sessionStorage.setItem('revealed', '1')
+    }
+  } catch (_) {}
+</script>
+
+<script is:inline>
+  function setDarkMode(document) {
+    const getThemePreference = () => {
+      if (
+        typeof localStorage !== 'undefined' &&
+        localStorage.getItem('theme')
+      ) {
+        return localStorage.getItem('theme')
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'theme-light'
+    }
+    const isDark = getThemePreference() === 'dark'
+    document.documentElement.classList[isDark ? 'add' : 'remove']('dark')
+
+    // Attach the observer once. Each page change would otherwise add another one.
+    if (typeof localStorage !== 'undefined' && !window.__themeObserver) {
+      window.__themeObserver = new MutationObserver(() => {
+        const isDark = document.documentElement.classList.contains('dark')
+        localStorage.setItem('theme', isDark ? 'dark' : 'theme-light')
+      })
+      window.__themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+      })
+    }
+  }
+
+  setDarkMode(document)
+
+  document.addEventListener('astro:before-swap', (ev) => {
+    // Pass the incoming document to set the theme on it
+    setDarkMode(ev.newDocument)
+  })
+
+  document.addEventListener('astro:after-swap', () => {
+    document.querySelectorAll('video').forEach((v) => {
+      try {
+        v.load()
+      } catch (_) {}
+    })
+  })
+</script>

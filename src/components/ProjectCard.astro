@@ -1,0 +1,56 @@
+---
+import Link from '@/components/Link.astro'
+import { Badge } from '@/components/ui/Badge'
+import type { CollectionEntry } from 'astro:content'
+
+type Props = {
+  project: CollectionEntry<'projects'>
+}
+
+const { project } = Astro.props
+---
+
+<div
+  class="not-prose rounded-lg border bg-card/80 backdrop-blur-sm p-4 transition-colors duration-150 ease-out hover:bg-secondary/50 motion-reduce:transition-none"
+>
+  <Link
+    href={project.data.link ?? '#'}
+    class="flex flex-col gap-4 sm:flex-row"
+    external
+  >
+    {
+      project.data.asset && (
+        <div class="w-full sm:max-w-[200px] sm:shrink-0">
+          <img
+            src={project.data.asset}
+            alt={project.data.name}
+            width={1200}
+            height={630}
+            loading="lazy"
+            decoding="async"
+            class="aspect-video w-full object-cover sm:aspect-auto sm:h-full"
+          />
+        </div>
+      )
+    }
+    <div class="grow">
+      <h3 class="mb-1 text-lg font-semibold">
+        {project.data.name}
+      </h3>
+      <p class="mb-2 text-sm text-muted-foreground line-clamp-2">
+        {project.data.description}
+      </p>
+      {
+        project.data.tags && (
+          <div class="flex flex-wrap gap-2">
+            {project.data.tags.map((tag: string) => (
+              <Badge variant="secondary" showHash={false}>
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </Link>
+</div>

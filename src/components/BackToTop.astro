@@ -1,0 +1,121 @@
+---
+import { Icon } from 'astro-icon/components'
+
+// float: the round mobile button that sits over the page. Without it, the button lives in the footer (desktop).
+interface Props {
+  float?: boolean
+}
+const { float = false } = Astro.props
+---
+
+<button
+  type="button"
+  data-back-to-top
+  data-visible="false"
+  aria-label="Back to top"
+  class:list={['back-to-top group relative h-11 overflow-hidden rounded-md border border-border bg-background/80 font-mono text-xs text-foreground shadow-1 hover:bg-secondary', float && 'back-to-top--float']}
+>
+  <Icon name="lucide:arrow-up" class="btt-icon absolute left-1/2 top-1/2 size-4" />
+  <span class="btt-label absolute inset-0 grid place-items-center whitespace-nowrap" aria-hidden="true">Back to top</span>
+</button>
+
+<style>
+  /* Fades and scales in once the page is scrolled, like a floating back-to-top. */
+  .back-to-top {
+    opacity: 0;
+    transform: scale(0.8);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s 0.2s, background-color 0.2s;
+  }
+  .back-to-top[data-visible='true'] {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s;
+  }
+  .back-to-top[data-visible='true']:active { transform: scale(0.95); }
+
+  /* Idle: arrow only. Hover or focus: the button widens and the arrow gives way to the label. */
+  .back-to-top { width: 2.75rem; transition: width 0.25s ease, opacity 0.2s ease, transform 0.2s ease, visibility 0s 0.2s, background-color 0.2s; }
+  .back-to-top[data-visible='true'] { transition: width 0.25s ease, opacity 0.2s ease, transform 0.2s ease, background-color 0.2s; }
+  .back-to-top:hover, .back-to-top:focus-visible { width: 6.5rem; }
+  /* The icon is centered with transform only. Mixing Tailwind's translate property with transform would
+     stack both offsets and push the arrow off-center. */
+  .btt-icon { transform: translate(-50%, -50%); }
+  .btt-icon, .btt-label { transition: opacity 0.2s ease, transform 0.2s ease; }
+  .btt-label { opacity: 0; transform: translateY(8px); }
+  .back-to-top:hover .btt-icon, .back-to-top:focus-visible .btt-icon { opacity: 0; transform: translate(-50%, calc(-50% - 1.25rem)); }
+  .back-to-top:hover .btt-label, .back-to-top:focus-visible .btt-label { opacity: 1; transform: none; }
+  /* Two variants. The footer one shows from sm up. The float one shows below sm: round, icon only,
+     centered, and fixed to the screen. It is rendered outside the footer panel on purpose, because the
+     panel's backdrop-filter would make a fixed child follow the panel instead of the screen. */
+  @media (min-width: 640px) {
+    .back-to-top--float { display: none; }
+  }
+  @media (max-width: 639px) {
+    .back-to-top:not(.back-to-top--float) { display: none; }
+    .back-to-top--float {
+      position: fixed;
+      left: calc(50% - 1.375rem);
+      bottom: calc(1rem + env(safe-area-inset-bottom));
+      z-index: 40;
+      width: 2.75rem;
+      border-radius: 9999px;
+      background-color: hsl(var(--background) / 0.9);
+      backdrop-filter: blur(8px);
+    }
+    .back-to-top--float:hover, .back-to-top--float:focus-visible { width: 2.75rem; }
+    .back-to-top--float .btt-label { display: none; }
+    .back-to-top--float:hover .btt-icon, .back-to-top--float:focus-visible .btt-icon { opacity: 1; transform: translate(-50%, -50%); }
+  }
+  /* A short up-and-down bounce of the arrow when the button is pressed. */
+  .back-to-top.btt-bounce .btt-icon { animation: btt-bounce 0.45s ease-out; }
+  @keyframes btt-bounce {
+    0%, 100% { transform: translate(-50%, -50%); }
+    35% { transform: translate(-50%, calc(-50% - 0.375rem)); }
+    70% { transform: translate(-50%, calc(-50% + 0.0625rem)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top.btt-bounce .btt-icon { animation: none; }
+    .back-to-top, .back-to-top[data-visible='true'], .btt-icon, .btt-label { transition: none; }
+  }
+</style>
+
+<script>
+  const THRESHOLD = 200
+  let ticking = false
+
+  const update = () => {
+    ticking = false
+    const show = window.scrollY > THRESHOLD
+    document.querySelectorAll<HTMLElement>('[data-back-to-top]').forEach((b) => {
+      b.dataset.visible = String(show)
+    })
+  }
+
+  // Delegated and throttled to one frame, so it survives view-transition page swaps.
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(update)
+    },
+    { passive: true },
+  )
+  document.addEventListener('astro:page-load', update)
+  update()
+
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest<HTMLElement>('[data-back-to-top]')
+    if (!btn) return
+    btn.classList.remove('btt-bounce')
+    void btn.offsetWidth
+    btn.classList.add('btt-bounce')
+    setTimeout(() => btn.classList.remove('btt-bounce'), 500)
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
+  })
+</script>

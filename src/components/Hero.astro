@@ -1,0 +1,57 @@
+---
+interface Props {
+  title: string
+  subtitle?: string
+  videoSrc?: string
+  posterSrc?: string
+}
+
+const { title, subtitle, videoSrc, posterSrc } = Astro.props
+---
+
+<section class="relative isolate overflow-hidden">
+  <!-- iOS-safe background video (autoplay requires muted + playsinline) -->
+  {videoSrc && (
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster={posterSrc}
+      class="absolute inset-0 -z-10 h-full w-full object-cover motion-reduce:hidden"
+      aria-hidden="true"
+    >
+      <source src={videoSrc} type="video/mp4" />
+    </video>
+  )}
+
+  <!-- Fallback static image for prefers-reduced-motion users -->
+  {posterSrc && !videoSrc && (
+    <img
+      src={posterSrc}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+  )}
+
+  <!-- Content: fluid padding using safe areas + clamp() -->
+  <div
+    class="flex min-h-dvh-safe flex-col items-center justify-center px-(--space-card) py-section text-center"
+  >
+    <h1
+      class="max-w-4xl text-balance font-bold tracking-tight text-4xl sm:text-display text-foreground"
+    >
+      {title}
+    </h1>
+    {subtitle && (
+      <p
+        class="mt-4 max-w-2xl text-balance text-lg text-muted-foreground sm:mt-6"
+      >
+        {subtitle}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

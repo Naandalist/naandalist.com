@@ -1,0 +1,37 @@
+---
+interface Props {
+  src: string
+  alt: string
+  width: number
+  height: number
+  className?: string
+  loading?: 'eager' | 'lazy'
+  priority?: boolean
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  className = '',
+  loading = 'lazy',
+  priority = false,
+} = Astro.props
+
+const aspectRatio = (height / width) * 100
+---
+
+<div class="relative w-full" style={`padding-bottom: ${aspectRatio}%`}>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding="async"
+    fetchpriority={priority ? 'high' : 'auto'}
+    class={`absolute inset-0 h-full w-full object-cover ${className}`}
+    style="content-visibility: auto;"
+  />
+</div>
