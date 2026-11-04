@@ -1,0 +1,549 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@plugin '@tailwindcss/typography';
+
+/* Marquee library ships its classes in JS; scan it so v4 generates them */
+@source '../../node_modules/@devnomic/marquee/dist';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Serif for page and section titles. The font only has weight 400, so the utility
+   pins it. Bold would be faux bold. Never use it on blog pages. */
+@utility font-title {
+  font-family: "Instrument Serif", ui-serif, Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+@utility direction-reverse {
+  animation-direction: reverse;
+}
+
+@utility animate-marquee-left {
+  animation: marquee-left var(--duration, 40s) linear infinite;
+}
+
+@utility animate-marquee-up {
+  animation: marquee-up var(--duration, 40s) linear infinite;
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+@theme inline {
+  --font-sans:
+    'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+
+  --default-border-width: 2px;
+
+  --color-background: hsl(var(--background));
+  --color-card: hsl(var(--card));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-additive: hsl(var(--additive));
+  --color-additive-foreground: hsl(var(--additive-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-ring: hsl(var(--ring));
+
+  /* Radius: xs 2 · sm 4 · md 8 · lg 12 · xl 16. rounded-full and rounded-none stay. */
+  --radius-*: initial;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Shadow: three levels only. */
+  --shadow-*: initial;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.06);
+  --shadow-2: 0 4px 12px rgb(0 0 0 / 0.08);
+  --shadow-3: 0 16px 40px rgb(0 0 0 / 0.16);
+
+  /* Display sizes for serif titles (page h1, section h2). Body text uses Tailwind defaults. */
+  --text-display: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+  --text-display--line-height: 1.05;
+  --text-display-md: clamp(2rem, 1.25rem + 3vw, 3rem);
+  --text-display-md--line-height: 1.1;
+  --text-display-sm: 2rem;
+  --text-display-sm--line-height: 1.15;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/GeistVF.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMonoVF.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --card: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 80.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 80.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 80.1%;
+    --accent-foreground: 0 0% 9%;
+    --additive: 112 50% 36%;
+    --additive-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+
+    --chart-1: 0 0% 9%;
+    --chart-2: 0 0% 11%;
+    --chart-3: 0 0% 13%;
+    --chart-4: 0 0% 15%;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --card: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --additive: 112 50% 36%;
+    --additive-foreground: 0 0% 9%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+
+    --chart-1: 0 0% 98%;
+    --chart-2: 0 0% 96%;
+    --chart-3: 0 0% 94%;
+    --chart-4: 0 0% 92%;
+
+    /* Priority override: ensure project border color wins over third-party CSS imports
+    Some third-party CSS (e.g. @devnomic/marquee) includes global rules that can
+    override border colors. Force our intended border color for common bordered
+    elements so the site visuals remain consistent. */
+    :where(
+        .border,
+        .rounded-sm,
+        .rounded-md,
+        .rounded-lg,
+        .card,
+        [data-has-border],
+        .badge
+      ) {
+      border-color: hsl(var(--border)) !important;
+    }
+
+    /* Also ensure border utilities (like border-2) use the same color */
+    *:where(.border, .border-2, .border-t, .border-b, .border-l, .border-r) {
+      border-color: hsl(var(--border)) !important;
+    }
+  }
+
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+    @apply bg-background text-foreground;
+
+    &.dark {
+      color-scheme: dark;
+    }
+
+    ::-webkit-scrollbar-corner {
+      @apply bg-transparent;
+    }
+  }
+
+  .disable-transitions,
+  .disable-transitions * {
+    @apply transition-none!;
+  }
+}
+
+@layer components {
+  article {
+    @apply prose-headings:scroll-mt-20 prose-headings:wrap-break-word first:prose-headings:mt-0 prose-p:wrap-break-word prose-a:wrap-break-word! prose-a:decoration-muted-foreground! prose-a:underline-offset-[3px] prose-a:transition-colors hover:prose-a:decoration-foreground! prose-pre:px-0! prose-img:mx-auto;
+
+    .katex-display {
+      @apply overflow-x-auto overflow-y-hidden py-4;
+    }
+
+    /* Removes background from <mark> elements */
+    mark {
+      @apply bg-transparent;
+    }
+
+    /* Blanket syntax highlighting */
+    code[data-theme*=" "] {
+      span {
+        color: var(--shiki-light);
+      }
+
+      .dark & span {
+        color: var(--shiki-dark);
+      }
+    }
+
+    /* Inline code */
+    :not(pre) > code {
+      @apply relative rounded-sm bg-muted/50 px-1 py-1 font-mono text-sm font-medium;
+    }
+
+    /* Code blocks */
+    figure[data-rehype-pretty-code-figure] {
+      @apply relative;
+
+      /* Code block titles */
+      [data-rehype-pretty-code-title] {
+        @apply wrap-break-word rounded-t-lg border-x border-t px-4 py-2 text-sm font-medium text-foreground;
+
+        /* Remove top margin from code block if a title is present */
+        & + pre {
+          @apply mt-0 rounded-t-none;
+        }
+      }
+
+      /* Shadcn-like scrollbar */
+      pre::-webkit-scrollbar {
+        @apply h-2.5 w-2.5;
+      }
+
+      pre::-webkit-scrollbar-track {
+        @apply bg-transparent;
+      }
+
+      pre::-webkit-scrollbar-thumb {
+        @apply rounded-full bg-border bg-clip-padding p-px;
+      }
+
+      /* Code block styles */
+      pre {
+        @apply static max-h-[600px] overflow-auto rounded-lg border bg-secondary/20 py-4 text-sm leading-loose;
+
+        /* Code block content */
+        > code {
+          @apply whitespace-pre-wrap;
+          counter-reset: line;
+
+          /* For code blocks with line numbers */
+          &[data-line-numbers] {
+            > [data-line]::before {
+              counter-increment: line;
+              content: counter(line);
+              @apply mr-4 inline-block w-4 text-right text-muted-foreground;
+            }
+          }
+
+          /* For each line in the code block */
+          > [data-line] {
+            @apply px-4;
+          }
+
+          /* Highlighted lines */
+          [data-highlighted-line] {
+            @apply bg-foreground/10;
+          }
+
+          /* Highlighted characters */
+          [data-highlighted-chars] > span {
+            @apply bg-muted-foreground/40 py-2;
+          }
+
+          /* Diff lines */
+          .diff {
+            &.add {
+              @apply bg-additive/15;
+            }
+            &.remove {
+              @apply bg-destructive/15;
+            }
+          }
+
+          /* Copy button */
+          > button:has(> span) {
+            @apply right-0.5 top-[3px] m-0 size-8 rounded-md bg-background p-1 backdrop-blur-none transition-all;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile Optimization
+   Safe-area tokens, fluid type/spacing scale, dynamic viewport
+   utilities. Place AFTER existing @layer blocks.
+   ───────────────────────────────────────────────────────────── */
+
+/* Hide scrollbar but keep scrollable */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@layer base {
+  /* Prevent iOS Safari from auto-zooming on form focus */
+  input, textarea, select {
+    font-size: max(1rem, 16px);
+  }
+
+  /* Smoother momentum scrolling on iOS */
+  .scroll-area, main, [data-scrollable] {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Safe-area inset CSS variables (only non-zero on notched devices) */
+  :root {
+    --safe-top:    max(env(safe-area-inset-top),    0px);
+    --safe-bottom: max(env(safe-area-inset-bottom), 0px);
+    --safe-left:   max(env(safe-area-inset-left),   0px);
+    --safe-right:  max(env(safe-area-inset-right),  0px);
+  }
+
+  /* Fluid spacing tokens, the only clamp() allowed for padding (375px→1440px) */
+  :root {
+    --space-sec:  clamp(3rem,    0.5rem  + 10vw,   7rem);
+    --space-card:   clamp(1rem,    0.5rem  + 2vw,    2rem);
+    --space-gutter: clamp(1rem,    0.75rem + 2vw,    2.5rem);
+  }
+}
+
+@layer utilities {
+  /* Dynamic viewport height (no URL-bar jumps on mobile) */
+  .h-dvh-safe     { height: calc(100dvh - (var(--safe-top) + var(--safe-bottom))); }
+  .min-h-dvh-safe { min-height: calc(100dvh - (var(--safe-top) + var(--safe-bottom))); }
+  .h-screen-safe  { height: calc(100vh - (var(--safe-top) + var(--safe-bottom))); }
+
+  /* Safe-area padding helpers */
+  .pt-safe { padding-top:    var(--safe-top); }
+  .pb-safe { padding-bottom: var(--safe-bottom); }
+  .pl-safe { padding-left:   var(--safe-left); }
+  .pr-safe { padding-right:  var(--safe-right); }
+  .px-safe { padding-left:   var(--safe-left); padding-right: var(--safe-right); }
+  .py-safe { padding-top:    var(--safe-top);  padding-bottom: var(--safe-bottom); }
+
+  /* Section rhythm */
+  .py-section    { padding-top: var(--space-sec); padding-bottom: var(--space-sec); }
+  .py-section-sm { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+}
+
+/* Signature write-on: reveals left to right on every full page load. */
+@keyframes signature-write {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+html[data-sign] .signature {
+  animation: signature-write 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.15s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-sign] .signature { animation: none; }
+}
+
+/* First visit: home blocks fade in top to bottom (opacity/transform only, no layout shift). */
+@keyframes reveal-up {
+  /* Starts at 0.01, not 0, so the text still counts as a largest contentful paint candidate. */
+  from { opacity: 0.01; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+html[data-reveal] .reveal-stack > * {
+  /* "backwards", not "both": a forwards fill keeps a transform on the block, which traps position: fixed children such as the project modal. */
+  animation: reveal-up 0.5s ease-out backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+html[data-reveal] .reveal-stack > :nth-child(2) { --i: 1; }
+html[data-reveal] .reveal-stack > :nth-child(3) { --i: 2; }
+html[data-reveal] .reveal-stack > :nth-child(4) { --i: 3; }
+html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal] .reveal-stack > * { animation: none; }
+}
+
+/* ── Profile card: 3D flip, tilt, brushed-metal surface and shine ─────────────── */
+.flip-scene { perspective: 1200px; }
+.flip-tilt {
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 150ms ease-out;
+}
+.flip-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+[data-flipped='true'] .flip-inner { transform: rotateY(180deg); }
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-face-back { transform: rotateY(180deg); }
+/* Hidden faces must not catch clicks or focus while turned away. */
+[data-flipped='false'] .flip-face-back,
+[data-flipped='true'] .flip-face-front { pointer-events: none; visibility: hidden; transition: visibility 0s 300ms; }
+
+.metal {
+  overflow: hidden;
+  background:
+    radial-gradient(120% 55% at 50% 0%, hsl(var(--foreground) / 0.07), transparent 70%),
+    linear-gradient(165deg, hsl(var(--card) / 0.8), hsl(var(--foreground) / 0.05) 55%, hsl(var(--card) / 0.8));
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.22),
+    inset 0 -1px 0 hsl(var(--foreground) / 0.08),
+    0 16px 40px hsl(var(--foreground) / 0.12);
+}
+/* On hover a bright arc travels once around the card edge. */
+@property --glint {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+.metal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--glint), transparent 0 62%, hsl(var(--foreground) / 0.85) 84%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+}
+.flip-scene:hover .metal::after,
+.metal:hover::after { animation: metal-glint 1400ms ease-in-out 1; }
+@keyframes metal-glint {
+  0% { --glint: 0deg; opacity: 0; }
+  15%, 85% { opacity: 1; }
+  100% { --glint: 360deg; opacity: 0; }
+}
+/* Far to near: invisible at the left edge, solid toward the right, and fading out at the top. */
+.horizon-fade {
+  mask-image: linear-gradient(to right, transparent 0%, black 80%), linear-gradient(to top, black 70%, transparent);
+  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 80%), linear-gradient(to top, black 70%, transparent);
+  -webkit-mask-composite: source-in;
+}
+.dither-fade { mask-image: linear-gradient(to top, black 75%, transparent); -webkit-mask-image: linear-gradient(to top, black 75%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner, .flip-tilt { transition: none; }
+  .flip-scene:hover .metal::after,
+  .metal:hover::after { animation: none; }
+}
+
+/* Recharts focuses its surface on click; keep the ring for keyboard users only. */
+.recharts-wrapper:focus:not(:focus-visible),
+.recharts-wrapper *:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* About: bento cards and memory orbs (monochrome, from tokens). */
+.about-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card) / 0.8);
+  box-shadow: var(--shadow-1);
+  backdrop-filter: blur(8px);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+.about-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.orb {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  color: hsl(var(--background));
+  background: radial-gradient(circle at 30% 25%, hsl(var(--foreground) / 0.55), hsl(var(--foreground)) 70%);
+  box-shadow: inset 0 2px 4px hsl(var(--background) / 0.35), 0 8px 20px hsl(var(--foreground) / 0.2);
+  animation: orb-float 5s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -1.2s);
+}
+@keyframes orb-float {
+  50% { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orb { animation: none; }
+  .about-card { transition: none; }
+}
+
+
+/* Footer: readable panel over the dithered background. */
+.footer-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card) / 0.8);
+  box-shadow: var(--shadow-1);
+  backdrop-filter: blur(8px);
+}
