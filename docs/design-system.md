@@ -46,7 +46,8 @@ Display sizes for serif titles (tokens in `@theme`):
 |---|---|---|
 | Geist (sans, default) | Body, nav, buttons, card text, labels, all blog pages | Page h1 and section titles outside blog |
 | Geist Mono (`font-mono`) | Code, role and pronunciation lines, email and handle rows, numbers and stats, chart axes, dates in project cards | Body paragraphs, titles |
-| Instrument Serif (`font-title`) | Page h1, section titles, About headings, the "pk" signature | Blog and blog posts, body, buttons, nav, numbers, code |
+| Instrument Serif (`font-title`) | Page h1, section titles, About headings | Blog and blog posts, body, buttons, nav, numbers, code |
+| Damion (SVG path only, no font file shipped) | The "naandalist" header signature, from `scripts/build-signature.ts` | Any live text |
 
 ## Radius
 
