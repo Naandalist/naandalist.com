@@ -50,6 +50,9 @@ export const POST: APIRoute = async ({ request }) => {
       process.env.GOOGLE_API_KEY
     const openaiApiKey =
       process.env.OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY
+    const hcApiKey = process.env.HC_API_KEY || import.meta.env.HC_API_KEY
+    const hcBaseUrl = process.env.HC_BASE_URL || import.meta.env.HC_BASE_URL
+    const hcModel = process.env.HC_AI_MODEL || import.meta.env.HC_AI_MODEL || 'openai/gpt-4o-mini'
 
     // Retrieve context from Pinecone (Integrated Inference or vector fallback)
     const lastUserMessage = messages[messages.length - 1]
@@ -104,10 +107,22 @@ ${contextText || 'No specific document context retrieved. Rely on core profile k
       content: msg.content as string,
     }))
 
-    // Stream text using Google Gemini (Primary) with OpenAI (Fallback)
+    // Provider order: HC, then Google Gemini, then OpenAI. The first one configured wins.
     let resultStream: ReturnType<typeof streamText> | null = null
 
-    if (googleApiKey) {
+    if (hcApiKey && hcBaseUrl) {
+      // HC is an OpenAI-compatible proxy. It speaks Chat Completions, not the Responses API,
+      // so the model must come from .chat().
+      const hc = createOpenAI({ name: 'hc', apiKey: hcApiKey, baseURL: hcBaseUrl })
+      resultStream = streamText({
+        model: hc.chat(hcModel),
+        system: systemPrompt,
+        messages: modelMessages,
+        maxOutputTokens: 200,
+      })
+    }
+
+    if (!resultStream && googleApiKey) {
       try {
         const googleProvider = createGoogleGenerativeAI({ apiKey: googleApiKey })
         resultStream = streamText({
@@ -132,7 +147,7 @@ ${contextText || 'No specific document context retrieved. Rely on core profile k
     }
 
     if (!resultStream) {
-      throw new Error('No available LLM provider. Configure GOOGLE_GENERATIVE_AI_API_KEY or OPENAI_API_KEY.')
+      throw new Error('No available LLM provider. Configure HC_API_KEY with HC_BASE_URL, GOOGLE_GENERATIVE_AI_API_KEY or OPENAI_API_KEY.')
     }
 
     // Stream out chunks in Vercel AI SDK text-delta protocol (consumed by ChatInterface.tsx)

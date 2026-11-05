@@ -52,7 +52,7 @@ bun run dev
 
 Useful scripts: `bun run build` (type check and build), `bun run check:tokens` (design token lint), `bun test`, and `bun run index-knowledge` (rebuild the chatbot index).
 
-Environment variables go in `.env`. Names only, never commit values: `GITHUB_TOKEN` (optional, read-only), `PINECONE_API_KEY`, `PINECONE_INDEX`, `PINECONE_NAMESPACE`, `GOOGLE_GENERATIVE_AI_API_KEY`, `OPENAI_API_KEY`, `RATE_LIMIT_SECRET`.
+Environment variables go in `.env`. Names only, never commit values: `GITHUB_TOKEN` (optional, read-only), `PINECONE_API_KEY`, `PINECONE_INDEX`, `PINECONE_NAMESPACE`, `HC_API_KEY` and `HC_BASE_URL` (OpenAI-compatible chat provider, tried first), `HC_AI_MODEL` (optional, default `openai/gpt-4o-mini`), `GOOGLE_GENERATIVE_AI_API_KEY`, `OPENAI_API_KEY`, `RATE_LIMIT_SECRET`.
 
 ---
 
