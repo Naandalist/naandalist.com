@@ -1,0 +1,60 @@
+---
+/**
+ * Work history for the About page, newest first. Each role's details come from its markdown body.
+ */
+import { Image } from 'astro:assets'
+import { getCollection, render } from 'astro:content'
+
+interface Props {
+  label: string
+}
+
+const { label } = Astro.props
+const monthYear = (d: Date) => d.toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+
+const jobs = await Promise.all(
+  (await getCollection('work'))
+    .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
+    .map(async (job) => ({ ...job, Content: (await render(job)).Content })),
+)
+---
+
+<section id="experience" class="flex flex-col gap-4 scroll-mt-24" aria-labelledby="experience-title">
+  <div class="flex flex-col gap-1">
+    <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{label}</p>
+    <h2 id="experience-title" class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">Experience</h2>
+  </div>
+
+  <ol class="flex flex-col gap-3 sm:gap-4">
+    {jobs.map(({ data, Content }) => (
+      <li class="about-card flex flex-col gap-4 p-6 sm:flex-row">
+        <Image
+          src={data.logo}
+          alt=""
+          width={48}
+          height={48}
+          format={data.logo.format === 'svg' ? 'svg' : 'webp'}
+          class="size-12 shrink-0 rounded-md bg-white object-contain p-1"
+        />
+        <div class="flex min-w-0 flex-1 flex-col gap-2">
+          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+            <h3 class="text-lg font-bold leading-tight text-foreground">
+              {data.role}{' '}
+              <span class="font-normal text-muted-foreground">
+                at {data.url ? <a href={data.url} target="_blank" rel="noopener noreferrer" class="text-foreground underline decoration-muted-foreground underline-offset-4 hover:decoration-foreground">{data.company}</a> : data.company}
+              </span>
+            </h3>
+            <p class="shrink-0 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+              <time datetime={data.start.toISOString().slice(0, 10)}>{monthYear(data.start)}</time>
+              {' – '}
+              {data.end ? <time datetime={data.end.toISOString().slice(0, 10)}>{monthYear(data.end)}</time> : 'Present'}
+            </p>
+          </div>
+          <div class="prose prose-sm prose-neutral max-w-none dark:prose-invert text-muted-foreground">
+            <Content />
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

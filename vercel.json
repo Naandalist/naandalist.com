@@ -5,6 +5,7 @@
     { "source": "/posts/:slug*", "destination": "/blog/:slug*", "permanent": true },
     { "source": "/projects", "destination": "/", "permanent": true },
     { "source": "/npmjs", "destination": "/", "permanent": true },
+    { "source": "/work", "destination": "/about#experience", "permanent": true },
     { "source": "/npmjs/:slug*", "destination": "/projects/:slug*", "permanent": true },
     { "source": "/id", "destination": "/", "permanent": true },
     { "source": "/id/contact", "destination": "/about", "permanent": true },

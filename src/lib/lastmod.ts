@@ -15,7 +15,7 @@ export function sourcesFor(pathname: string): string[] {
   const path = pathname.replace(/\/+$/, '') || '/'
   const post = path.match(/^\/blog\/([^/]+)$/)
   if (path === '/') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/index.astro`, `${CONTENT}/blog`, `${CONTENT}/projects`]
-  if (path === '/about') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/about.astro`]
+  if (path === '/about') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/about.astro`, `${CONTENT}/work`]
   if (path === '/chat') return [`${PAGES}/chat.astro`]
   if (post && !/^\d+$/.test(post[1])) return [`${CONTENT}/blog/${post[1]}`, `${CONTENT}/blog/${post[1]}.md`, `${CONTENT}/blog/${post[1]}.mdx`]
   if (path.startsWith('/blog') || path.startsWith('/tags')) return [`${CONTENT}/blog`]

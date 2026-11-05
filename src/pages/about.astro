@@ -4,6 +4,7 @@ import PhotoCollage from '@/components/features/PhotoCollage.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import AboutScene from '@/components/features/AboutScene.astro'
+import WorkTimeline from '@/components/features/WorkTimeline.astro'
 import { renderInline } from '@/lib/inline-markup'
 import { Icon } from 'astro-icon/components'
 import { SITE } from '@/consts'
@@ -80,6 +81,8 @@ const jsonLd = [
         ))}
       </section>
     )}
+
+    <WorkTimeline label="03 · Work" />
 
     <PhotoCollage />
   </Container>
