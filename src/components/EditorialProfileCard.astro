@@ -63,22 +63,22 @@ const socialLinks = [
           <img
             src={avatar || '/static/profile/avatar.png'}
             alt={`Profile photo of ${name}`}
-            width="80"
-            height="80"
+            width="96"
+            height="96"
             loading="eager"
             decoding="async"
-            class="size-16 sm:h-full sm:min-h-20 sm:w-auto aspect-square rounded-lg object-cover bg-secondary/40"
+            class="size-16 sm:size-24 aspect-square rounded-lg object-cover bg-secondary/40"
           />
         ) : (
           <a href={`/authors/${id}`} class="flex focus:outline-none focus:ring-2 focus:ring-primary rounded-lg">
             <img
               src={avatar || '/static/profile/avatar.png'}
               alt={`Profile photo of ${name}`}
-              width="80"
-              height="80"
+              width="96"
+              height="96"
               loading="eager"
               decoding="async"
-              class="size-16 sm:h-full sm:min-h-20 sm:w-auto aspect-square rounded-lg object-cover bg-secondary/40 cursor-pointer shadow-1"
+              class="size-16 sm:size-24 aspect-square rounded-lg object-cover bg-secondary/40 cursor-pointer shadow-1"
             />
           </a>
         )}
