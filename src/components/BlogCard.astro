@@ -2,20 +2,15 @@
 import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import Link from '@/components/Link.astro'
-import AvatarComponent from '@/components/ui/Avatar'
 import { Separator } from '@/components/ui/Separator'
-import { parseAuthors } from '@/lib/server-utils'
 import { formatDate, readingTime } from '@/lib/utils'
 
-const { entry, hideAuthor = false } = Astro.props as {
+const { entry } = Astro.props as {
   entry: CollectionEntry<'blog'>
-  /** Hides the author avatar and name in the meta row, for a cleaner card. */
-  hideAuthor?: boolean
 }
 
 const formattedDate = formatDate(entry.data.date)
 const readTime = readingTime(entry.body ?? '')
-const authors = hideAuthor ? [] : await parseAuthors(entry.data.authors ?? [])
 ---
 
 <div
@@ -49,25 +44,6 @@ const authors = hideAuthor ? [] : await parseAuthors(entry.data.authors ?? [])
       <div
         class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground"
       >
-        {
-          authors.length > 0 && (
-            <>
-              {authors.map((author) => (
-                <div class="flex items-center gap-x-1.5">
-                  <AvatarComponent
-                    client:load
-                    src={author.avatar}
-                    alt={author.name}
-                    fallback={author.name[0]}
-                    className="size-5 rounded-full"
-                  />
-                  <span>{author.name}</span>
-                </div>
-              ))}
-              <Separator orientation="vertical" className="h-4" />
-            </>
-          )
-        }
         <span>{formattedDate}</span>
         <Separator orientation="vertical" className="h-4" />
         <span>{readTime}</span>
