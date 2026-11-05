@@ -1,8 +1,11 @@
 /**
- * A dandelion as a density field, in grid cells.
- * A round head of fine radial filaments around a hollow middle, a long stem, two toothed leaves, and
- * a handful of loose seeds blown from the head to the right. Each seed is a thin tail with a small fan
- * of bristles at its top. Dithering turns the thin lines into dotted ones.
+ * A dandelion patch as a density field, in grid cells.
+ * Five plants, each with its own head: one round, one half-blown with a wedge torn open toward
+ * the wind, one spiky with long sparse filaments, one tall and narrow, one short and dense.
+ * A long stem and two toothed leaves under each, and a handful of loose seeds blown to the right,
+ * each a thin tail with a small fan of bristles at its top. The plants sway in a gusty breeze and
+ * each head bobs gently on its own phase, and a couple of butterflies flutter low over the grass.
+ * Dithering turns the thin lines into dotted ones.
  * Everything is pure. The canvas only compares density with a Bayer threshold.
  */
 
@@ -28,6 +31,20 @@ export const PLANTS = [
   { x: 0.64, s: 0.38 },
 ] as const
 
+/**
+ * Each plant gets its own head shape, in the same order as PLANTS: round, half-blown (a wedge
+ * open toward the wind on the right), spiky with long sparse filaments, tall and narrow, short
+ * and dense. rx/ry stretch the head, spokes scales the filament count, len the filament length,
+ * and gapW is the angular width of the blown-open wedge.
+ */
+export const SHAPES = [
+  { rx: 1, ry: 1, spokes: 1, len: 1, gapW: 0 },
+  { rx: 0.9, ry: 1, spokes: 1, len: 1, gapW: 1.4 },
+  { rx: 1, ry: 1, spokes: 0.55, len: 1.35, gapW: 0 },
+  { rx: 0.8, ry: 1.25, spokes: 1.2, len: 0.9, gapW: 0 },
+  { rx: 1.05, ry: 0.85, spokes: 1.8, len: 0.8, gapW: 0 },
+] as const
+
 /** The plant each seed comes from. Big plants shed more, and a small plant sheds small seeds. */
 const SEED_PLANT = [0, 1, 2, 0, 3, 0, 1, 4, 2, 0, 3, 1, 0, 2, 4, 0, 1, 3]
 export const SEED_COUNT = SEED_PLANT.length
@@ -40,20 +57,28 @@ export interface Head {
 
 /**
  * Where the head of plant `p` sits. The first plant is full size and scales with the band height, so it
- * keeps its shape at any width. The others are the same plant shrunk toward the ground.
+ * keeps its shape at any width. The others are the same plant shrunk toward the ground. The heads sit
+ * a little below the top of the band so they never reach the text above the canvas.
  */
 export function headGeometry(cols: number, rows: number, p = 0): Head {
-  const r0 = Math.min(rows * 0.3, cols * 0.12)
-  const cy0 = r0 + rows * 0.05
+  const r0 = Math.min(rows * 0.24, cols * 0.095)
+  const cy0 = r0 + rows * 0.12
   const { x, s } = PLANTS[p]
   const ground = rows - 1
   return { cx: Math.max(r0 + 2, cols * x), cy: ground - (ground - cy0) * s, r: r0 * s }
 }
 
-/** How far the wind pushes a point at height y, in cells. */
+/** How far the wind pushes a point at height y, in cells: a slow breeze with a quicker gust on top. */
 function lean(y: number, t: number, rows: number): number {
   const height = clamp01((rows - 1 - y) / rows)
-  return (Math.sin(t * 0.9) * 0.8 + 0.8) * height * height * 2
+  return (Math.sin(t * 0.9) * 0.8 + 0.8 + Math.sin(t * 1.7) * 0.3) * height * height * 2.4
+}
+
+/** The whole head also bobs gently in the wind, each plant on a phase taken from its position. */
+function bob(h: Head, t: number, rows: number): { x: number; y: number } {
+  const k = rows / 48
+  const phase = h.cx * 0.9 + h.cy * 0.3
+  return { x: Math.sin(t * 1.6 + phase) * 0.5 * k, y: Math.sin(t * 1.1 + phase * 1.3) * 0.35 * k }
 }
 
 export interface Seed {
@@ -114,39 +139,51 @@ function line(buf: Float32Array, cols: number, rows: number, x0: number, y0: num
   }
 }
 
-/** The puffball: fine filaments around a hollow middle, bright at the rim, with a few strands standing out. */
-function head(buf: Float32Array, cols: number, rows: number, h: Head, t: number) {
-  const dx = lean(h.cy, t, rows)
-  const cx = h.cx + dx
-  const spokes = Math.max(14, Math.floor(h.r * 3.2))
-  for (let r = Math.floor(h.cy - h.r - 2); r <= Math.ceil(h.cy + h.r + 2); r++) {
-    for (let c = Math.floor(cx - h.r - 2); c <= Math.ceil(cx + h.r + 2); c++) {
+/**
+ * The puffball of plant `p`: fine filaments around a hollow middle, bright at the rim, with a few
+ * strands standing out. The shape comes from SHAPES[p]; a blown-open head skips the wedge that
+ * faces the wind, as if the seeds there had just left.
+ */
+function head(buf: Float32Array, cols: number, rows: number, h: Head, t: number, p: number) {
+  const shape = SHAPES[p % SHAPES.length]
+  const rx = h.r * shape.rx
+  const ry = h.r * shape.ry
+  const b = bob(h, t, rows)
+  const cx = h.cx + lean(h.cy, t, rows) + b.x
+  const cy = h.cy + b.y
+  const spokes = Math.max(14, Math.floor(h.r * 3.2 * shape.spokes))
+  const outer = Math.max(rx, ry) * Math.max(1, shape.len) + 2
+  for (let r = Math.floor(cy - outer); r <= Math.ceil(cy + outer); r++) {
+    for (let c = Math.floor(cx - outer); c <= Math.ceil(cx + outer); c++) {
       const ox = c - cx
-      const oy = r - h.cy
-      const d = Math.hypot(ox, oy) / h.r
+      const oy = r - cy
+      const d = Math.hypot(ox / rx, oy / ry)
       if (d < 0.2 || d > 1) continue
+      if (shape.gapW > 0 && Math.abs(Math.atan2(oy, ox)) < shape.gapW / 2 && d < 0.92) continue
       const spoke = Math.pow(0.5 + 0.5 * Math.cos(Math.atan2(oy, ox) * spokes), 2)
       const body = (0.5 + 0.45 * spoke) * (1 - smoothstep(0.82, 1, d)) * (0.55 + 0.45 * smoothstep(0.2, 0.55, d))
       plot(buf, cols, rows, c, r, body)
     }
   }
-  // The rim: each filament ends in a small bright tuft.
+  // The rim: each filament ends in a small bright tuft, except inside the blown-open wedge.
   for (let k = 0; k < spokes; k++) {
     const a = (k / spokes) * Math.PI * 2 + (hash(k, 8.2) - 0.5) * 0.08
-    const len = h.r * (0.93 + hash(k, 3.3) * 0.1)
-    plot(buf, cols, rows, cx + Math.cos(a) * len, h.cy + Math.sin(a) * len, 1)
+    if (shape.gapW > 0 && Math.abs(Math.atan2(Math.sin(a), Math.cos(a))) < shape.gapW / 2) continue
+    const len = h.r * (0.93 + hash(k, 3.3) * 0.1) * shape.len
+    plot(buf, cols, rows, cx + Math.cos(a) * rx * (len / h.r), cy + Math.sin(a) * ry * (len / h.r), 1)
   }
 }
 
 /** The stem curves a little, then the two leaves reach out from its foot with toothed edges. */
 function stem(buf: Float32Array, cols: number, rows: number, h: Head, t: number, size: number) {
   const baseX = h.cx - h.r * 0.1
-  const top = h.cy + h.r * 0.9
+  const b = bob(h, t, rows)
+  const top = h.cy + h.r * 0.9 + b.y
   const bottom = rows - 1
   for (let y = top; y <= bottom; y += 0.5) {
     const u = (y - top) / (bottom - top)
     const bow = Math.sin(u * Math.PI) * -1.2
-    const x = lerp(h.cx + lean(h.cy, t, rows), baseX, u) + bow + lean(y, t, rows) * (1 - u) * 0.2
+    const x = lerp(h.cx + lean(h.cy, t, rows) + b.x, baseX, u) + bow + lean(y, t, rows) * (1 - u) * 0.2
     plot(buf, cols, rows, x, y, 0.85)
     plot(buf, cols, rows, x + 1, y, 0.55)
   }
@@ -180,6 +217,48 @@ function seed(buf: Float32Array, cols: number, rows: number, s: Seed, i: number)
   }
 }
 
+/** Two butterflies that cross the band low over the grass, below the heads, flapping as they go. */
+export const BUTTERFLIES = [
+  { y: 0.7, speed: 0.05, phase: 0.1, amp: 3.5 },
+  { y: 0.84, speed: 0.068, phase: 0.6, amp: 2.5 },
+] as const
+
+export const BUTTERFLY_COUNT = BUTTERFLIES.length
+
+export interface Butterfly {
+  x: number
+  y: number
+  /** How far the wings are open, from -1 (closed) to 1 (open). */
+  flap: number
+  alpha: number
+}
+
+/** One butterfly: it drifts across the band like the seeds do, bobbing, its wings opening and closing. */
+export function butterflyAt(i: number, t: number, cols: number, rows: number): Butterfly {
+  const b = BUTTERFLIES[i % BUTTERFLIES.length]
+  const k = rows / 48
+  const p = frac(t * b.speed + b.phase)
+  return {
+    x: p * (cols + 10) - 5,
+    y: rows * b.y + Math.sin(t * 2.3 + b.phase * 9) * b.amp * k,
+    flap: Math.sin(t * 13 + b.phase * 5),
+    alpha: Math.sin(p * Math.PI),
+  }
+}
+
+/** One butterfly: a body dot with two wings that open and close above it as it flies. */
+function butterfly(buf: Float32Array, cols: number, rows: number, b: Butterfly) {
+  const k = rows / 48
+  const v = 0.9 * b.alpha
+  const span = 2.4 * k
+  const tipY = b.y - span * b.flap - 0.4 * k
+  line(buf, cols, rows, b.x, b.y, b.x - span * 0.8, tipY, v)
+  line(buf, cols, rows, b.x, b.y, b.x + span * 0.8, tipY, v)
+  line(buf, cols, rows, b.x - span * 0.8, tipY, b.x - span * 1.1, b.y + 0.5 * k, v * 0.8)
+  line(buf, cols, rows, b.x + span * 0.8, tipY, b.x + span * 1.1, b.y + 0.5 * k, v * 0.8)
+  plot(buf, cols, rows, b.x, b.y, v)
+}
+
 /** Short blades of grass along the ground. They sway on the same wind, so the bottom is never still. */
 function grass(buf: Float32Array, cols: number, rows: number, t: number) {
   const k = rows / 48
@@ -202,11 +281,15 @@ export function compose(cols: number, rows: number, t: number, ground?: Float32A
   PLANTS.forEach((plant, p) => {
     const h = headGeometry(cols, rows, p)
     stem(buf, cols, rows, h, t, plant.s)
-    head(buf, cols, rows, h, t)
+    head(buf, cols, rows, h, t, p)
   })
   for (let i = 0; i < SEED_COUNT; i++) {
     const s = seedAt(i, t, cols, rows)
     if (s.alpha >= 0.05) seed(buf, cols, rows, s, i)
+  }
+  for (let i = 0; i < BUTTERFLY_COUNT; i++) {
+    const b = butterflyAt(i, t, cols, rows)
+    if (b.alpha >= 0.05) butterfly(buf, cols, rows, b)
   }
   return buf
 }
