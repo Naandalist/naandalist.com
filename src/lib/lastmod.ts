@@ -17,6 +17,7 @@ export function sourcesFor(pathname: string): string[] {
   if (path === '/') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/index.astro`, `${CONTENT}/blog`, `${CONTENT}/projects`]
   if (path === '/about') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/about.astro`, `${CONTENT}/work`]
   if (path === '/chat') return [`${PAGES}/chat.astro`]
+  if (path === '/privacy' || path === '/terms') return [`${PAGES}${path}.md`]
   if (post && !/^\d+$/.test(post[1])) return [`${CONTENT}/blog/${post[1]}`, `${CONTENT}/blog/${post[1]}.md`, `${CONTENT}/blog/${post[1]}.mdx`]
   if (path.startsWith('/blog') || path.startsWith('/tags')) return [`${CONTENT}/blog`]
   if (path.startsWith('/authors')) return [`${CONTENT}/authors`]

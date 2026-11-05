@@ -1,0 +1,29 @@
+---
+/** Layout for the markdown legal pages (privacy, terms). */
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Container from '@/components/Container.astro'
+import Layout from '@/layouts/Layout.astro'
+import { formatDate } from '@/lib/utils'
+
+interface Props {
+  frontmatter: { title: string; description: string; effective: string; icon: string }
+}
+
+const { title, description, effective, icon } = Astro.props.frontmatter
+const effectiveDate = new Date(effective)
+---
+
+<Layout title={title} description={description} modified={effectiveDate}>
+  <Container class="flex flex-col gap-y-6">
+    <Breadcrumbs items={[{ label: title, icon }]} />
+    <header class="flex flex-col gap-2">
+      <h1 class="font-title text-3xl max-sm:leading-tight sm:text-display-sm text-foreground">{title}</h1>
+      <p class="text-sm text-muted-foreground">
+        Effective as of <time datetime={effective}>{formatDate(effectiveDate)}</time>
+      </p>
+    </header>
+    <article class="prose prose-neutral max-w-3xl dark:prose-invert">
+      <slot />
+    </article>
+  </Container>
+</Layout>
