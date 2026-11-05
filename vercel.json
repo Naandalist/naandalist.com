@@ -1,6 +1,19 @@
 {
   "bunVersion": "1.4.x",
+  "redirects": [
+    { "source": "/posts", "destination": "/blog", "permanent": true },
+    { "source": "/posts/:slug*", "destination": "/blog/:slug*", "permanent": true },
+    { "source": "/projects", "destination": "/", "permanent": true },
+    { "source": "/id", "destination": "/", "permanent": true },
+    { "source": "/id/contact", "destination": "/about", "permanent": true },
+    { "source": "/contact", "destination": "/about", "permanent": true },
+    { "source": "/resume", "destination": "/resume/Listiananda-Apriliawan-Frontend-Engineer.pdf", "permanent": false }
+  ],
   "headers": [
+    {
+      "source": "/resume/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
     {
       "source": "/fonts/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
