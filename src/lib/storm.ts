@@ -103,7 +103,7 @@ function line(buf: Float32Array, cols: number, rows: number, x0: number, y0: num
 /** One wave layer: a crest line with foam on the peaks, and a sparse speckle filling the body below. */
 function waveLayer(buf: Float32Array, cols: number, rows: number, t: number, layer: number) {
   const w = WAVES[layer]
-  const k = K(rows)
+  const _k = K(rows)
   for (let c = 0; c < cols; c++) {
     const y = seaSurface(c, t, rows, layer)
     const crest = Math.sin(c * w.kx + t * w.speed)

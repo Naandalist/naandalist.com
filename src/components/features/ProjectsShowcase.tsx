@@ -222,7 +222,7 @@ export function ProjectsShowcase({ projects }: Props) {
           <button
             type="button"
             onClick={() => setVisibleCount((c) => c + 4)}
-            className={buttonVariants({ variant: 'ghost' }) + ' group'}
+            className={`${buttonVariants({ variant: 'ghost' })} group`}
           >
             Load more stuff that i've built
             <span className="ml-1.5 transition-transform group-hover:translate-y-0.5">
@@ -670,7 +670,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={buttonVariants({ variant: 'default' }) + " gap-2 rounded-md h-9 px-5 text-xs font-bold shadow-1 active:scale-95 hover:bg-primary flex items-center justify-center"}
+                  className={`${buttonVariants({ variant: 'default' })} gap-2 rounded-md h-9 px-5 text-xs font-bold shadow-1 active:scale-95 hover:bg-primary flex items-center justify-center`}
                 >
                   <ArrowUpRight size={16} aria-hidden="true" />
                   <span>Live Preview</span>

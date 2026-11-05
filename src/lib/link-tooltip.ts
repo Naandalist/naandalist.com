@@ -68,7 +68,7 @@ export function initLinkTooltip() {
 
   const target = (e: Event) => {
     const a = (e.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null
-    return a && a.closest('main, footer') && isTextLink(a) ? a : null
+    return a?.closest('main, footer') && isTextLink(a) ? a : null
   }
 
   document.addEventListener('pointerover', (e) => {

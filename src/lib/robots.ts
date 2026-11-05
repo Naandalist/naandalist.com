@@ -15,5 +15,5 @@ export function robotsTxt({ sitemapUrl, llmsUrl }: { sitemapUrl: string; llmsUrl
   for (const bot of TRAINING_BOTS) lines.push(`User-agent: ${bot}`, 'Disallow: /', '')
   lines.push(`Sitemap: ${sitemapUrl}`)
   if (llmsUrl) lines.push(`# LLM-friendly summary: ${llmsUrl}`)
-  return lines.join('\n') + '\n'
+  return `${lines.join('\n')}\n`
 }

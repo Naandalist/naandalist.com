@@ -32,7 +32,7 @@ const postsByYear = page.data.reduce(
   {},
 )
 
-const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
+const years = Object.keys(postsByYear).sort((a, b) => parseInt(b, 10) - parseInt(a, 10))
 const pageTitle = page.currentPage > 1 ? `Blog · Page ${page.currentPage}` : 'Blog'
 const pageDescription =
   'Notes on frontend, mobile, React Native, tooling, and shipping software that holds up in production.'

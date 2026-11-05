@@ -90,7 +90,7 @@ describe('visibleWeeks', () => {
 })
 
 describe('loadContributions', () => {
-  const ok = (body: string, json = false) => async () => ({ ok: true, status: 200, text: async () => body, json: async () => JSON.parse(body) }) as Response
+  const ok = (body: string, _json = false) => async () => ({ ok: true, status: 200, text: async () => body, json: async () => JSON.parse(body) }) as Response
   it('uses GraphQL when a token is given', async () => {
     const body = JSON.stringify({ data: { user: { contributionsCollection: { contributionCalendar: { weeks: [{ contributionDays: [{ date: '2025-10-26', contributionCount: 2 }] }] } } } } })
     const r = await loadContributions({ user: 'x', token: 't', fetchImpl: ok(body, true) as never })

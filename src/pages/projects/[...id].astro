@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'projects'>
 
 const project = Astro.props
-if (!project.body?.trim()) return Astro.redirect('/?project=' + project.id)
+if (!project.body?.trim()) return Astro.redirect(`/?project=${project.id}`)
 
 const { Content, headings } = await render(project)
 const { name, description, date, category, platforms, price, techStack, link, github, fallback } = project.data

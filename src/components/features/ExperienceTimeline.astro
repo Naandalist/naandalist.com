@@ -65,7 +65,7 @@ for (let combo = 0; combo < 3 ** sized.length; combo++) {
   const score = (Math.max(...placed.map((p) => p.tier)) + 1) * 100 + placed.filter((p) => p.align !== 'center').length
   if (!best || score < best.score) best = { score, placed }
 }
-const labels = sized.map((b, i) => ({ ...b, ...best!.placed[i] }))
+const labels = sized.map((b, i) => ({ ...b, ...best?.placed[i] }))
 const tiers = Math.max(...labels.map((l) => l.tier)) + 1
 const lanes = laneEnds.length
 // Vertical rhythm in spacing units (var(--spacing)).
