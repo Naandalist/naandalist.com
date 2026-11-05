@@ -116,7 +116,8 @@ const leaders = vLabels.map((l) => {
 })
 ---
 
-<div class="about-card hidden p-6 lg:block">
+<div class="about-card hidden flex-col gap-4 p-6 lg:flex">
+  <slot name="heading" />
   <ol class="relative" style={`height: ${u(labelArea + barArea)}`}>
     {labels.map((l) => (
       <li>
@@ -164,47 +165,50 @@ const leaders = vLabels.map((l) => {
   </div>
 </div>
 
-<div class="about-card flex p-4 sm:p-6 lg:hidden">
-  <div class="flex w-9 shrink-0 flex-col" aria-hidden="true">
-    {[...years].reverse().map((y) => (
-      <span class="flex items-center border-t border-border font-mono text-xs text-muted-foreground first:border-t-0" style={`height: ${u(YEAR)}`}>{y}</span>
-    ))}
-  </div>
-  <div class="relative shrink-0" style={`width: ${u(vBarWidth + LEADER)}; height: ${u(vHeight)}`} aria-hidden="true">
-    {/* Leaders first so the bars paint over them where a leader passes behind a neighbouring lane. */}
-    <svg
-      focusable="false"
-      class="absolute inset-0 size-full text-muted-foreground"
-      viewBox={`0 0 ${vBarWidth + LEADER} ${vHeight}`}
-      preserveAspectRatio="none"
-    >
-      {leaders.map((l) => (
-        <>
-          <path d={l.leader} fill="none" stroke="currentColor" stroke-width="0.25" stroke-dasharray="0.75 0.75" />
-          <circle cx={vBarWidth + LEADER - 0.5} cy={l.labelY} r="0.5" fill="currentColor" />
-        </>
+<div class="about-card flex flex-col gap-4 p-4 sm:p-6 lg:hidden">
+  <slot name="heading" />
+  <div class="flex">
+    <div class="flex w-9 shrink-0 flex-col" aria-hidden="true">
+      {[...years].reverse().map((y) => (
+        <span class="flex items-center border-t border-border font-mono text-xs text-muted-foreground first:border-t-0" style={`height: ${u(YEAR)}`}>{y}</span>
       ))}
-    </svg>
-    {vLabels.map((l) => (
-      <span
-        class:list={['absolute rounded-sm', l.tone]}
-        style={`left: ${u(l.lane * (V_LANE + V_LANE_GAP))}; width: ${u(V_LANE)}; top: ${u(l.yEnd)}; height: ${u(l.yStart - l.yEnd)}`}
-      />
-    ))}
+    </div>
+    <div class="relative shrink-0" style={`width: ${u(vBarWidth + LEADER)}; height: ${u(vHeight)}`} aria-hidden="true">
+      {/* Leaders first so the bars paint over them where a leader passes behind a neighbouring lane. */}
+      <svg
+        focusable="false"
+        class="absolute inset-0 size-full text-muted-foreground"
+        viewBox={`0 0 ${vBarWidth + LEADER} ${vHeight}`}
+        preserveAspectRatio="none"
+      >
+        {leaders.map((l) => (
+          <>
+            <path d={l.leader} fill="none" stroke="currentColor" stroke-width="0.25" stroke-dasharray="0.75 0.75" />
+            <circle cx={vBarWidth + LEADER - 0.5} cy={l.labelY} r="0.5" fill="currentColor" />
+          </>
+        ))}
+      </svg>
+      {vLabels.map((l) => (
+        <span
+          class:list={['absolute rounded-sm', l.tone]}
+          style={`left: ${u(l.lane * (V_LANE + V_LANE_GAP))}; width: ${u(V_LANE)}; top: ${u(l.yEnd)}; height: ${u(l.yStart - l.yEnd)}`}
+        />
+      ))}
+    </div>
+    <ol class="relative min-w-0 grow" style={`height: ${u(vHeight)}`}>
+      {vLabels.map((l) => (
+        <li class="absolute inset-x-0 flex flex-col justify-center pl-1" style={`top: ${u(l.top)}; height: ${u(V_LABEL)}`}>
+          <h3 class="truncate text-sm font-semibold text-foreground">
+            {l.data.url ? (
+              <a href={l.data.url} target="_blank" rel="noopener noreferrer" class="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-foreground">{l.data.company}</a>
+            ) : (
+              l.data.company
+            )}
+          </h3>
+          <p class="truncate text-xs text-muted-foreground">{l.data.role}</p>
+          <p class="sr-only">{monthYear(l.data.start)} - {l.data.end ? monthYear(l.data.end) : 'Present'}</p>
+        </li>
+      ))}
+    </ol>
   </div>
-  <ol class="relative min-w-0 grow" style={`height: ${u(vHeight)}`}>
-    {vLabels.map((l) => (
-      <li class="absolute inset-x-0 flex flex-col justify-center pl-1" style={`top: ${u(l.top)}; height: ${u(V_LABEL)}`}>
-        <h3 class="truncate text-sm font-semibold text-foreground">
-          {l.data.url ? (
-            <a href={l.data.url} target="_blank" rel="noopener noreferrer" class="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-foreground">{l.data.company}</a>
-          ) : (
-            l.data.company
-          )}
-        </h3>
-        <p class="truncate text-xs text-muted-foreground">{l.data.role}</p>
-        <p class="sr-only">{monthYear(l.data.start)} - {l.data.end ? monthYear(l.data.end) : 'Present'}</p>
-      </li>
-    ))}
-  </ol>
 </div>

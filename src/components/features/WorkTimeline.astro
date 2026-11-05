@@ -10,10 +10,10 @@ const { label } = Astro.props
 ---
 
 <section id="experience" class="flex flex-col gap-4 scroll-mt-24" aria-labelledby="experience-title">
-  <div class="flex flex-col gap-1">
-    <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{label}</p>
-    <h2 id="experience-title" class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">Experience</h2>
-  </div>
-
-  <ExperienceTimeline />
+  <ExperienceTimeline>
+    <div slot="heading" class="flex flex-col gap-1">
+      <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{label}</p>
+      <h2 id="experience-title" class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">Experience</h2>
+    </div>
+  </ExperienceTimeline>
 </section>
