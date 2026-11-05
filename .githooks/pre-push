@@ -2,10 +2,11 @@
 # Runs the gate CI runs, so a failure shows up here with its file and line, not as a red PR.
 set -e
 cd "$(git rev-parse --show-toplevel)" || exit 1
-echo "==> type check and token lint"
+echo "==> type check"
 bun run check
+echo "==> token lint"
 bun run check:tokens
-echo "==> build"
-bun run build
 echo "==> test"
 bun test
+echo "==> build"
+bun run build
