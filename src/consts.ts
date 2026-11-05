@@ -19,7 +19,7 @@ export const SITE: Site = {
   EMAIL: 'dev@naandalist.com',
   NUM_POSTS_ON_HOMEPAGE: 4,
   NUM_PACKAGES_ON_HOMEPAGE: 3,
-  POSTS_PER_PAGE: 3,
+  POSTS_PER_PAGE: 7,
   SITEURL: 'https://naandalist.com',
 }
 
