@@ -28,11 +28,10 @@ export const NAV_LINKS: Link[] = [
   { href: '/blog', label: 'blog' },
   { href: '/npmjs', label: 'packages' },
   { href: '/chat', label: 'chat' },
+  { href: '/contact', label: 'contact' },
 ]
 
 export const SOCIAL_LINKS: Link[] = [
-  { href: 'https://linkedin.com/in/naandalist', label: 'LinkedIn' },
-  { href: 'https://instagram.com/naandalist', label: 'Instagram' },
   { href: 'dev@naandalist.com', label: 'Email' },
   { href: '/rss.xml', label: 'RSS' },
 ]

@@ -1,0 +1,75 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Container from '@/components/Container.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getEntry } from 'astro:content'
+import { FaLinkedinIn } from 'react-icons/fa'
+import { PiEnvelope } from 'react-icons/pi'
+import {
+  SiFacebook,
+  SiGithub,
+  SiGitlab,
+  SiInstagram,
+  SiMedium,
+  SiStackoverflow,
+  SiTelegram,
+  SiX,
+} from 'react-icons/si'
+
+const author = await getEntry('authors', 'naandalist')
+const mail = author?.data.mail ?? 'dev@naandalist.com'
+
+const channels = [
+  { label: 'Email', value: mail, href: `mailto:${mail}`, Icon: PiEnvelope },
+  { label: 'LinkedIn', value: 'naandalist', href: author?.data.linkedin ?? 'https://linkedin.com/in/naandalist', Icon: FaLinkedinIn },
+  { label: 'GitHub', value: 'naandalist', href: author?.data.github ?? 'https://github.com/naandalist', Icon: SiGithub },
+  { label: 'X', value: '@nawndalist', href: 'https://x.com/nawndalist', Icon: SiX },
+  { label: 'Instagram', value: 'naandalist', href: author?.data.instagram ?? 'https://instagram.com/naandalist', Icon: SiInstagram },
+  { label: 'Telegram', value: 'naandalist', href: 'https://t.me/naandalist', Icon: SiTelegram },
+  { label: 'Facebook', value: 'naandalist', href: 'https://www.facebook.com/naandalist/', Icon: SiFacebook },
+  { label: 'Medium', value: '@naandalist', href: 'https://medium.com/@naandalist', Icon: SiMedium },
+  { label: 'GitLab', value: 'Naandalist', href: 'https://gitlab.com/Naandalist', Icon: SiGitlab },
+  { label: 'Stack Overflow', value: 'naandalist', href: 'https://stackoverflow.com/users/13633973/naandalist', Icon: SiStackoverflow },
+]
+
+const description = 'Ways to reach Naandalist for collaboration, freelance opportunities, or just to say hello.'
+---
+
+<Layout title="Contact" description={description}>
+  <Container class="flex flex-col gap-y-8">
+    <Breadcrumbs items={[{ label: 'Contact', icon: 'lucide:mail' }]} />
+
+    <header class="flex flex-col gap-3">
+      <h1 class="font-title text-display-sm text-foreground">Let's connect</h1>
+      <p class="max-w-prose text-muted-foreground">{description}</p>
+    </header>
+
+    <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {
+        channels.map(({ label, value, href, Icon }) => (
+          <li>
+            <a
+              href={href}
+              target={label === 'Email' ? undefined : '_blank'}
+              rel={label === 'Email' ? undefined : 'noopener noreferrer'}
+              class="flex items-center gap-3 rounded-lg border border-border bg-card/80 p-4 shadow-1 transition-colors hover:bg-secondary/60"
+            >
+              <Icon className="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+              <span class="flex min-w-0 flex-col">
+                <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{label}</span>
+                <span class="truncate text-foreground">{value}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <section class="flex flex-col gap-2">
+      <h2 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm">Availability</h2>
+      <p class="max-w-prose text-muted-foreground">
+        I'm always open to discussing new projects, creative ideas, and opportunities to be part of your vision.
+      </p>
+    </section>
+  </Container>
+</Layout>
