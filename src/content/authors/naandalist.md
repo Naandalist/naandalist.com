@@ -2,8 +2,8 @@
 name: 'Listiananda Apriliawan'
 avatar: 'https://avatars.githubusercontent.com/u/14960087?v=4'
 bio: 'Ship code, neglect optics.'
-role: 'Product Engineer 3 @ Zero One Group, Code Reviewer @ Dicoding'
-location: 'Indonesia'
+role: 'Product Engineer 3 @Zero One Group, Code Reviewer @Dicoding'
+location: 'Musi Banyuasin, Indonesia'
 resume: 'https://naandalist.com/resume/Listiananda-Apriliawan-Frontend-Engineer.pdf'
 website: 'https://naandalist.com'
 twitter: 'https://x.com/nawndalist'
@@ -12,7 +12,7 @@ linkedin: 'https://linkedin.com/in/naandalist'
 instagram: 'https://instagram.com/naandalist'
 mail: 'dev@naandalist.com'
 home:
-  role: 'Product Engineer 3 @ZOG • Code Reviewer @ Dicoding'
+  role: 'Product Engineer 3 @ZOG • Code Reviewer @Dicoding'
   pronunciation: '/ˈnan.da a.pri.liˈa.wan/'
   eyebrow: 'Frontend & mobile engineering'
   headline: >-
@@ -24,7 +24,7 @@ about:
   greeting: "Hello, I'm Nanda."
   intro: >-
     I'm a **Frontend Engineer with 6+ years of experience** building web and cross-platform mobile apps with React Native, React, Next.js, and Astro. Today I work as a **Product Engineer 3** at [Zero One Group](https://www.zero-one-group.com/) and review student code at [Dicoding](https://www.dicoding.com). I enjoy **tracing production issues to their root cause** and fixing the actual problem.
-  sceneLabel: 'Online I go by'
+  sceneLabel: 'Online I prefer to go by'
   nickname: '"Naandalist"'
   bubbles:
     - >-
