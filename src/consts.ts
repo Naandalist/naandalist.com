@@ -17,7 +17,7 @@ export const SITE: Site = {
   TITLE: 'Listiananda Apriliawan',
   DESCRIPTION: 'naandalist.com is the digital home of Listiananda Apriliawan.',
   EMAIL: 'dev@naandalist.com',
-  NUM_POSTS_ON_HOMEPAGE: 2,
+  NUM_POSTS_ON_HOMEPAGE: 4,
   NUM_PACKAGES_ON_HOMEPAGE: 3,
   POSTS_PER_PAGE: 3,
   SITEURL: 'https://naandalist.com',
