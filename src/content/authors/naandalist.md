@@ -21,7 +21,7 @@ home:
     React Native, React, Next.js, and Astro, plus backend services, CI/CD, and VPS deployments when the product needs them.
 about:
   whoLabel: '01 · Who'
-  greeting: "Hello, I'm Listiananda."
+  greeting: "Hello, I'm Nanda."
   intro: >-
     I'm a **Frontend Engineer with 6+ years of experience** building web and cross-platform mobile apps with React Native, React, Next.js, and Astro. Today I work as a **Product Engineer 3** at [Zero One Group](https://www.zero-one-group.com/) and review student code at [Dicoding](https://www.dicoding.com). I enjoy **tracing production issues to their root cause** and fixing the actual problem.
   sceneLabel: 'Online I go by'
