@@ -1,14 +1,19 @@
 ---
 /**
- * The site name in italic with a thin line under it, shown while a page change is slow. It does nothing on the first page load and
- * for fast navigations, see src/lib/nav-loader.ts for the timing. It persists across page swaps.
+ * The site name with a percentage progress bar below it, shown while a page change is slow. It does nothing on the first page
+ * load and for fast navigations, see src/lib/nav-loader.ts for the timing and the fake progress curve. It persists across page
+ * swaps.
  */
 ---
 
 <div id="nav-loader" class="nav-loader" data-state="idle" role="status" aria-live="polite" transition:persist>
   <div class="nav-stage" aria-hidden="true">
-    <p class="nav-name">naandalist</p>
-    <span class="nav-line"><span class="nav-bar"></span></span>
+    <p class="nav-name">Please wait</p>
+    <div class="nav-track">
+      <div class="nav-fill" data-fill style="width: 0%">
+        <span class="nav-percent" data-percent>0%</span>
+      </div>
+    </div>
   </div>
   <span class="sr-only" data-label>Loading page</span>
 </div>
@@ -39,36 +44,41 @@
   }
   .nav-name {
     margin: 0;
-    font-family: 'Instrument Serif', ui-serif, Georgia, serif;
-    font-style: italic;
-    font-size: 3rem;
-    line-height: 1;
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.2;
     text-align: center;
-    letter-spacing: -0.01em;
   }
-  /* A hairline with a short bar that sweeps across it, so the screen is never empty. */
-  .nav-line {
-    position: relative;
-    height: 1px;
+  /* A pill track that fills with the live fake-progress percentage, so the screen is never empty. */
+  .nav-track {
+    width: 16rem;
+    max-width: 60vw;
+    height: 2rem;
+    border-radius: 9999px;
     overflow: hidden;
     background: hsl(var(--foreground) / 0.18);
   }
-  .nav-bar {
-    position: absolute;
-    inset-block: 0;
-    left: 0;
-    width: 40%;
+  .nav-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-inline-end: 0.625rem;
+    border-radius: 9999px;
     background: hsl(var(--foreground));
-    transform: translateX(-100%);
+    transition: width 0.2s ease-out;
   }
-  .nav-loader[data-state='visible'] .nav-bar { animation: nav-sweep 1.1s ease-in-out infinite; }
-  @keyframes nav-sweep {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(250%); }
+  .nav-percent {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: hsl(var(--background));
+    white-space: nowrap;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .nav-loader[data-state='visible'] .nav-bar { animation: none; transform: none; width: 100%; opacity: 0.4; }
+    .nav-fill { transition: none; }
   }
 </style>
 
@@ -76,9 +86,21 @@
   import { createNavLoader } from '@/lib/nav-loader'
 
   const root = () => document.getElementById('nav-loader')
+  const setProgress = (pct: number) => {
+    const node = root()
+    const fill = node?.querySelector<HTMLElement>('[data-fill]')
+    const label = node?.querySelector<HTMLElement>('[data-percent]')
+    const whole = Math.round(pct)
+    if (fill) fill.style.width = `${pct}%`
+    if (label) label.textContent = `${whole}%`
+  }
   const loader = createNavLoader({
     show: () => root()?.setAttribute('data-state', 'visible'),
-    hide: () => root()?.setAttribute('data-state', 'idle'),
+    hide: () => {
+      root()?.setAttribute('data-state', 'idle')
+      setProgress(0)
+    },
+    onProgress: setProgress,
   })
 
   document.addEventListener('astro:before-preparation', () => loader.start())

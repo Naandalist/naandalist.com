@@ -6,6 +6,7 @@ function setup(options: { delay?: number; minVisible?: number } = {}) {
   let now = 0
   const timers: { id: number; at: number; fn: () => void }[] = []
   let nextId = 1
+  const activeIntervals = new Set<number>()
   const log: string[] = []
   const loader = createNavLoader({
     show: () => log.push('show'),
@@ -13,6 +14,22 @@ function setup(options: { delay?: number; minVisible?: number } = {}) {
     now: () => now,
     setTimer: (fn, ms) => (timers.push({ id: nextId, at: now + ms, fn }), nextId++),
     clearTimer: (id) => {
+      const i = timers.findIndex((t) => t.id === id)
+      if (i >= 0) timers.splice(i, 1)
+    },
+    setInterval: (fn, ms) => {
+      const id = nextId++
+      activeIntervals.add(id)
+      const tick = () => {
+        if (!activeIntervals.has(id)) return
+        fn()
+        timers.push({ id, at: now + ms, fn: tick })
+      }
+      timers.push({ id, at: now + ms, fn: tick })
+      return id
+    },
+    clearInterval: (id) => {
+      activeIntervals.delete(id)
       const i = timers.findIndex((t) => t.id === id)
       if (i >= 0) timers.splice(i, 1)
     },
