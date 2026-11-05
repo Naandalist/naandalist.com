@@ -63,7 +63,7 @@ The upgraded application completed validation and reached production successfull
 - [`micromatch` inefficient regular expression complexity](https://security.snyk.io/vuln/SNYK-JS-MICROMATCH-6838728)
 - [`inflight` resource retention](https://security.snyk.io/vuln/SNYK-JS-INFLIGHT-6095116)
 
-Not every advisory represented the same runtime exposure in a mobile application. The engineering task was to understand each dependency path, apply the available upgrade or dependency-chain remediation, and verify that the application still behaved correctly.
+Not every advisory represented the same runtime exposure in a mobile application. The engineering task was to understand each dependency path, apply the available upgrade or dependency-chain remediation, and verify that the application still behaved correctly. By the end, the codebase had zero open Snyk issues.
 
 ## Resolving an Intermittent Production Issue
 
