@@ -98,6 +98,9 @@ type Props = {
   projects: ProjectItem[]
 }
 
+/** Types that stay on the projects but get no filter button. */
+const HIDDEN_FILTER_TYPES = ['AI']
+
 export function ProjectsShowcase({ projects }: Props) {
   const [activeType, setActiveType] = useState('All')
   const [visibleCount, setVisibleCount] = useState(4)
@@ -105,7 +108,9 @@ export function ProjectsShowcase({ projects }: Props) {
 
   const allTypes = [
     'All',
-    ...Array.from(new Set(projects.flatMap((p) => p.type))).sort(),
+    ...Array.from(new Set(projects.flatMap((p) => p.type)))
+      .filter((type) => !HIDDEN_FILTER_TYPES.includes(type))
+      .sort(),
   ]
 
   const filtered =
