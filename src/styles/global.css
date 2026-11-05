@@ -283,7 +283,7 @@
 
       /* Code block styles */
       pre {
-        @apply static max-h-[600px] overflow-auto rounded-lg border bg-secondary/20 py-4 text-sm leading-loose;
+        @apply static max-h-150 overflow-auto rounded-lg border bg-secondary/20 py-4 text-sm leading-loose;
 
         /* Code block content */
         > code {
@@ -326,7 +326,7 @@
 
           /* Copy button */
           > button:has(> span) {
-            @apply right-0.5 top-[3px] m-0 size-8 rounded-md bg-background p-1 backdrop-blur-none transition-all;
+            @apply right-0.5 top-0.75 m-0 size-8 rounded-md bg-background p-1 backdrop-blur-none transition-all;
           }
         }
       }
@@ -452,7 +452,8 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   background: conic-gradient(from var(--glint), transparent 0 62%, hsl(var(--foreground) / 0.85) 84%, transparent 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
   opacity: 0;
   pointer-events: none;
 }
