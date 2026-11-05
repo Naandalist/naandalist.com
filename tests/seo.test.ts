@@ -28,7 +28,7 @@ suite('lastmod sources', () => {
     expect(newestPostDate()).toBeInstanceOf(Date)
   })
   it('reads a post date from frontmatter when git is not usable', () => {
-    expect(frontmatterDate(['src/content/blog/migrating-to-a-new-stack-for-my-website'])).toBeInstanceOf(Date)
+    expect(frontmatterDate(['src/content/blog/git-commit-message-convention'])).toBeInstanceOf(Date)
   })
 })
 
