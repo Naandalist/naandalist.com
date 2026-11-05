@@ -44,7 +44,7 @@ export default defineConfig({
   }),
   integrations: [
     sitemap({
-      // /authors redirects to another page, so it is not a page to index.
+      // /authors is a redirect to /about; keep it out of the sitemap.
       filter: (page) => new URL(page).pathname !== '/authors/',
       // lastmod comes from git history, so it moves only when the content does.
       serialize(item) {

@@ -4,6 +4,7 @@ import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import Layout from '@/layouts/Layout.astro'
+import { describe } from '@/lib/jsonld'
 import { type CollectionEntry, getCollection } from 'astro:content'
 import { getImage } from 'astro:assets'
 
@@ -35,11 +36,21 @@ const authorPosts = allPosts
     return post.data.authors && post.data.authors.includes(author.id)
   })
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+
+const authorDescription = describe(
+  author.data.about?.intro ??
+    author.data.home?.tagline ??
+    author.data.role ??
+    author.data.bio ??
+    `Profile of ${author.data.name}.`,
+)
 ---
 
 <Layout
-  title={`${author.data.name} (Author)`}
-  description={author.data.bio || `Profile of ${author.data.name}.`}
+  title={author.data.name}
+  fullTitle={author.data.name}
+  description={authorDescription}
+  imageAlt={`Portrait of ${author.data.name}`}
 >
   <Container class="flex flex-col gap-y-6">
     <Breadcrumbs

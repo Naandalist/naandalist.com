@@ -15,7 +15,8 @@ export type Link = {
 
 export const SITE: Site = {
   TITLE: 'Listiananda Apriliawan',
-  DESCRIPTION: 'naandalist.com is the digital home of Listiananda Apriliawan.',
+  DESCRIPTION:
+    'Personal site of Listiananda Apriliawan, product engineer building web and cross-platform mobile apps.',
   EMAIL: 'dev@naandalist.com',
   NUM_POSTS_ON_HOMEPAGE: 4,
   NUM_PACKAGES_ON_HOMEPAGE: 3,

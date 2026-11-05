@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 
 <Layout
   title={`Posts tagged with "${tag}"`}
-  description={`A collection of posts tagged with ${tag}.`}
+  description={`Articles and notes tagged "${tag}" on naandalist.com: frontend, mobile, and shipping software.`}
 >
   <Container class="flex flex-col gap-y-6">
     <Breadcrumbs
@@ -43,12 +43,9 @@ export async function getStaticPaths() {
       ]}
     />
     <div class="flex flex-wrap items-center gap-2">
-      <h1 class="text-3xl font-semibold">Posts tagged with</h1>
-      <span
-        class="flex items-center gap-x-1 rounded-full bg-secondary px-4 py-2 text-2xl font-semibold"
-      >
-        {tag}
-      </span>
+      <h1 class="text-3xl font-semibold">
+        Posts tagged with <span class="rounded-full bg-secondary px-4 py-1">{tag}</span>
+      </h1>
     </div>
     <div class="flex flex-col gap-y-4">
       {

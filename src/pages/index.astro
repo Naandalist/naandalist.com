@@ -45,7 +45,7 @@ const packages = (await getCollection('npmjs'))
 
 const rawProjects = (await getCollection('projects'))
   .sort((a, b) => {
-    // date is 'Month Year' string e.g. 'May 2025' — parse to Date for comparison
+    // date is 'Month Year' string e.g. 'May 2025'; parse to Date for comparison
     const toDate = (d?: string) => d ? new Date(d) : new Date(0)
     return toDate(b.data.date).valueOf() - toDate(a.data.date).valueOf()
   })
@@ -83,7 +83,13 @@ const jsonLd = [
 ]
 ---
 
-<Layout title="Home" description={homeDescription} fullTitle="Listiananda Apriliawan" jsonLd={jsonLd}>
+<Layout
+  title="Home"
+  description={homeDescription}
+  fullTitle="Listiananda Apriliawan"
+  imageAlt="Listiananda Apriliawan, product engineer working on web and mobile apps"
+  jsonLd={jsonLd}
+>
   <Container class="flex flex-col gap-y-6 reveal-stack">
     <section class="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,36rem)_1fr] lg:gap-10">
       <ProfileCard

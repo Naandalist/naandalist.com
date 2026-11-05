@@ -4,8 +4,12 @@ import Layout from '@/layouts/Layout.astro'
 import ChatInterface from '@/components/chat/ChatInterface.tsx'
 ---
 
-<Layout title="Chat with me" description="Chat with me - Ask anything about me">
+<Layout
+  title="Chat with me"
+  description="Ask Naandalist's assistant about experience, projects, packages, and how I ship web and mobile software."
+>
   <Container class="chat-page flex min-h-0 w-full flex-1 flex-col">
+    <h1 class="sr-only">Chat with Naandalist</h1>
     <ChatInterface client:load />
   </Container>
 </Layout>
