@@ -1,14 +1,58 @@
 [
   {
-    "src": "/static/placeholders/memory-1.svg",
-    "caption": "Placeholder photo. Replace it in src/data/memories.json."
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890380/memory/mosque-group-table_dakzl6.jpg",
+    "caption": "First meeting with members as head of Public Relations in the mosque youth organization."
   },
   {
-    "src": "/static/placeholders/memory-2.svg",
-    "caption": "Placeholder photo. Replace it in src/data/memories.json."
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890380/memory/students-group-hall_lrh9hx.jpg",
+    "caption": "The BDCA team holding an event in the campus hall."
   },
   {
-    "src": "/static/placeholders/memory-3.svg",
-    "caption": "Placeholder photo. Replace it in src/data/memories.json."
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890381/memory/team-blue-shirts-selfie_ypcdcy.jpg",
+    "caption": "Represented my campus in a competition and won a national title."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890411/memory/certificate-best-student_knvl6y.jpg",
+    "caption": "Was the top student in the Informatics Engineering program."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890384/memory/office-team-laptops_d3hofh.jpg",
+    "caption": "Worked at STIQ Al-Lathifiyyah campus in Palembang."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890381/memory/bekraf-developer-day_heiu6k.jpg",
+    "caption": "Attended Bekraf Developer Day 2017 in Palembang, a big Dicoding event."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890383/memory/stop-narkoba-banner_o0galt.jpg",
+    "caption": "Took part in an anti-drug campaign and made new friends who are still close to this day."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890380/memory/selfie-group-backspace_nyit7z.jpg",
+    "caption": "First day meeting coworkers as a programmer."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890423/memory/award-certificates-holder_sy2zo3.jpg",
+    "caption": "So happy to have won a competition in computer science."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890468/memory/forest-trip-friends_auwzop.jpg",
+    "caption": "First time exploring the wilderness of a protected forest in Batam."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890378/memory/indoor-event-group_eutrxw.jpg",
+    "caption": "Last day of work at the AIA Singapore office in Nongsa, Batam."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890408/memory/stadium-crew-sitting_shbxi3.jpg",
+    "caption": "First time working alongside people from abroad, communicating in English."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793890402/memory/hiking-forest-selfie_elpjnr.jpg",
+    "caption": "First time hiking Mount Dempo. Rained heavily the whole way, but still had a great time."
+  },
+  {
+    "src": "https://res.cloudinary.com/naandalistcloud/image/upload/v1793891267/memory/friends-masks-selfie_scxole.jpg",
+    "caption": "First time hiking a mountain. Lucky enough to see the green crater."
   }
 ]
