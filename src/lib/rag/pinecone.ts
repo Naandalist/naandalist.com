@@ -8,7 +8,7 @@ export interface PineconeRecord {
     text: string
     source: string
     chunkIndex: number
-    [key: string]: any
+    [key: string]: string | number | boolean | string[]
   }
 }
 
@@ -110,7 +110,7 @@ export async function deleteKnowledgeChunks(ids: string[]): Promise<void> {
 /**
  * Delete chunks matching metadata filter (e.g. { source: { $eq: 'author-naandalist.md' } }).
  */
-export async function deleteKnowledgeByFilter(filter: Record<string, any>): Promise<void> {
+export async function deleteKnowledgeByFilter(filter: Record<string, unknown>): Promise<void> {
   const pc = getPineconeClient()
   const index = pc.index({ name: getIndexName(), namespace: getNamespace() })
   await index.deleteMany({ filter })
@@ -154,7 +154,7 @@ export async function searchKnowledge(
 
     if (response?.result?.hits && response.result.hits.length > 0) {
       return response.result.hits.map((hit) => {
-        const fields = (hit.fields || {}) as Record<string, any>
+        const fields = (hit.fields || {}) as Record<string, unknown>
         return {
           id: hit._id,
           score: hit._score,
@@ -182,7 +182,7 @@ export async function searchKnowledge(
     }
 
     return response.matches.map((m) => {
-      const meta = (m.metadata || {}) as Record<string, any>
+      const meta = (m.metadata || {}) as Record<string, unknown>
       return {
         id: m.id,
         score: m.score,

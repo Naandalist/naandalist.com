@@ -4,7 +4,11 @@ import { memo, withTimeout } from '@/lib/memo'
 describe('memo', () => {
   it('reuses the value within the ttl and calls once for concurrent callers', async () => {
     let calls = 0
-    const load = () => memo('a', 1000, async () => (++calls, 'x'))
+    const load = () =>
+      memo('a', 1000, async () => {
+        calls++
+        return 'x'
+      })
     const [a, b] = await Promise.all([load(), load()])
     expect([a, b, calls]).toEqual(['x', 'x', 1])
     expect(await load()).toBe('x')

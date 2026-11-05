@@ -2,6 +2,7 @@ import { Marquee } from '@devnomic/marquee'
 import { useEffect, useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 import { FaWindows } from 'react-icons/fa'
+import type { IconType } from 'react-icons'
 import {
   SiAnthropic,
   SiApachespark,
@@ -87,7 +88,7 @@ interface StackIconProps {
 }
 
 const StackIcon: React.FC<StackIconProps> = ({ name, size = '2em', className }) => {
-  const iconMap: Record<string, React.ComponentType<any>> = {
+  const iconMap: Record<string, IconType> = {
     // Programming Languages
     cplusplus: SiCplusplus,
     go: SiGo,
@@ -247,10 +248,9 @@ export default function TechStackSlider() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const mq = window.matchMedia('(min-width: 768px)')
-    const handle = (e: MediaQueryListEvent | MediaQueryList) =>
-      setIsDesktop(e.matches)
-    handle(mq)
-    mq.addEventListener('change', handle as any)
+    const handle = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    setIsDesktop(mq.matches)
+    mq.addEventListener('change', handle)
 
     const rerun = () => {
       // bump key to force remount of Marquee rows
@@ -260,7 +260,7 @@ export default function TechStackSlider() {
     window.addEventListener('astro:page-load', rerun)
 
     return () => {
-      mq.removeEventListener('change', handle as any)
+      mq.removeEventListener('change', handle)
       document.removeEventListener('astro:page-load', rerun)
       window.removeEventListener('astro:page-load', rerun)
     }

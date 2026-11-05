@@ -54,7 +54,10 @@ describe('ui sound', () => {
     let created = 0
     const s = createUiSound({
       storage: fakeStorage({ 'ui-sound-muted': '1' }),
-      createContext: () => (created++, null),
+      createContext: () => {
+        created++
+        return null
+      },
     })
     expect(s.play()).toBe(false)
     expect(created).toBe(0)
@@ -77,7 +80,10 @@ describe('ui sound', () => {
     let created = 0
     const s = createUiSound({
       storage: fakeStorage(),
-      createContext: () => (created++, ctx as never),
+      createContext: () => {
+        created++
+        return ctx as never
+      },
       now: () => 1000,
     })
     expect(created).toBe(0)

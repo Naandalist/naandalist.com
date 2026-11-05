@@ -9,6 +9,7 @@ import {
   PiBriefcase,
   PiStarFourFill,
 } from 'react-icons/pi'
+import type { IconType } from 'react-icons'
 interface RoleLink {
   /** Text inside `role` to turn into a link, e.g. "Dicoding" */
   text: string
@@ -63,7 +64,7 @@ const socialLinks = [
   linkedin && { href: linkedin, label: 'LinkedIn', icon: PiLinkedinLogo },
   instagram && { href: instagram, label: 'Instagram', icon: PiInstagramLogo },
   mail && { href: `mailto:${mail}`, label: 'Email', icon: PiEnvelope },
-].filter(Boolean) as { href: string; label: string; icon: any }[]
+].filter(Boolean) as { href: string; label: string; icon: IconType }[]
 ---
 
 <div class="metal isolate relative overflow-hidden rounded-xl border-1 border-border/80 bg-card/80 backdrop-blur-md p-5 sm:p-6 shadow-1 transition-all duration-150 hover:border-foreground/30">

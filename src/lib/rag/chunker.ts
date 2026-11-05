@@ -16,7 +16,7 @@ export interface Chunk {
   text: string
   source: string
   chunkIndex: number
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 }
 
 const DEFAULT_DELIMITERS = [

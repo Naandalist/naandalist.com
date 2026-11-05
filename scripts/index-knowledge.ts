@@ -90,7 +90,9 @@ async function parseWithLlamaParse(filePath: string, apiKey: string): Promise<st
     if (status === 'COMPLETED' || status === 'SUCCESS') {
       console.log(`[LlamaParse v2] Successfully parsed ${fileName}!`)
       if (jobStatus.markdown?.pages && Array.isArray(jobStatus.markdown.pages)) {
-        return jobStatus.markdown.pages.map((p: any) => p.markdown || '').join('\n\n')
+        return jobStatus.markdown.pages
+          .map((p: { markdown?: string }) => p.markdown || '')
+          .join('\n\n')
       }
       return typeof jobStatus.markdown === 'string' ? jobStatus.markdown : (jobStatus.text || '')
     }

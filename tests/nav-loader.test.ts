@@ -12,7 +12,10 @@ function setup(options: { delay?: number; minVisible?: number } = {}) {
     show: () => log.push('show'),
     hide: () => log.push('hide'),
     now: () => now,
-    setTimer: (fn, ms) => (timers.push({ id: nextId, at: now + ms, fn }), nextId++),
+    setTimer: (fn, ms) => {
+      timers.push({ id: nextId, at: now + ms, fn })
+      return nextId++
+    },
     clearTimer: (id) => {
       const i = timers.findIndex((t) => t.id === id)
       if (i >= 0) timers.splice(i, 1)
