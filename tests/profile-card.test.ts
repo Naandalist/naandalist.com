@@ -23,11 +23,11 @@ describe('profile card', () => {
     expect(card).toMatch(/<h2/)
   })
 
-  it('shows the same square photo as About, without a border', async () => {
+  it('shows the same square photo as About, in full color, without a border', async () => {
     const card = await read('src/components/profile/ProfileCard.tsx')
     const img = card.match(/<img[\s\S]*?\/>/)?.[0] ?? ''
     expect(img).toContain('rounded-lg')
-    expect(img).toContain('grayscale')
+    expect(img).not.toContain('grayscale')
     expect(img).not.toMatch(/\bborder\b/)
     const home = await read('src/pages/index.astro')
     expect(home).toContain('author?.data.avatar')
