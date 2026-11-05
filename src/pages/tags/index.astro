@@ -13,10 +13,10 @@ const tagCounts = blog.reduce((acc, post) => {
     acc.set(tag, (acc.get(tag) || 0) + 1)
   })
   return acc
-}, new Map())
+}, new Map<string, number>())
 
 const tags = [...tagCounts.keys()].sort((a, b) => {
-  const countDiff = tagCounts.get(b)! - tagCounts.get(a)!
+  const countDiff = (tagCounts.get(b) ?? 0) - (tagCounts.get(a) ?? 0)
   return countDiff !== 0 ? countDiff : a.localeCompare(b)
 })
 ---

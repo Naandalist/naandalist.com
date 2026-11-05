@@ -258,6 +258,7 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
       return
     }
     if (!gl) return
+    const webgl = gl
 
     const textures: WebGLTexture[] = []
     const shaders: WebGLShader[] = []
@@ -271,37 +272,38 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
 
     try {
       const mkShader = (type: number, source: string) => {
-        const shader = gl!.createShader(type)
+        const shader = webgl.createShader(type)
         if (!shader) throw new Error('Shader failed')
         shaders.push(shader)
-        gl!.shaderSource(shader, source)
-        gl!.compileShader(shader)
+        webgl.shaderSource(shader, source)
+        webgl.compileShader(shader)
         return shader
       }
 
       const mkTex = (unit: number) => {
-        const tex = gl!.createTexture()
+        const tex = webgl.createTexture()
         if (!tex) throw new Error('Texture failed')
         textures.push(tex)
-        gl!.activeTexture(gl!.TEXTURE0 + unit)
-        gl!.bindTexture(gl!.TEXTURE_2D, tex)
-        gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MIN_FILTER, gl!.NEAREST)
-        gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MAG_FILTER, gl!.NEAREST)
-        gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_S, gl!.CLAMP_TO_EDGE)
-        gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_T, gl!.CLAMP_TO_EDGE)
+        webgl.activeTexture(webgl.TEXTURE0 + unit)
+        webgl.bindTexture(webgl.TEXTURE_2D, tex)
+        webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MIN_FILTER, webgl.NEAREST)
+        webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MAG_FILTER, webgl.NEAREST)
+        webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_WRAP_S, webgl.CLAMP_TO_EDGE)
+        webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_WRAP_T, webgl.CLAMP_TO_EDGE)
         return tex
       }
 
       prog = gl.createProgram()
       if (!prog) throw new Error('Program failed')
-      gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, VS))
-      gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FS))
-      gl.linkProgram(prog)
+      const program = prog
+      gl.attachShader(program, mkShader(gl.VERTEX_SHADER, VS))
+      gl.attachShader(program, mkShader(gl.FRAGMENT_SHADER, FS))
+      gl.linkProgram(program)
       // WebGL API name collides with React hook detection
       const activateProgram = gl.useProgram.bind(gl)
-      activateProgram(prog)
+      activateProgram(program)
 
-      const loc = (name: string) => gl!.getUniformLocation(prog!, name)
+      const loc = (name: string) => webgl.getUniformLocation(program, name)
       const buf = gl.createBuffer()
       if (!buf) throw new Error('Buffer failed')
       buffers.push(buf)
@@ -356,7 +358,7 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
       const now = () => performance.now()
 
       const onPointerMove = (e: MouseEvent) => {
-        const rect = canvas!.getBoundingClientRect()
+        const rect = canvas.getBoundingClientRect()
         const px = mouse.x
         const py = mouse.y
         mouse.x = e.clientX - rect.left
@@ -395,7 +397,7 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
         if (!canvas) return
         W = canvas.width = window.innerWidth
         H = canvas.height = window.innerHeight
-        gl!.viewport(0, 0, W, H)
+        webgl.viewport(0, 0, W, H)
       }
       resize()
       window.addEventListener('resize', resize)
@@ -457,17 +459,17 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
           fluidData[i * 2 + 1] = fluid.vy[i]
         }
 
-        gl!.activeTexture(gl!.TEXTURE0)
-        gl!.bindTexture(gl!.TEXTURE_2D, fluidTex)
-        gl!.texImage2D(
-          gl!.TEXTURE_2D,
+        webgl.activeTexture(webgl.TEXTURE0)
+        webgl.bindTexture(webgl.TEXTURE_2D, fluidTex)
+        webgl.texImage2D(
+          webgl.TEXTURE_2D,
           0,
-          gl!.RG32F,
+          webgl.RG32F,
           FC,
           FR,
           0,
-          gl!.RG,
-          gl!.FLOAT,
+          webgl.RG,
+          webgl.FLOAT,
           fluidData
         )
 
@@ -482,16 +484,16 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
           tlBuf[i] = 1 - (ts - pt.b) / TL
         }
 
-        gl!.uniform4fv(uTP, tpBuf)
-        gl!.uniform1fv(uTLoc, tlBuf)
-        gl!.uniform1i(uTrailN, trail.length)
-        gl!.uniform2f(uRes, W, H)
-        gl!.uniform1i(uPhase, phase)
-        gl!.uniform1f(uDark, isDark ? 1.0 : 0.0)
+        webgl.uniform4fv(uTP, tpBuf)
+        webgl.uniform1fv(uTLoc, tlBuf)
+        webgl.uniform1i(uTrailN, trail.length)
+        webgl.uniform2f(uRes, W, H)
+        webgl.uniform1i(uPhase, phase)
+        webgl.uniform1f(uDark, isDark ? 1.0 : 0.0)
 
-        gl!.clearColor(0, 0, 0, 0)
-        gl!.clear(gl!.COLOR_BUFFER_BIT)
-        gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4)
+        webgl.clearColor(0, 0, 0, 0)
+        webgl.clear(webgl.COLOR_BUFFER_BIT)
+        webgl.drawArrays(webgl.TRIANGLE_STRIP, 0, 4)
 
         rafId = requestAnimationFrame(draw)
       }
