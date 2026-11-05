@@ -1,51 +1,48 @@
 ---
 name: 'Listiananda Apriliawan'
-pronouns: 'he/him'
 avatar: 'https://avatars.githubusercontent.com/u/14960087?v=4'
-bio: 'Keep your expectations low and you`ll never be disappointed.'
-role: 'Data Science Intern @ Zurich Insurance, CTO @ Lemma Bercerita (Startup)'
-location: 'Bogor, Indonesia (ID)'
-resume: 'https://tr.ee/0gvXOd'
+bio: 'Ship code, neglect optics.'
+role: 'Product Engineer 3 @ Zero One Group, Code Reviewer @ Dicoding'
+location: 'Indonesia'
+resume: 'https://naandalist.com/resume/Listiananda-Apriliawan-Frontend-Engineer.pdf'
 website: 'https://naandalist.com'
-twitter: 'https://twitter.com/theycallmepeka'
+twitter: 'https://x.com/nawndalist'
 github: 'https://github.com/naandalist'
 linkedin: 'https://linkedin.com/in/naandalist'
 instagram: 'https://instagram.com/naandalist'
-mail: 'me@naandalist.com'
+mail: 'dev@naandalist.com'
 home:
   role: 'Product Engineer 3; Code Reviewer @ Dicoding'
   pronunciation: '/ˈnan.da a.pri.liˈa.wan/'
-  eyebrow: 'SWE & AI systems'
+  eyebrow: 'Frontend & mobile engineering'
   headline: >-
-    Delivering end-to-end systems and scalable AI/ML pipelines through solutions that are product-minded.
+    Building web and cross-platform mobile apps that hold up in production.
   tagline: >-
-    Software solutions and automation, built to scale. I lead teams from the first prototype to the production release.
-  galleryLabel: 'gallery.naandalist.com'
-  galleryUrl: 'https://gallery.naandalist.com'
+    React Native, React, Next.js, and Astro, plus backend services, CI/CD, and VPS deployments when the product needs them.
 about:
   whoLabel: '01 · Who'
-  greeting: "Hello, I'm Naandalist."
+  greeting: "Hello, I'm Listiananda."
   intro: >-
-    My name is Listiananda Apriliawan. I am currently a **final year student majoring in Computer Science** at [IPB University](https://ipb.ac.id). I'd say I'm a person who enjoys **bridging the gap between scalable software systems and real-world business impact**.
-  sceneLabel: 'My friends call me'
-  nickname: '"Peka"'
+    I'm a **Frontend Engineer with 6+ years of experience** building web and cross-platform mobile apps with React Native, React, Next.js, and Astro. Today I work as a **Product Engineer 3** at [Zero One Group](https://www.zero-one-group.com/) and review student code at [Dicoding](https://www.dicoding.com). I enjoy **tracing production issues to their root cause** and fixing the actual problem.
+  sceneLabel: 'Online I go by'
+  nickname: '"Naandalist"'
   bubbles:
     - >-
-      "Peka" is my name shortened from Putra Kirana.
+      "Naandalist" is the handle I use on GitHub, npm, and this site.
     - >-
-      It started back in elementary school, and it has been my identity ever since.
+      It grew out of Nanda, the short form of Listiananda.
   buildLabel: '02 · How I build'
-  buildTitle: 'Product-minded, treating software to production standards.'
+  buildTitle: 'Production first, from the first commit to the store release.'
   buildBody: >-
-    I work close to the problem, combining software engineering with AI, like **agentic platforms**, **scalable backends**, and **predictive models** built around real client cases. My team won **1st Place in the Industry Sector** and **Overall Winner in the General Category** at AI Open Innovation Challenge 2026, and placed **Top 5** with [SIGAP](https://github.com/naandalist/sigap) at BKN's ASN Digital AI Hackathon and **Top 10** with [SATRIA](https://github.com/naandalist/satria-ml) at Astranauts 2025. Whatever the size, I build with the product in mind, because good engineering only matters when it makes an impact.
+    I have shipped products for travel, insurance, and finance: progressive hotel search at [Airpaz](/projects/mobile-app-airpaz), a React Native upgrade and security cleanup on [AIA eBenefits](/projects/ebenefits-aia-customer-apps), and an e-KYC liveness SDK at Oxy Creative. On the side I maintain free apps like [Kamus KBBI VI](/projects/mobile-app-kbbi-vi) and [Info Haji](/projects/mobile-app-info-haji), and publish open source packages on [npm](https://www.npmjs.com/~naandalist).
   highlights:
-    - icon: 'lucide:boxes'
-      title: 'Modular by default'
-      text: 'Clean codebases, clear boundaries, and systems that scale, even for some projects in college.'
-    - icon: 'lucide:trophy'
-      title: 'Competitive spirit'
-      text: 'With a passion for hackathons since my very first competition, with a finalist and podium along the way.'
-    - icon: 'lucide:zap'
-      title: 'Rapid execution'
-      text: 'Technical idealism meets speed, turning complex challenges into intelligent products.'
+    - icon: 'lucide:smartphone'
+      title: 'Mobile and web'
+      text: 'React Native apps on Android and iOS, and React, Next.js, and Astro on the web.'
+    - icon: 'lucide:bug'
+      title: 'Root cause first'
+      text: 'I follow production issues through Sentry and logs until the real cause is fixed, not just the symptom.'
+    - icon: 'lucide:rocket'
+      title: 'Release ready'
+      text: 'End-to-end tests with Maestro, Fastlane, and CI/CD pipelines that keep releases boring.'
 ---

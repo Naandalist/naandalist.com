@@ -29,7 +29,7 @@ export async function loadLlmsInput(site: URL | string | undefined): Promise<Llm
       a?.github && { label: 'GitHub', url: a.github },
       a?.linkedin && { label: 'LinkedIn', url: a.linkedin },
       a?.instagram && { label: 'Instagram', url: a.instagram },
-      { label: 'Gallery', url: a?.home?.galleryUrl ?? 'https://gallery.naandalist.com' },
+      a?.home?.galleryUrl && { label: 'Gallery', url: a.home.galleryUrl },
       { label: 'RSS', url: new URL(SOCIAL_LINKS.find((l) => l.label === 'RSS')?.href ?? '/rss.xml', base).href },
     ].filter((l): l is { label: string; url: string } => Boolean(l)),
   }

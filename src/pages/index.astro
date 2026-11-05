@@ -65,7 +65,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     ...personLd({
       name: author?.data.name ?? 'Listiananda Apriliawan',
-      alternateName: 'Peka',
+      alternateName: 'Naandalist',
       url: siteUrl,
       image: new URL('/static/profile/avatar.png', siteUrl).href,
       jobTitle: author?.data.home?.role ?? author?.data.role,
@@ -87,10 +87,10 @@ const jsonLd = [
         pronunciation={home?.pronunciation}
         avatar={avatarSrc}
         links={[
-          { kind: 'mail', label: author?.data.mail ?? 'me@naandalist.com', href: `mailto:${author?.data.mail ?? 'me@naandalist.com'}` },
+          { kind: 'mail', label: author?.data.mail ?? SITE.EMAIL, href: `mailto:${author?.data.mail ?? SITE.EMAIL}` },
           { kind: 'linkedin', label: 'naandalist', href: author?.data.linkedin ?? 'https://linkedin.com/in/naandalist' },
           { kind: 'github', label: 'naandalist', href: author?.data.github ?? 'https://github.com/naandalist' },
-          { kind: 'photo', label: home?.galleryLabel ?? '', href: home?.galleryUrl ?? '/' },
+          ...(home?.galleryUrl ? [{ kind: 'photo' as const, label: home.galleryLabel ?? home.galleryUrl, href: home.galleryUrl }] : []),
           { kind: 'chat', label: 'Ask my assistant', href: '/chat' },
         ]}
       />

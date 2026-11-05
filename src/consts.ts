@@ -15,7 +15,7 @@ export type Link = {
 export const SITE: Site = {
   TITLE: 'Listiananda Apriliawan',
   DESCRIPTION: 'naandalist.com is the digital home of Listiananda Apriliawan.',
-  EMAIL: 'me@naandalist.com',
+  EMAIL: 'dev@naandalist.com',
   NUM_POSTS_ON_HOMEPAGE: 2,
   POSTS_PER_PAGE: 3,
   SITEURL: 'https://naandalist.com',
@@ -25,13 +25,12 @@ export const NAV_LINKS: Link[] = [
   { href: '/about', label: 'about' },
   { href: '/blog', label: 'blog' },
   { href: '/chat', label: 'chat' },
-  { href: 'https://gallery.naandalist.com', label: 'gallery' },
 ]
 
 export const SOCIAL_LINKS: Link[] = [
   { href: 'https://linkedin.com/in/naandalist', label: 'LinkedIn' },
   { href: 'https://instagram.com/naandalist', label: 'Instagram' },
-  { href: 'me@naandalist.com', label: 'Email' },
+  { href: 'dev@naandalist.com', label: 'Email' },
   { href: '/rss.xml', label: 'RSS' },
 ]
 

@@ -55,8 +55,8 @@ const authors = defineCollection({
         eyebrow: z.string(),
         headline: z.string(),
         tagline: z.string(),
-        galleryLabel: z.string(),
-        galleryUrl: z.url(),
+        galleryLabel: z.string().optional(),
+        galleryUrl: z.url().optional(),
       })
       .optional(),
     about: z

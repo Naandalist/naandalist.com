@@ -14,7 +14,7 @@ let { resumeUrl } = Astro.props
 
 if (!resumeUrl) {
   const author = await getEntry('authors', 'naandalist')
-  resumeUrl = author?.data.resume || 'https://tr.ee/0gvXOd'
+  resumeUrl = author?.data.resume || '/resume/Listiananda-Apriliawan-Frontend-Engineer.pdf'
 }
 ---
 

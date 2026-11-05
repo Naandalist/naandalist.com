@@ -33,9 +33,9 @@ describe('profile card', () => {
     expect(home).toContain('author?.data.avatar')
   })
 
-  it('links the gallery instead of the main site', async () => {
-    const home = await read('src/content/authors/naandalist.md')
-    expect(home).toContain('gallery.naandalist.com')
+  it('links a gallery only when the author sets one', async () => {
+    const home = await read('src/pages/index.astro')
+    expect(home).toMatch(/home\?\.galleryUrl \? \[\{ kind: 'photo'/)
   })
 
   it('shows the current role line', async () => {
