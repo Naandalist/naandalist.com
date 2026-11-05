@@ -1,17 +1,13 @@
 ---
 name: '@naandalist/patch-package'
 description: 'A security-enhanced fork of patch-package that fixes vulnerabilities while maintaining full compatibility.'
-tags: ['Open Source']
-type: ['Open Source']
-asset: '/static/projects/patch-package.webp'
-fallback: '/static/projects/patch-package.webp'
-link: 'https://www.npmjs.com/package/@naandalist/patch-package'
+npm: 'https://www.npmjs.com/package/@naandalist/patch-package'
 github: 'https://github.com/naandalist/patch-package'
-date: 'August 2024'
+version: '8.1.6'
+license: 'MIT'
+date: 2024-08-13
 updated: 2025-11-08
-techStack: ['Node.js', 'TypeScript']
-category: 'npm package'
-price: 'Free, MIT'
+tags: ['patch', 'package', 'module', 'node_modules']
 ---
 
 This package is a forked version of the official [patch-package v8.0.0](https://www.npmjs.com/package/patch-package). Its main purpose is to fix security vulnerabilities (MEDIUM and HIGH SEVERITY) while maintaining full compatibility with the original package.

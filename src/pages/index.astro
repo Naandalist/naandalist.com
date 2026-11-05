@@ -1,5 +1,6 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
+import PackageCard from '@/components/PackageCard.astro'
 import Container from '@/components/Container.astro'
 import Link from '@/components/Link.astro'
 import { ProjectsShowcase } from '@/components/features/ProjectsShowcase.tsx'
@@ -36,6 +37,10 @@ const blog = (await getCollection('blog'))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE)
+
+const packages = (await getCollection('npmjs'))
+  .sort((a, b) => (b.data.updated ?? b.data.date).valueOf() - (a.data.updated ?? a.data.date).valueOf())
+  .slice(0, SITE.NUM_PACKAGES_ON_HOMEPAGE)
 
 const rawProjects = (await getCollection('projects'))
   .sort((a, b) => {
@@ -153,6 +158,30 @@ const jsonLd = [
           class={buttonVariants({ variant: 'ghost' }) + ' group'}
         >
           See all posts <span
+            class="ml-1.5 transition-transform group-hover:translate-x-1"
+            >&rarr;</span
+          >
+        </Link>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-y-4">
+      <h2 class="shrink-0 font-title text-2xl max-sm:leading-tight sm:text-display-sm">Open source packages</h2>
+      <ul class="not-prose flex flex-col gap-y-4">
+        {
+          packages.map((entry) => (
+            <li>
+              <PackageCard entry={entry} />
+            </li>
+          ))
+        }
+      </ul>
+      <div class="flex justify-center">
+        <Link
+          href="/npmjs"
+          class={buttonVariants({ variant: 'ghost' }) + ' group'}
+        >
+          See all packages <span
             class="ml-1.5 transition-transform group-hover:translate-x-1"
             >&rarr;</span
           >

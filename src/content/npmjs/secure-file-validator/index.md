@@ -1,17 +1,13 @@
 ---
 name: 'secure-file-validator'
 description: 'Secure file validation library with signature checking and content validation.'
-tags: ['Open Source']
-type: ['Open Source']
-asset: '/static/projects/secure-file-validator.webp'
-fallback: '/static/projects/secure-file-validator.webp'
-link: 'https://www.npmjs.com/package/secure-file-validator'
+npm: 'https://www.npmjs.com/package/secure-file-validator'
 github: 'https://github.com/Naandalist/secure-file-validator'
-date: 'November 2024'
+version: '2.0.0'
+license: 'MIT'
+date: 2024-11-06
 updated: 2026-09-05
-techStack: ['Node.js', 'JavaScript']
-category: 'npm package'
-price: 'Free, MIT'
+tags: ['file-validation', 'security', 'file-type', 'mime-type']
 ---
 
 Zero-dependency Node.js helper for upload type checks: extension, size, magic numbers, plus a small PDF and SVG content policy.

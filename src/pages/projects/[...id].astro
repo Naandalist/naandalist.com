@@ -79,7 +79,7 @@ const facts = [date, category, platforms?.join(', '), price].filter(Boolean)
             {link && (
               <a href={link} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'default' }) + ' gap-2'}>
                 <Icon name="lucide:arrow-up-right" class="size-4" />
-                {link.includes('npmjs.com') ? 'View on npm' : 'Live project'}
+                Live project
               </a>
             )}
             {github && (

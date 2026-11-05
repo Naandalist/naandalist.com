@@ -1,17 +1,13 @@
 ---
 name: 'react-native-device-spec-info'
 description: 'JS-only helper to classify React Native devices as low/mid/high from RAM, display, and OS.'
-tags: ['Open Source']
-type: ['Open Source']
-asset: '/static/projects/react-native-device-spec-info.webp'
-fallback: '/static/projects/react-native-device-spec-info.webp'
-link: 'https://www.npmjs.com/package/react-native-device-spec-info'
+npm: 'https://www.npmjs.com/package/react-native-device-spec-info'
 github: 'https://github.com/Naandalist/react-native-device-spec-info'
-date: 'February 2026'
+version: '2.0.0'
+license: 'MIT'
+date: 2026-02-06
 updated: 2026-09-08
-techStack: ['React Native', 'TypeScript', 'Kotlin', 'Swift']
-category: 'npm package'
-price: 'Free, MIT'
+tags: ['react-native', 'device', 'specs', 'specification']
 ---
 
 JS-only helper to classify React Native devices as low / mid / high.

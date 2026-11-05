@@ -1,0 +1,30 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Container from '@/components/Container.astro'
+import PackageCard from '@/components/PackageCard.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+
+const packages = (await getCollection('npmjs')).sort(
+  (a, b) => (b.data.updated ?? b.data.date).valueOf() - (a.data.updated ?? a.data.date).valueOf(),
+)
+---
+
+<Layout title="Packages" description="Open source npm packages by Listiananda Apriliawan, for React Native, React, and Node.js.">
+  <Container class="flex flex-col gap-y-6">
+    <Breadcrumbs items={[{ label: 'Packages', icon: 'lucide:package' }]} />
+    <header class="flex flex-col gap-2">
+      <h1 class="font-title text-3xl max-sm:leading-tight sm:text-display-sm text-foreground">Open source packages</h1>
+      <p class="text-muted-foreground">Libraries I publish on npm. Newest release first.</p>
+    </header>
+    <ul class="not-prose flex flex-col gap-4">
+      {
+        packages.map((entry) => (
+          <li>
+            <PackageCard entry={entry} />
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Layout>

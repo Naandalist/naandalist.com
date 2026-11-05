@@ -1,17 +1,13 @@
 ---
 name: 'blobmascot'
 description: 'Interactive blob mascot for React apps. Shape, expression, and gaze update live on canvas.'
-tags: ['Open Source']
-type: ['Open Source']
-asset: '/static/projects/blobmascot.webp'
-fallback: '/static/projects/blobmascot.webp'
-link: 'https://www.npmjs.com/package/blobmascot'
+npm: 'https://www.npmjs.com/package/blobmascot'
 github: 'https://github.com/Naandalist/blobmascot'
-date: 'September 2026'
+version: '0.2.0'
+license: 'MIT'
+date: 2026-09-10
 updated: 2026-09-10
-techStack: ['React', 'TypeScript']
-category: 'npm package'
-price: 'Free, MIT'
+tags: ['react', 'mascot', 'blob', 'avatar']
 ---
 
 Interactive blob mascot for React apps. Shape, expression, and gaze update live on canvas.

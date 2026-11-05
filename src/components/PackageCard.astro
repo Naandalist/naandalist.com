@@ -1,0 +1,40 @@
+---
+/** List card for an npm package. Same frame as BlogCard, without an image, since packages have none. */
+import type { CollectionEntry } from 'astro:content'
+import Link from '@/components/Link.astro'
+import { Badge } from '@/components/ui/Badge'
+import { Separator } from '@/components/ui/Separator'
+import { formatDate } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+
+const { entry } = Astro.props as { entry: CollectionEntry<'npmjs'> }
+const { name, description, version, license, date, updated, tags } = entry.data
+---
+
+<div
+  class="not-prose rounded-lg border bg-card/80 backdrop-blur-sm p-(--space-card) shadow-1 transition-shadow duration-150 ease-out hover:shadow-2 motion-reduce:transition-none"
+>
+  <Link href={`/npmjs/${entry.id}`} class="flex flex-col gap-2">
+    <h3 class="flex items-center gap-2 font-mono text-lg font-semibold sm:text-xl">
+      <Icon name="lucide:package" class="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+      <span class="min-w-0 break-words">{name}</span>
+    </h3>
+    <p class="text-base text-muted-foreground line-clamp-3 sm:line-clamp-2">{description}</p>
+    <div class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+      <span>v{version}</span>
+      <Separator orientation="vertical" className="h-4" />
+      <span>{license}</span>
+      <Separator orientation="vertical" className="h-4" />
+      <span>Updated {formatDate(updated ?? date)}</span>
+    </div>
+    {
+      tags && tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <Badge variant="secondary">{tag}</Badge>
+          ))}
+        </div>
+      )
+    }
+  </Link>
+</div>

@@ -1,17 +1,13 @@
 ---
 name: '@naandalist/honocoroko'
 description: 'TypeScript library for transliterating text between Latin and Javanese script (Aksara Jawa/Hanacaraka).'
-tags: ['Open Source']
-type: ['Open Source']
-asset: '/static/projects/honocoroko.webp'
-fallback: '/static/projects/honocoroko.webp'
-link: 'https://www.npmjs.com/package/@naandalist/honocoroko'
+npm: 'https://www.npmjs.com/package/@naandalist/honocoroko'
 github: 'https://github.com/Naandalist/honocoroko'
-date: 'July 2025'
+version: '1.4.0'
+license: 'MIT'
+date: 2025-07-31
 updated: 2026-09-06
-techStack: ['TypeScript', 'JavaScript']
-category: 'npm package'
-price: 'Free, MIT'
+tags: ['javanese', 'hanacaraka', 'honocoroko', 'aksara-jawa']
 ---
 
 A TypeScript library for transliterating text between Latin and [Javanese script (Aksara Jawa/Hanacaraka)](https://id.wikipedia.org/wiki/Hanacaraka).

@@ -1,17 +1,13 @@
 ---
 name: 'react-native-nfc-card-scanner'
 description: 'EMV contactless credit & debit card reader for React Native to extract PAN and expiry via NFC in controlled environments (Android, limited iOS support).'
-tags: ['Open Source']
-type: ['Open Source']
-asset: '/static/projects/react-native-nfc-card-scanner.webp'
-fallback: '/static/projects/react-native-nfc-card-scanner.webp'
-link: 'https://www.npmjs.com/package/react-native-nfc-card-scanner'
+npm: 'https://www.npmjs.com/package/react-native-nfc-card-scanner'
 github: 'https://github.com/Naandalist/react-native-nfc-card-scanner'
-date: 'February 2026'
+version: '1.1.0'
+license: 'MIT'
+date: 2026-02-13
 updated: 2026-09-10
-techStack: ['React Native', 'TypeScript', 'Kotlin', 'Swift']
-category: 'npm package'
-price: 'Free, MIT'
+tags: ['react-native', 'nfc', 'card-scanner', 'card-reader']
 ---
 
 EMV contactless credit & debit card reader for React Native. Extracts PAN and expiry via NFC in controlled environments, depending on card issuer policies and device support.

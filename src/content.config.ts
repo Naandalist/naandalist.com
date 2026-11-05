@@ -111,4 +111,21 @@ const work = defineCollection({
     }),
 })
 
-export const collections = { blog, authors, projects, work }
+const npmjs = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/npmjs' }),
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    npm: z.url(),
+    github: z.url().optional(),
+    version: z.string(),
+    license: z.string(),
+    /** First publish. */
+    date: z.coerce.date(),
+    /** Latest release. Packages are listed by this, newest first. */
+    updated: z.coerce.date().optional(),
+    tags: z.array(z.string()).optional(),
+  }),
+})
+
+export const collections = { blog, authors, projects, work, npmjs }

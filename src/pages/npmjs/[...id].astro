@@ -1,0 +1,89 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import TableOfContents from '@/components/TableOfContents.astro'
+import { badgeVariants } from '@/components/ui/Badge'
+import { buttonVariants } from '@/components/ui/Button'
+import { Separator } from '@/components/ui/Separator'
+import Layout from '@/layouts/Layout.astro'
+import { breadcrumbLd } from '@/lib/jsonld'
+import { formatDate } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+import { type CollectionEntry, getCollection, render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const packages = await getCollection('npmjs')
+  return packages.map((entry) => ({ params: { id: entry.id }, props: entry }))
+}
+type Props = CollectionEntry<'npmjs'>
+
+const entry = Astro.props
+const { Content, headings } = await render(entry)
+const { name, description, npm, github, version, license, date, updated, tags } = entry.data
+
+const siteUrl = new URL('/', Astro.site).href
+const jsonLd = [
+  breadcrumbLd([
+    { name: 'Home', url: siteUrl },
+    { name: 'Packages', url: new URL('/npmjs/', siteUrl).href },
+    { name, url: new URL(`/npmjs/${entry.id}/`, siteUrl).href },
+  ]),
+]
+---
+
+<Layout title={name} description={description} jsonLd={jsonLd} published={date} modified={updated ?? date}>
+  <div class="mx-auto max-w-6xl px-(--space-gutter) flex flex-col gap-y-6">
+    <Breadcrumbs
+      items={[
+        { href: '/npmjs', label: 'Packages', icon: 'lucide:package' },
+        { label: name, icon: 'lucide:file-code' },
+      ]}
+    />
+
+    <section class="flex flex-col gap-y-4 text-center">
+      <h1 class="font-mono text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight break-words">{name}</h1>
+      <p class="text-muted-foreground">{description}</p>
+
+      <div class="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
+        <span>v{version}</span>
+        <Separator orientation="vertical" className="h-4" />
+        <span>{license}</span>
+        <Separator orientation="vertical" className="h-4" />
+        <span>Updated {formatDate(updated ?? date)}</span>
+      </div>
+
+      {
+        tags && tags.length > 0 && (
+          <div class="flex flex-wrap justify-center gap-2">
+            {tags.map((tag) => (
+              <span class={badgeVariants({ variant: 'secondary' })}>{tag}</span>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="flex flex-wrap justify-center gap-2">
+        <a href={npm} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'default' }) + ' gap-2'}>
+          <Icon name="lucide:package" class="size-4" />
+          View on npm
+        </a>
+        {
+          github && (
+            <a href={github} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'outline' }) + ' gap-2'}>
+              <Icon name="lucide:github" class="size-4" />
+              Source
+            </a>
+          )
+        }
+      </div>
+    </section>
+
+    {headings.length > 0 && <TableOfContents headings={headings} mobileOnly />}
+
+    <div class="flex items-start gap-8">
+      <article class="prose prose-neutral max-w-none dark:prose-invert flex-1 min-w-0">
+        <Content />
+      </article>
+      {headings.length > 0 && <TableOfContents headings={headings} desktopOnly />}
+    </div>
+  </div>
+</Layout>

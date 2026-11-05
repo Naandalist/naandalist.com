@@ -14,13 +14,16 @@ const PAGES = 'src/pages'
 export function sourcesFor(pathname: string): string[] {
   const path = pathname.replace(/\/+$/, '') || '/'
   const post = path.match(/^\/blog\/([^/]+)$/)
-  if (path === '/') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/index.astro`, `${CONTENT}/blog`, `${CONTENT}/projects`]
+  if (path === '/') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/index.astro`, `${CONTENT}/blog`, `${CONTENT}/projects`, `${CONTENT}/npmjs`]
   if (path === '/about') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/about.astro`, `${CONTENT}/work`]
   if (path === '/chat') return [`${PAGES}/chat.astro`]
   if (path === '/privacy' || path === '/terms') return [`${PAGES}${path}.md`]
   if (post && !/^\d+$/.test(post[1])) return [`${CONTENT}/blog/${post[1]}`, `${CONTENT}/blog/${post[1]}.md`, `${CONTENT}/blog/${post[1]}.mdx`]
   if (path.startsWith('/blog') || path.startsWith('/tags')) return [`${CONTENT}/blog`]
   if (path.startsWith('/authors')) return [`${CONTENT}/authors`]
+  const pkg = path.match(/^\/npmjs\/([^/]+)$/)
+  if (pkg) return [`${CONTENT}/npmjs/${pkg[1]}`]
+  if (path === '/npmjs') return [`${CONTENT}/npmjs`]
   const project = path.match(/^\/projects\/([^/]+)$/)
   if (project) return [`${CONTENT}/projects/${project[1]}`]
   return []

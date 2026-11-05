@@ -3,6 +3,7 @@ export type Site = {
   DESCRIPTION: string
   EMAIL: string
   NUM_POSTS_ON_HOMEPAGE: number
+  NUM_PACKAGES_ON_HOMEPAGE: number
   POSTS_PER_PAGE: number
   SITEURL: string
 }
@@ -17,6 +18,7 @@ export const SITE: Site = {
   DESCRIPTION: 'naandalist.com is the digital home of Listiananda Apriliawan.',
   EMAIL: 'dev@naandalist.com',
   NUM_POSTS_ON_HOMEPAGE: 2,
+  NUM_PACKAGES_ON_HOMEPAGE: 3,
   POSTS_PER_PAGE: 3,
   SITEURL: 'https://naandalist.com',
 }
@@ -24,6 +26,7 @@ export const SITE: Site = {
 export const NAV_LINKS: Link[] = [
   { href: '/about', label: 'about' },
   { href: '/blog', label: 'blog' },
+  { href: '/npmjs', label: 'packages' },
   { href: '/chat', label: 'chat' },
 ]
 
