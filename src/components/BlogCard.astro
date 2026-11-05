@@ -3,7 +3,6 @@ import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import Link from '@/components/Link.astro'
 import AvatarComponent from '@/components/ui/Avatar'
-import { Badge } from '@/components/ui/Badge'
 import { Separator } from '@/components/ui/Separator'
 import { parseAuthors } from '@/lib/server-utils'
 import { formatDate, readingTime } from '@/lib/utils'
@@ -46,7 +45,7 @@ const authors = await parseAuthors(entry.data.authors ?? [])
         {entry.data.description}
       </p>
       <div
-        class="mb-2 flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground"
+        class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground"
       >
         {
           authors.length > 0 && (
@@ -71,15 +70,6 @@ const authors = await parseAuthors(entry.data.authors ?? [])
         <Separator orientation="vertical" className="h-4" />
         <span>{readTime}</span>
       </div>
-      {
-        entry.data.tags && (
-          <div class="flex flex-wrap gap-2">
-            {entry.data.tags.map((tag) => (
-              <Badge variant="secondary" showHash={false}>{tag}</Badge>
-            ))}
-          </div>
-        )
-      }
     </div>
   </Link>
 </div>

@@ -2,13 +2,12 @@
 /** List card for an npm package. Same frame as BlogCard, without an image, since packages have none. */
 import type { CollectionEntry } from 'astro:content'
 import Link from '@/components/Link.astro'
-import { Badge } from '@/components/ui/Badge'
 import { Separator } from '@/components/ui/Separator'
 import { formatDate } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 
 const { entry } = Astro.props as { entry: CollectionEntry<'npmjs'> }
-const { name, description, version, license, date, updated, tags } = entry.data
+const { name, description, version, license, date, updated } = entry.data
 ---
 
 <div
@@ -27,14 +26,5 @@ const { name, description, version, license, date, updated, tags } = entry.data
       <Separator orientation="vertical" className="h-4" />
       <span>Updated {formatDate(updated ?? date)}</span>
     </div>
-    {
-      tags && tags.length > 0 && (
-        <div class="flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <Badge variant="secondary" showHash={false}>{tag}</Badge>
-          ))}
-        </div>
-      )
-    }
   </Link>
 </div>
