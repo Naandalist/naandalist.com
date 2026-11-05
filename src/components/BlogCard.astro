@@ -18,7 +18,7 @@ const readTime = readingTime(entry.body ?? '')
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
-    class="flex flex-col gap-4 sm:flex-row"
+    class="group flex flex-col gap-4 sm:flex-row"
   >
     {
       entry.data.image && (
@@ -29,7 +29,7 @@ const readTime = readingTime(entry.body ?? '')
             width={1300}
             height={700}
             format="webp"
-            class="aspect-video w-full rounded-md object-cover sm:h-full"
+            class="aspect-video w-full rounded-md object-cover sm:h-full grayscale transition-[filter] duration-200 group-hover:grayscale-0 group-focus-visible:grayscale-0 motion-reduce:transition-none"
           />
         </div>
       )
