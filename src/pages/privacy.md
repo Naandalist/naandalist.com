@@ -1,9 +1,9 @@
 ---
-layout: '@/layouts/LegalLayout.astro'
-title: 'Privacy Policy'
-description: 'What naandalist.com collects when you visit, which third-party services it uses, and the choices you have.'
-effective: '2026-11-05'
-icon: 'lucide:shield'
+layout: "@/layouts/LegalLayout.astro"
+title: "Privacy Policy"
+description: "What naandalist.com collects when you visit, which third-party services it uses, and the choices you have."
+effective: "2026-11-05"
+icon: "lucide:shield"
 ---
 
 naandalist.com is the personal website of Listiananda Apriliawan. This policy explains what information is collected when you visit, how it is used, and which third-party services are involved. By using the site you agree to this policy and the [Terms of Use](/terms).
@@ -35,7 +35,7 @@ You can clear or block these in your browser settings. The site keeps working wi
 Some parts of the page load directly from other services, which then receive your IP address and browser details:
 
 - **Last.fm**, through a public proxy, for the song I listened to most recently, with cover art from Last.fm or YouTube.
-- **Hackatime** for my coding statistics.
+- **Wakatime** for my coding statistics.
 - **GitHub** for avatars and project previews.
 - **Cloudinary** for images inside blog posts.
 
