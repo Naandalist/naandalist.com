@@ -101,7 +101,7 @@ export function seedAt(i: number, t: number, cols: number, rows: number): Seed {
   const sx = h.cx + Math.cos(startAngle) * h.r * 0.85
   const sy = h.cy + Math.sin(startAngle) * h.r * 0.85
   const endY = rows * (0.12 + hash(i, 5.9) * 0.62)
-  const ease = 1 - Math.pow(1 - p, 1.6)
+  const ease = 1 - (1 - p) ** 1.6
   return {
     x: lerp(sx, cols + 6, p),
     y: lerp(sy, endY, ease) + Math.sin(t * 1.6 + i * 2.1) * 0.9,
@@ -160,7 +160,7 @@ function head(buf: Float32Array, cols: number, rows: number, h: Head, t: number,
       const d = Math.hypot(ox / rx, oy / ry)
       if (d < 0.2 || d > 1) continue
       if (shape.gapW > 0 && Math.abs(Math.atan2(oy, ox)) < shape.gapW / 2 && d < 0.92) continue
-      const spoke = Math.pow(0.5 + 0.5 * Math.cos(Math.atan2(oy, ox) * spokes), 2)
+      const spoke = (0.5 + 0.5 * Math.cos(Math.atan2(oy, ox) * spokes)) ** 2
       const body = (0.5 + 0.45 * spoke) * (1 - smoothstep(0.82, 1, d)) * (0.55 + 0.45 * smoothstep(0.2, 0.55, d))
       plot(buf, cols, rows, c, r, body)
     }
@@ -192,7 +192,7 @@ function stem(buf: Float32Array, cols: number, rows: number, h: Head, t: number,
     for (let k = 0; k <= n; k++) {
       const u = k / n
       const x = baseX + dir * u * length
-      const y = bottom - Math.pow(u, 1.5) * lift
+      const y = bottom - u ** 1.5 * lift
       // Widest in the first half, pointed at the tip, with a tooth every few cells.
       const width = Math.sin(Math.min(1, u * 1.15) * Math.PI) * (lift * 0.26) * (1 + 0.35 * Math.sin(u * 22))
       for (let w = 0; w <= width; w += 0.5) plot(buf, cols, rows, x, y - w, 0.72)

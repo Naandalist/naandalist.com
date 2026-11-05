@@ -56,7 +56,7 @@ function tick(ctx: AudioContext) {
   const length = Math.max(1, Math.floor(ctx.sampleRate * 0.02))
   const buffer = ctx.createBuffer(1, length, ctx.sampleRate)
   const data = buffer.getChannelData(0)
-  for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 3)
+  for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / length) ** 3
 
   const noise = ctx.createBufferSource()
   noise.buffer = buffer

@@ -93,7 +93,7 @@ export function useBabysBreath(canvasRef: RefObject<HTMLCanvasElement | null>, {
       const strip = Math.max(2, Math.round(3 * dpr))
       for (let sx = 0; sx < canvas.width; sx += strip) {
         const u = (sx + strip / 2) / canvas.width
-        const k = perspective + (1 - perspective) * Math.pow(u, 1.3)
+        const k = perspective + (1 - perspective) * u ** 1.3
         const dh = canvas.height * k
         ctx.drawImage(scratch, sx, 0, strip, canvas.height, sx, canvas.height - dh, strip, dh)
       }

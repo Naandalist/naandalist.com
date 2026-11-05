@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
+import type React from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Send, User } from 'lucide-react'
 import { Streamdown } from 'streamdown'
 import { Card, CardContent } from '@/components/ui/Card'

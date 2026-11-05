@@ -147,7 +147,7 @@ function skeleton(cols: number, rows: number): Geometry {
 function wind(x: number, y: number, t: number, rows: number): number {
   const height = clamp01((rows - 1 - y) / (rows * 0.85))
   const gust = Math.sin(t * 0.9 - x * 0.045) * 0.7 + Math.sin(t * 0.37 + x * 0.02) * 0.3
-  return (gust * 2.2 + 0.9) * Math.pow(height, 1.5)
+  return (gust * 2.2 + 0.9) * height ** 1.5
 }
 
 /** Stems and flowers of every plant at time t (seconds). */

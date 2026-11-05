@@ -439,7 +439,7 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
             for (let dx = -gr; dx <= gr; dx++) {
               const dist = Math.hypot(dx, dy)
               if (dist > radius) continue
-              const f = Math.pow(1 - dist / radius, 2)
+              const f = (1 - dist / radius) ** 2
               const idx = (cx + dx + (cy + dy) * FC) % FN
               if (idx >= 0 && idx < FN) {
                 fluid.vx[idx] += pt.vx * f * force * TRAIL_CFG.ffm
