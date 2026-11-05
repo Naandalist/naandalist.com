@@ -5,12 +5,11 @@ Personal site for naandalist. Astro (static output, Vercel adapter) with React i
 ## Start here
 
 - Tokens and UI rules: `docs/design-system.md`
-- Open work: `docs/TODO.md`
 - Setup and env var names: `README.md`
 
 ## Commands
 
-- Gate (run before every PR, same as CI): `bun run check:tokens && bun run check && bun run build && bun test`
+- Gate (run before every PR, same as CI): `bun run check && bun run check:tokens && bun test && bun run build`
 - Dev: `bun install`, `bun run dev`
 - Type check: `bun run check`. Token lint: `bun run check:tokens`. Build: `bun run build`. Test: `bun test` (one file: `bun test tests/github.test.ts`)
 - No format or lint tool is set up yet. Add one before wiring a format or lint step in CI.
@@ -20,9 +19,9 @@ Personal site for naandalist. Astro (static output, Vercel adapter) with React i
 ## Workflow
 
 - Branch from `main`. One task is one branch and one PR.
-- Commits are one line, `type(scope): summary`, no trailer. Types: `feat`, `fix`, `style`, `perf`, `docs`, `test`, `chore`, `refactor`, `ci`, `build`. Scope is required.
+- Commits are one line, `type(scope): summary`, no trailer. Types: `feat`, `fix`, `hotfix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `revert`, `ci`, `build`. Scope is required.
 - Names say what changed. Never a plan label (`milestone-1`, `task-2`, `wip`, "finishing task") and never `(#N)`.
-- Never edit protected paths: `bun.lock`, `.env*`. A hook refuses it.
+- Never edit protected paths: `bun.lock`, `.env*`.
 - Touch only what the task needs. Do not add a dependency without asking.
 
 ## Editing UI
@@ -49,7 +48,7 @@ Personal site for naandalist. Astro (static output, Vercel adapter) with React i
 
 - The gate passes.
 - Visual check on the pages you touched. No layout shift.
-- Update `docs/design-system.md` if a token changed, `README.md` if a claim changed, and `tasks/todo.md` for finished tasks.
+- Update `docs/design-system.md` if a token changed, and `README.md` if a claim changed.
 - Update `public/scratch/lighthouse.png` when the desktop scores change.
 
 ## Secrets
