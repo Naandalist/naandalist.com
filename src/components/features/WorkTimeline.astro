@@ -2,11 +2,9 @@
 /**
  * Work history for the About page, newest first, laid out like a LinkedIn experience list:
  * round company logo and name, then the role joined to the logo by an elbow line, then dates.
- * Each role's details come from its markdown body.
  */
-import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
-import { getCollection, render } from 'astro:content'
+import { getCollection } from 'astro:content'
 
 interface Props {
   label: string
@@ -15,11 +13,7 @@ interface Props {
 const { label } = Astro.props
 const monthYear = (d: Date) => d.toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
 
-const jobs = await Promise.all(
-  (await getCollection('work'))
-    .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
-    .map(async (job) => ({ ...job, Content: (await render(job)).Content })),
-)
+const jobs = (await getCollection('work')).sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
 ---
 
 <section id="experience" class="flex flex-col gap-4 scroll-mt-24" aria-labelledby="experience-title">
@@ -29,7 +23,7 @@ const jobs = await Promise.all(
   </div>
 
   <ol class="about-card flex flex-col gap-6 p-6">
-    {jobs.map(({ data, Content }) => (
+    {jobs.map(({ data }) => (
       <li class="flex flex-col gap-1">
         <div class="flex items-center gap-3">
           <Image
@@ -67,18 +61,6 @@ const jobs = await Promise.all(
             </span>
           </p>
         </div>
-        {/* Collapsed by default to keep the list compact. Native details, so it works without JS. */}
-        <details class="group">
-          <summary class="ml-13 flex w-fit cursor-pointer list-none items-center gap-1 rounded-sm text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden">
-            <span class="group-open:hidden">Show details</span>
-            <span class="hidden group-open:inline">Hide details</span>
-            <Icon name="lucide:chevron-down" class="size-4 transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
-          </summary>
-          {/* Indented under the role from sm up. On phones it takes the full width so it stays readable. */}
-          <div class="prose prose-sm prose-neutral mt-2 max-w-none dark:prose-invert text-muted-foreground sm:pl-13">
-            <Content />
-          </div>
-        </details>
       </li>
     ))}
   </ol>
