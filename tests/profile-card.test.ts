@@ -38,8 +38,10 @@ describe('profile card', () => {
     expect(home).toContain('gallery.naandalist.com')
   })
 
-  it('shows the role as AI Engineer', async () => {
-    expect(await read('src/content/authors/naandalist.md')).toContain('AI Engineer, Final Year CS @ IPB')
+  it('shows the current role line', async () => {
+    expect(await read('src/content/authors/naandalist.md')).toContain(
+      'Data Science Intern @ Zurich Insurance, CTO @ Lemma Bercerita (Startup)',
+    )
   })
 
   it('uses a camera icon for the photo gallery link', async () => {
