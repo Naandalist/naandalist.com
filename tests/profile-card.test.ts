@@ -39,9 +39,10 @@ describe('profile card', () => {
   })
 
   it('shows the current role line', async () => {
-    expect(await read('src/content/authors/naandalist.md')).toContain(
-      'Data Science Intern @ Zurich Insurance, CTO @ Lemma Bercerita (Startup)',
-    )
+    const home = await read('src/content/authors/naandalist.md')
+    // The card renders home.role (index.astro), not the byline role at the top of the file.
+    expect(home).toMatch(/home:\n(?:\s+\S+.*\n)*?  role: '([^']+)'/)
+    expect(RegExp.$1).toBe('Product Engineer 3; Code Reviewer @ Dicoding')
   })
 
   it('uses a camera icon for the photo gallery link', async () => {

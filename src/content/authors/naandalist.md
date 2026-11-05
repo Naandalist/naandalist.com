@@ -13,8 +13,8 @@ linkedin: 'https://linkedin.com/in/naandalist'
 instagram: 'https://instagram.com/naandalist'
 mail: 'me@naandalist.com'
 home:
-  role: 'AI Engineer, Final Year CS @ IPB'
-  pronunciation: '/ˈraɪ.han.peˈka/'
+  role: 'Product Engineer 3; Code Reviewer @ Dicoding'
+  pronunciation: '/ˈnan.da a.pri.liˈa.wan/'
   eyebrow: 'SWE & AI systems'
   headline: >-
     Delivering end-to-end systems and scalable AI/ML pipelines through solutions that are product-minded.
