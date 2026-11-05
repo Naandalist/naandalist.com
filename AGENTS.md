@@ -14,7 +14,7 @@ Personal site for naandalist. Astro (static output, Vercel adapter) with React i
 - Type check: `bun run check`. Token lint: `bun run check:tokens`. Build: `bun run build`. Test: `bun test` (one file: `bun test tests/github.test.ts`)
 - No format or lint tool is set up yet. Add one before wiring a format or lint step in CI.
 - Runtime is Bun, not Node. Scripts in `scripts/` are `.ts` and run with `bun scripts/<name>.ts`. CI uses `oven-sh/setup-bun`.
-- Vercel: Bun is supported as package manager (confirm `bun install` in the build log). Serverless functions in `src/pages/api/` run on Node unless the Bun runtime is enabled, and Vercel's Bun runtime docs do not list Astro. Check before turning it on.
+- Vercel: install uses Bun via `bun.lock` (confirm `bun install` in the build log). Functions run on Node (`engines.node: 24.x`). Do not set `bunVersion` in `vercel.json` until Vercel lists Astro on the Bun runtime.
 
 ## Workflow
 
