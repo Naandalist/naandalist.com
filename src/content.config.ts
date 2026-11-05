@@ -12,6 +12,8 @@ const blog = defineCollection({
           60,
           'Title should be 60 characters or less for optimal Open Graph display.',
         ),
+      /** One-line deck shown under the title on the post page. */
+      subtitle: z.string().optional(),
       description: z
         .string()
         .max(
