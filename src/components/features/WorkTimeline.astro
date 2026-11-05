@@ -1,8 +1,8 @@
 ---
 /**
  * Work history for the About page, newest first, laid out like a LinkedIn experience list:
- * round company logo and name, then the role joined to the logo by an elbow line, then dates
- * with the duration. Each role's details come from its markdown body.
+ * round company logo and name, then the role joined to the logo by an elbow line, then dates.
+ * Each role's details come from its markdown body.
  */
 import { Image } from 'astro:assets'
 import { getCollection, render } from 'astro:content'
@@ -14,19 +14,6 @@ interface Props {
 const { label } = Astro.props
 const monthYear = (d: Date) => d.toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
 
-/** "2 yr, 3 m", "1 yr", "8 m". Counts whole months between the two dates, at least one. */
-function duration(start: Date, end: Date): string {
-  const months = Math.max(
-    1,
-    (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + (end.getUTCMonth() - start.getUTCMonth()),
-  )
-  const yr = Math.floor(months / 12)
-  const m = months % 12
-  return [yr && `${yr} yr`, m && `${m} m`].filter(Boolean).join(', ')
-}
-
-// The site is static, so "Present" durations are as of the last build.
-const now = new Date()
 const jobs = await Promise.all(
   (await getCollection('work'))
     .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
@@ -76,7 +63,6 @@ const jobs = await Promise.all(
               <time datetime={data.start.toISOString().slice(0, 10)}>{monthYear(data.start)}</time>
               {' - '}
               {data.end ? <time datetime={data.end.toISOString().slice(0, 10)}>{monthYear(data.end)}</time> : 'Present'}
-              {` (${duration(data.start, data.end ?? now)})`}
             </span>
           </p>
         </div>
