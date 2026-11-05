@@ -15,10 +15,6 @@ if (!fontFile) {
 const TEXT = 'Naandalist'
 const SIZE = 64
 const PAD = 2
-// Damion leans about 17 degrees on its own. Shear the outline so the word leans about 25, like Dribbble.
-const NATIVE_SLANT_DEG = 17
-const SLANT_DEG = 25
-const SHEAR = Math.tan((SLANT_DEG * Math.PI) / 180) - Math.tan((NATIVE_SLANT_DEG * Math.PI) / 180)
 
 const font = opentype.parse((await Bun.file(fontFile).arrayBuffer()) as ArrayBuffer)
 const scale = SIZE / font.unitsPerEm
@@ -35,16 +31,8 @@ const placed = glyphs.map((g, i) => {
   return path
 })
 
-const upright = new opentype.Path()
-for (const p of placed) upright.extend(p)
-// y grows downward and is negative above the baseline, so x - y * SHEAR pushes the tops right.
 const merged = new opentype.Path()
-for (const cmd of upright.commands) {
-  const c = { ...cmd } as Record<string, number | string>
-  for (const [kx, ky] of [['x', 'y'], ['x1', 'y1'], ['x2', 'y2']])
-    if (typeof c[kx] === 'number') c[kx] = (c[kx] as number) - (c[ky] as number) * SHEAR
-  merged.commands.push(c as never)
-}
+for (const p of placed) merged.extend(p)
 const box = merged.getBoundingBox()
 const dx = PAD - box.x1
 const dy = PAD - box.y1
