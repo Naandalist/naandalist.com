@@ -5,8 +5,6 @@ import MobileMenu from '@/components/ui/MobileMenu'
 import { ModeToggle } from '@/components/ui/ModeToggle'
 import Signature from '@/components/Signature.astro'
 import { NAV_LINKS } from '@/consts'
-import { Image } from 'astro:assets'
-import logo from '../../public/static/profile/avatar.png'
 ---
 
 <header
@@ -20,7 +18,6 @@ import logo from '../../public/static/profile/avatar.png'
         aria-label="naandalist"
         class="flex shrink-0 items-center gap-2 transition-colors duration-150 hover:text-primary"
       >
-        <Image src={logo} alt="" width={64} height={64} format="webp" loading="eager" fetchpriority="high" class="size-8" style="max-width:2rem;max-height:2rem;" />
         <Signature />
       </Link>
       <div class="flex items-center gap-2 md:gap-4">
