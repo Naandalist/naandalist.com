@@ -1,4 +1,5 @@
 ---
+image: ./cover.webp
 title: 'Git Commit Message Standard'
 subtitle: 'A practical convention I use to keep commit history audit-friendly'
 description: 'A field-tested approach to Conventional Commits for product teams, including tradeoffs and enforcement tips.'
@@ -13,7 +14,7 @@ I am writing as a **5+ YOE engineer**. In real product operations, commit histor
 
 When we let commit messages stay vague, we repeatedly hit the same pain: regressions took longer to trace, reviews started from guesswork, and release notes became manual cleanup work. Once we enforced a consistent commit convention, debugging and handover quality improved in measurable ways.
 
-![Git Commit](https://res.cloudinary.com/naandalistcloud/image/upload/v1766840794/naandalist.com/0_h4BR91VxYGy_lSZi_el4qb6-gitcommit_ojg2ag.webp "Illustration of Git commits")
+![Git Commit](/static/blog/git-commit-message-convention/0_h4BR91VxYGy_lSZi_el4qb6-gitcommit_ojg2ag.webp "Illustration of Git commits")
 
 ## Why a Commit Convention Matters in Practice
 

@@ -1,4 +1,5 @@
 ---
+image: ./cover.jpg
 title: 'Testing How LinkedIn Detects Content Credentials'
 subtitle: 'A small experiment with C2PA metadata and LinkedIn''s Content Credentials badge'
 description: 'A hands-on experiment exploring how LinkedIn displays C2PA Content Credentials and what happens after an image''s embedded metadata is removed.'
@@ -7,7 +8,7 @@ tags: ['ai', 'experiment']
 authors: ['naandalist']
 ---
 
-![The Small Badge That Started This Experiment](https://res.cloudinary.com/naandalistcloud/image/upload/v1786886817/naandalist.com/center_by_duskstormcrow_dmkqp2o-pre_biij2y.jpg)
+![The Small Badge That Started This Experiment](/static/blog/testing-linkedin-content-credentials/center_by_duskstormcrow_dmkqp2o-pre_biij2y.jpg)
 
 > The Small Badge That Started This Experiment
 
@@ -18,7 +19,7 @@ Hovering over the badge opened a Content Credentials panel. It said AI was used 
 That made me curious: how did LinkedIn know?
 
 <div align="center">
-  <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1786937946/linkedin-post-with-cr-badge_b9cb0y.webp" alt="LinkedIn post screenshot showing the CR badge" />
+  <img src="/static/blog/testing-linkedin-content-credentials/linkedin-post-with-cr-badge_b9cb0y.webp" alt="LinkedIn post screenshot showing the CR badge" />
   <p style="font-size: 0.875rem;"><em>LinkedIn post screenshot showing the CR badge</em></p>
 </div>
 
@@ -31,7 +32,7 @@ LinkedIn uses the [C2PA standard](https://www.linkedin.com/help/linkedin/answer/
 The signature makes the provenance claim verifiable. It does not prove that every detail inside the image is true, and the absence of a credential does not prove that an image was created without AI.
 
 <div align="center">
-  <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1786938168/linkedin_post_with_cr_badge_expanded_popzos.webp" alt="Expanded Content Credentials panel screenshot" />
+  <img src="/static/blog/testing-linkedin-content-credentials/linkedin_post_with_cr_badge_expanded_popzos.webp" alt="Expanded Content Credentials panel screenshot" />
   <p style="font-size: 0.875rem;"><em>LinkedIn post screenshot showing expanded Content Credentials panel screenshot</em></p>
 </div>
 
@@ -75,7 +76,7 @@ The image still uploaded and displayed normally, but the **CR badge no longer ap
 In this test, removing the attached metadata also removed the provenance signal LinkedIn had used to render the Content Credentials interface.
 
 <div align="center">
-  <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1786938435/naandalist.com/Screenshot_2026-08-17_at_10.46.51_eudxby.png" alt="Before-and-after comparison of the two LinkedIn uploads" />
+  <img src="/static/blog/testing-linkedin-content-credentials/Screenshot_2026-08-17_at_10.46.51_eudxby.png" alt="Before-and-after comparison of the two LinkedIn uploads" />
   <p style="font-size: 0.875rem;"><em>Before-and-after comparison of the two LinkedIn uploads</em></p>
 </div>
 

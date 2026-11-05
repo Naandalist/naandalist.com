@@ -1,4 +1,5 @@
 ---
+image: ./cover.png
 title: 'From Visual to CLI: My Experience Using OpenClaw'
 subtitle: 'How OpenClaw TUI made VPS operations feel interactive.'
 description: 'A practical field note on using OpenClaw TUI and clawbot to manage CLI-only VPS workflows in a more conversational and actionable way.'
@@ -7,7 +8,7 @@ tags: ['ai', 'devops', 'tools']
 authors: ['naandalist']
 ---
 
-![Openclaw](https://openclaw.ai/og-image.png)
+![Openclaw](/static/blog/from-visual-to-cli-openclaw-experience/og-image.png)
 
 As a frontend developer, my habits are visual. I usually think in terms of layout feedback, immediate UI state, and interactive controls. That mindset worked well until I had to handle more VPS tasks directly. The server was reliable, but the experience felt cold and rigid because everything depended on CLI fluency and memorized commands.
 

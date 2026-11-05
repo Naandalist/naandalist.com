@@ -1,4 +1,5 @@
 ---
+image: ./cover.jpg
 title: 'Hardening React Native Apps Beyond JailMonkey'
 subtitle: 'A field-tested security playbook from a Senior Mobile Engineer'
 description: 'How we moved React Native security from fragile client checks to server-verified controls: attestation, transport hardening, and replay protection.'
@@ -7,7 +8,7 @@ tags: ['react-native', 'security', 'mobile']
 authors: ['naandalist']
 ---
 
-![Neon Skies and Chrome Dreams](https://res.cloudinary.com/naandalistcloud/image/upload/v1763258345/naandalist.com/the_codex_of_eternal_flame_by_ai_agent_zero_djxveks-fullview_sjwcij.jpg)
+![Neon Skies and Chrome Dreams](/static/blog/hardening-react-native/the_codex_of_eternal_flame_by_ai_agent_zero_djxveks-fullview_sjwcij.jpg)
 
 I am writing this as a **Senior Mobile Engineer with 5+ years of experience** building React Native products in fintech P2P lending and insurance customer apps.
 

@@ -1,4 +1,5 @@
 ---
+image: ./cover.jpg
 title: 'Great Work Doesn''t Always Have to Be Original'
 subtitle: 'Exploring the fine line between copying, stealing, and creating something new.'
 description: 'A reflection on creativity and originality. Why nothing is truly new and how to ethically draw inspiration from existing ideas.'
@@ -8,7 +9,7 @@ authors: ['naandalist']
 ---
 
 <div align="center">
-  <img src="https://res.cloudinary.com/naandalistcloud/image/upload/fl_preserve_transparency/v1764958662/naandalist.com/watching_by_jjfwh_dl0zbed-pre_i6pwpm.jpg?_s=public-apps" alt="Great Work Doesn't Always Have to Be Original" />
+  <img src="/static/blog/dont-make-it-original/watching_by_jjfwh_dl0zbed-pre_i6pwpm.jpg" alt="Great Work Doesn't Always Have to Be Original" />
 </div>
 
 Nothing is truly new in this world.

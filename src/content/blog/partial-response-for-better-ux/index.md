@@ -1,4 +1,5 @@
 ---
+image: ./cover.jpg
 title: 'Partial API Responses for Better UX'
 subtitle: 'UX First, Purity Second'
 description: 'A field-tested API contract for shipping core product data fast while slower fields complete asynchronously without blocking the full screen.'
@@ -7,7 +8,7 @@ tags: ['api', 'ux', 'mobile']
 authors: ['naandalist']
 ---
 
-![Neon Skies and Chrome Dreams](https://res.cloudinary.com/naandalistcloud/image/upload/v1763224844/naandalist.com/neon_skies_and_chrome_dreams_by_inkimagine_dk5niy4-pre_va6ndy.jpg)
+![Neon Skies and Chrome Dreams](/static/blog/partial-response-for-better-ux/neon_skies_and_chrome_dreams_by_inkimagine_dk5niy4-pre_va6ndy.jpg)
 
 I am writing as a **5+ YOE engineer**.
 
@@ -71,7 +72,7 @@ This state must not be treated as "still loading." In our implementation, we sto
 ### Flow Diagram
 
 <div align="center">
-  <img src="https://res.cloudinary.com/naandalistcloud/image/upload/v1763224832/naandalist.com/Untitled_diagram-2025-11-15-163928_ym4pao.svg" alt="Partial Response Flow Diagram" />
+  <img src="/static/blog/partial-response-for-better-ux/Untitled_diagram-2025-11-15-163928_ym4pao.svg" alt="Partial Response Flow Diagram" />
   <p style="font-size: 0.875rem;"><em>Flow diagram showing the partial response pattern</em></p>
 </div>
 
