@@ -1,6 +1,8 @@
 ---
 /**
- * Work history for the About page, newest first. Each role's details come from its markdown body.
+ * Work history for the About page, newest first, laid out like a LinkedIn experience list:
+ * round company logo and name, then the role joined to the logo by an elbow line, then dates
+ * with the duration. Each role's details come from its markdown body.
  */
 import { Image } from 'astro:assets'
 import { getCollection, render } from 'astro:content'
@@ -12,6 +14,19 @@ interface Props {
 const { label } = Astro.props
 const monthYear = (d: Date) => d.toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
 
+/** "2 yr, 3 m", "1 yr", "8 m". Counts whole months between the two dates, at least one. */
+function duration(start: Date, end: Date): string {
+  const months = Math.max(
+    1,
+    (end.getUTCFullYear() - start.getUTCFullYear()) * 12 + (end.getUTCMonth() - start.getUTCMonth()),
+  )
+  const yr = Math.floor(months / 12)
+  const m = months % 12
+  return [yr && `${yr} yr`, m && `${m} m`].filter(Boolean).join(', ')
+}
+
+// The site is static, so "Present" durations are as of the last build.
+const now = new Date()
 const jobs = await Promise.all(
   (await getCollection('work'))
     .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
@@ -25,34 +40,49 @@ const jobs = await Promise.all(
     <h2 id="experience-title" class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">Experience</h2>
   </div>
 
-  <ol class="flex flex-col gap-3 sm:gap-4">
+  <ol class="about-card flex flex-col gap-8 p-6">
     {jobs.map(({ data, Content }) => (
-      <li class="about-card flex flex-col gap-4 p-6 sm:flex-row">
-        <Image
-          src={data.logo}
-          alt=""
-          width={48}
-          height={48}
-          format={data.logo.format === 'svg' ? 'svg' : 'webp'}
-          class="size-12 shrink-0 rounded-md bg-white object-contain p-1"
-        />
-        <div class="flex min-w-0 flex-1 flex-col gap-2">
-          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-            <h3 class="text-lg font-bold leading-tight text-foreground">
-              {data.role}{' '}
-              <span class="font-normal text-muted-foreground">
-                at {data.url ? <a href={data.url} target="_blank" rel="noopener noreferrer" class="text-foreground underline decoration-muted-foreground underline-offset-4 hover:decoration-foreground">{data.company}</a> : data.company}
-              </span>
-            </h3>
-            <p class="shrink-0 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+      <li class="flex flex-col gap-1">
+        <div class="flex items-center gap-3">
+          <Image
+            src={data.logo}
+            alt=""
+            width={40}
+            height={40}
+            format={data.logo.format === 'svg' ? 'svg' : 'webp'}
+            class="size-10 shrink-0 rounded-full bg-white object-contain p-1 ring-1 ring-border"
+          />
+          <h3 class="text-lg text-foreground">
+            {data.url ? (
+              <a href={data.url} target="_blank" rel="noopener noreferrer" class="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-foreground">{data.company}</a>
+            ) : (
+              data.company
+            )}
+          </h3>
+        </div>
+
+        <div class="relative pl-13">
+          {/* Elbow from under the logo into the role title. */}
+          <span
+            aria-hidden="true"
+            class:list={[
+              'absolute left-5 top-0 h-4 w-6 rounded-bl-lg border-b-2 border-l-2',
+              data.end ? 'border-border' : 'border-foreground/60',
+            ]}
+          />
+          <p class="text-lg font-bold leading-7 text-foreground">{data.role}</p>
+          <p class="text-sm text-muted-foreground">
+            <span class="font-semibold">
               <time datetime={data.start.toISOString().slice(0, 10)}>{monthYear(data.start)}</time>
-              {' – '}
+              {' - '}
               {data.end ? <time datetime={data.end.toISOString().slice(0, 10)}>{monthYear(data.end)}</time> : 'Present'}
-            </p>
-          </div>
-          <div class="prose prose-sm prose-neutral max-w-none dark:prose-invert text-muted-foreground">
-            <Content />
-          </div>
+              {` (${duration(data.start, data.end ?? now)})`}
+            </span>
+          </p>
+        </div>
+        {/* Indented under the role from sm up. On phones it takes the full width so it stays readable. */}
+        <div class="prose prose-sm prose-neutral mt-2 max-w-none dark:prose-invert text-muted-foreground sm:pl-13">
+          <Content />
         </div>
       </li>
     ))}
