@@ -116,6 +116,7 @@ export const CACHE_TTL = {
  * Cache keys
  */
 export const CACHE_KEYS = {
-  WAKATIME: 'wakatime_stats',
+  // v2: last 7 days as { totalSeconds, languages }. The old key held an array for the chart.
+  WAKATIME: 'wakatime_stats_v2',
   LASTFM: 'lastfm_track',
 }

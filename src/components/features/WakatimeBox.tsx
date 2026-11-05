@@ -1,363 +1,151 @@
 'use client'
 
-import * as React from 'react'
 import { useEffect, useState } from 'react'
-import type { IconType } from 'react-icons/lib'
-import {
-  SiAstro,
-  SiC,
-  SiCodecrafters,
-  SiCplusplus,
-  SiCss,
-  SiDart,
-  SiDocker,
-  SiElixir,
-  SiFlutter,
-  SiGit,
-  SiGnubash,
-  SiGo,
-  SiGraphql,
-  SiHaskell,
-  SiHtml5,
-  SiJavascript,
-  SiJson,
-  SiKotlin,
-  SiLatex,
-  SiLua,
-  SiMarkdown,
-  SiMdx,
-  SiOcaml,
-  SiPhp,
-  SiPostgresql,
-  SiPrisma,
-  SiPython,
-  SiR,
-  SiRuby,
-  SiRust,
-  SiScala,
-  SiSwift,
-  SiTypescript,
-  SiVuedotjs,
-  SiYaml,
-  SiZig,
-} from 'react-icons/si'
-import { FaJava } from 'react-icons/fa'
-import { TbBrandCSharp, TbSql } from 'react-icons/tb'
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/Chart'
 import { motion } from 'motion/react'
-import {
-  getCachedData,
-  setCachedData,
-  CACHE_TTL,
-  CACHE_KEYS,
-} from '@/lib/cache'
+import { getCachedData, setCachedData, CACHE_TTL, CACHE_KEYS } from '@/lib/cache'
 
-const languageIcons: { [key: string]: IconType } = {
-  // Web & Core
-  typescript: SiTypescript,
-  javascript: SiJavascript,
-  astro: SiAstro,
-  html: SiHtml5,
-  css: SiCss,
-  'vue.js': SiVuedotjs,
-  vue: SiVuedotjs,
-
-  // Systems & Native
-  rust: SiRust,
-  go: SiGo,
-  golang: SiGo,
-  c: SiC,
-  'c++': SiCplusplus,
-  'c#': TbBrandCSharp as IconType,
-  csharp: TbBrandCSharp as IconType,
-  'c-sharp': TbBrandCSharp as IconType,
-  zig: SiZig,
-
-  // JVM & Mobile
-  java: FaJava as IconType,
-  kotlin: SiKotlin,
-  scala: SiScala,
-  dart: SiDart,
-  flutter: SiFlutter,
-  swift: SiSwift,
-
-  // Scripting & Backend
-  python: SiPython,
-  ruby: SiRuby,
-  php: SiPhp,
-  lua: SiLua,
-  bash: SiGnubash,
-  sh: SiGnubash,
-  shell: SiGnubash,
-  zsh: SiGnubash,
-
-  // Functional & Scientific
-  ocaml: SiOcaml,
-  elixir: SiElixir,
-  haskell: SiHaskell,
-  r: SiR,
-
-  // Data, Query, & Infra
-  sql: TbSql as IconType,
-  postgresql: SiPostgresql,
-  docker: SiDocker,
-  dockerfile: SiDocker,
-  prisma: SiPrisma,
-  graphql: SiGraphql,
-  git: SiGit,
-  'git config': SiGit,
-
-  // Docs, Markup & Config
-  markdown: SiMarkdown,
-  mdx: SiMdx,
-  json: SiJson,
-  yaml: SiYaml,
-  tex: SiLatex,
-  other: SiCodecrafters,
-}
-
-const getLanguageIcon = (language: string): React.JSX.Element | null => {
-  const Icon = languageIcons[language]
-  return Icon ? <Icon /> : null
-}
-
-/** Brand language colors (GitHub Linguist palette). These are third-party identities, not theme tokens. */
-const LANGUAGE_COLORS: Record<string, string> = {
-  typescript: '#3178c6',
-  javascript: '#f1e05a',
-  astro: '#ff5a03',
-  html: '#e34c26',
-  css: '#663399',
-  vue: '#41b883',
-  'vue.js': '#41b883',
-  rust: '#dea584',
-  go: '#00add8',
-  golang: '#00add8',
-  c: '#555555',
-  'c++': '#f34b7d',
-  'c#': '#178600',
-  csharp: '#178600',
-  'c-sharp': '#178600',
-  zig: '#ec915c',
-  java: '#b07219',
-  kotlin: '#a97bff',
-  scala: '#c22d40',
-  dart: '#00b4ab',
-  flutter: '#02569b',
-  swift: '#f05138',
-  python: '#3572a5',
-  ruby: '#701516',
-  php: '#4f5d95',
-  lua: '#000080',
-  bash: '#89e051',
-  sh: '#89e051',
-  shell: '#89e051',
-  zsh: '#89e051',
-  ocaml: '#3be133',
-  elixir: '#6e4a7e',
-  haskell: '#5e5086',
-  r: '#198ce7',
-  sql: '#e38c00',
-  postgresql: '#336791',
-  docker: '#2496ed',
-  dockerfile: '#2496ed',
-  prisma: '#2d3748',
-  graphql: '#e10098',
-  git: '#f05032',
-  markdown: '#083fa1',
-  yaml: '#cb171e',
-  tex: '#3d6117',
-}
-
-const getLanguageColor = (language: string): string | undefined =>
-  LANGUAGE_COLORS[language.toLowerCase()]
+/**
+ * Coding activity for the last 7 days from Hackatime, laid out like the waka-readme block on my
+ * GitHub profile: language, time, a 25-character block bar, and percent.
+ */
 
 interface Language {
   name: string
-  hours: number
-  fill: string
+  seconds: number
+  percent: number
+}
+
+interface Stats {
+  totalSeconds: number
+  languages: Language[]
 }
 
 interface Props {
   omitLanguages?: string[]
 }
 
-const colors = [
-  'hsl(var(--chart-1))',
-  'hsl(var(--chart-2))',
-  'hsl(var(--chart-3))',
-  'hsl(var(--chart-4))',
-]
+const ROWS = 5
+const BAR_LENGTH = 25
+const BLOCKS = ['░', '▒', '▓', '█']
 
-const chartConfig: ChartConfig = {
-  hours: {
-    label: 'Hours',
-    color: 'hsl(var(--primary))',
-  },
-  label: {
-    color: 'hsl(var(--primary))',
-  },
-  ...colors.reduce(
-    (acc, color, index) => ({
-      ...acc,
-      [`language${index}`]: { label: `Language ${index + 1}`, color },
-    }),
-    {},
-  ),
+/** Same shape as waka-readme: full blocks, one partial block for the remainder, light shade after. */
+export function blockBar(percent: number, length = BAR_LENGTH): string {
+  const filled = (Math.min(Math.max(percent, 0), 100) / 100) * length
+  const full = Math.floor(filled)
+  if (full >= length) return BLOCKS[3].repeat(length)
+  const partial = BLOCKS[Math.round((filled - full) * (BLOCKS.length - 1))]
+  return BLOCKS[3].repeat(full) + partial + BLOCKS[0].repeat(length - full - 1)
+}
+
+/** "5 hrs 36 mins", "51 mins", "0 mins", like WakaTime. */
+export function humanTime(seconds: number): string {
+  const hrs = Math.floor(seconds / 3600)
+  const mins = Math.floor((seconds % 3600) / 60)
+  const h = hrs > 0 ? `${hrs} hr${hrs === 1 ? '' : 's'} ` : ''
+  return `${h}${mins} min${mins === 1 ? '' : 's'}`
+}
+
+const percentText = (p: number) => `${p.toFixed(2).padStart(5, '0')} %`
+
+const sevenDaysAgo = () => {
+  const d = new Date()
+  d.setUTCDate(d.getUTCDate() - 7)
+  return d.toISOString().slice(0, 10)
 }
 
 const WakatimeBox = ({ omitLanguages = [] }: Props) => {
-  const [languages, setLanguages] = useState<Language[]>([])
+  const [stats, setStats] = useState<Stats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    // Check cache first for faster loading
-    const cached = getCachedData<Language[]>(CACHE_KEYS.WAKATIME)
+    const cached = getCachedData<Stats>(CACHE_KEYS.WAKATIME)
     if (cached) {
-      setLanguages(cached)
+      setStats(cached)
       setIsLoading(false)
       return
     }
 
-    // Fetch fresh data if cache miss
-    fetch(
-      'https://hackatime.hackclub.com/api/v1/users/Huruhara/stats?framework=all',
-    )
+    fetch(`https://hackatime.hackclub.com/api/v1/users/Huruhara/stats?start_date=${sevenDaysAgo()}`)
       .then((response) => {
         if (!response.ok) throw new Error('Failed to fetch data')
         return response.json()
       })
       .then((data) => {
-        const filteredLanguages = data.data.languages
-          .filter(
-            (lang: { name: string }) => !omitLanguages.includes(lang.name),
-          )
-          .slice(0, 5)
-          .map(
-            (
-              lang: { name: string; total_seconds: number },
-              index: number,
-            ) => ({
+        const next: Stats = {
+          totalSeconds: data.data.total_seconds ?? 0,
+          languages: (data.data.languages ?? [])
+            .filter((lang: { name: string }) => !omitLanguages.includes(lang.name))
+            .slice(0, ROWS)
+            .map((lang: { name: string; total_seconds: number; percent: number }) => ({
               name: lang.name,
-              hours: Number((lang.total_seconds / 3600).toFixed(2)),
-              fill: colors[index % colors.length],
-            }),
-          )
-
-        // Cache the result for faster subsequent loads
-        setCachedData(CACHE_KEYS.WAKATIME, filteredLanguages, CACHE_TTL.WAKATIME)
-        setLanguages(filteredLanguages)
-        setIsLoading(false)
+              seconds: lang.total_seconds,
+              percent: lang.percent,
+            })),
+        }
+        setCachedData(CACHE_KEYS.WAKATIME, next, CACHE_TTL.WAKATIME)
+        setStats(next)
       })
-      .catch((err) => {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-        setIsLoading(false)
-      })
+      .catch(() => setError(true))
+      .finally(() => setIsLoading(false))
   }, [])
 
-  const CustomYAxisTick = ({ x, y, payload }: any) => {
-    const icon = getLanguageIcon(payload.value.toLowerCase())
-    const color = getLanguageColor(payload.value)
-    return (
-      <g transform={`translate(${x},${y})`}>
-        <title>{payload.value}</title>
-        <foreignObject width={22} height={22} x={-28} y={-11}>
-          {icon ? (
-            React.cloneElement(icon, {
-              size: 22,
-              color,
-              className: 'text-neutral-900 dark:text-white dark:brightness-125',
-              'aria-hidden': 'true',
-            })
-          ) : (
-            <text
-              x={11}
-              y={11}
-              className="fill-neutral-900 dark:fill-white font-mono font-bold"
-              fontSize="14"
-              textAnchor="middle"
-              dominantBaseline="central"
-            >
-              {payload.value.charAt(0).toUpperCase()}
-            </text>
-          )}
-        </foreignObject>
-      </g>
-    )
-  }
+  const header = (total: string) => (
+    <div className="flex flex-col">
+      <span className="text-muted-foreground">Last 7 Days</span>
+      <span>
+        Total Time: <span className="font-semibold text-foreground">{total}</span>
+      </span>
+    </div>
+  )
 
   if (isLoading)
     return (
-      // Mirrors the real chart: p-4 content box split into five equal bands, a 22px icon slot, and bars
-      // at 80% of the band. The spacer on the right keeps room for the value label.
-      <div className="size-full p-4">
-        <div className="grid h-full grid-rows-5">
-          {['100%', '72%', '45%', '30%', '20%'].map((width) => (
-            <div key={width} className="flex">
-              <div className="flex w-10 shrink-0 items-center pl-1">
-                <div className="size-[22px] animate-pulse rounded-full bg-primary/10" />
-              </div>
-              <div className="flex min-w-0 flex-1 items-center">
-                <div className="h-4/5 animate-pulse rounded-md bg-primary/10" style={{ width }} />
-              </div>
-              {/* Room for the value label that follows each real bar. */}
-              <div className="w-[43px] shrink-0" />
-            </div>
+      <div className="flex size-full flex-col gap-3 p-2 font-mono text-xs leading-5">
+        {header('…')}
+        <ul className="flex flex-col">
+          {Array.from({ length: ROWS }, (_, i) => (
+            <li key={i} className={`h-5 items-center ${i < ROWS - 1 ? 'flex' : 'hidden sm:flex'}`}>
+              <div className="h-3 animate-pulse rounded-sm bg-primary/10" style={{ width: `${90 - i * 12}%` }} />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     )
 
-  if (error) return <div>Error: {error}</div>
+  if (error || !stats)
+    return (
+      <div className="flex size-full flex-col gap-3 p-2 font-mono text-xs leading-5">
+        {header('—')}
+        <p className="whitespace-normal text-muted-foreground">Couldn't reach Hackatime. Check back later.</p>
+      </div>
+    )
 
   return (
     <motion.div
-      className="h-full w-full"
+      className="flex size-full flex-col gap-3 p-2 font-mono text-xs leading-5"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.4 }}
     >
-      <ChartContainer config={chartConfig} className="h-full w-full p-4">
-        <BarChart
-          accessibilityLayer
-          data={languages}
-          layout="vertical"
-          margin={{ left: -10, right: 35 }}
-        >
-          <CartesianGrid horizontal={false} />
-          <YAxis
-            dataKey="name"
-            type="category"
-            tickLine={false}
-            axisLine={false}
-            width={50}
-            tick={<CustomYAxisTick />}
-          />
-          <XAxis type="number" hide />
-          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-          <Bar
-            dataKey="hours"
-            fill="var(--color-hours)"
-            radius={[8, 8, 8, 8]}
-            isAnimationActive={true}
-          >
-            <LabelList
-              dataKey="hours"
-              position="right"
-              formatter={(value: unknown) => `${Math.round(Number(value))}h`}
-              className="fill-foreground"
-              fontSize={12}
-            />
-          </Bar>
-        </BarChart>
-      </ChartContainer>
+      {header(humanTime(stats.totalSeconds))}
+      {stats.languages.length === 0 ? (
+        <p className="text-muted-foreground">No coding activity this week.</p>
+      ) : (
+        <ul className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-4 sm:grid-cols-[auto_auto_auto_auto] sm:justify-start">
+          {stats.languages.map((lang, i) => (
+            // The phone card is shorter, so it shows one row fewer.
+            <li key={lang.name} className={i < ROWS - 1 ? 'contents' : 'hidden sm:contents'}>
+              <span className="truncate text-foreground">{lang.name}</span>
+              <span className="text-muted-foreground">{humanTime(lang.seconds)}</span>
+              <span aria-hidden="true" className="hidden text-foreground/70 sm:inline">
+                {blockBar(lang.percent)}
+              </span>
+              <span className="text-right tabular-nums text-muted-foreground">{percentText(lang.percent)}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </motion.div>
   )
 }
