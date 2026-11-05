@@ -7,13 +7,15 @@ import { Separator } from '@/components/ui/Separator'
 import { parseAuthors } from '@/lib/server-utils'
 import { formatDate, readingTime } from '@/lib/utils'
 
-const { entry } = Astro.props as {
+const { entry, hideAuthor = false } = Astro.props as {
   entry: CollectionEntry<'blog'>
+  /** Hides the author avatar and name in the meta row, for a cleaner card. */
+  hideAuthor?: boolean
 }
 
 const formattedDate = formatDate(entry.data.date)
 const readTime = readingTime(entry.body ?? '')
-const authors = await parseAuthors(entry.data.authors ?? [])
+const authors = hideAuthor ? [] : await parseAuthors(entry.data.authors ?? [])
 ---
 
 <div
