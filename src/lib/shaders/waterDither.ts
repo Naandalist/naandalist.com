@@ -77,26 +77,28 @@ void main() {
     float fall = 1.0 - clamp(dist / b.z, 0.0, 1.0);
     fall = fall * fall;
     // Surface rises under the pointer, then sinks back as it fades.
-    warp.y -= fall * fadeT * 7.0;
+    warp.y -= fall * fadeT * 11.0;
     warp.x -= (d.x / (abs(d.x) + 1.0)) * fall * fadeT * 2.0;
     dark += fall * fadeT * 0.5;
 
     // Sideways wave running along the surface, away from the impact point.
     float run = abs(d.x) - age * 380.0;
     float wave = sin(run * 0.035) * exp(-run * run * 0.00005) * exp(-age * 1.6) * a.w;
-    warp.y += wave * 5.0;
+    warp.y += wave * 8.0;
     warp.x += sign(d.x) * wave * 2.0;
   }
 
-  // Slow swell, same motion as before.
+  // Heavy swell: a main roller with sharp crests, a second swell crossing it,
+  // and short chop on top, so the sea heaves instead of drifting.
   float t = u_time;
-  float phase = t * 0.66 - local.x * 2.4;
+  float phase = t * 0.85 - local.x * 2.6;
   float s = sin(phase);
-  float surge = s > 0.0 ? pow(s, 1.3) * 0.03 : s * 0.018;
-  float nearShore = 1.0 - local.y * 0.6;
+  float surge = s > 0.0 ? pow(s, 2.2) * 0.075 : s * 0.035;
+  float cross = sin(t * 0.53 + local.x * 1.7 + 1.3) * 0.022;
+  float nearShore = 1.0 - local.y * 0.5;
   vec2 drift = vec2(
-    sin(local.x * 3.0 + t * 0.25) * 0.008 * nearShore,
-    -surge * nearShore + sin(local.x * 11.0 - t * 0.7) * 0.003
+    (sin(local.x * 3.0 + t * 0.4) * 0.016 + s * 0.01) * nearShore,
+    (-surge - cross) * nearShore + sin(local.x * 11.0 - t * 1.1) * 0.006
   );
 
   // Warp only where the photo has water, so foam and empty space stay put.
@@ -106,7 +108,8 @@ void main() {
   float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
   // Dark water gets dense dots, white foam gets none.
   float density = c.a * clamp((1.0 - lum) * 1.6, 0.0, 1.0);
-  density *= 0.9 + 0.1 * sin(local.x * 6.0 - t * 0.6 + local.y * 3.0);
+  // Darker bands roll with the crests, so each wave reads as it passes.
+  density *= 0.8 + 0.2 * sin(local.x * 6.0 - t * 0.9 + local.y * 3.0) + 0.15 * max(s, 0.0);
   density = clamp(density + dark * c.a, 0.0, 1.0);
 
   vec2 cell = floor(p / u_block);
