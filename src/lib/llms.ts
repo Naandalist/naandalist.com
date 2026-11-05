@@ -15,7 +15,7 @@ export interface LlmsPost {
 export interface LlmsProject {
   name: string
   description: string
-  /** The project's own site or repository. Project pages on this site only redirect home. */
+  /** The project's case study on this site, or its own site or repository when it has none. */
   url: string
 }
 export interface LlmsInput {

@@ -20,7 +20,11 @@ export async function loadLlmsInput(site: URL | string | undefined): Promise<Llm
     aboutIntro: a?.about?.intro,
     aboutBuild: a?.about?.buildBody,
     posts: posts.map((p) => ({ id: p.id, title: p.data.title, description: p.data.description, date: p.data.date, body: p.body })),
-    projects: projects.map((p) => ({ name: p.data.name, description: p.data.description, url: p.data.link ?? p.data.github ?? base })),
+    projects: projects.map((p) => ({
+      name: p.data.name,
+      description: p.data.description,
+      url: p.body?.trim() ? new URL(`/projects/${p.id}/`, base).href : (p.data.link ?? p.data.github ?? base),
+    })),
     links: [
       a?.github && { label: 'GitHub', url: a.github },
       a?.linkedin && { label: 'LinkedIn', url: a.linkedin },

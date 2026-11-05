@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowUpRight, SlidersHorizontal, Link2, Check, X } from 'lucide-react'
+import { ArrowUpRight, BookOpen, SlidersHorizontal, Link2, Check, X } from 'lucide-react'
 import { AnimatePresence, motion, useInView } from 'motion/react'
 import { useState, useRef, useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
@@ -43,6 +43,7 @@ const techIconMap: Record<
 > = {
   'Next.js': SiNextdotjs,
   React: SiReact,
+  'React Native': SiReact,
   TypeScript: SiTypescript,
   TailwindCSS: SiTailwindcss,
   Supabase: SiSupabase,
@@ -72,15 +73,10 @@ const techIconMap: Record<
   Vite: SiVite,
 }
 
-const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-
 export type ProjectItem = {
+  /** Content entry id. Used for /projects/<slug> and the ?project= deep link. */
+  slug: string
+  hasCaseStudy?: boolean
   name: string
   description: string
   tags: string[]
@@ -131,7 +127,7 @@ export function ProjectsShowcase({ projects }: Props) {
     const projectSlug = searchParams.get('project')
 
     if (projectSlug) {
-      const found = projects.find(p => slugify(p.name) === projectSlug)
+      const found = projects.find(p => p.slug === projectSlug)
       if (found) {
         setActiveType('All')
         const index = projects.indexOf(found)
@@ -195,7 +191,7 @@ export function ProjectsShowcase({ projects }: Props) {
             {visibleProjects.map((project) => (
               <motion.div
                 key={project.name}
-                id={slugify(project.name)}
+                id={project.slug}
                 className="h-full scroll-mt-24"
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -249,13 +245,12 @@ export function ProjectsShowcase({ projects }: Props) {
   )
 }
 
-function CopyLinkButton({ projectName, className = "h-7 w-7" }: { projectName: string; className?: string }) {
+function CopyLinkButton({ slug, className = "h-7 w-7" }: { slug: string; className?: string }) {
   const [copied, setCopied] = useState(false)
   
   const handleCopy = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    const slug = slugify(projectName)
     const url = `${window.location.origin}/projects/${slug}`
     navigator.clipboard.writeText(url)
     setCopied(true)
@@ -456,7 +451,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
 
           {/* Action buttons */}
           <div className="flex items-center gap-1.5 shrink-0" onClick={e => e.stopPropagation()}>
-            <CopyLinkButton projectName={project.name} />
+            <CopyLinkButton slug={project.slug} />
             {project.github && (
               <a
                 href={project.github}
@@ -603,6 +598,16 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   {project.description}
                 </p>
 
+                {project.hasCaseStudy && (
+                  <a
+                    href={`/projects/${project.slug}`}
+                    className="inline-flex w-fit items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-border transition-colors hover:decoration-foreground"
+                  >
+                    <BookOpen size={14} aria-hidden="true" />
+                    Read the case study
+                  </a>
+                )}
+
                 {/* Tech Stack - Compact Grid */}
                 <div className="pt-2">
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground/50 mb-2 sm:mb-3">Powered By</h4>
@@ -627,7 +632,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
             {/* Actions Footer - Precision Consistent Height */}
             <div className="h-16 sm:h-20 shrink-0 px-4 sm:px-6 md:px-8 border-t border-border bg-background flex items-center justify-between gap-4 mt-auto">
               <div className="flex items-center gap-2">
-                <CopyLinkButton projectName={project.name} className="h-9 w-9" />
+                <CopyLinkButton slug={project.slug} className="h-9 w-9" />
                 {project.github && (
                   <a
                     href={project.github}
@@ -640,7 +645,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   </a>
                 )}
               </div>
-              
+
               {project.link && (
                 <a
                   href={project.link}

@@ -24,7 +24,7 @@ Additional features developed from built-in features of the public template [Ast
 - **AI Chatbot**: Personal conversational assistant answering questions using Retrieval-Augmented Generation (RAG) with [Pinecone Vector DB](https://pinecone.io), [Google Gemini / OpenAI](https://ai-sdk.dev), and [Vercel AI SDK](https://sdk.vercel.ai).
 - **Last.fm Status**: Real-time live presence displaying currently playing and recently scrobbled tracks from [Last.fm](https://last.fm) (scrobbled from YouTube Music via the Web Scrobbler extension) through the lastfm-last-played proxy with SWR caching.
 - **Hackatime Analytics**: All-time coding time breakdown across languages directly from the [Hackatime API](https://hackatime.hackclub.com) with dynamic dark/light mode icons.
-- **Projects Showcase**: Interactive portfolio grid featuring smooth media video previews, modal dialogs, and responsive category filtering.
+- **Projects Showcase**: Interactive portfolio grid featuring smooth media video previews, modal dialogs, responsive category filtering, and a case study page for each project that has one.
 - **Tech Stack Slider**: 3D-sculpted marquee slider displaying programming languages, frameworks, and cloud infrastructure tools.
 - **Blog**: MDX content collections with tags, reading time, and post navigation.
 - **GitHub Contributions**: Contribution graph that adapts its number of weeks to the card width, with a keyboard-friendly tooltip. Build-time data is refreshed at runtime from `/api/contributions`, which uses the GitHub GraphQL API when `GITHUB_TOKEN` is set, with a public-page fallback.

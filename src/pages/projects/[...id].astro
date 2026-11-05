@@ -1,22 +1,105 @@
 ---
-import { getCollection } from 'astro:content'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import TableOfContents from '@/components/TableOfContents.astro'
+import { badgeVariants } from '@/components/ui/Badge'
+import { buttonVariants } from '@/components/ui/Button'
+import { Separator } from '@/components/ui/Separator'
+import Layout from '@/layouts/Layout.astro'
+import { breadcrumbLd } from '@/lib/jsonld'
+import { Icon } from 'astro-icon/components'
+import { type CollectionEntry, getCollection, render } from 'astro:content'
 
+// Projects with a case study get their own page. The rest redirect to their card on the home page.
 export async function getStaticPaths() {
   const projects = await getCollection('projects')
-  return projects.map((p) => {
-    // Consistent slugify logic
-    const slug = p.data.name
-      .toLowerCase()
-      .trim()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/[\s_-]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-    
-    return {
-      params: { id: slug },
-    }
-  })
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: project,
+  }))
 }
+type Props = CollectionEntry<'projects'>
 
-return Astro.redirect('/?project=' + Astro.params.id)
+const project = Astro.props
+if (!project.body?.trim()) return Astro.redirect('/?project=' + project.id)
+
+const { Content, headings } = await render(project)
+const { name, description, date, category, platforms, price, techStack, link, github, fallback } = project.data
+
+const siteUrl = new URL('/', Astro.site).href
+const projectUrl = new URL(`/projects/${project.id}/`, Astro.site).href
+const jsonLd = [
+  breadcrumbLd([
+    { name: 'Home', url: siteUrl },
+    { name, url: projectUrl },
+  ]),
+]
+const facts = [date, category, platforms?.join(', '), price].filter(Boolean)
 ---
+
+<Layout
+  title={name}
+  description={description}
+  image={fallback ?? '/static/profile/1200x630.jpg'}
+  jsonLd={jsonLd}
+  modified={project.data.updated}
+>
+  <div class="mx-auto max-w-6xl px-(--space-gutter) flex flex-col gap-y-6">
+    <Breadcrumbs items={[{ label: name, icon: 'lucide:folder-code' }]} />
+
+    <section class="flex flex-col gap-y-4 text-center">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">{name}</h1>
+      <p class="text-muted-foreground">{description}</p>
+
+      {
+        facts.length > 0 && (
+          <div class="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
+            {facts.map((fact, i) => (
+              <>
+                {i > 0 && <Separator orientation="vertical" className="h-4" />}
+                <span>{fact}</span>
+              </>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        techStack && techStack.length > 0 && (
+          <div class="flex flex-wrap justify-center gap-2">
+            {techStack.map((tech) => (
+              <span class={badgeVariants({ variant: 'secondary' })}>{tech}</span>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        (link || github) && (
+          <div class="flex flex-wrap justify-center gap-2">
+            {link && (
+              <a href={link} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'default' }) + ' gap-2'}>
+                <Icon name="lucide:arrow-up-right" class="size-4" />
+                Live project
+              </a>
+            )}
+            {github && (
+              <a href={github} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'outline' }) + ' gap-2'}>
+                <Icon name="lucide:github" class="size-4" />
+                Source
+              </a>
+            )}
+          </div>
+        )
+      }
+    </section>
+
+    {headings.length > 0 && <TableOfContents headings={headings} mobileOnly />}
+
+    <div class="flex items-start gap-8">
+      <article class="prose prose-neutral max-w-none dark:prose-invert flex-1 min-w-0">
+        <Content />
+      </article>
+      {headings.length > 0 && <TableOfContents headings={headings} desktopOnly />}
+    </div>
+  </div>
+</Layout>

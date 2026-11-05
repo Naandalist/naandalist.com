@@ -44,11 +44,8 @@ export default defineConfig({
   }),
   integrations: [
     sitemap({
-      // /projects/* and /authors redirect to other pages, so they are not pages to index.
-      filter: (page) => {
-        const { pathname } = new URL(page)
-        return !pathname.startsWith('/projects') && pathname !== '/authors/'
-      },
+      // /authors redirects to another page, so it is not a page to index.
+      filter: (page) => new URL(page).pathname !== '/authors/',
       // lastmod comes from git history, so it moves only when the content does.
       serialize(item) {
         const date = lastmodFor(new URL(item.url).pathname)

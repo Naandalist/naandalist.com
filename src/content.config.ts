@@ -86,7 +86,12 @@ const projects = defineCollection({
     link: z.url().optional(),
     github: z.url().optional(),
     date: z.string().optional(),
+    /** Set when the case study is edited. Feeds dateModified on the project page. */
+    updated: z.coerce.date().optional(),
     techStack: z.array(z.string()).optional(),
+    category: z.string().optional(),
+    platforms: z.array(z.string()).optional(),
+    price: z.string().optional(),
   }),
 })
 

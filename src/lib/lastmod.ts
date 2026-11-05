@@ -20,6 +20,8 @@ export function sourcesFor(pathname: string): string[] {
   if (post && !/^\d+$/.test(post[1])) return [`${CONTENT}/blog/${post[1]}`, `${CONTENT}/blog/${post[1]}.md`, `${CONTENT}/blog/${post[1]}.mdx`]
   if (path.startsWith('/blog') || path.startsWith('/tags')) return [`${CONTENT}/blog`]
   if (path.startsWith('/authors')) return [`${CONTENT}/authors`]
+  const project = path.match(/^\/projects\/([^/]+)$/)
+  if (project) return [`${CONTENT}/projects/${project[1]}`]
   return []
 }
 

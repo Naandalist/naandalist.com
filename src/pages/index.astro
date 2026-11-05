@@ -44,6 +44,8 @@ const rawProjects = (await getCollection('projects'))
     return toDate(b.data.date).valueOf() - toDate(a.data.date).valueOf()
   })
 const projectsData = rawProjects.map((p) => ({
+  slug: p.id,
+  hasCaseStudy: Boolean(p.body?.trim()),
   name: p.data.name,
   description: p.data.description,
   tags: p.data.tags,
