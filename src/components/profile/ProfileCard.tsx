@@ -9,12 +9,41 @@ export interface ProfileLink {
   href: string
 }
 
+export interface RoleLink {
+  /** Text inside `role` to turn into a link, e.g. "ZOG" */
+  text: string
+  href: string
+}
+
 interface Props {
   name: string
   role: string
+  roleLinks?: RoleLink[]
   pronunciation?: string
   avatar: string
   links: ProfileLink[]
+}
+
+// Splits the role line so each matching text becomes a link. Text without a match stays plain.
+function renderRole(role: string, roleLinks: RoleLink[]) {
+  if (roleLinks.length === 0) return role
+  const pattern = new RegExp(`(${roleLinks.map((l) => l.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`)
+  return role.split(pattern).map((part, i) => {
+    const link = roleLinks.find((l) => l.text === part)
+    return link ? (
+      <a
+        key={i}
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline underline-offset-4 decoration-muted-foreground/60 hover:decoration-foreground"
+      >
+        {part}
+      </a>
+    ) : (
+      <React.Fragment key={i}>{part}</React.Fragment>
+    )
+  })
 }
 
 const ICONS = {
@@ -27,7 +56,7 @@ const ICONS = {
 
 // A static profile card: no flip, no tilt — the only hover flourish is the
 // metal glint that travels once around the border (see .metal in global.css).
-export default function ProfileCard({ name, role, pronunciation, avatar, links }: Props) {
+export default function ProfileCard({ name, role, roleLinks = [], pronunciation, avatar, links }: Props) {
   const [copied, setCopied] = React.useState(false)
 
   const copyMail = async (address: string) => {
@@ -57,7 +86,7 @@ export default function ProfileCard({ name, role, pronunciation, avatar, links }
         />
         <div className="min-w-0 flex flex-col justify-between">
           <h2 className="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{name}</h2>
-          <p className="text-sm font-medium text-foreground sm:text-base">{role}</p>
+          <p className="text-sm font-medium text-foreground sm:text-base">{renderRole(role, roleLinks)}</p>
           {pronunciation && <p className="font-mono text-xs text-muted-foreground">{pronunciation}</p>}
         </div>
       </div>

@@ -9,12 +9,19 @@ import {
   PiBriefcase,
   PiStarFourFill,
 } from 'react-icons/pi'
+interface RoleLink {
+  /** Text inside `role` to turn into a link, e.g. "Dicoding" */
+  text: string
+  href: string
+}
+
 interface Props {
   id: string
   name: string
   avatar?: string
   bio?: string
   role?: string
+  roleLinks?: RoleLink[]
   location?: string
   pronouns?: string
   github?: string
@@ -31,6 +38,7 @@ const {
   avatar,
   bio,
   role,
+  roleLinks = [],
   location,
   pronouns,
   github,
@@ -40,6 +48,14 @@ const {
   mail,
   linkDisabled = false,
 } = Astro.props
+
+// Splits the role line so each matching text becomes a link. Text without a match stays plain.
+const escapeRe = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+const roleParts = (role: string): { text: string; href?: string }[] => {
+  if (roleLinks.length === 0) return [{ text: role }]
+  const pattern = new RegExp(`(${roleLinks.map((l) => escapeRe(l.text)).join('|')})`)
+  return role.split(pattern).filter(Boolean).map((text) => ({ text, href: roleLinks.find((l) => l.text === text)?.href }))
+}
 
 const socialLinks = [
   website && { href: website, label: 'Website', icon: PiGlobe },
@@ -99,7 +115,22 @@ const socialLinks = [
             {role && (
               <span class="flex items-center gap-1.5 max-sm:items-start">
                 <PiBriefcase className="size-3.5 shrink-0 max-sm:mt-px sm:size-4" />
-                {role}
+                <span>
+                {roleParts(role).map((part) =>
+                  part.href ? (
+                    <a
+                      href={part.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="underline underline-offset-4 decoration-muted-foreground/60 hover:decoration-foreground"
+                    >
+                      {part.text}
+                    </a>
+                  ) : (
+                    part.text
+                  ),
+                )}
+                </span>
               </span>
             )}
             {location && (
