@@ -3,7 +3,6 @@ import Container from '@/components/Container.astro'
 import Link from '@/components/Link.astro'
 import MobileMenu from '@/components/ui/MobileMenu'
 import { ModeToggle } from '@/components/ui/ModeToggle'
-import { SoundToggle } from '@/components/ui/SoundToggle'
 import Signature from '@/components/Signature.astro'
 import { NAV_LINKS } from '@/consts'
 import { Image } from 'astro:assets'
@@ -38,7 +37,6 @@ import logo from '../../public/static/profile/avatar.png'
           }
         </nav>
         <MobileMenu client:media="(max-width: 767px)" />
-        <SoundToggle client:load />
         <ModeToggle client:load />
       </div>
     </div>
