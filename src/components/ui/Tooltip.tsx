@@ -47,9 +47,11 @@ export function Tooltip({ label, children, open, className }: TooltipProps) {
     if (open === undefined && pointerMode.current) return
     const r = ref.current.getBoundingClientRect()
     setPos({ x: r.left + r.width / 2, y: r.top })
-  }, [visible, label, open])
+  }, [visible, open])
 
   return (
+    // Hover/focus bridge for composed triggers; children remain the real control
+    // biome-ignore lint/a11y/noStaticElementInteractions: pointer/focus listeners only forward tooltip visibility
     <span
       ref={ref}
       className={className ?? 'inline-flex'}

@@ -105,13 +105,17 @@ export default function GithubGraph({ weeks: initialWeeks, total: initialTotal, 
       <div ref={wrapRef} className="relative -m-1 flex min-w-0 flex-1 items-center justify-end overflow-hidden p-1">
         <div
           {...(ready
-            ? { role: 'group', tabIndex: 0, 'aria-label': 'GitHub contribution graph. Use the arrow keys to read each day.' }
+            ? {
+                role: 'group',
+                tabIndex: 0,
+                'aria-label': 'GitHub contribution graph. Use the arrow keys to read each day.',
+                onKeyDown,
+                onBlur: () => setActive(null),
+                onPointerLeave: () => setActive(null),
+              }
             : { 'aria-hidden': true })}
           className="relative shrink-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           style={{ width: gridWidth }}
-          onKeyDown={onKeyDown}
-          onBlur={() => setActive(null)}
-          onPointerLeave={() => setActive(null)}
         >
           <div className="relative mb-2 h-4 text-xs text-muted-foreground" aria-hidden="true">
             {(ready ? labels : []).map((l) => (
@@ -122,28 +126,40 @@ export default function GithubGraph({ weeks: initialWeeks, total: initialTotal, 
           </div>
 
           <div className="flex" style={{ gap: GAP }}>
-            {columns.map((week, w) => (
-              <div key={w} className="flex flex-col" style={{ gap: GAP }}>
-                {week.map((day, d) =>
-                  !ready ? (
-                    <span key={d} className="size-3 animate-pulse rounded-sm bg-foreground/10" aria-hidden="true" />
-                  ) : day ? (
-                    <Tooltip key={day.date} label={describeDay(day)} open={active?.w === w && active.d === d}>
-                      <span
-                        role="img"
-                        aria-label={describeDay(day)}
-                        onPointerEnter={() => setActive({ w, d })}
-                        className={`size-3 rounded-sm transition-transform hover:scale-125 ${LEVEL_CLASS[levelFor(day.count, max)]} ${
-                          active?.w === w && active.d === d ? 'ring-2 ring-ring' : ''
-                        }`}
-                      />
-                    </Tooltip>
-                  ) : (
-                    <span key={`pad-${d}`} className="size-3" aria-hidden="true" />
-                  ),
-                )}
-              </div>
-            ))}
+            {columns.map((week, w) => {
+              const anchor = week.find((d): d is NonNullable<typeof d> => d != null)
+              const anchorDow = anchor ? new Date(`${anchor.date}T00:00:00Z`).getUTCDay() : 0
+              const cells = week.map((day, d) => {
+                if (day) return { day, date: day.date, d }
+                if (!anchor) return { day, date: `empty-${d}`, d }
+                const dt = new Date(`${anchor.date}T00:00:00Z`)
+                dt.setUTCDate(dt.getUTCDate() + (d - anchorDow))
+                return { day, date: dt.toISOString().slice(0, 10), d }
+              })
+              const weekKey = cells.map((c) => c.date).join('|')
+              return (
+                <div key={weekKey} className="flex flex-col" style={{ gap: GAP }}>
+                  {cells.map(({ day, date, d }) =>
+                    !ready ? (
+                      <span key={date} className="size-3 animate-pulse rounded-sm bg-foreground/10" aria-hidden="true" />
+                    ) : day ? (
+                      <Tooltip key={date} label={describeDay(day)} open={active?.w === w && active.d === d}>
+                        <span
+                          role="img"
+                          aria-label={describeDay(day)}
+                          onPointerEnter={() => setActive({ w, d })}
+                          className={`size-3 rounded-sm transition-transform hover:scale-125 ${LEVEL_CLASS[levelFor(day.count, max)]} ${
+                            active?.w === w && active.d === d ? 'ring-2 ring-ring' : ''
+                          }`}
+                        />
+                      </Tooltip>
+                    ) : (
+                      <span key={date} className="size-3" aria-hidden="true" />
+                    ),
+                  )}
+                </div>
+              )
+            })}
           </div>
 
         </div>

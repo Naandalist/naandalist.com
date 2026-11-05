@@ -1,6 +1,6 @@
 # Pull Request Web Gate. Runs on pull requests to main only. Feature branches without a PR cost nothing.
-# Type check, token lint, test, build. Lighthouse runs locally (scripts/lighthouse-check.ts), not here:
-# shared runners give scores too unstable to gate on.
+# Type check, Biome lint, token lint, test, build. Lighthouse runs locally (scripts/lighthouse-check.ts),
+# not here: shared runners give scores too unstable to gate on. Format is local-only until a format pass.
 
 name: Pull Request Web Gate
 
@@ -38,6 +38,8 @@ jobs:
           restore-keys: astro-
       - name: Type check
         run: bun run check
+      - name: Lint
+        run: bun run lint
       - name: Token lint
         run: bun run check:tokens
       - name: Test

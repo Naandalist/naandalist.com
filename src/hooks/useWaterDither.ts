@@ -136,7 +136,9 @@ export function useWaterDither(
       const elapsed = reduceMotion ? 0 : (now - startedAt) / 1000
       const ink = isDark() ? INK_DARK : INK_LIGHT
 
-      gl.useProgram(prog)
+      // WebGL API name collides with React hook detection
+      const activateProgram = gl.useProgram.bind(gl)
+      activateProgram(prog)
       gl.bindVertexArray(vao)
       gl.activeTexture(gl.TEXTURE0)
       gl.bindTexture(gl.TEXTURE_2D, texture)

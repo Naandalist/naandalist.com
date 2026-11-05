@@ -75,6 +75,8 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
 
   return (
     <style
+      // Chart theme CSS vars from trusted config keys/colors only
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: injects scoped CSS variables from ChartConfig
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(

@@ -4,6 +4,8 @@ set -e
 cd "$(git rev-parse --show-toplevel)" || exit 1
 echo "==> type check"
 bun run check
+echo "==> lint"
+bun run lint
 echo "==> token lint"
 bun run check:tokens
 echo "==> test"

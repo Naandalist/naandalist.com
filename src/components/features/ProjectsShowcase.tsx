@@ -136,11 +136,9 @@ export function ProjectsShowcase({ projects }: Props) {
       if (found) {
         setActiveType('All')
         const index = projects.indexOf(found)
-        if (index >= visibleCount) {
-          setVisibleCount(index + 1)
-        }
+        setVisibleCount((c) => (index >= c ? index + 1 : c))
         setSelectedProject(found)
-        
+
         // Wait for render/expansion
         setTimeout(() => {
           const element = document.getElementById(projectSlug)
@@ -169,6 +167,7 @@ export function ProjectsShowcase({ projects }: Props) {
         <div className="flex gap-1.5">
           {allTypes.map((type) => (
             <button
+              type="button"
               key={type}
               onClick={() => handleTypeChange(type)}
               className={`shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors duration-200 ${
@@ -221,6 +220,7 @@ export function ProjectsShowcase({ projects }: Props) {
       {hasMore && (
         <div className="flex justify-center">
           <button
+            type="button"
             onClick={() => setVisibleCount((c) => c + 4)}
             className={buttonVariants({ variant: 'ghost' }) + ' group'}
           >
@@ -266,6 +266,7 @@ function CopyLinkButton({ slug, className = "h-7 w-7" }: { slug: string; classNa
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
       className={`flex items-center justify-center rounded-md border border-border bg-background text-foreground transition-all hover:bg-secondary active:scale-95 shadow-1 ${className}`}
       aria-label="Copy project link"
@@ -353,9 +354,19 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
   }
 
   return (
+    // Nested links/buttons inside the card block a real <button>
+    // biome-ignore lint/a11y/useSemanticElements: card hosts nested anchors; role+keyboard keep it operable
     <div
       ref={containerRef}
+      role="button"
+      tabIndex={0}
       onClick={onOpenModal}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onOpenModal()
+        }
+      }}
       className="not-prose flex h-full cursor-pointer flex-col overflow-hidden rounded-lg border bg-card/80 backdrop-blur-sm shadow-1 transition-all duration-150 ease-out hover:-translate-y-1 hover:shadow-3 will-change-transform"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -455,7 +466,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center gap-1.5 shrink-0" onClick={e => e.stopPropagation()}>
+          <div className="flex items-center gap-1.5 shrink-0">
             <CopyLinkButton slug={project.slug} />
             {project.github && (
               <a
@@ -463,6 +474,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub repository"
+                onClick={(e) => e.stopPropagation()}
                 className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-secondary"
               >
                 <SiGithub size={14} aria-hidden="true" />
@@ -474,6 +486,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View project"
+                onClick={(e) => e.stopPropagation()}
                 className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-secondary"
               >
                 <ArrowUpRight size={14} aria-hidden="true" />
@@ -535,6 +548,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
       >
         {/* Mobile X close button */}
         <button
+          type="button"
           onClick={onClose}
           className="md:hidden absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground/70 hover:text-foreground transition-colors"
           aria-label="Close"

@@ -282,15 +282,15 @@ export default function TechStackSlider() {
           className="mb-4 transform rotate-1"
           innerClassName="gap-2 [--duration:148s]"
         >
-          {row1.map((stack, index) => (
-            <Tooltip key={`row1-${index}`} label={stack.alt}>
+          {row1.map((stack) => (
+            <Tooltip key={stack.name} label={stack.alt}>
               <a
                 href={stack.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={stack.alt}
                 className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] dark:from-[#1f1f1f] dark:to-[#0e0e0e] border border-black/10 dark:border-transparent p-2 sm:p-2 shadow-2"
-                onMouseEnter={() => setHoveredKey(`row1-${index}`)}
+                onMouseEnter={() => setHoveredKey(stack.name)}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:border-[#2a2a2a] pointer-events-none" />
@@ -298,12 +298,12 @@ export default function TechStackSlider() {
                   className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
                   draggable={false}
                 >
-                  {hoveredKey === `row1-${index}` ? (
+                  {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
                     <StackIcon name={stack.name} size="2em" className="sm:hidden text-neutral-900 dark:text-white" />
                   )}
-                  {hoveredKey === `row1-${index}` ? (
+                  {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
                     <StackIcon name={stack.name} size="2em" className="hidden sm:inline text-neutral-900 dark:text-white" />
@@ -324,15 +324,15 @@ export default function TechStackSlider() {
           className="mb-4 transform rotate-1"
           innerClassName="gap-2 [--duration:80s]"
         >
-          {row2.map((stack, index) => (
-            <Tooltip key={`row2-${index}`} label={stack.alt}>
+          {row2.map((stack) => (
+            <Tooltip key={stack.name} label={stack.alt}>
               <a
                 href={stack.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={stack.alt}
                 className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] dark:from-[#1f1f1f] dark:to-[#0e0e0e] border border-black/10 dark:border-transparent p-2 sm:p-2 shadow-2"
-                onMouseEnter={() => setHoveredKey(`row2-${index}`)}
+                onMouseEnter={() => setHoveredKey(stack.name)}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:border-[#2a2a2a] pointer-events-none" />
@@ -340,12 +340,12 @@ export default function TechStackSlider() {
                   className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
                   draggable={false}
                 >
-                  {hoveredKey === `row2-${index}` ? (
+                  {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
                     <StackIcon name={stack.name} size="2em" className="sm:hidden text-neutral-900 dark:text-white" />
                   )}
-                  {hoveredKey === `row2-${index}` ? (
+                  {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
                     <StackIcon name={stack.name} size="2em" className="hidden sm:inline text-neutral-900 dark:text-white" />
@@ -365,15 +365,15 @@ export default function TechStackSlider() {
           className="mb-4 transform rotate-1"
           innerClassName="gap-2 [--duration:68s]"
         >
-          {row3.map((stack, index) => (
-            <Tooltip key={`row3-${index}`} label={stack.alt}>
+          {row3.map((stack) => (
+            <Tooltip key={stack.name} label={stack.alt}>
               <a
                 href={stack.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={stack.alt}
                 className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] dark:from-[#1f1f1f] dark:to-[#0e0e0e] border border-black/10 dark:border-transparent p-2 sm:p-2 shadow-2"
-                onMouseEnter={() => setHoveredKey(`row3-${index}`)}
+                onMouseEnter={() => setHoveredKey(stack.name)}
                 onMouseLeave={() => setHoveredKey(null)}
               >
                 <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:border-[#2a2a2a] pointer-events-none" />
@@ -381,12 +381,12 @@ export default function TechStackSlider() {
                   className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
                   draggable={false}
                 >
-                  {hoveredKey === `row3-${index}` ? (
+                  {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
                     <StackIcon name={stack.name} size="2em" className="sm:hidden text-neutral-900 dark:text-white" />
                   )}
-                  {hoveredKey === `row3-${index}` ? (
+                  {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
                     <StackIcon name={stack.name} size="2em" className="hidden sm:inline text-neutral-900 dark:text-white" />

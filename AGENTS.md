@@ -9,10 +9,10 @@ Personal site for naandalist. Astro (static output, Vercel adapter) with React i
 
 ## Commands
 
-- Gate (run before every PR, same as CI): `bun run check && bun run check:tokens && bun test && bun run build`
+- Gate (run before every PR, same as CI): `bun run check && bun run lint && bun run check:tokens && bun test && bun run build`
 - Dev: `bun install`, `bun run dev`
-- Type check: `bun run check`. Token lint: `bun run check:tokens`. Build: `bun run build`. Test: `bun test` (one file: `bun test tests/github.test.ts`)
-- No format or lint tool is set up yet. Add one before wiring a format or lint step in CI.
+- Type check: `bun run check`. Lint: `bun run lint` (Biome). Token lint: `bun run check:tokens`. Build: `bun run build`. Test: `bun test` (one file: `bun test tests/github.test.ts`)
+- Format with Biome locally: `bun run format`. Format is not in the gate yet; do not mass-reformat unless that is the task.
 - Runtime is Bun, not Node. Scripts in `scripts/` are `.ts` and run with `bun scripts/<name>.ts`. CI uses `oven-sh/setup-bun`.
 - Vercel: install uses Bun via `bun.lock` (confirm `bun install` in the build log). Functions run on Node (`engines.node: 24.x`). Do not set `bunVersion` in `vercel.json` until Vercel lists Astro on the Bun runtime.
 

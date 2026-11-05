@@ -13,6 +13,7 @@ export default function WaterDitherBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
+      tabIndex={-1}
       style={{ opacity: 0 }}
       className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-[0.1] transition-opacity duration-700 dark:opacity-[0.09]"
     />

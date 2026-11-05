@@ -22,6 +22,7 @@ export default function BabysBreathField({
     <canvas
       ref={ref}
       aria-hidden="true"
+      tabIndex={-1}
       style={{ opacity: 0 }}
       className={cn('pointer-events-none transition-opacity duration-700', className)}
     />

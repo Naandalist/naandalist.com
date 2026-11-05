@@ -297,7 +297,9 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
       gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, VS))
       gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FS))
       gl.linkProgram(prog)
-      gl.useProgram(prog)
+      // WebGL API name collides with React hook detection
+      const activateProgram = gl.useProgram.bind(gl)
+      activateProgram(prog)
 
       const loc = (name: string) => gl!.getUniformLocation(prog!, name)
       const buf = gl.createBuffer()
@@ -329,9 +331,9 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
         actx.textAlign = 'center'
         actx.textBaseline = 'middle'
         actx.fillStyle = '#fff'
-        ALL_CHARS.forEach((char, index) =>
+        ALL_CHARS.forEach((char, index) => {
           actx.fillText(char, CELL * (index + 0.5), CELL * 0.5)
-        )
+        })
       }
 
       mkTex(1)
@@ -501,9 +503,15 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
         cancelAnimationFrame(rafId)
         window.removeEventListener('pointermove', onPointerMove)
         window.removeEventListener('resize', resize)
-        textures.forEach((t) => gl?.deleteTexture(t))
-        buffers.forEach((b) => gl?.deleteBuffer(b))
-        shaders.forEach((s) => gl?.deleteShader(s))
+        textures.forEach((t) => {
+          gl?.deleteTexture(t)
+        })
+        buffers.forEach((b) => {
+          gl?.deleteBuffer(b)
+        })
+        shaders.forEach((s) => {
+          gl?.deleteShader(s)
+        })
         if (prog) gl?.deleteProgram(prog)
       }
     } catch {
@@ -514,7 +522,7 @@ export default function MonochromeDitherCanvas({ className }: DitherCanvasProps)
   return (
     <canvas
       ref={canvasRef}
-      aria-hidden="true"
+      tabIndex={-1}
       className={cn(
         'pointer-events-none fixed inset-0 z-0 h-full w-full opacity-75 dark:opacity-60 transition-opacity duration-700',
         className

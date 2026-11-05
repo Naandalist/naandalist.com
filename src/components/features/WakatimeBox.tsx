@@ -103,7 +103,7 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
       })
       .catch(() => setError(true))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [omitLanguages]);
 
   const header = (total: string) => (
     <div className="flex flex-col">
@@ -120,9 +120,9 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
       <div className="flex size-full flex-col gap-3 p-2 font-mono text-xs leading-5">
         {header("…")}
         <ul className="flex flex-col">
-          {Array.from({ length: ROWS }, (_, i) => (
+          {(["sk-0", "sk-1", "sk-2", "sk-3", "sk-4"] as const).map((id, i) => (
             <li
-              key={i}
+              key={id}
               className={`h-5 items-center ${i < ROWS - 1 ? "flex" : "hidden sm:flex"}`}
             >
               <div

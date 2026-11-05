@@ -9,14 +9,14 @@ import {
 } from '@/components/ui/Breadcrumb'
 import { Icon } from 'astro-icon/components'
 
-export interface BreadcrumbItem {
+export interface BreadcrumbEntry {
   href?: string
   label: string
   icon?: string
 }
 
 interface Props {
-  items: BreadcrumbItem[]
+  items: BreadcrumbEntry[]
   class?: string
 }
 

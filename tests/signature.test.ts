@@ -30,7 +30,10 @@ describe('naandalist signature', () => {
       const n = (args.match(/-?\d+(\.\d+)?/g) ?? []).map(Number)
       if (cmd === 'H') xs.push(...n)
       else if (cmd === 'V') ys.push(...n)
-      else n.forEach((v, i) => (i % 2 === 0 ? xs : ys).push(v))
+      else
+        n.forEach((v, i) => {
+          ;(i % 2 === 0 ? xs : ys).push(v)
+        })
     }
     expect(Math.min(...xs)).toBeGreaterThanOrEqual(-1)
     expect(Math.max(...xs)).toBeLessThanOrEqual(SIGNATURE.width + 1)

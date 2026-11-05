@@ -35,16 +35,13 @@ export default function ChatInterface() {
 
   const isInitialRender = useRef(true)
 
-  const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
-    messagesEndRef.current?.scrollIntoView({ behavior })
-  }
-
   useEffect(() => {
     if (isInitialRender.current) {
       isInitialRender.current = false
       return
     }
-    scrollToBottom()
+    if (messages.length === 0) return
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
   const handleSendMessage = async (preset?: string) => {

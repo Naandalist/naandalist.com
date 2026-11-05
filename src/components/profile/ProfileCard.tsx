@@ -28,11 +28,11 @@ interface Props {
 function renderRole(role: string, roleLinks: RoleLink[]) {
   if (roleLinks.length === 0) return role
   const pattern = new RegExp(`(${roleLinks.map((l) => l.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`)
-  return role.split(pattern).map((part, i) => {
+  return role.split(pattern).map((part) => {
     const link = roleLinks.find((l) => l.text === part)
     return link ? (
       <a
-        key={i}
+        key={link.href}
         href={link.href}
         target="_blank"
         rel="noopener noreferrer"
@@ -41,7 +41,7 @@ function renderRole(role: string, roleLinks: RoleLink[]) {
         {part}
       </a>
     ) : (
-      <React.Fragment key={i}>{part}</React.Fragment>
+      <React.Fragment key={`t:${part}`}>{part}</React.Fragment>
     )
   })
 }
