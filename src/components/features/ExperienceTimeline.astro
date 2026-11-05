@@ -1,0 +1,210 @@
+---
+/**
+ * Work history as a timeline, shared by the About page and the home page: one bar per job on a
+ * year axis, overlapping jobs in their own lane, each pinned to a label. Horizontal from lg up,
+ * vertical (newest on top, labels on the right) below that.
+ */
+import { getCollection } from 'astro:content'
+
+const monthYear = (d: Date) => d.toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+
+const jobs = (await getCollection('work')).sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
+
+// Horizontal timeline geometry, in percent of the axis width. "Present" ends at build time.
+const now = new Date()
+const firstYear = Math.min(...jobs.map((j) => j.data.start.getUTCFullYear()))
+const lastYear = now.getUTCFullYear() + 1
+const axisStart = Date.UTC(firstYear, 0, 1)
+const pct = (d: Date) => ((d.valueOf() - axisStart) / (Date.UTC(lastYear, 0, 1) - axisStart)) * 100
+const years = Array.from({ length: lastYear - firstYear }, (_, i) => firstYear + i)
+
+// Lanes: oldest first, each job takes the lowest lane that is free when it starts.
+const laneEnds: number[] = []
+const bars = [...jobs].reverse().map(({ data }, i) => {
+  const start = pct(data.start)
+  const end = pct(data.end ?? now)
+  let lane = laneEnds.findIndex((e) => e <= start)
+  if (lane === -1) lane = laneEnds.length
+  laneEnds[lane] = end
+  // Past jobs alternate two greys so neighbours stay apart; current ones are solid.
+  const tone = data.end ? (i % 2 ? 'bg-muted-foreground/40' : 'bg-muted-foreground/70') : 'bg-foreground'
+  return { data, start, end, mid: (start + end) / 2, lane, tone }
+})
+
+// Label tiers. Each label is anchored centered, ending at its pin, or starting at it, and stacked
+// on a tier above the bars. Rules: labels on one tier do not overlap, and a pin never runs through
+// a label on a lower tier. Every anchor combination is tried (3^n, n is small) and the one with
+// the fewest tiers, then the most centered labels, wins. Widths are estimates for a ~1000px axis.
+type Align = 'center' | 'end' | 'start'
+const box = (mid: number, w: number, align: Align): [number, number] =>
+  align === 'center' ? [mid - w / 2, mid + w / 2] : align === 'end' ? [mid - w, mid + 1] : [mid - 1, mid + w]
+const sized = [...bars]
+  .sort((a, b) => a.mid - b.mid)
+  .map((b) => ({ ...b, w: (Math.max(b.data.company.length * 8, b.data.role.length * 7) + 8) / 10 }))
+const ALIGNS: Align[] = ['center', 'end', 'start']
+let best: { score: number; placed: { align: Align; from: number; to: number; tier: number }[] } | undefined
+for (let combo = 0; combo < 3 ** sized.length; combo++) {
+  const placed: { align: Align; from: number; to: number; tier: number; mid: number }[] = []
+  let ok = true
+  for (let i = 0, c = combo; i < sized.length && ok; i++, c = Math.floor(c / 3)) {
+    const { mid, w } = sized[i]
+    const align = ALIGNS[c % 3]
+    const [from, to] = box(mid, w, align)
+    if (from < 0 || to > 100) ok = false
+    const tier = [...Array(sized.length).keys()].find((t) =>
+      placed.every((p) =>
+        p.tier === t ? p.to + 1.5 <= from || to + 1.5 <= p.from
+        : p.tier < t ? mid < p.from || mid > p.to
+        : p.mid < from || p.mid > to,
+      ),
+    )
+    if (tier === undefined) ok = false
+    else placed.push({ align, from, to, tier, mid })
+  }
+  if (!ok) continue
+  const score = (Math.max(...placed.map((p) => p.tier)) + 1) * 100 + placed.filter((p) => p.align !== 'center').length
+  if (!best || score < best.score) best = { score, placed }
+}
+const labels = sized.map((b, i) => ({ ...b, ...best!.placed[i] }))
+const tiers = Math.max(...labels.map((l) => l.tier)) + 1
+const lanes = laneEnds.length
+// Vertical rhythm in spacing units (var(--spacing)).
+const TIER = 11
+const LABEL = 9
+const LANE = 3
+const LANE_GAP = 1
+const labelArea = tiers * TIER + 4
+const barArea = lanes * LANE + (lanes - 1) * LANE_GAP
+const u = (n: number) => `calc(var(--spacing) * ${n})`
+
+// Vertical timeline (below lg), in spacing units: YEAR per year, newest at the top. Labels sit
+// at their bar's midpoint, pushed apart to keep a GAP between them, and a slanted leader joins
+// each label back to its midpoint.
+const YEAR = 12
+const V_LABEL = 10
+const V_GAP = 1
+const vHeight = years.length * YEAR
+const vy = (p: number) => ((100 - p) / 100) * vHeight
+const vLabels = [...bars]
+  .sort((a, b) => b.mid - a.mid)
+  .map((b) => ({ ...b, y: vy(b.mid), yStart: vy(b.start), yEnd: vy(b.end), top: 0 }))
+vLabels.forEach((l, i) => {
+  const prev = vLabels[i - 1]
+  l.top = Math.max(l.y - V_LABEL / 2, prev ? prev.top + V_LABEL + V_GAP : 0)
+})
+for (let i = vLabels.length - 1; i >= 0; i--) {
+  const next = vLabels[i + 1]
+  vLabels[i].top = Math.min(vLabels[i].top, next ? next.top - V_LABEL - V_GAP : vHeight - V_LABEL)
+}
+const V_LANE = 3
+const V_LANE_GAP = 1
+const vBarWidth = lanes * V_LANE + (lanes - 1) * V_LANE_GAP
+const LEADER = 7
+// Each leader leaves its bar's right edge level with the bar's midpoint, runs flat, eases into
+// the label's line with one S-curve, and runs flat again into the label. Same shape for all.
+const leaders = vLabels.map((l) => {
+  const x0 = l.lane * (V_LANE + V_LANE_GAP) + V_LANE
+  const x3 = vBarWidth + LEADER - 0.5
+  const labelY = l.top + V_LABEL / 2
+  const [xa, xb] = [vBarWidth + 1, x3 - 1.5]
+  const xm = (xa + xb) / 2
+  const leader =
+    Math.abs(labelY - l.y) < 0.1
+      ? `M${x0} ${l.y}H${x3}`
+      : `M${x0} ${l.y}H${xa}C${xm} ${l.y} ${xm} ${labelY} ${xb} ${labelY}H${x3}`
+  return { ...l, labelY, leader }
+})
+---
+
+<div class="about-card hidden p-6 lg:block">
+  <ol class="relative" style={`height: ${u(labelArea + barArea)}`}>
+    {labels.map((l) => (
+      <li>
+        <div
+          class:list={[
+            'absolute flex flex-col whitespace-nowrap',
+            l.align === 'center' && '-translate-x-1/2 items-center text-center',
+            l.align === 'end' && '-translate-x-full items-end text-right',
+          ]}
+          style={`left: ${l.mid}%; top: ${u((tiers - 1 - l.tier) * TIER)}`}
+        >
+          <h3 class="text-sm font-semibold text-foreground">
+            {l.data.url ? (
+              <a href={l.data.url} target="_blank" rel="noopener noreferrer" class="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-foreground">{l.data.company}</a>
+            ) : (
+              l.data.company
+            )}
+          </h3>
+          <p class="text-xs text-muted-foreground">{l.data.role}</p>
+          <p class="sr-only">{monthYear(l.data.start)} - {l.data.end ? monthYear(l.data.end) : 'Present'}</p>
+        </div>
+        <span
+          aria-hidden="true"
+          class="absolute -translate-x-1/2 border-l border-dashed border-muted-foreground"
+          style={`left: ${l.mid}%; top: ${u((tiers - 1 - l.tier) * TIER + LABEL + 1)}; bottom: ${u(l.lane * (LANE + LANE_GAP) + LANE / 2)}`}
+        />
+        <span
+          aria-hidden="true"
+          class="absolute size-2 -translate-1/2 rounded-full bg-muted-foreground"
+          style={`left: ${l.mid}%; top: ${u((tiers - 1 - l.tier) * TIER + LABEL + 1)}`}
+        />
+        <span
+          aria-hidden="true"
+          title={`${l.data.company}: ${monthYear(l.data.start)} - ${l.data.end ? monthYear(l.data.end) : 'Present'}`}
+          class:list={['absolute h-3 rounded-sm', l.tone]}
+          style={`left: ${l.start}%; width: ${l.end - l.start}%; bottom: ${u(l.lane * (LANE + LANE_GAP))}`}
+        />
+      </li>
+    ))}
+  </ol>
+  <div class="mt-2 grid" style={`grid-template-columns: repeat(${years.length}, minmax(0, 1fr))`} aria-hidden="true">
+    {years.map((y) => (
+      <span class="border-l border-border py-1 text-center font-mono text-xs text-muted-foreground first:border-l-0">{y}</span>
+    ))}
+  </div>
+</div>
+
+<div class="about-card flex p-4 sm:p-6 lg:hidden">
+  <div class="flex w-9 shrink-0 flex-col" aria-hidden="true">
+    {[...years].reverse().map((y) => (
+      <span class="flex items-center border-t border-border font-mono text-xs text-muted-foreground first:border-t-0" style={`height: ${u(YEAR)}`}>{y}</span>
+    ))}
+  </div>
+  <div class="relative shrink-0" style={`width: ${u(vBarWidth + LEADER)}; height: ${u(vHeight)}`} aria-hidden="true">
+    {/* Leaders first so the bars paint over them where a leader passes behind a neighbouring lane. */}
+    <svg
+      focusable="false"
+      class="absolute inset-0 size-full text-muted-foreground"
+      viewBox={`0 0 ${vBarWidth + LEADER} ${vHeight}`}
+      preserveAspectRatio="none"
+    >
+      {leaders.map((l) => (
+        <>
+          <path d={l.leader} fill="none" stroke="currentColor" stroke-width="0.25" stroke-dasharray="0.75 0.75" />
+          <circle cx={vBarWidth + LEADER - 0.5} cy={l.labelY} r="0.5" fill="currentColor" />
+        </>
+      ))}
+    </svg>
+    {vLabels.map((l) => (
+      <span
+        class:list={['absolute rounded-sm', l.tone]}
+        style={`left: ${u(l.lane * (V_LANE + V_LANE_GAP))}; width: ${u(V_LANE)}; top: ${u(l.yEnd)}; height: ${u(l.yStart - l.yEnd)}`}
+      />
+    ))}
+  </div>
+  <ol class="relative min-w-0 grow" style={`height: ${u(vHeight)}`}>
+    {vLabels.map((l) => (
+      <li class="absolute inset-x-0 flex flex-col justify-center pl-1" style={`top: ${u(l.top)}; height: ${u(V_LABEL)}`}>
+        <h3 class="truncate text-sm font-semibold text-foreground">
+          {l.data.url ? (
+            <a href={l.data.url} target="_blank" rel="noopener noreferrer" class="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-foreground">{l.data.company}</a>
+          ) : (
+            l.data.company
+          )}
+        </h3>
+        <p class="truncate text-xs text-muted-foreground">{l.data.role}</p>
+        <p class="sr-only">{monthYear(l.data.start)} - {l.data.end ? monthYear(l.data.end) : 'Present'}</p>
+      </li>
+    ))}
+  </ol>
+</div>

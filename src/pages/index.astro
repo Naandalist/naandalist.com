@@ -3,6 +3,7 @@ import BlogCard from '@/components/BlogCard.astro'
 import PackageCard from '@/components/PackageCard.astro'
 import Container from '@/components/Container.astro'
 import Link from '@/components/Link.astro'
+import ExperienceTimeline from '@/components/features/ExperienceTimeline.astro'
 import { ProjectsShowcase } from '@/components/features/ProjectsShowcase.tsx'
 import LastfmPresence from '@/components/features/LastfmPresence.tsx'
 import TechStackSlider from '@/components/features/TechStackSlider.tsx'
@@ -132,6 +133,11 @@ const jsonLd = [
         <TechStackSlider client:idle />
       </div>
 
+    </section>
+
+    <section class="flex flex-col gap-y-4">
+      <h2 class="shrink-0 font-title text-2xl max-sm:leading-tight sm:text-display-sm">Experience</h2>
+      <ExperienceTimeline />
     </section>
 
     <section class="flex flex-col gap-y-4">
