@@ -3,6 +3,7 @@ import { streamText } from 'ai'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { createOpenAI } from '@ai-sdk/openai'
 import { checkRateLimit } from '@/lib/ratelimit'
+import { sanitizeChatMessages } from '@/lib/chat-messages'
 import { searchKnowledge } from '@/lib/rag/pinecone'
 
 export const prerender = false
@@ -14,9 +15,9 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error('Empty request body')
     }
 
-    const { messages } = JSON.parse(body)
-    if (!Array.isArray(messages) || messages.length === 0) {
-      return new Response(JSON.stringify({ error: 'Messages array is required' }), {
+    const messages = sanitizeChatMessages(JSON.parse(body).messages)
+    if (messages.length === 0) {
+      return new Response(JSON.stringify({ error: 'A user message is required' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       })
@@ -93,6 +94,7 @@ RESPONSE LENGTH & CONCISENESS (STRICT):
 - Respond in ONLY 1 concise, direct paragraph (maximum 2 to 4 sentences).
 - Do NOT generate multi-paragraph essays, long greetings, or unnecessary fluff.
 - Get straight to the point to provide immediate value and save tokens/bandwidth.
+- Never use em dashes (—). Use commas, periods, or parentheses instead.
 
 PERSONAL ENGINEERING MOTTO:
 - "You can vibe-code, but you cannot vibe-architect." System design and architecture demand deep analytical thinking.
@@ -101,11 +103,8 @@ KNOWLEDGE BASE CONTEXT:
 ${contextText || 'No specific document context retrieved. Rely on core profile knowledge.'}
 `
 
-    // Map messages to Vercel AI SDK format
-    const modelMessages = messages.map((msg: any) => ({
-      role: msg.role as 'user' | 'assistant' | 'system',
-      content: msg.content as string,
-    }))
+    // Already sanitized above: only user and assistant turns reach the model.
+    const modelMessages = messages
 
     // Provider order: HC, then Google Gemini, then OpenAI. The first one configured wins.
     let resultStream: ReturnType<typeof streamText> | null = null

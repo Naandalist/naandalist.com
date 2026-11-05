@@ -1,6 +1,6 @@
 import { createHmac } from 'node:crypto'
 
-const DAILY_LIMIT = 10
+const DAILY_LIMIT = 30
 const COOKIE_NAME = 'rl_token'
 const SECRET = process.env.RATE_LIMIT_SECRET || 'fallback-secret-change-in-production'
 

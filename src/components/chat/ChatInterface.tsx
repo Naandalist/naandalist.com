@@ -81,7 +81,7 @@ export default function ChatInterface() {
           const data = await response.json()
           const botMessage: Message = {
             id: (Date.now() + 1).toString(),
-            content: typeof data?.message === 'string' ? data.message : 'You have reached the daily chat limit (20 per day). Try again tomorrow.',
+            content: typeof data?.message === 'string' ? data.message : 'You have reached the daily chat limit (30 per day). Try again tomorrow.',
             sender: 'bot',
             timestamp: new Date(),
           }
@@ -91,7 +91,7 @@ export default function ChatInterface() {
         } catch {
           const botMessage: Message = {
             id: (Date.now() + 1).toString(),
-            content: 'You have reached the daily chat limit (20 per day). Try again tomorrow.',
+            content: 'You have reached the daily chat limit (30 per day). Try again tomorrow.',
             sender: 'bot',
             timestamp: new Date(),
           }
