@@ -5,17 +5,32 @@ import ChatInterface from '@/components/chat/ChatInterface.tsx'
 ---
 
 <Layout title="Chat with me" description="Chat with me - Ask anything about me">
-  <Container class="flex flex-col gap-y-6">
-    <div class="flex-1 min-h-[60dvh]">
-      <ChatInterface client:load />
-    </div>
+  <Container class="chat-page flex min-h-0 w-full flex-1 flex-col">
+    <ChatInterface client:load />
   </Container>
 </Layout>
 
 <style>
-  /* Ensure the chat interface takes full height */
-  main {
+  /* The chat card fills the space between header and footer, so the page never leaves a gap
+     below it. Messages scroll inside the card instead of growing the page. */
+  :global(main:has(.chat-page)),
+  :global(main:has(.chat-page) > div) {
     display: flex;
     flex-direction: column;
+    flex: 1 1 0%;
+    min-height: 0;
+  }
+  /* Cap the page at one viewport so a long conversation scrolls inside the card. Short screens
+     (landscape phones) keep normal page scroll so the card never squeezes under its minimum. */
+  @media (min-height: 560px) {
+    :global(body:has(.chat-page) > div.z-10) {
+      height: 100dvh;
+    }
+  }
+  .chat-page > :global(astro-island) {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    min-height: 0;
   }
 </style>

@@ -5,6 +5,9 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { EXAMPLE_MESSAGES } from '@/consts'
 
+// Same photo as the author profile (src/content/authors/naandalist.md).
+const AVATAR = 'https://avatars.githubusercontent.com/u/14960087?v=4'
+
 interface Message {
   id: string
   content: string
@@ -169,8 +172,8 @@ export default function ChatInterface() {
   }
 
   return (
-    <div className="flex h-full max-h-[85dvh] flex-col">
-      <Card className="flex-1 flex flex-col min-h-[50dvh] sm:min-h-[60dvh] rounded-xl border-muted-foreground/20 bg-muted/20 backdrop-blur">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <Card className="flex-1 flex flex-col min-h-[50dvh] rounded-xl border-muted-foreground/20 bg-muted/20 backdrop-blur">
         <CardContent className="flex-1 flex flex-col p-4 sm:p-6 min-h-0">
           {/* Messages */}
           <div className="flex-1 overflow-y-auto space-y-4 pr-1 sm:pr-2">
@@ -189,7 +192,7 @@ export default function ChatInterface() {
                   <div className="flex items-start gap-3">
                     {message.sender === 'bot' ? (
                       <img
-                        src="https://1.gravatar.com/avatar/21e49fff739353295995834a864f11194a8419f30d70d1d3cfd51ecf19958785?size=256"
+                        src={AVATAR}
                         alt="Naandalist"
                         className="h-6 w-6 sm:h-7 sm:w-7 rounded-full object-cover shrink-0"
                       />
@@ -220,7 +223,7 @@ export default function ChatInterface() {
                 <div className="max-w-[92%] sm:max-w-[80%] rounded-xl px-4 py-3 bg-transparent border shadow-1">
                   <div className="flex items-center gap-2">
                     <img
-                      src="https://1.gravatar.com/avatar/21e49fff739353295995834a864f11194a8419f30d70d1d3cfd51ecf19958785?size=256"
+                      src={AVATAR}
                       alt="Naandalist"
                       className="h-5 w-5 sm:h-6 sm:w-6 rounded-full object-cover"
                     />
