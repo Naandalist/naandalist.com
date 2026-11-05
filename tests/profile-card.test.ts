@@ -42,7 +42,7 @@ describe('profile card', () => {
     const home = await read('src/content/authors/naandalist.md')
     // The card renders home.role (index.astro), not the byline role at the top of the file.
     expect(home).toMatch(/home:\n(?:\s+\S+.*\n)*?  role: '([^']+)'/)
-    expect(RegExp.$1).toBe('Product Engineer 3; Code Reviewer @ Dicoding')
+    expect(RegExp.$1).toBe('Product Engineer 3 @ZOG • Code Reviewer @ Dicoding')
   })
 
   it('uses a camera icon for the photo gallery link', async () => {

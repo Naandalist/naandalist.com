@@ -12,7 +12,7 @@ linkedin: 'https://linkedin.com/in/naandalist'
 instagram: 'https://instagram.com/naandalist'
 mail: 'dev@naandalist.com'
 home:
-  role: 'Product Engineer 3; Code Reviewer @ Dicoding'
+  role: 'Product Engineer 3 @ZOG • Code Reviewer @ Dicoding'
   pronunciation: '/ˈnan.da a.pri.liˈa.wan/'
   eyebrow: 'Frontend & mobile engineering'
   headline: >-
