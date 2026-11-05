@@ -4,7 +4,6 @@ import Container from '@/components/Container.astro'
 import Link from '@/components/Link.astro'
 import { badgeVariants } from '@/components/ui/Badge'
 import Layout from '@/layouts/Layout.astro'
-import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
 
 const blog = (await getCollection('blog')).filter((post) => !post.data.draft)
@@ -34,7 +33,6 @@ const tags = [...tagCounts.keys()].sort((a, b) => {
               href={`/tags/${tag}`}
               class={badgeVariants({ variant: 'secondary' })}
             >
-              <Icon name="lucide:hash" class="size-3 -translate-x-0.5" />
               {tag}
               <span class="ml-1.5 text-muted-foreground">
                 ({tagCounts.get(tag)})

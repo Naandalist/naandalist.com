@@ -3,7 +3,6 @@ import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import Layout from '@/layouts/Layout.astro'
-import { Icon } from 'astro-icon/components'
 import { type CollectionEntry, getCollection } from 'astro:content'
 
 type BlogPost = CollectionEntry<'blog'>
@@ -48,7 +47,7 @@ export async function getStaticPaths() {
       <span
         class="flex items-center gap-x-1 rounded-full bg-secondary px-4 py-2 text-2xl font-semibold"
       >
-        <Icon name="lucide:hash" class="size-6 -translate-x-0.5" />{tag}
+        {tag}
       </span>
     </div>
     <div class="flex flex-col gap-y-4">
