@@ -1,12 +1,10 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
-import { badgeVariants } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
 import Layout from '@/layouts/Layout.astro'
 import { breadcrumbLd } from '@/lib/jsonld'
-import { formatDate } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 import { type CollectionEntry, getCollection, render } from 'astro:content'
 
@@ -18,7 +16,7 @@ type Props = CollectionEntry<'npmjs'>
 
 const entry = Astro.props
 const { Content, headings } = await render(entry)
-const { name, description, npm, github, version, license, date, updated, tags } = entry.data
+const { name, description, npm, github, date, updated } = entry.data
 
 const siteUrl = new URL('/', Astro.site).href
 const jsonLd = [
@@ -43,25 +41,7 @@ const jsonLd = [
       <h1 class="font-mono text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight break-words">{name}</h1>
       <p class="text-muted-foreground">{description}</p>
 
-      <div class="flex flex-wrap items-center justify-start gap-2 text-sm text-muted-foreground">
-        <span>v{version}</span>
-        <Separator orientation="vertical" className="h-4" />
-        <span>{license}</span>
-        <Separator orientation="vertical" className="h-4" />
-        <span>Updated {formatDate(updated ?? date)}</span>
-      </div>
-
-      {
-        tags && tags.length > 0 && (
-          <div class="flex flex-wrap justify-start gap-2">
-            {tags.map((tag) => (
-              <span class={badgeVariants({ variant: 'secondary' })}>{tag}</span>
-            ))}
-          </div>
-        )
-      }
-
-      <div class="flex flex-wrap justify-center gap-2">
+      <div class="flex flex-wrap justify-start gap-2">
         <a href={npm} target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'default' }) + ' gap-2'}>
           <Icon name="lucide:package" class="size-4" />
           View on npm
@@ -75,6 +55,8 @@ const jsonLd = [
           )
         }
       </div>
+
+      <Separator />
     </section>
 
     {headings.length > 0 && <TableOfContents headings={headings} mobileOnly />}
