@@ -14,8 +14,6 @@ I am writing as a **5+ YOE engineer**. In real product operations, commit histor
 
 When we let commit messages stay vague, we repeatedly hit the same pain: regressions took longer to trace, reviews started from guesswork, and release notes became manual cleanup work. Once we enforced a consistent commit convention, debugging and handover quality improved in measurable ways.
 
-![Git Commit](/static/blog/git-commit-message-convention/0_h4BR91VxYGy_lSZi_el4qb6-gitcommit_ojg2ag.webp "Illustration of Git commits")
-
 ## Why a Commit Convention Matters in Practice
 
 In product teams shipping weekly or daily, a clean commit history acts like a low-cost observability layer for code intent. A reviewer can understand what changed and why before opening the diff, while on-call engineers can isolate suspicious commits faster during production incidents. In regulated or semi-regulated domains, this consistency also helps explain change intent to non-author stakeholders without reconstructing context from scratch.

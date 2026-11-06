@@ -8,8 +8,6 @@ tags: ['api', 'ux', 'mobile']
 authors: ['naandalist']
 ---
 
-![Neon Skies and Chrome Dreams](/static/blog/partial-response-for-better-ux/neon_skies_and_chrome_dreams_by_inkimagine_dk5niy4-pre_va6ndy.jpg)
-
 I am writing as a **5+ YOE engineer**.
 
 ## When "Complete Data" Became a UX Bug

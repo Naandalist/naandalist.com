@@ -8,8 +8,6 @@ tags: ['ai', 'experiment']
 authors: ['naandalist']
 ---
 
-![The Small Badge That Started This Experiment](/static/blog/testing-linkedin-content-credentials/center_by_duskstormcrow_dmkqp2o-pre_biij2y.jpg)
-
 > The Small Badge That Started This Experiment
 
 I recently published an AI-generated image in a LinkedIn post. After uploading it, I noticed a small **CR badge** beside the image.

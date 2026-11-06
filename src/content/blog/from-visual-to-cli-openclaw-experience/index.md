@@ -8,8 +8,6 @@ tags: ['ai', 'devops', 'tools']
 authors: ['naandalist']
 ---
 
-![Openclaw](/static/blog/from-visual-to-cli-openclaw-experience/og-image.png)
-
 As a frontend developer, my habits are visual. I usually think in terms of layout feedback, immediate UI state, and interactive controls. That mindset worked well until I had to handle more VPS tasks directly. The server was reliable, but the experience felt cold and rigid because everything depended on CLI fluency and memorized commands.
 
 In my case, the gap was not about understanding infrastructure concepts. The real problem was interaction model. Without a GUI, each action required context switching, command recall, and manual verification. That increased hesitation and made routine operations feel heavier than they should be.

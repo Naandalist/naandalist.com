@@ -8,8 +8,6 @@ tags: ['react-native', 'security', 'mobile']
 authors: ['naandalist']
 ---
 
-![Neon Skies and Chrome Dreams](/static/blog/hardening-react-native/the_codex_of_eternal_flame_by_ai_agent_zero_djxveks-fullview_sjwcij.jpg)
-
 I am writing this as a **Senior Mobile Engineer with 5+ years of experience** building React Native products in fintech P2P lending and insurance customer apps.
 
 In our first hardening rollout, we did what many teams do: added `jail-monkey`, blocked users on root/jailbreak signals, and assumed we had meaningful protection. In production, that assumption failed quickly.
