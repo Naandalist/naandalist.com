@@ -281,6 +281,8 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
   const [hovered, setHovered] = useState(false)
   const [assetSrc, setAssetSrc] = useState(project.asset)
   const [assetErrored, setAssetErrored] = useState(false)
+  // Tracked in React: a class added through the DOM is wiped when className re-renders (on hover).
+  const [imgLoaded, setImgLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -395,12 +397,19 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
         ) : assetSrc ? (
 
           <img
+            key={assetSrc}
+            ref={(el) => {
+              if (el?.complete && el.naturalWidth > 0) setImgLoaded(true)
+            }}
             src={assetSrc}
             alt={project.name}
             loading="lazy"
             decoding="async"
+            onLoad={() => setImgLoaded(true)}
             onError={handleError}
             className={`h-full w-full object-cover transition-all duration-200 ease-out image-blur-load ${
+              imgLoaded ? 'loaded' : ''
+            } ${
               hovered ? 'scale-[1.02] grayscale-0' : 'scale-100 grayscale'
             }`}
           />
@@ -502,6 +511,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
 function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () => void }) {
   const [assetSrc, setAssetSrc] = useState(project.asset)
   const [assetErrored, setAssetErrored] = useState(false)
+  const [imgLoaded, setImgLoaded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -578,11 +588,16 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
               />
             ) : assetSrc ? (
               <img
+                key={assetSrc}
+                ref={(el) => {
+                  if (el?.complete && el.naturalWidth > 0) setImgLoaded(true)
+                }}
                 src={assetSrc}
                 alt={project.name}
                 loading="lazy"
+                onLoad={() => setImgLoaded(true)}
                 onError={handleError}
-                className="h-full w-full object-cover image-blur-load"
+                className={`h-full w-full object-cover image-blur-load ${imgLoaded ? 'loaded' : ''}`}
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground text-sm">
