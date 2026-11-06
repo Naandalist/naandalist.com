@@ -2,9 +2,9 @@ import { useEffect, type RefObject } from 'react'
 import { bayer4 } from '@/lib/bayer'
 import * as babysBreath from '@/lib/babys-breath'
 import * as dandelion from '@/lib/dandelion'
-import * as storm from '@/lib/storm'
+import * as fishing from '@/lib/fishing'
 
-const SCENES = { 'babys-breath': babysBreath, dandelion, storm } as const
+const SCENES = { 'babys-breath': babysBreath, dandelion, fishing } as const
 export type Scene = keyof typeof SCENES
 
 interface Options {
