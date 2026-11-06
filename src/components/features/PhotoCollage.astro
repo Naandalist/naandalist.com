@@ -2,7 +2,7 @@
 /**
  * Core Memories: photo cards in an endless marquee scrolling left at every width, across the
  * full viewport. Photos are grayscale; hovering the row pauses it and the hovered card's photo
- * turns to colour.
+ * turns to colour. Clicking a card zooms the photo open in a lightbox dialog.
  * Photos are plain <img> tags. Build-time image optimization fetched remote photos, which failed on CI runners.
  */
 
@@ -48,7 +48,11 @@ const marqueeItems = [...half, ...half]
       {marqueeItems.map((item, i) => (
         <figure
           aria-hidden={i >= half.length ? 'true' : undefined}
-          class="group/card w-72 sm:w-84 shrink-0 flex flex-col overflow-hidden rounded-lg border border-border/80 bg-card/80 p-3 sm:p-4 shadow-1 transition-all duration-150 hover:border-foreground/40 hover:-translate-y-1 hover:shadow-2"
+          data-photo
+          role={i >= half.length ? undefined : 'button'}
+          tabindex={i >= half.length ? undefined : 0}
+          aria-label={i >= half.length ? undefined : `Open photo: ${item.caption}`}
+          class="group/card cursor-zoom-in w-72 sm:w-84 shrink-0 flex flex-col overflow-hidden rounded-lg border border-border/80 bg-card/80 p-3 sm:p-4 shadow-1 transition-all duration-150 hover:border-foreground/40 hover:-translate-y-1 hover:shadow-2"
         >
           {/* Uniform Aspect Ratio Photo (3:2 auto fit center) */}
           <div class="relative w-full aspect-3/2 overflow-hidden rounded-md bg-secondary/50 border border-border/40 image-loading-shimmer">
@@ -74,7 +78,52 @@ const marqueeItems = [...half, ...half]
       ))}
     </div>
   </div>
+
+  {/* Lightbox: one dialog shared by every card. Click the backdrop, the photo or press Esc to close. */}
+  <dialog
+    id="photo-lightbox"
+    aria-label="Photo"
+    class="photo-lightbox m-auto max-h-dvh max-w-full bg-transparent p-4 backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+  >
+    <figure class="flex max-w-5xl flex-col items-center gap-3">
+      <img
+        alt=""
+        class="max-h-[80dvh] w-auto max-w-full cursor-zoom-out rounded-lg border border-border/60 object-contain shadow-3"
+      />
+      <figcaption class="max-w-prose text-center text-sm text-white/90"></figcaption>
+    </figure>
+  </dialog>
 </section>
+
+<script>
+  const dialog = document.getElementById('photo-lightbox') as HTMLDialogElement | null
+  const big = dialog?.querySelector('img')
+  const caption = dialog?.querySelector('figcaption')
+
+  function open(card: HTMLElement) {
+    const img = card.querySelector('img')
+    const text = card.querySelector('figcaption')?.textContent?.trim() ?? ''
+    if (!dialog || !big || !caption || !img) return
+    big.src = img.currentSrc || img.src
+    big.alt = text
+    caption.textContent = text
+    dialog.showModal()
+  }
+
+  document.addEventListener('click', (e) => {
+    const card = (e.target as Element).closest<HTMLElement>('[data-photo]')
+    if (card) open(card)
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return
+    const card = (e.target as Element).closest<HTMLElement>('[data-photo][role="button"]')
+    if (!card) return
+    e.preventDefault()
+    open(card)
+  })
+  // Anywhere in the dialog closes it, the photo included.
+  dialog?.addEventListener('click', () => dialog.close())
+</script>
 
 <style>
   @keyframes core-memories-marquee {
@@ -98,7 +147,25 @@ const marqueeItems = [...half, ...half]
     animation-play-state: paused;
   }
 
+  /* Zoom in from slightly smaller, with a fade. */
+  .photo-lightbox[open] {
+    animation: photo-zoom 220ms ease-out;
+  }
+  @keyframes photo-zoom {
+    from {
+      opacity: 0;
+      transform: scale(0.88);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .photo-lightbox[open] {
+      animation: none;
+    }
     .animate-core-marquee {
       animation-play-state: paused;
     }
