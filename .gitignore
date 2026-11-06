@@ -4,6 +4,9 @@ dist/
 # generated astro
 .astro/
 
+# graphify output
+graphify-out/
+
 # dependencies
 node_modules/
 
