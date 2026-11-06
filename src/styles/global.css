@@ -521,3 +521,50 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   box-shadow: var(--shadow-1);
   backdrop-filter: blur(8px);
 }
+
+/* Image loading: blur-up + shimmer effect for lazy-loaded images */
+@keyframes shimmer-loading {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.image-blur-load {
+  filter: blur(20px);
+  transition: filter 600ms ease-out;
+}
+
+.image-blur-load.loaded {
+  filter: blur(0);
+}
+
+.image-loading-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+  background-position: -1000px 0;
+  animation: shimmer-loading 2s infinite;
+}
+
+.image-loading-shimmer.loaded {
+  animation: none;
+  background-image: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-blur-load {
+    filter: blur(0);
+    transition: none;
+  }
+  .image-loading-shimmer {
+    animation: none;
+  }
+}
