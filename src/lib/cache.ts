@@ -108,7 +108,7 @@ export function clearAllCache(): void {
  */
 export const CACHE_TTL = {
   WAKATIME: 5 * 60 * 1000, // stats don't change frequently
-  LASTFM: 2 * 60 * 1000, // music changes more often
+  LASTFM: 20 * 1000, // matches the 20s poll in LastfmPresence
   VIEW_COUNT: 30 * 1000, // for potential view count caching
 }
 

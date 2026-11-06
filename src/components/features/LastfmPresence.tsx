@@ -1,6 +1,6 @@
 import { MoveUpRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { FaHeadphonesAlt, FaLastfm, FaYoutube } from 'react-icons/fa'
+import { FaHeadphonesAlt, FaLastfm, FaSpotify } from 'react-icons/fa'
 import { motion } from 'motion/react'
 import {
   getStaleWhileRevalidate,
@@ -18,20 +18,26 @@ interface Track {
   '@attr'?: { nowplaying: string }
 }
 
-// Pinned track shown while the Last.fm feed has no scrobbles yet. Remove
-// once scrobbling from YouTube Music is live.
-const PINNED_TRACK: Track = {
-  name: 'Film Favorit',
-  artist: { '#text': 'Sheila on 7' },
-  album: { '#text': 'Film Favorit' },
-  image: [
-    { '#text': '' },
-    { '#text': '' },
-    { '#text': '' },
-    { '#text': 'https://i.ytimg.com/vi/cHKZ7eWiZjM/maxresdefault.jpg' },
-  ],
-  url: 'https://www.youtube.com/watch?v=cHKZ7eWiZjM',
-}
+const fallbackTrack = (name: string, artist: string, album: string, cover: string, id: string): Track => ({
+  name,
+  artist: { '#text': artist },
+  album: { '#text': album },
+  image: [{ '#text': '' }, { '#text': '' }, { '#text': '' }, { '#text': cover }],
+  url: `https://open.spotify.com/track/${id}`,
+})
+
+// Tracks shown while the Last.fm feed has no scrobbles yet. One is picked at
+// random on each load. Remove once scrobbling from YouTube Music is live.
+const FALLBACK_TRACKS: Track[] = [
+  fallbackTrack('Elegi', 'Figura Renata', 'Figura Renata', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0219b19b9a8b85d557ed0a1085', '3pZK71INUBAuIltdTMe7mz'),
+  fallbackTrack('Rasa & Karsa', 'Figura Renata', 'Figura Renata', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0219b19b9a8b85d557ed0a1085', '5k8QGcDjSx8Bv6P25H6NFU'),
+  fallbackTrack('Hujan Di Mimpi', 'Banda Neira', 'Berjalan Lebih Jauh', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e029029c55d57c2e8ff546685d7', '4Sl7Eb1XVBVLgCD7kaXPBA'),
+]
+
+// How often to refresh the track while the tab is open
+const POLL_INTERVAL = 20 * 1000
+
+const pickFallback = (): Track => FALLBACK_TRACKS[Math.floor(Math.random() * FALLBACK_TRACKS.length)]
 
 const LastfmPresence = () => {
   // Start empty on both server and client, then read the cache after mount.
@@ -47,26 +53,56 @@ const LastfmPresence = () => {
       setIsLoading(false)
     }
 
-    // Fetch fresh data if stale or no cache
-    if (isStale) {
+    let disposed = false
+    let hasRealTrack = Boolean(cached)
+
+    const load = () => {
       fetch('https://lastfm-last-played.biancarosa.com.br/naandalist/latest-song')
         .then((response) => response.json())
         .then((data) => {
-          // No scrobbles yet (or feed down): show the pinned track instead.
-          if (!data.track) {
-            setDisplayData(PINNED_TRACK)
-            setIsLoading(false)
-            return
+          if (disposed) return
+          if (data.track) {
+            hasRealTrack = true
+            setCachedData(CACHE_KEYS.LASTFM, data.track, CACHE_TTL.LASTFM)
+            setDisplayData(data.track)
+          } else if (!hasRealTrack) {
+            // No scrobbles yet: show a random fallback track instead.
+            setDisplayData((prev) => prev ?? pickFallback())
           }
-          setCachedData(CACHE_KEYS.LASTFM, data.track, CACHE_TTL.LASTFM)
-          setDisplayData(data.track)
           setIsLoading(false)
         })
         .catch((error) => {
           console.error('Error fetching latest song:', error)
-          setDisplayData(PINNED_TRACK)
+          if (disposed) return
+          // Keep whatever is on screen; only fall back when there is nothing yet.
+          if (!hasRealTrack) setDisplayData((prev) => prev ?? pickFallback())
           setIsLoading(false)
         })
+    }
+
+    if (isStale) load()
+
+    // Poll while the tab is visible; refresh right away when it comes back.
+    let timer = 0
+    const startPolling = () => {
+      window.clearInterval(timer)
+      timer = window.setInterval(load, POLL_INTERVAL)
+    }
+    const onVisibility = () => {
+      if (document.hidden) {
+        window.clearInterval(timer)
+      } else {
+        load()
+        startPolling()
+      }
+    }
+    if (!document.hidden) startPolling()
+    document.addEventListener('visibilitychange', onVisibility)
+
+    return () => {
+      disposed = true
+      window.clearInterval(timer)
+      document.removeEventListener('visibilitychange', onVisibility)
     }
   }, [])
 
@@ -145,7 +181,7 @@ const LastfmPresence = () => {
       </motion.div>
     )
 
-  const isPinned = displayData === PINNED_TRACK
+  const isPinned = FALLBACK_TRACKS.includes(displayData)
   const { name: song, artist, album, image, url } = displayData
 
   return (
@@ -209,7 +245,7 @@ const LastfmPresence = () => {
                     : 'Last played...'}
               </span>
               {isPinned ? (
-                <FaYoutube size={22} className="ml-auto hidden shrink-0 md:block" />
+                <FaSpotify size={22} className="ml-auto hidden shrink-0 md:block" />
               ) : (
                 <FaLastfm size={22} className="ml-auto hidden shrink-0 md:block" />
               )}
@@ -236,8 +272,8 @@ const LastfmPresence = () => {
       </div>
       <a
         href={url}
-        aria-label={isPinned ? 'Listen on YouTube' : 'View on last.fm'}
-        title={isPinned ? 'Listen on YouTube' : 'View on last.fm'}
+        aria-label={isPinned ? 'Listen on Spotify' : 'View on last.fm'}
+        title={isPinned ? 'Listen on Spotify' : 'View on last.fm'}
         target="_blank"
         rel="noopener noreferrer"
         className="absolute bottom-0 right-0 m-3 flex w-fit items-end rounded-full border bg-secondary/50 p-3 text-primary transition-all duration-150 hover:rotate-12 hover:ring-1 hover:ring-primary"
