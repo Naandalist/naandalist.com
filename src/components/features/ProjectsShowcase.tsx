@@ -372,7 +372,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
       onMouseLeave={() => setHovered(false)}
     >
       {/* Media: video or image */}
-      <div className="aspect-16/10 w-full overflow-hidden bg-muted relative">
+      <div className="aspect-16/10 w-full overflow-hidden bg-muted relative image-loading-shimmer">
         {assetSrc && isVideo(assetSrc) ? (
           <video
             ref={videoRef}
@@ -400,7 +400,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
             loading="lazy"
             decoding="async"
             onError={handleError}
-            className={`h-full w-full object-cover transition-all duration-200 ease-out ${
+            className={`h-full w-full object-cover transition-all duration-200 ease-out image-blur-load ${
               hovered ? 'scale-[1.02] grayscale-0' : 'scale-100 grayscale'
             }`}
           />
@@ -543,7 +543,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
         initial={{ opacity: 0, scale: 0.95, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 30 }}
-        className="relative w-full max-w-7xl h-fit max-h-[75dvh] sm:h-[700px] md:h-[620px] overflow-hidden rounded-xl sm:rounded-lg border bg-background shadow-3 cursor-default mx-auto flex flex-col"
+        className="relative w-full max-w-7xl h-fit max-h-[75dvh] sm:h-175 md:h-155 overflow-hidden rounded-xl sm:rounded-lg border bg-background shadow-3 cursor-default mx-auto flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Mobile X close button */}
@@ -558,7 +558,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
         {/* Mobile: stacked layout */}
         <div className="flex flex-col md:grid md:grid-cols-[72%_28%] w-full h-full overflow-hidden">
           {/* Media Section */}
-          <div className="relative bg-black border-b md:border-b-0 md:border-r w-full h-[30vh] md:h-full shrink-0 overflow-hidden">
+          <div className="relative bg-black border-b md:border-b-0 md:border-r w-full h-[30vh] md:h-full shrink-0 overflow-hidden image-loading-shimmer">
             {assetSrc && isVideo(assetSrc) ? (
               <video
                 ref={videoRef}
@@ -580,8 +580,9 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
               <img
                 src={assetSrc}
                 alt={project.name}
+                loading="lazy"
                 onError={handleError}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover image-blur-load"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground text-sm">
