@@ -10,10 +10,6 @@ authors: ['naandalist']
 
 In multiple enterprise setups, I have seen GitHub-Jira integration look "installed" but still fail to provide useful delivery visibility. The root problem is usually not the connector itself, but weak network planning, overly broad repository access, and inconsistent issue-key usage in daily engineering flow.
 
-<div align="center">
-  <img src="/static/blog/integrate-github-with-jira/neon_cyberpunk_alley_by_n1ghtw1re_dkhcupt-414w-2x_rmhor5.jpg" alt="Integrate GitHub Enterprise Server with Jira" />
-</div>
-
 ## What Improved After a Proper Integration
 
 When GHES is connected correctly, Jira issues stop behaving like static planning tickets and start reflecting real development movement through linked branches, commits, and pull requests. In practice, this improves planning-to-delivery handoff because PMs and engineering managers can review implementation progress from Jira without requesting manual updates, while engineers can trace issue history faster during incidents or release validation.

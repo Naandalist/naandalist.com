@@ -8,10 +8,6 @@ tags: ['creativity', 'opinion']
 authors: ['naandalist']
 ---
 
-<div align="center">
-  <img src="/static/blog/dont-make-it-original/watching_by_jjfwh_dl0zbed-pre_i6pwpm.jpg" alt="Great Work Doesn't Always Have to Be Original" />
-</div>
-
 Nothing is truly new in this world.
 
 This sentence sounds cliché. Yet it remains alive because it is the reality. Even the most flashy creative industries stand on piles of replication, imitation, and modification.

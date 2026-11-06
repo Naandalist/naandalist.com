@@ -8,10 +8,6 @@ tags: ['ai', 'engineering', 'opinion']
 authors: ['naandalist']
 ---
 
-<div align="center">
-  <img src="/static/blog/better-technical-decisions-ai-era/primordial_golem_by_oasidd_dmp76wv-pre_anfm32.jpg" alt="Better Engineering Decisions in the AI Era" />
-</div>
-
 AI can generate code faster than ever. That does not mean we can finish the right product faster.
 
 The bottleneck has moved.
