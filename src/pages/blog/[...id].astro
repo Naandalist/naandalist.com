@@ -103,7 +103,7 @@ const jsonLd = [
         />
       )
     }
-    <section class="flex flex-col gap-y-6 text-center">
+    <section class="flex flex-col gap-y-6 text-left">
       <div class="flex flex-col gap-y-4">
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
           {post.data.title}
@@ -111,7 +111,7 @@ const jsonLd = [
         {post.data.subtitle && <p class="text-lg text-muted-foreground">{post.data.subtitle}</p>}
 
         <div
-          class="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground"
+          class="flex flex-wrap items-center justify-start gap-2 text-sm text-muted-foreground"
         >
           {
             authors.length > 0 && (
