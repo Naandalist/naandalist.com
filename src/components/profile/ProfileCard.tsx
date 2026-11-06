@@ -2,6 +2,10 @@ import { Camera, Check, Copy, Mail, MessageCircle } from 'lucide-react'
 import * as React from 'react'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import BabysBreathField from '@/components/profile/BabysBreathField'
+import type { Scene } from '@/hooks/useBabysBreath'
+
+/** The card's bottom band shows one of these, picked at random on each visit. */
+const CARD_SCENES: readonly Scene[] = ['fishing', 'autumn']
 
 export interface ProfileLink {
   kind: 'mail' | 'linkedin' | 'github' | 'photo' | 'chat'
@@ -58,6 +62,8 @@ const ICONS = {
 // metal glint that travels once around the border (see .metal in global.css).
 export default function ProfileCard({ name, role, roleLinks = [], pronunciation, avatar, links }: Props) {
   const [copied, setCopied] = React.useState(false)
+  // The scene is only drawn on the client, so the server and client picking differently is harmless.
+  const [scene] = React.useState(() => CARD_SCENES[Math.floor(Math.random() * CARD_SCENES.length)])
 
   const copyMail = async (address: string) => {
     try {
@@ -123,7 +129,7 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
         })}
       </ul>
 
-      <BabysBreathField scene="fishing" cell={2} className="absolute inset-x-0 bottom-0 h-1/4 w-full text-foreground/55 sm:h-24" />
+      <BabysBreathField scene={scene} cell={2} className="absolute inset-x-0 bottom-0 h-1/4 w-full text-foreground/55 sm:h-24" />
     </section>
   )
 }

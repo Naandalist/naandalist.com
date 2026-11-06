@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useBabysBreath, type Scene } from '@/hooks/useBabysBreath'
 import { cn } from '@/lib/utils'
 
-/** Decorative dithered scene band (baby's breath, dandelion, or fishing). Hidden from assistive tech. */
+/** Decorative dithered scene band (baby's breath, dandelion, fishing, or autumn). Hidden from assistive tech. */
 export default function BabysBreathField({
   className,
   animate = true,
