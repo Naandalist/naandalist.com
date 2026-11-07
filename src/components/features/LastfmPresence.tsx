@@ -1,6 +1,7 @@
 import { MoveUpRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { FaHeadphonesAlt, FaLastfm, FaSpotify } from 'react-icons/fa'
+import { GiGClef } from 'react-icons/gi'
 import { motion } from 'motion/react'
 import {
   getStaleWhileRevalidate,
@@ -183,6 +184,8 @@ const LastfmPresence = () => {
 
   const isPinned = FALLBACK_TRACKS.includes(displayData)
   const { name: song, artist, album, image, url } = displayData
+  // Last.fm returns empty strings when it has no cover (e.g. scrobbles without album metadata).
+  const cover = image.map((i) => i['#text']).reverse().find(Boolean) ?? ''
 
   return (
     <motion.div
@@ -192,17 +195,33 @@ const LastfmPresence = () => {
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
       <div className="relative flex h-full w-full flex-row items-start justify-between gap-4">
-        <motion.img
-          src={image[3]['#text']}
-          alt="Album art"
-          width={160}
-          height={160}
-          loading="eager"
-          decoding="async"
-          className="mb-2 aspect-square w-28 max-w-[160px] rounded-lg border border-border object-cover grayscale transition-[filter] duration-200 hover:grayscale-0 md:w-full"
-          whileHover={{ scale: 1.05, rotate: 1.5 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        />
+        {cover ? (
+          <motion.img
+            src={cover}
+            alt="Album art"
+            width={160}
+            height={160}
+            loading="eager"
+            decoding="async"
+            className="mb-2 aspect-square w-28 max-w-[160px] rounded-lg border border-border object-cover grayscale transition-[filter] duration-200 hover:grayscale-0 md:w-full"
+            whileHover={{ scale: 1.05, rotate: 1.5 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="relative mb-2 flex aspect-square w-28 max-w-[160px] shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-muted-foreground/60 md:w-full"
+          >
+            {/* Staff lines sweeping around the clef */}
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.6" className="absolute inset-0 size-full animate-[spin_12s_linear_infinite] motion-reduce:animate-none">
+              <title>Music</title>
+              {[36, 38.5, 41, 43.5, 46].map((r) => (
+                <circle key={r} cx="50" cy="50" r={r} pathLength="100" strokeDasharray="75 25" transform="rotate(180 50 50)" />
+              ))}
+            </svg>
+            <GiGClef className="relative size-3/5" />
+          </div>
+        )}
         <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
           <div className="flex flex-col">
             <span className="mt-1 mb-1 flex w-full items-center gap-2 text-primary sm:mb-1">
@@ -260,12 +279,14 @@ const LastfmPresence = () => {
                 </span>{' '}
                 {artist['#text']}
               </span>
-              <span className="w-[85%] truncate text-sm sm:text-base text-muted-foreground">
-                <span className="font-semibold text-secondary-foreground">
-                  on
-                </span>{' '}
-                {album['#text']}
-              </span>
+              {album['#text'] && (
+                <span className="w-[85%] truncate text-sm sm:text-base text-muted-foreground">
+                  <span className="font-semibold text-secondary-foreground">
+                    on
+                  </span>{' '}
+                  {album['#text']}
+                </span>
+              )}
             </div>
           </div>
         </div>
