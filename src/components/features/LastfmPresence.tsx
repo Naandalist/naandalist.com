@@ -2,7 +2,7 @@ import { MoveUpRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { FaHeadphonesAlt, FaLastfm, FaSpotify } from 'react-icons/fa'
 import { GiGClef } from 'react-icons/gi'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import {
   getStaleWhileRevalidate,
   setCachedData,
@@ -45,6 +45,7 @@ const LastfmPresence = () => {
   // Reading localStorage in the initializer makes the first client render differ from SSR.
   const [displayData, setDisplayData] = useState<Track | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     // Stale-While-Revalidate: show cached data instantly, refresh in background
@@ -213,13 +214,22 @@ const LastfmPresence = () => {
             className="relative mb-2 flex aspect-square w-28 max-w-[160px] shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-muted-foreground/60 md:w-full"
           >
             {/* Staff lines sweeping around the clef */}
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.6" className="absolute inset-0 size-full animate-[spin_12s_linear_infinite] motion-reduce:animate-none">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.6" className="absolute inset-0 size-full">
               <title>Music</title>
               {[36, 38.5, 41, 43.5, 46].map((r) => (
                 <circle key={r} cx="50" cy="50" r={r} pathLength="100" strokeDasharray="75 25" transform="rotate(180 50 50)" />
               ))}
             </svg>
-            <GiGClef className="relative size-3/5" />
+            <motion.div
+              className="relative flex size-3/5 items-center justify-center"
+              animate={reduceMotion ? undefined : { y: [0, -4, 0, 4, 0], rotate: [-4, 4, -4] }}
+              transition={{
+                y: { duration: 5, ease: 'easeInOut', repeat: Infinity },
+                rotate: { duration: 4, ease: 'easeInOut', repeat: Infinity },
+              }}
+            >
+              <GiGClef className="size-full" />
+            </motion.div>
           </div>
         )}
         <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
