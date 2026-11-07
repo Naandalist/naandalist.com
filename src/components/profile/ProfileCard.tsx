@@ -5,7 +5,7 @@ import BabysBreathField from '@/components/profile/BabysBreathField'
 import type { Scene } from '@/hooks/useBabysBreath'
 
 /** The scene drawn in the card's bottom band. */
-const CARD_SCENE: Scene = 'autumn'
+const CARD_SCENE: Scene = 'hike'
 
 export interface ProfileLink {
   kind: 'mail' | 'linkedin' | 'github' | 'photo' | 'chat'
