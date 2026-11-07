@@ -1,7 +1,7 @@
 import { describe as suite, it, expect } from 'bun:test'
 import { robotsTxt, TRAINING_BOTS } from '../src/lib/robots'
 import { sourcesFor, frontmatterDate, newestPostDate } from '../src/lib/lastmod'
-import { blogPostingLd, breadcrumbLd, describe, personLd, plainText, serializeLd } from '../src/lib/jsonld'
+import { blogPostingLd, breadcrumbLd, collectionPageLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
 import { llmsFullTxt, llmsTxt, stripMdx, type LlmsInput } from '../src/lib/llms'
 
 suite('robots', () => {
@@ -46,6 +46,16 @@ suite('jsonld', () => {
   })
   it('numbers breadcrumbs from 1', () => {
     expect(breadcrumbLd([{ name: 'a', url: 'u1' }, { name: 'b', url: 'u2' }]).itemListElement.map((i) => i.position)).toEqual([1, 2])
+  })
+  it('lists the entries of a collection page in order', () => {
+    const ld = collectionPageLd({ url: 'u', name: 'n', description: 'd', items: [{ name: 'a', url: 'u1' }, { name: 'b', url: 'u2' }] })
+    expect(ld['@type']).toBe('CollectionPage')
+    expect(ld.mainEntity.itemListElement.map((i) => i.position)).toEqual([1, 2])
+  })
+  it('describes a package and drops the repository when there is none', () => {
+    const ld = softwareSourceCodeLd({ url: 'u', name: 'pkg', description: 'd', npm: 'https://npm/pkg', version: '1.0.0', license: 'MIT', published: new Date('2026-01-02T00:00:00Z'), author: personLd({ name: 'A', url: 'https://x.dev/' }) })
+    expect('codeRepository' in ld).toBe(false)
+    expect(ld.dateModified).toBe(ld.datePublished)
   })
   it('cannot close the script tag', () => {
     expect(serializeLd({ a: '</script><b>' })).not.toContain('</script>')

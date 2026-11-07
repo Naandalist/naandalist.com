@@ -3,14 +3,31 @@ import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import PackageCard from '@/components/PackageCard.astro'
 import Layout from '@/layouts/Layout.astro'
+import { breadcrumbLd, collectionPageLd } from '@/lib/jsonld'
 import { getCollection } from 'astro:content'
 
 const packages = (await getCollection('npmjs')).sort(
   (a, b) => (b.data.updated ?? b.data.date).valueOf() - (a.data.updated ?? a.data.date).valueOf(),
 )
+
+const description = 'Open source npm packages by Listiananda Apriliawan, for React Native, React, and Node.js.'
+const siteUrl = new URL('/', Astro.site).href
+const pageUrl = new URL('/npmjs/', siteUrl).href
+const jsonLd = [
+  collectionPageLd({
+    url: pageUrl,
+    name: 'Packages',
+    description,
+    items: packages.map((p) => ({ name: p.data.name, url: new URL(`/npmjs/${p.id}/`, siteUrl).href })),
+  }),
+  breadcrumbLd([
+    { name: 'Home', url: siteUrl },
+    { name: 'Packages', url: pageUrl },
+  ]),
+]
 ---
 
-<Layout title="Packages" description="Open source npm packages by Listiananda Apriliawan, for React Native, React, and Node.js.">
+<Layout title="Packages" description={description} jsonLd={jsonLd}>
   <Container class="flex flex-col gap-y-6">
     <Breadcrumbs items={[{ label: 'Packages', icon: 'lucide:package' }]} />
     <header class="flex flex-col gap-2">

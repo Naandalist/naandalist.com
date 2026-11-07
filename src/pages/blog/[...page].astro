@@ -6,6 +6,7 @@ import PaginationComponent from '@/components/ui/Pagination'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import type { PaginateFunction } from 'astro'
+import { breadcrumbLd, collectionPageLd } from '@/lib/jsonld'
 import { type CollectionEntry, getCollection } from 'astro:content'
 
 export async function getStaticPaths({
@@ -36,9 +37,26 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b, 10) - parseInt
 const pageTitle = page.currentPage > 1 ? `Blog · Page ${page.currentPage}` : 'Blog'
 const pageDescription =
   'Notes on frontend, mobile, React Native, tooling, and shipping software that holds up in production.'
+
+const siteUrl = new URL('/', Astro.site).href
+const blogUrl = new URL('/blog/', siteUrl).href
+const jsonLd = [
+  collectionPageLd({
+    type: 'Blog',
+    url: new URL(page.currentPage > 1 ? `/blog/${page.currentPage}/` : '/blog/', siteUrl).href,
+    name: pageTitle,
+    description: pageDescription,
+    items: page.data.map((post) => ({ name: post.data.title, url: new URL(`/blog/${post.id}/`, siteUrl).href })),
+  }),
+  breadcrumbLd([
+    { name: 'Home', url: siteUrl },
+    { name: 'Blog', url: blogUrl },
+    ...(page.currentPage > 1 ? [{ name: `Page ${page.currentPage}`, url: new URL(`/blog/${page.currentPage}/`, siteUrl).href }] : []),
+  ]),
+]
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} jsonLd={jsonLd}>
   <Container class="flex flex-col gap-y-6">
     <Breadcrumbs
       items={[

@@ -2,6 +2,7 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import Layout from '@/layouts/Layout.astro'
+import { contactPageLd, breadcrumbLd, personLd } from '@/lib/jsonld'
 import { getEntry } from 'astro:content'
 import { FaLinkedinIn } from 'react-icons/fa'
 import { PiEnvelope } from 'react-icons/pi'
@@ -33,9 +34,28 @@ const channels = [
 ]
 
 const description = 'Ways to reach Naandalist for collaboration, freelance opportunities, or just to say hello.'
+const siteUrl = new URL('/', Astro.site).href
+const contactUrl = new URL('/contact/', siteUrl).href
+const jsonLd = [
+  contactPageLd({
+    url: contactUrl,
+    name: 'Contact',
+    description,
+    person: personLd({
+      name: author?.data.name ?? 'Listiananda Apriliawan',
+      url: siteUrl,
+      email: mail,
+      sameAs: [author?.data.github, author?.data.linkedin, author?.data.instagram, author?.data.twitter],
+    }),
+  }),
+  breadcrumbLd([
+    { name: 'Home', url: siteUrl },
+    { name: 'Contact', url: contactUrl },
+  ]),
+]
 ---
 
-<Layout title="Contact" description={description}>
+<Layout title="Contact" description={description} jsonLd={jsonLd}>
   <Container class="flex flex-col gap-y-8">
     <Breadcrumbs items={[{ label: 'Contact', icon: 'lucide:mail' }]} />
 

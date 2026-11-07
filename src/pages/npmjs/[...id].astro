@@ -4,9 +4,9 @@ import TableOfContents from '@/components/TableOfContents.astro'
 import { buttonVariants } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
 import Layout from '@/layouts/Layout.astro'
-import { breadcrumbLd } from '@/lib/jsonld'
+import { breadcrumbLd, personLd, softwareSourceCodeLd } from '@/lib/jsonld'
 import { Icon } from 'astro-icon/components'
-import { type CollectionEntry, getCollection, render } from 'astro:content'
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content'
 
 export async function getStaticPaths() {
   const packages = await getCollection('npmjs')
@@ -17,9 +17,23 @@ type Props = CollectionEntry<'npmjs'>
 const entry = Astro.props
 const { Content, headings } = await render(entry)
 const { name, description, npm, github, date, updated } = entry.data
+const owner = await getEntry('authors', 'naandalist')
 
 const siteUrl = new URL('/', Astro.site).href
 const jsonLd = [
+  softwareSourceCodeLd({
+    url: new URL(`/npmjs/${entry.id}/`, siteUrl).href,
+    name,
+    description,
+    npm,
+    github,
+    version: entry.data.version,
+    license: entry.data.license,
+    published: date,
+    modified: updated,
+    keywords: entry.data.tags,
+    author: personLd({ name: owner?.data.name ?? 'Listiananda Apriliawan', url: siteUrl }),
+  }),
   breadcrumbLd([
     { name: 'Home', url: siteUrl },
     { name: 'Packages', url: new URL('/npmjs/', siteUrl).href },

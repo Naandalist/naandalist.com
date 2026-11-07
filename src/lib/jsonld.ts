@@ -67,6 +67,60 @@ export function breadcrumbLd(items: { name: string; url: string }[]) {
   }
 }
 
+/** A listing page such as the blog or packages index. The items become an ItemList of links to each entry. */
+export function collectionPageLd(p: { url: string; name: string; description: string; items: { name: string; url: string }[]; type?: 'CollectionPage' | 'Blog' }) {
+  return {
+    '@context': CONTEXT,
+    '@type': p.type ?? 'CollectionPage',
+    name: p.name,
+    description: p.description,
+    url: p.url,
+    inLanguage: 'en',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: p.items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, url: item.url })),
+    },
+  }
+}
+
+export function contactPageLd({ url, name, description, person }: { url: string; name: string; description: string; person: ReturnType<typeof personLd> }) {
+  return { '@context': CONTEXT, '@type': 'ContactPage', name, description, url, mainEntity: person }
+}
+
+/** An open source package. Points at the npm page and the repository when there is one. */
+export function softwareSourceCodeLd(p: {
+  url: string
+  name: string
+  description: string
+  npm: string
+  github?: string
+  version: string
+  license: string
+  published: Date
+  modified?: Date
+  keywords?: string[]
+  author: ReturnType<typeof personLd>
+}) {
+  return {
+    '@context': CONTEXT,
+    ...clean({
+      '@type': 'SoftwareSourceCode',
+      name: p.name,
+      description: p.description,
+      url: p.url,
+      codeRepository: p.github,
+      sameAs: [p.npm],
+      version: p.version,
+      license: p.license,
+      datePublished: p.published.toISOString(),
+      dateModified: (p.modified ?? p.published).toISOString(),
+      keywords: p.keywords,
+      author: p.author,
+      inLanguage: 'en',
+    }),
+  }
+}
+
 /** Safe to put inside a script tag: "<" is escaped so content can never close it. */
 export function serializeLd(data: object | object[]): string {
   return JSON.stringify(data).replace(/</g, '\\u003c')
