@@ -34,7 +34,7 @@ You can clear or block these in your browser settings. The site keeps working wi
 
 Some parts of the page load directly from other services, which then receive your IP address and browser details:
 
-- **Last.fm**, through a public proxy, for the song I listened to most recently, with cover art from Last.fm or YouTube.
+- **Last.fm**, through the official Last.fm API on this site, for the song I listened to most recently, with cover art from Last.fm.
 - **Wakatime** for my coding statistics.
 - **GitHub** for avatars and project previews.
 - **Cloudinary** for images inside blog posts.

@@ -59,7 +59,7 @@ const LastfmPresence = () => {
     let hasRealTrack = Boolean(cached)
 
     const load = () => {
-      fetch('https://lastfm-last-played.biancarosa.com.br/naandalist/latest-song')
+      fetch('/api/lastfm')
         .then((response) => response.json())
         .then((data) => {
           if (disposed) return

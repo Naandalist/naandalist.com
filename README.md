@@ -19,7 +19,7 @@ Source code for [naandalist.com](https://naandalist.com) built with Astro. This 
 Additional features developed from built-in features of the public template [raihanpk.com](https://github.com/raihanpka/raihanpk.com) by [raihanpka](https://github.com/raihanpka):
 
 - **AI Chatbot**: Personal conversational assistant answering questions using Retrieval-Augmented Generation (RAG) with [Pinecone Vector DB](https://pinecone.io), [Google Gemini / OpenAI](https://ai-sdk.dev), and [Vercel AI SDK](https://sdk.vercel.ai).
-- **Last.fm Status**: Real-time live presence displaying currently playing and recently scrobbled tracks from [Last.fm](https://last.fm) (scrobbled from YouTube Music via the Web Scrobbler extension) through the lastfm-last-played proxy with SWR caching.
+- **Last.fm Status**: Real-time live presence displaying currently playing and recently scrobbled tracks from [Last.fm](https://last.fm) (scrobbled from YouTube Music via the Web Scrobbler extension) via `/api/lastfm` (official API + `track.getInfo` cover enrichment) with SWR caching.
 - **Wakatime Analytics**: All-time coding time breakdown across languages directly from the [Wakatime API](https://hackatime.hackclub.com) with dynamic dark/light mode icons.
 - **Projects Showcase**: Interactive portfolio grid featuring smooth media video previews, modal dialogs, responsive category filtering, and a case study page for each project that has one.
 - **Open Source Packages**: The npm packages I publish, listed at `/npmjs` like blog posts, each with its README as a page.
@@ -45,7 +45,7 @@ bun run dev
 
 Useful scripts: `bun run build` (type check and build), `bun run lint` (Biome), `bun run check:tokens` (design token lint), `bun test`, and `bun run index-knowledge` (rebuild the chatbot index).
 
-Environment variables go in `.env`. Names only, never commit values: `GITHUB_TOKEN` (optional, read-only), `PINECONE_API_KEY`, `PINECONE_INDEX`, `PINECONE_NAMESPACE`, `HC_API_KEY` and `HC_BASE_URL` (OpenAI-compatible chat provider, tried first), `HC_AI_MODEL` (optional, default `openai/gpt-4o-mini`), `GOOGLE_GENERATIVE_AI_API_KEY`, `OPENAI_API_KEY`, `RATE_LIMIT_SECRET`, `PUBLIC_WAKATIME_API_URL` (base URL for the Wakatime stats API, exposed to the client since `WakatimeBox` fetches it in the browser).
+Environment variables go in `.env`. Names only, never commit values: `GITHUB_TOKEN` (optional, read-only), `LASTFM_API_KEY` (Last.fm read-only key for `/api/lastfm`), `PINECONE_API_KEY`, `PINECONE_INDEX`, `PINECONE_NAMESPACE`, `HC_API_KEY` and `HC_BASE_URL` (OpenAI-compatible chat provider, tried first), `HC_AI_MODEL` (optional, default `openai/gpt-4o-mini`), `GOOGLE_GENERATIVE_AI_API_KEY`, `OPENAI_API_KEY`, `RATE_LIMIT_SECRET`, `PUBLIC_WAKATIME_API_URL` (base URL for the Wakatime stats API, exposed to the client since `WakatimeBox` fetches it in the browser).
 
 ---
 
