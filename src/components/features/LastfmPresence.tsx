@@ -1,14 +1,9 @@
 import { MoveUpRight } from 'lucide-react'
+import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { FaHeadphonesAlt, FaLastfm, FaSpotify } from 'react-icons/fa'
 import { GiGClef } from 'react-icons/gi'
-import { motion, useReducedMotion } from 'motion/react'
-import {
-  getStaleWhileRevalidate,
-  setCachedData,
-  CACHE_TTL,
-  CACHE_KEYS,
-} from '@/lib/cache'
+import { CACHE_KEYS, CACHE_TTL, getStaleWhileRevalidate, setCachedData } from '@/lib/cache'
 
 interface Track {
   name: string
@@ -19,7 +14,13 @@ interface Track {
   '@attr'?: { nowplaying: string }
 }
 
-const fallbackTrack = (name: string, artist: string, album: string, cover: string, id: string): Track => ({
+const fallbackTrack = (
+  name: string,
+  artist: string,
+  album: string,
+  cover: string,
+  id: string,
+): Track => ({
   name,
   artist: { '#text': artist },
   album: { '#text': album },
@@ -30,15 +31,34 @@ const fallbackTrack = (name: string, artist: string, album: string, cover: strin
 // Tracks shown while the Last.fm feed has no scrobbles yet. One is picked at
 // random on each load. Remove once scrobbling from YouTube Music is live.
 const FALLBACK_TRACKS: Track[] = [
-  fallbackTrack('Elegi', 'Figura Renata', 'Figura Renata', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0219b19b9a8b85d557ed0a1085', '3pZK71INUBAuIltdTMe7mz'),
-  fallbackTrack('Rasa & Karsa', 'Figura Renata', 'Figura Renata', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0219b19b9a8b85d557ed0a1085', '5k8QGcDjSx8Bv6P25H6NFU'),
-  fallbackTrack('Hujan Di Mimpi', 'Banda Neira', 'Berjalan Lebih Jauh', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e029029c55d57c2e8ff546685d7', '4Sl7Eb1XVBVLgCD7kaXPBA'),
+  fallbackTrack(
+    'Elegi',
+    'Figura Renata',
+    'Figura Renata',
+    'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0219b19b9a8b85d557ed0a1085',
+    '3pZK71INUBAuIltdTMe7mz',
+  ),
+  fallbackTrack(
+    'Rasa & Karsa',
+    'Figura Renata',
+    'Figura Renata',
+    'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0219b19b9a8b85d557ed0a1085',
+    '5k8QGcDjSx8Bv6P25H6NFU',
+  ),
+  fallbackTrack(
+    'Hujan Di Mimpi',
+    'Banda Neira',
+    'Berjalan Lebih Jauh',
+    'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e029029c55d57c2e8ff546685d7',
+    '4Sl7Eb1XVBVLgCD7kaXPBA',
+  ),
 ]
 
 // How often to refresh the track while the tab is open
 const POLL_INTERVAL = 20 * 1000
 
-const pickFallback = (): Track => FALLBACK_TRACKS[Math.floor(Math.random() * FALLBACK_TRACKS.length)]
+const pickFallback = (): Track =>
+  FALLBACK_TRACKS[Math.floor(Math.random() * FALLBACK_TRACKS.length)]
 
 const LastfmPresence = () => {
   // Start empty on both server and client, then read the cache after mount.
@@ -113,32 +133,32 @@ const LastfmPresence = () => {
       <div className="relative flex h-full w-full flex-col items-start justify-between gap-4 p-2 md:flex-row md:items-center">
         <div className="relative flex h-full w-full flex-row items-start justify-between gap-4">
           {/* Album art skeleton, same box as the real image */}
-          <div className="mb-2 aspect-square w-28 max-w-[160px] animate-pulse rounded-lg border border-border bg-primary/10 md:w-full" />
+          <div className="mb-2 aspect-square w-28 max-w-40 animate-pulse rounded-lg border border-border bg-primary/10 md:w-full" />
           <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
             <div className="flex flex-col">
               {/* Icon row: same height as the real icon and label, with the Last.fm logo slot on md */}
-              <span className="mt-1 mb-1 flex h-[22px] w-full items-center gap-2 sm:h-6">
-                <div className="size-[22px] shrink-0 animate-pulse rounded-full bg-primary/10" />
+              <span className="mt-1 mb-1 flex h-5.5 w-full items-center gap-2 sm:h-6">
+                <div className="size-5.5 shrink-0 animate-pulse rounded-full bg-primary/10" />
                 <div className="h-4 w-28 animate-pulse rounded-sm bg-primary/10" />
-                <div className="ml-auto hidden size-[22px] shrink-0 animate-pulse rounded-full bg-primary/10 md:block" />
+                <div className="ml-auto hidden size-5.5 shrink-0 animate-pulse rounded-full bg-primary/10 md:block" />
               </span>
               <div className="flex flex-col">
                 {/* Song title: line box of text-base sm:text-xl leading-snug */}
-                <div className="flex h-[22px] items-center sm:h-[27.5px]">
+                <div className="flex h-5.5 items-center sm:h-7">
                   <div className="h-4 w-48 animate-pulse rounded-sm bg-primary/10 sm:h-5" />
                 </div>
                 {/* Artist and album: line box of text-sm sm:text-base */}
                 <div className="flex h-5 items-center sm:h-6">
-                  <div className="h-3.5 w-[60%] animate-pulse rounded-sm bg-primary/10" />
+                  <div className="h-3.5 w-3/5 animate-pulse rounded-sm bg-primary/10" />
                 </div>
                 <div className="flex h-5 items-center sm:h-6">
-                  <div className="h-3.5 w-[50%] animate-pulse rounded-sm bg-primary/10" />
+                  <div className="h-3.5 w-1/2 animate-pulse rounded-sm bg-primary/10" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* Link button skeleton, same 44px circle as the real button */}
+        {/* Link button skeleton, same size-11 circle as the real button */}
         <div className="absolute bottom-0 right-0 m-3 size-11 animate-pulse rounded-full bg-primary/10" />
       </div>
     )
@@ -153,7 +173,7 @@ const LastfmPresence = () => {
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
         {/* Album art placeholder */}
-        <div className="mb-2 flex w-28 max-w-[160px] shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 aspect-square">
+        <div className="mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40">
           <motion.div
             className="hidden md:block"
             animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
@@ -169,7 +189,10 @@ const LastfmPresence = () => {
             <span className="flex w-full items-center gap-2 text-sm text-muted-foreground">
               <FaHeadphonesAlt size={14} className="shrink-0" />
               Signal lost...
-              <FaLastfm size={24} className="ml-auto hidden shrink-0 text-muted-foreground/40 md:block" />
+              <FaLastfm
+                size={24}
+                className="ml-auto hidden shrink-0 text-muted-foreground/40 md:block"
+              />
             </span>
             <span className="truncate text-lg font-bold leading-tight text-primary/80">
               Couldn't reach Last.fm API
@@ -179,14 +202,17 @@ const LastfmPresence = () => {
             </span>
           </div>
         </div>
-
       </motion.div>
     )
 
   const isPinned = FALLBACK_TRACKS.includes(displayData)
   const { name: song, artist, album, image, url } = displayData
   // Last.fm returns empty strings when it has no cover (e.g. scrobbles without album metadata).
-  const cover = image.map((i) => i['#text']).reverse().find(Boolean) ?? ''
+  const cover =
+    image
+      .map((i) => i['#text'])
+      .reverse()
+      .find(Boolean) ?? ''
 
   return (
     <motion.div
@@ -204,22 +230,15 @@ const LastfmPresence = () => {
             height={160}
             loading="eager"
             decoding="async"
-            className="mb-2 aspect-square w-28 max-w-[160px] rounded-lg border border-border object-cover grayscale transition-[filter] duration-200 hover:grayscale-0 md:w-full"
+            className="mb-2 aspect-square w-28 max-w-40 rounded-lg border border-border object-cover grayscale transition-[filter] duration-200 hover:grayscale-0 md:w-full"
             whileHover={{ scale: 1.05, rotate: 1.5 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           />
         ) : (
           <div
             aria-hidden="true"
-            className="relative mb-2 flex aspect-square w-28 max-w-[160px] shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-muted-foreground/60 md:w-full"
+            className="relative mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-muted-foreground/60 md:w-full"
           >
-            {/* Staff lines sweeping around the clef */}
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.6" className="absolute inset-0 size-full">
-              <title>Music</title>
-              {[36, 38.5, 41, 43.5, 46].map((r) => (
-                <circle key={r} cx="50" cy="50" r={r} pathLength="100" strokeDasharray="75 25" transform="rotate(180 50 50)" />
-              ))}
-            </svg>
             <motion.div
               className="relative flex size-3/5 items-center justify-center"
               animate={reduceMotion ? undefined : { y: [0, -4, 0, 4, 0], rotate: [-4, 4, -4] }}
@@ -283,17 +302,13 @@ const LastfmPresence = () => {
               <span className="truncate text-base sm:text-xl font-bold leading-snug text-primary">
                 {song}
               </span>
-              <span className="w-[85%] truncate text-sm sm:text-base text-muted-foreground">
-                <span className="font-semibold text-secondary-foreground">
-                  by
-                </span>{' '}
+              <span className="w-5/6 truncate text-sm sm:text-base text-muted-foreground">
+                <span className="font-semibold text-secondary-foreground">by</span>{' '}
                 {artist['#text']}
               </span>
               {album['#text'] && (
-                <span className="w-[85%] truncate text-sm sm:text-base text-muted-foreground">
-                  <span className="font-semibold text-secondary-foreground">
-                    on
-                  </span>{' '}
+                <span className="w-5/6 truncate text-sm sm:text-base text-muted-foreground">
+                  <span className="font-semibold text-secondary-foreground">on</span>{' '}
                   {album['#text']}
                 </span>
               )}
