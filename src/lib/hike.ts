@@ -7,7 +7,7 @@
  * left, so the loop has no seam.
  * Leaves drift down on a light breeze. Twice a lap a strong wind comes up all at once from the right: curling
  * streaks rush across, a flurry of leaves is torn loose and flung leftward, and the hikers lean into it.
- * Behind them a far ridge, a bank of clouds drifting across, and a low sun.
+ * Behind them a faint far ridge and a soft bank of clouds, kept very thin so the hikers still read clearly.
  * Everything is pure. The canvas only compares density with a Bayer threshold.
  */
 
@@ -338,13 +338,11 @@ function hiker(buf: Float32Array, cols: number, rows: number, h: Hiker) {
 export function groundField(cols: number, rows: number): Float32Array {
   const buf = new Float32Array(cols * rows)
   const k = K(rows)
-  // Two far ridges, one behind the other, each a faint wash down to the slope.
-  for (const [shift, lift, v] of [
-    [1.3, 0.3, 0.1],
-  ] as const) {
+  // A faint far ridge wash, thin enough that hikers stay readable.
+  for (const [shift, lift, v] of [[1.3, 0.3, 0.035]] as const) {
     for (let x = 0; x < cols; x++) {
       const top = farY(rows, x, shift, lift)
-      for (let y = Math.max(0, Math.round(top)); y < rows; y++) plot(buf, cols, rows, x, y, y === Math.round(top) ? v + 0.15 : v)
+      for (let y = Math.max(0, Math.round(top)); y < rows; y++) plot(buf, cols, rows, x, y, y === Math.round(top) ? v + 0.045 : v)
     }
   }
   for (let x = 0; x < cols; x++) {
@@ -356,21 +354,10 @@ export function groundField(cols: number, rows: number): Float32Array {
     // Stones on the slope.
     if (hash(x * 1.7, 3.3) < 0.12) plot(buf, cols, rows, x, top - 0.8 - hash(x, 9.1) * 0.8 * k, 0.7)
   }
-  // The sun, low in the upper right, with a soft halo.
-  const sx = cols * 0.84
-  const sy = rows * 0.2
-  const r = 3.4 * k
-  for (let y = Math.floor(sy - r * 2.2); y <= Math.ceil(sy + r * 2.2); y++) {
-    for (let x = Math.floor(sx - r * 2.2); x <= Math.ceil(sx + r * 2.2); x++) {
-      const d = Math.hypot(x - sx, y - sy) / r
-      if (d <= 1) plot(buf, cols, rows, x, y, 0.8)
-      else if (d <= 2.2) plot(buf, cols, rows, x, y, 0.22 * (1 - (d - 1) / 1.2))
-    }
-  }
   return buf
 }
 
-/** A cloud bank drifting across the sky behind the slope, soft at the edges. */
+/** A cloud bank drifting across the sky behind the slope, soft and very faint. */
 function clouds(buf: Float32Array, cols: number, rows: number, t: number) {
   const k = K(rows)
   const span = cols + 60 * k
@@ -380,13 +367,17 @@ function clouds(buf: Float32Array, cols: number, rows: number, t: number) {
     const cy = rows * (0.08 + 0.4 * h(2))
     const rx = (9 + 12 * h(3)) * k
     const ry = (2.4 + 2.6 * h(4)) * k
-    for (const [ox, oy, sz] of [[0, 0, 1], [-0.6, 0.35, 0.7], [0.55, 0.3, 0.75]] as const) {
+    for (const [ox, oy, sz] of [
+      [0, 0, 1],
+      [-0.6, 0.35, 0.7],
+      [0.55, 0.3, 0.75],
+    ] as const) {
       const px = cx + ox * rx
       const py = cy + oy * ry
       for (let y = Math.floor(py - ry * sz); y <= Math.ceil(py + ry * sz); y++) {
         for (let x = Math.floor(px - rx * sz); x <= Math.ceil(px + rx * sz); x++) {
           const d = ((x - px) / (rx * sz)) ** 2 + ((y - py) / (ry * sz)) ** 2
-          if (d < 1) plot(buf, cols, rows, x, y, 0.5 * (1 - d))
+          if (d < 1) plot(buf, cols, rows, x, y, 0.12 * (1 - d))
         }
       }
     }
@@ -475,7 +466,7 @@ function windLines(buf: Float32Array, cols: number, rows: number, gust: Gust) {
   }
 }
 
-/** One frame: the sky and clouds, then the slope, then the hikers. Values are 0..1 per cell. */
+/** One frame: faint sky, then the slope, then breeze and wind, then the hikers. Values are 0..1 per cell. */
 export function compose(cols: number, rows: number, t: number, ground?: Float32Array): Float32Array {
   const buf = new Float32Array(cols * rows)
   clouds(buf, cols, rows, t)
