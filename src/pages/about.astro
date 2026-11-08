@@ -3,10 +3,8 @@ import EditorialProfileCard from '@/components/EditorialProfileCard.astro'
 import PhotoCollage from '@/components/features/PhotoCollage.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
-import AboutScene from '@/components/features/AboutScene.astro'
 import WorkTimeline from '@/components/features/WorkTimeline.astro'
 import { renderInline } from '@/lib/inline-markup'
-import { Icon } from 'astro-icon/components'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getEntry } from 'astro:content'
@@ -33,7 +31,7 @@ const jsonLd = [
 ---
 
 <Layout title="About" description={aboutDescription} jsonLd={jsonLd}>
-  <Container class="flex flex-col gap-y-6">
+  <Container class="flex flex-col gap-y-12 sm:gap-y-16">
     <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
 
     {author && (
@@ -59,34 +57,34 @@ const jsonLd = [
     )}
 
     {about && (
-      <section class="reveal-stack grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-12" aria-label="About me">
-        <article class="about-card flex flex-col gap-4 p-6 lg:col-span-7">
-          <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{about.whoLabel}</p>
-          <h2 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{about.greeting}</h2>
-          <p class="text-base text-muted-foreground" set:html={renderInline(about.intro)} />
-        </article>
-
-        <AboutScene class="lg:col-span-5" label={about.sceneLabel} nickname={about.nickname} bubbles={about.bubbles} />
-
-        <article class="about-card flex flex-col gap-4 p-6 lg:col-span-12">
-          <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{about.buildLabel}</p>
-          <p class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{about.buildTitle}</p>
-          <p class="text-base text-muted-foreground" set:html={renderInline(about.buildBody)} />
-        </article>
-
-        {about.highlights.map((m, i) => (
-          <article class="about-card flex items-start gap-4 p-4 lg:col-span-4" style={`--i:${i}`}>
-            <span class="orb" aria-hidden="true"><Icon name={m.icon} class="size-6" /></span>
-            <div class="flex flex-col gap-1">
-              <h3 class="text-lg font-bold leading-tight text-primary/80">{m.title}</h3>
-              <p class="text-sm text-muted-foreground">{m.text}</p>
-            </div>
-          </article>
-        ))}
+      <section class="editorial-section" aria-labelledby="story-heading">
+        <h2 id="story-heading" class="font-title text-display-sm">{about.greeting}</h2>
+        <div class="flex flex-col gap-6">
+          <p class="text-lg leading-relaxed text-muted-foreground" set:html={renderInline(about.intro)} />
+          <aside class="border-l-2 border-foreground pl-5 text-sm leading-relaxed">
+            <p class="mb-2 font-medium">{about.sceneLabel} {about.nickname}</p>
+            {about.bubbles.map((text) => <p class="mt-2 text-muted-foreground">{text}</p>)}
+          </aside>
+        </div>
+      </section>
+      <section class="editorial-section" aria-labelledby="approach-heading">
+        <h2 id="approach-heading" class="font-title text-display-sm">My approach</h2>
+        <div>
+          <h3 class="mb-4 text-xl font-semibold">{about.buildTitle}</h3>
+          <p class="text-base leading-relaxed text-muted-foreground" set:html={renderInline(about.buildBody)} />
+          <dl class="mt-8 divide-y divide-border border-y border-border">
+            {about.highlights.map((item) => (
+              <div class="grid gap-2 py-5 sm:grid-cols-3 sm:gap-6">
+                <dt class="font-medium">{item.title}</dt>
+                <dd class="text-sm leading-relaxed text-muted-foreground sm:col-span-2">{item.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
     )}
 
-    <WorkTimeline label="03 · Work" />
+    <WorkTimeline label="Where I have worked" />
 
     <PhotoCollage />
   </Container>

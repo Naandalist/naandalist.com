@@ -1,100 +1,36 @@
 ---
-/**
- * Core Memories: photo cards in an endless marquee scrolling left at every width, across the
- * full viewport. Photos are grayscale; hovering the row pauses it and the hovered card's photo
- * turns to colour. Clicking a card zooms the photo open in a lightbox dialog.
- * Photos are plain <img> tags. Build-time image optimization fetched remote photos, which failed on CI runners.
- */
-
 import memoriesData from '@/data/memories.json'
-
-interface PhotoItem {
-  src: string
-  caption: string
-}
-
-interface Props {
-  photos?: PhotoItem[]
-}
-
+interface PhotoItem { src: string; caption: string }
+interface Props { photos?: PhotoItem[] }
 const { photos = memoriesData } = Astro.props
-
-// The strip is two identical halves and the animation slides by one half, so the loop is seamless.
-// Photos repeat until each half holds at least 8 cards (about 2800px), wider than a 2560px screen.
-const MIN_HALF = 8
-const half = Array.from({ length: Math.ceil(MIN_HALF / photos.length) }, () => photos).flat()
-const marqueeItems = [...half, ...half]
 ---
-
-<section class="mt-2 pt-4 border-t border-border/50">
-  <div class="mb-5">
-    <h2 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">
-      Core Memories
-    </h2>
-    <p class="text-sm text-muted-foreground mt-1">
-      A few moments with the people I met along the way.
-    </p>
-  </div>
-
-  {/* Full bleed: the strip spans the viewport while the heading stays in the container. The body
-      clips horizontal overflow, so 100vw counting the scrollbar never adds a sideways scroll. */}
-  <div class="group relative mx-[calc(50%-50vw)] overflow-hidden py-2">
-    {/* Gradient edge fades at the viewport edges */}
-    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-24 bg-linear-to-r from-background to-transparent" />
-    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-24 bg-linear-to-l from-background to-transparent" />
-
-    {/* 5s per card keeps the same speed however many cards a half holds. */}
-    <div class="animate-core-marquee gap-4 sm:gap-5" style={`--marquee-duration: ${half.length * 5}s`}>
-      {marqueeItems.map((item, i) => (
-        <figure
-          aria-hidden={i >= half.length ? 'true' : undefined}
-          data-photo
-          role={i >= half.length ? undefined : 'button'}
-          tabindex={i >= half.length ? undefined : 0}
-          aria-label={i >= half.length ? undefined : `Open photo: ${item.caption}`}
-          class="group/card cursor-zoom-in w-72 sm:w-84 shrink-0 flex flex-col overflow-hidden rounded-lg border border-border/80 bg-card/80 p-3 sm:p-4 shadow-1 transition-all duration-150 hover:border-foreground/40 hover:-translate-y-1 hover:shadow-2"
-        >
-          {/* Uniform Aspect Ratio Photo (3:2 auto fit center) */}
-          <div class="relative w-full aspect-3/2 overflow-hidden rounded-md bg-secondary/50 border border-border/40 image-loading-shimmer">
-            <img
-              src={item.src}
-              alt={i >= half.length ? '' : item.caption}
-              width={600}
-              height={400}
-              loading="lazy"
-              decoding="async"
-              class="h-full w-full object-cover object-center grayscale group-hover/card:grayscale-0 motion-reduce:transition-none image-blur-load"
-            />
-            <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-transparent opacity-40" />
-          </div>
-
-          {/* Aesthetic Caption */}
-          <figcaption class="mt-2.5 sm:mt-3 w-full">
-            <p class="text-xs sm:text-sm text-muted-foreground sm:text-foreground/80 leading-relaxed font-normal">
-              {item.caption}
-            </p>
-          </figcaption>
-        </figure>
-      ))}
+<section class="border-t border-border pt-8" aria-labelledby="journal-title">
+  <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <h2 id="journal-title" class="font-title text-display-sm">People &amp; places</h2>
+      <p class="mt-2 text-sm text-muted-foreground">My photo journal, beyond the screen. Select a photograph for a closer look.</p>
     </div>
+    <p class="font-mono text-xs text-muted-foreground">{photos.length} photographs</p>
   </div>
-
-  {/* Lightbox: one dialog shared by every card. Click the backdrop, the photo or press Esc to close. */}
-  <dialog
-    id="photo-lightbox"
-    aria-label="Photo"
-    class="photo-lightbox m-auto max-h-dvh max-w-full bg-transparent p-4 backdrop:bg-black/70 backdrop:backdrop-blur-sm"
-  >
+  <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+    {photos.map(item => (
+      <figure class="min-w-0">
+        <button type="button" data-photo aria-label={`Open photo: ${item.caption}`} class="block w-full cursor-zoom-in text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">
+          <img src={item.src} alt={item.caption} width="600" height="400" loading="lazy" decoding="async" class="aspect-3/2 w-full rounded-sm bg-muted object-cover" />
+          <span class="sr-only">{item.caption}</span>
+        </button>
+        <figcaption class="mt-3 border-l border-border pl-3 text-sm leading-relaxed text-muted-foreground">{item.caption}</figcaption>
+      </figure>
+    ))}
+  </div>
+  <dialog id="photo-lightbox" aria-label="Photo viewer" class="m-auto max-h-dvh max-w-full bg-background p-4 text-foreground backdrop:bg-black/70">
+    <button type="button" data-close-photo class="mb-3 block cursor-pointer px-3 py-2 text-sm underline">Close photo &times;</button>
     <figure class="flex max-w-5xl flex-col items-center gap-3">
-      <img
-        alt=""
-        class="max-h-[80dvh] w-auto max-w-full cursor-zoom-out rounded-lg border border-border/60 object-contain shadow-3"
-      />
-      <figcaption class="max-w-prose text-center text-sm text-white/90"></figcaption>
+      <img alt="" class="max-h-[75dvh] w-auto max-w-full object-contain" />
+      <figcaption class="max-w-prose text-center text-sm"></figcaption>
     </figure>
   </dialog>
 </section>
-
 <script>
   const dialog = document.getElementById('photo-lightbox') as HTMLDialogElement | null
   const big = dialog?.querySelector('img')
@@ -102,7 +38,7 @@ const marqueeItems = [...half, ...half]
 
   function open(card: HTMLElement) {
     const img = card.querySelector('img')
-    const text = card.querySelector('figcaption')?.textContent?.trim() ?? ''
+    const text = card.closest('figure')?.querySelector('figcaption')?.textContent?.trim() ?? ''
     if (!dialog || !big || !caption || !img) return
     big.src = img.currentSrc || img.src
     big.alt = text
@@ -114,60 +50,7 @@ const marqueeItems = [...half, ...half]
     const card = (e.target as Element).closest<HTMLElement>('[data-photo]')
     if (card) open(card)
   })
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter' && e.key !== ' ') return
-    const card = (e.target as Element).closest<HTMLElement>('[data-photo][role="button"]')
-    if (!card) return
-    e.preventDefault()
-    open(card)
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog || (event.target as Element).closest('[data-close-photo]')) dialog.close()
   })
-  // Anywhere in the dialog closes it, the photo included.
-  dialog?.addEventListener('click', () => dialog.close())
 </script>
-
-<style>
-  @keyframes core-memories-marquee {
-    0% {
-      transform: translate3d(0, 0, 0);
-    }
-    100% {
-      transform: translate3d(-50%, 0, 0);
-    }
-  }
-
-  .animate-core-marquee {
-    display: flex;
-    width: max-content;
-    will-change: transform;
-    animation: core-memories-marquee var(--marquee-duration, 30s) linear infinite;
-  }
-
-  .animate-core-marquee:hover,
-  .group:hover .animate-core-marquee {
-    animation-play-state: paused;
-  }
-
-  /* Zoom in from slightly smaller, with a fade. */
-  .photo-lightbox[open] {
-    animation: photo-zoom 220ms ease-out;
-  }
-  @keyframes photo-zoom {
-    from {
-      opacity: 0;
-      transform: scale(0.88);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .photo-lightbox[open] {
-      animation: none;
-    }
-    .animate-core-marquee {
-      animation-play-state: paused;
-    }
-  }
-</style>

@@ -26,8 +26,8 @@ Additional features developed from built-in features of the public template [rai
 - **Tech Stack Slider**: 3D-sculpted marquee slider displaying programming languages, frameworks, and cloud infrastructure tools.
 - **Blog**: MDX content collections with tags, reading time, and post navigation.
 - **GitHub Contributions**: Contribution graph that adapts its number of weeks to the card width, with a keyboard-friendly tooltip. Build-time data is refreshed at runtime from `/api/contributions`, which uses the GitHub GraphQL API when `GITHUB_TOKEN` is set, with a public-page fallback.
-- **Profile Card**: Static card with a dithered baby's breath band, a metal border glint on hover, and an assistant link in the link grid.
-- **About Page**: Bento cards and a hover scene built from the logo. All the copy for Home and About lives as fields in `src/content/authors/naandalist.md`.
+- **Personal identity**: Editorial headline, portrait byline, and direct contact links, with activity widgets in an optional notebook below the work.
+- **About Page**: Narrative sections, engineering principles, experience, and a static photo journal with an accessible lightbox. Personal copy for Home and About lives in `src/content/authors/naandalist.md`.
 - **Details**: Hand-drawn signature that writes on at each full page load, soft click sounds with a mute toggle, and link tooltips that follow the pointer.
 - **Design System**: Tokens for spacing, type, radius, and shadow in `src/styles/global.css`, documented in [`docs/design-system.md`](./docs/design-system.md) and enforced by `bun run check:tokens`.
 - **High Performance**: Tuned for Core Web Vitals (Lighthouse desktop on Home: 100 Performance, 100 Accessibility, 100 Best Practices, 100 SEO) with font preloading, WebP assets, deferred islands and media, and build-time avatar optimization. The report is in [`public/scratch`](./public/scratch).

@@ -2,7 +2,6 @@ import type React from 'react'
 import { useState, useRef, useEffect } from 'react'
 import { Send, User } from 'lucide-react'
 import { Streamdown } from 'streamdown'
-import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { EXAMPLE_MESSAGES } from '@/consts'
 
@@ -21,7 +20,7 @@ export default function ChatInterface() {
     {
       id: '1',
       content:
-        "Hello, I'm Naandalist! 👋  \nThis chatbot is smart, but not perfect and could be wrong. Feel free to ask me anything! 😊",
+        'I can help you explore Nanda’s work: mobile apps, web projects, open source packages, and engineering experience. Where would you like to start?',
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -42,7 +41,11 @@ export default function ChatInterface() {
       return
     }
     if (messages.length === 0) return
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    messagesEndRef.current?.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'instant'
+        : 'smooth',
+    })
   }, [messages])
 
   const handleSendMessage = async (preset?: string) => {
@@ -56,12 +59,12 @@ export default function ChatInterface() {
       timestamp: new Date(),
     }
 
-    setMessages(prev => [...prev, userMessage])
+    setMessages((prev) => [...prev, userMessage])
     if (!preset) setInputValue('')
     setIsLoading(true)
 
     try {
-      const apiMessages = [...messages, userMessage].map(msg => ({
+      const apiMessages = [...messages, userMessage].map((msg) => ({
         role: msg.sender === 'user' ? 'user' : 'assistant',
         content: msg.content,
       }))
@@ -79,11 +82,14 @@ export default function ChatInterface() {
           const data = await response.json()
           const botMessage: Message = {
             id: (Date.now() + 1).toString(),
-            content: typeof data?.message === 'string' ? data.message : 'You have reached the daily chat limit (30 per day). Try again tomorrow.',
+            content:
+              typeof data?.message === 'string'
+                ? data.message
+                : 'You have reached the daily chat limit (30 per day). Try again tomorrow.',
             sender: 'bot',
             timestamp: new Date(),
           }
-          setMessages(prev => [...prev, botMessage])
+          setMessages((prev) => [...prev, botMessage])
           setRateLimited(true)
           return
         } catch {
@@ -93,7 +99,7 @@ export default function ChatInterface() {
             sender: 'bot',
             timestamp: new Date(),
           }
-          setMessages(prev => [...prev, botMessage])
+          setMessages((prev) => [...prev, botMessage])
           setRateLimited(true)
           return
         }
@@ -118,7 +124,7 @@ export default function ChatInterface() {
         sender: 'bot',
         timestamp: new Date(),
       }
-      setMessages(prev => [...prev, initialBotMessage])
+      setMessages((prev) => [...prev, initialBotMessage])
 
       let buffer = ''
       while (true) {
@@ -136,8 +142,8 @@ export default function ChatInterface() {
               const data = JSON.parse(jsonStr)
               if (data.type === 'text-delta' && data.textDelta) {
                 botContent += data.textDelta
-                setMessages(prev =>
-                  prev.map(msg =>
+                setMessages((prev) =>
+                  prev.map((msg) =>
                     msg.id === botMessageId ? { ...msg, content: botContent } : msg,
                   ),
                 )
@@ -156,32 +162,72 @@ export default function ChatInterface() {
         sender: 'bot',
         timestamp: new Date(),
       }
-      setMessages(prev => [...prev, errorMessage])
+      setMessages((prev) => [...prev, errorMessage])
     } finally {
       setIsLoading(false)
     }
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault()
       handleSendMessage()
     }
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <Card className="flex-1 flex flex-col min-h-[50dvh] rounded-xl border-muted-foreground/20 bg-muted/20 backdrop-blur">
-        <CardContent className="flex-1 flex flex-col p-4 sm:p-6 min-h-0">
+    <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
+      <aside className="flex flex-col gap-4 border-t border-border pt-5">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          A guide to my work
+        </p>
+        <h1 className="font-title text-display-sm">Ask my assistant</h1>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Explore my projects and experience through a conversation. This is an AI assistant, not
+          me; answers may be inaccurate. Verify important details with me directly.
+        </p>
+        <fieldset className="flex flex-col border-t border-border">
+          <legend className="sr-only">Suggested questions</legend>
+          {EXAMPLE_MESSAGES.map(({ heading, message, icon: Icon }) => (
+            <button
+              key={heading}
+              type="button"
+              className="flex items-start gap-3 border-b border-border py-4 text-left text-sm hover:bg-muted/30 disabled:opacity-50"
+              onClick={() => handleSendMessage(message)}
+              disabled={isLoading || rateLimited}
+            >
+              <Icon className="mt-0.5 size-4 shrink-0" />
+              <span>
+                {heading}
+                <span className="mt-1 block text-xs text-muted-foreground">{message}</span>
+              </span>
+            </button>
+          ))}
+        </fieldset>
+        <a href="/contact" className="text-sm underline underline-offset-4">
+          Contact me directly &rarr;
+        </a>
+      </aside>
+      <section
+        aria-label="Conversation"
+        className="flex min-h-[50dvh] min-w-0 flex-1 flex-col border-y border-border bg-card"
+      >
+        <div className="flex min-h-0 flex-1 flex-col py-5">
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto space-y-4 pr-1 sm:pr-2">
-            {messages.map(message => (
+          <div
+            role="log"
+            aria-label="Messages"
+            aria-live="polite"
+            aria-relevant="additions text"
+            className="flex-1 overflow-y-auto space-y-6 pr-2"
+          >
+            {messages.map((message) => (
               <div
                 key={message.id}
                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-             >
+              >
                 <div
-                  className={`max-w-[92%] sm:max-w-[80%] rounded-xl px-4 py-3 shadow-1 border ${
+                  className={`max-w-[92%] sm:max-w-[80%] rounded-sm px-4 py-3 border ${
                     message.sender === 'user'
                       ? 'bg-primary text-primary-foreground border-transparent'
                       : 'bg-transparent text-card-foreground border-border'
@@ -200,15 +246,27 @@ export default function ChatInterface() {
                     <div className="flex-1 min-w-0">
                       {message.sender === 'bot' ? (
                         <div className="text-sm leading-relaxed prose dark:prose-invert max-w-none wrap-break-word **:my-0 [&_p]:my-0 [&_p:first-child]:mt-0 [&_p+p]:mt-2 [&_ul]:my-1.5 [&_ul]:list-disc [&_ul]:pl-4 [&_ol]:my-1.5 [&_ol]:list-decimal [&_ol]:pl-4 [&_pre]:bg-muted [&_pre]:p-2 [&_pre]:rounded-md [&_pre]:overflow-x-auto [&_code]:bg-muted/80 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:text-xs">
-                          <Streamdown mode={isLoading && message.id === messages[messages.length - 1]?.id ? 'streaming' : 'static'}>
+                          <Streamdown
+                            mode={
+                              isLoading && message.id === messages[messages.length - 1]?.id
+                                ? 'streaming'
+                                : 'static'
+                            }
+                          >
                             {message.content}
                           </Streamdown>
                         </div>
                       ) : (
-                        <p className="text-sm whitespace-pre-wrap leading-relaxed wrap-break-word">{message.content}</p>
+                        <p className="text-sm whitespace-pre-wrap leading-relaxed wrap-break-word">
+                          {message.content}
+                        </p>
                       )}
                       <p className="text-xs sm:text-xs opacity-70 mt-1">
-                        {mounted && message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {mounted &&
+                          message.timestamp.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
                       </p>
                     </div>
                   </div>
@@ -218,7 +276,7 @@ export default function ChatInterface() {
 
             {isLoading && (
               <div className="flex justify-start">
-                <div className="max-w-[92%] sm:max-w-[80%] rounded-xl px-4 py-3 bg-transparent border shadow-1">
+                <div className="max-w-[92%] sm:max-w-[80%] rounded-sm px-4 py-3 bg-transparent border">
                   <div className="flex items-center gap-2">
                     <img
                       src={AVATAR}
@@ -226,9 +284,9 @@ export default function ChatInterface() {
                       className="h-5 w-5 sm:h-6 sm:w-6 rounded-full object-cover"
                     />
                     <div className="flex space-x-1 text-muted-foreground">
-                      <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
-                      <div className="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:120ms]" />
-                      <div className="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:240ms]" />
+                      <div className="w-2 h-2 bg-current rounded-full motion-safe:animate-bounce" />
+                      <div className="w-2 h-2 bg-current rounded-full motion-safe:animate-bounce [animation-delay:120ms]" />
+                      <div className="w-2 h-2 bg-current rounded-full motion-safe:animate-bounce [animation-delay:240ms]" />
                     </div>
                   </div>
                 </div>
@@ -238,45 +296,29 @@ export default function ChatInterface() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Example messages */}
-          <div className="mt-3 flex flex-wrap gap-2">
-            {EXAMPLE_MESSAGES.map(({ heading, message, icon: Icon }) => (
-              <Button
-                key={heading}
-                type="button"
-                variant="secondary"
-                size="sm"
-                className="rounded-full px-3 py-2"
-                onClick={() => handleSendMessage(message)}
-                disabled={isLoading || rateLimited}
-                title={heading}
-              >
-                <Icon className="mr-2 h-4 w-4" /> {heading}
-              </Button>
-            ))}
-          </div>
-
           {/* Input */}
           <div className="mt-4 flex gap-2 items-end">
             <textarea
               value={inputValue}
-              onChange={e => setInputValue(e.target.value)}
-              onKeyUp={handleKeyPress}
-              placeholder="Write your message..."
-              className="flex-1 min-h-[44px] max-h-10 px-3 py-2 text-base border border-input bg-background rounded-md resize-y focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyPress}
+              aria-label="Your question"
+              placeholder="Ask about a project, a package, or my experience…"
+              className="flex-1 min-h-12 px-3 py-2 text-base border border-input bg-background rounded-md resize-y focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
               disabled={isLoading || rateLimited}
             />
             <Button
               onClick={() => handleSendMessage()}
               disabled={!inputValue.trim() || isLoading || rateLimited}
+              aria-label="Send question"
               size="sm"
-              className="px-3 py-2 min-h-[44px] max-h-10 bg-primary"
+              className="px-3 py-2 min-h-12 bg-primary"
             >
               <Send className="h-5 w-5" />
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
     </div>
   )
 }

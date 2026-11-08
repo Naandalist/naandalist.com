@@ -2,7 +2,6 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import Link from '@/components/Link.astro'
-import { badgeVariants } from '@/components/ui/Badge'
 import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 
@@ -28,7 +27,7 @@ const tags = [...tagCounts.keys()].sort((a, b) => {
   <Container class="flex flex-col gap-y-6">
     <Breadcrumbs items={[{ label: 'Tags', icon: 'lucide:tags' }]} />
 
-    <header class="flex flex-col gap-2">
+    <header class="flex flex-col gap-3 border-b border-border pb-8">
       <h1 class="text-3xl font-semibold text-foreground">Tags</h1>
       <p class="max-w-prose text-muted-foreground">
         Browse posts by topic across frontend, mobile, tooling, and shipping notes.
@@ -36,12 +35,12 @@ const tags = [...tagCounts.keys()].sort((a, b) => {
     </header>
 
     <div class="flex flex-col gap-4">
-      <div class="flex flex-wrap gap-2">
+      <div class="grid gap-x-10 sm:grid-cols-2">
         {
           tags.map((tag) => (
             <Link
               href={`/tags/${tag}`}
-              class={badgeVariants({ variant: 'secondary' })}
+              class="flex items-center justify-between gap-4 border-b border-border py-5 text-base hover:underline underline-offset-4"
             >
               {tag}
               <span class="ml-1.5 text-muted-foreground">

@@ -84,3 +84,13 @@ Never use raw hex in components.
 
 - First visit of a session: `html[data-reveal]` is set in `Head.astro`. `.reveal-stack` children fade up with a 70ms stagger (opacity and transform only, so no layout shift). Reduced motion disables it.
 - GitHub contribution graph (`GithubGraph.tsx`) starts with build-time data and refetches `/api/contributions` on mount. Set `GITHUB_TOKEN` (read-only, public data) in Vercel for the GraphQL path; without it the public contributions page is used, and without both the card shows an empty state.
+
+## Editorial identity
+
+- Home leads with a single narrative headline, followed by an identity byline and text navigation. Experience, projects, writing, and packages precede the optional activity notebook. Do not restore the profile/hero + widgets card matrix.
+- About uses a label rail and narrative body (`.editorial-section`), with a plain-text handle note and definition-list principles. No numbered section eyebrows or silhouette nickname panel.
+- Photos are a static, responsive journal with one instance of every photo and a keyboard-accessible lightbox. No duplicated marquee, edge fades, grayscale, or pause-on-hover.
+- Article listings use a metadata rail, text-first story, and trailing thumbnail with rules instead of raised cards. Blog, topic, and author archives share this component.
+- Profile mastheads are unboxed with a circular portrait and visible text links at every width.
+- Chat separates a guide/suggested-question rail from the conversation and composer. On small screens, the guide stacks before the conversation; the page scrolls normally.
+- Use existing type, spacing, radius, and semantic color tokens. The quieter surfaces use `rounded-sm` or no radius and no shadow. Theme switching and reduced-motion preferences remain supported.

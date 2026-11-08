@@ -9,7 +9,6 @@ import ChatInterface from '@/components/chat/ChatInterface.tsx'
   description="Ask Naandalist's assistant about experience, projects, packages, and how I ship web and mobile software."
 >
   <Container class="chat-page flex min-h-0 w-full flex-1 flex-col">
-    <h1 class="sr-only">Chat with Naandalist</h1>
     <ChatInterface client:load />
   </Container>
 </Layout>
@@ -26,7 +25,7 @@ import ChatInterface from '@/components/chat/ChatInterface.tsx'
   }
   /* Cap the page at one viewport so a long conversation scrolls inside the card. Short screens
      (landscape phones) keep normal page scroll so the card never squeezes under its minimum. */
-  @media (min-height: 560px) {
+  @media (min-width: 1024px) and (min-height: 720px) {
     :global(body:has(.chat-page) > div.z-10) {
       height: 100dvh;
     }

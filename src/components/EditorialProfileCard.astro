@@ -1,15 +1,4 @@
 ---
-import {
-  PiEnvelope,
-  PiGithubLogo,
-  PiGlobe,
-  PiInstagramLogo,
-  PiLinkedinLogo,
-  PiMapPin,
-  PiBriefcase,
-  PiStarFourFill,
-} from 'react-icons/pi'
-import type { IconType } from 'react-icons'
 interface RoleLink {
   /** Text inside `role` to turn into a link, e.g. "Dicoding" */
   text: string
@@ -59,201 +48,25 @@ const roleParts = (role: string): { text: string; href?: string }[] => {
 }
 
 const socialLinks = [
-  website && { href: website, label: 'Website', icon: PiGlobe },
-  github && { href: github, label: 'GitHub', icon: PiGithubLogo },
-  linkedin && { href: linkedin, label: 'LinkedIn', icon: PiLinkedinLogo },
-  instagram && { href: instagram, label: 'Instagram', icon: PiInstagramLogo },
-  mail && { href: `mailto:${mail}`, label: 'Email', icon: PiEnvelope },
-].filter(Boolean) as { href: string; label: string; icon: IconType }[]
+  website && { href: website, label: 'Website' },
+  github && { href: github, label: 'GitHub' },
+  linkedin && { href: linkedin, label: 'LinkedIn' },
+  instagram && { href: instagram, label: 'Instagram' },
+  mail && { href: `mailto:${mail}`, label: 'Email' },
+].filter(Boolean) as { href: string; label: string }[]
 ---
 
-<div class="metal isolate relative overflow-hidden rounded-xl border-1 border-border/80 bg-card/80 backdrop-blur-md p-5 sm:p-6 shadow-1 transition-all duration-150 hover:border-foreground/30">
-  {/* Top Specular Edge */}
-  <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground/20 to-transparent pointer-events-none" />
-
-  <div class="flex flex-col md:flex-row md:items-start justify-between gap-5">
-    {/* Identity Left Column */}
-    <div class="flex flex-col gap-3 flex-1 min-w-0">
-      <div class="flex items-stretch gap-4">
-      <div class="relative flex shrink-0 self-start sm:self-auto">
-        {linkDisabled ? (
-          <img
-            src={avatar || '/static/profile/avatar.png'}
-            alt={`Profile photo of ${name}`}
-            width="96"
-            height="96"
-            loading="eager"
-            decoding="async"
-            class="size-16 sm:size-24 aspect-square rounded-lg object-cover bg-secondary/40"
-          />
-        ) : (
-          <a href={`/authors/${id}`} class="flex focus:outline-none focus:ring-2 focus:ring-primary rounded-lg">
-            <img
-              src={avatar || '/static/profile/avatar.png'}
-              alt={`Profile photo of ${name}`}
-              width="96"
-              height="96"
-              loading="eager"
-              decoding="async"
-              class="size-16 sm:size-24 aspect-square rounded-lg object-cover bg-secondary/40 cursor-pointer shadow-1"
-            />
-          </a>
-        )}
-      </div>
-
-      <div class="flex min-w-0 flex-1 flex-col justify-between gap-2">
-        <div class="flex flex-wrap items-center gap-x-2.5">
-          <h1 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{name}</h1>
-          {pronouns && (
-            <span class="rounded-sm border-1 border-border/60 px-2 py-0.5 font-mono text-xs text-muted-foreground">
-              {pronouns}
-            </span>
-          )}
-        </div>
-
-        {(role || location) && (
-          <div class="flex flex-col gap-1 font-mono text-xs text-foreground sm:text-sm">
-            {role && (
-              <span class="flex items-center gap-1.5 max-sm:items-start">
-                <PiBriefcase className="size-3.5 shrink-0 max-sm:mt-px sm:size-4" />
-                <span>
-                {roleParts(role).map((part) =>
-                  part.href ? (
-                    <a
-                      href={part.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="underline underline-offset-4 decoration-muted-foreground/60 hover:decoration-foreground"
-                    >
-                      {part.text}
-                    </a>
-                  ) : (
-                    part.text
-                  ),
-                )}
-                </span>
-              </span>
-            )}
-            {location && (
-              <span class="flex items-center gap-1.5 max-sm:items-start">
-                <PiMapPin className="size-3.5 shrink-0 max-sm:mt-px sm:size-4" />
-                {location}
-              </span>
-            )}
-          </div>
-        )}
-        {/* Mobile Animated Socials Trigger & Drawer */}
-        {socialLinks.length > 0 && (
-          <div class="md:hidden">
-            <button
-              type="button"
-              id="mobile-socials-toggle"
-              aria-expanded="false"
-              aria-controls="mobile-socials-dock"
-              class="group inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/80 bg-secondary/60 text-xs font-mono text-foreground hover:bg-secondary transition-all active:scale-95"
-            >
-              <PiStarFourFill className="size-2 text-foreground/80" />
-              <span>Connect & Links</span>
-              <svg
-                id="mobile-socials-arrow"
-                class="size-3 text-muted-foreground transition-transform duration-150 group-hover:text-foreground"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-
-            <div
-              id="mobile-socials-dock"
-              class="mobile-dock grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-out overflow-hidden"
-              data-state="closed"
-            >
-              <div class="overflow-hidden min-h-0">
-                <div class="flex flex-wrap items-center gap-2 pt-3 pb-1">
-                  {socialLinks.map((item) => (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background/80 text-foreground transition-all duration-200 hover:bg-secondary active:scale-95 shadow-1"
-                      aria-label={item.label}
-                      title={item.label}
-                    >
-                      <item.icon className="size-3.5 text-foreground" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-      </div>
-
-
-    </div>
-
-    {/* Desktop Social Links (Unchanged) */}
-    <div class="hidden md:flex flex-wrap items-center gap-2 self-start shrink-0 pt-1">
-      {socialLinks.map((item) => (
-        <a
-          href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex size-9 items-center justify-center rounded-md border border-border bg-background/80 text-foreground transition-all duration-200 hover:bg-secondary hover:scale-105 active:scale-95 shadow-1"
-          aria-label={item.label}
-          title={item.label}
-        >
-          <item.icon className="size-4 text-foreground" />
-        </a>
-      ))}
-    </div>
+<header class="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row-reverse sm:items-start sm:justify-between">
+  <img src={avatar || '/static/profile/avatar.png'} alt={`Profile photo of ${name}`} width="96" height="96" loading="eager" decoding="async" class="size-24 shrink-0 rounded-full object-cover" />
+  <div class="min-w-0 max-w-3xl">
+    <p class="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">Profile / {id}</p>
+    <h1 class="font-title text-display-md">{linkDisabled ? name : <a href={`/authors/${id}`}>{name}</a>}</h1>
+    {pronouns && <p class="mt-2 text-sm text-muted-foreground">{pronouns}</p>}
+    {bio && <p class="mt-3 text-lg">{bio}</p>}
+    {role && <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{roleParts(role).map(part => part.href ? <a href={part.href} class="underline underline-offset-4" target="_blank" rel="noopener noreferrer">{part.text}</a> : part.text)}</p>}
+    {location && <p class="mt-2 font-mono text-xs text-muted-foreground">{location}</p>}
+    <nav aria-label={`Links for ${name}`} class="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+      {socialLinks.map(item => <a href={item.href} class="underline decoration-border underline-offset-4 hover:decoration-foreground" target="_blank" rel="noopener noreferrer">{item.label}</a>)}
+    </nav>
   </div>
-</div>
-
-<style>
-  .mobile-dock[data-state="open"] {
-    grid-template-rows: 1fr;
-    opacity: 1;
-  }
-  #mobile-socials-arrow[data-state="open"] {
-    transform: rotate(180deg);
-  }
-</style>
-
-<script>
-  function setupMobileSocialsDelegation() {
-    const handleToggle = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null
-      const toggleBtn = target?.closest('#mobile-socials-toggle')
-      if (!toggleBtn) return
-
-      const dock = document.getElementById('mobile-socials-dock')
-      const arrow = document.getElementById('mobile-socials-arrow')
-      if (!dock) return
-
-      const isOpen = dock.getAttribute('data-state') === 'open'
-      const nextState = isOpen ? 'closed' : 'open'
-
-      dock.setAttribute('data-state', nextState)
-      toggleBtn.setAttribute('aria-expanded', String(!isOpen))
-      if (arrow) {
-        arrow.setAttribute('data-state', nextState)
-      }
-    }
-
-    // Attach once globally to document so view transitions and re-renders never break it
-    if (!(window as any).__mobileSocialsDelegated) {
-      document.addEventListener('click', handleToggle)
-      ;(window as any).__mobileSocialsDelegated = true
-    }
-  }
-
-  setupMobileSocialsDelegation()
-  document.addEventListener('astro:page-load', setupMobileSocialsDelegation)
-</script>
+</header>

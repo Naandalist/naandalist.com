@@ -38,22 +38,22 @@ export const SOCIAL_LINKS: Link[] = [
 ]
 
 // Chatbot example messages
-import { Computer, Gamepad, GraduationCap } from 'lucide-react'
+import { Code, Smartphone, Briefcase } from 'lucide-react'
 
 export const EXAMPLE_MESSAGES = [
   {
-    heading: 'Hobbies',
-    message: 'What do you do for fun?',
-    icon: Gamepad,
+    heading: 'Mobile products',
+    message: 'Which React Native apps has Nanda shipped?',
+    icon: Smartphone,
   },
   {
-    heading: 'Background',
-    message: 'What did you study?',
-    icon: GraduationCap,
+    heading: 'Engineering experience',
+    message: 'Tell me about Nanda’s work at Zero One Group and Dicoding.',
+    icon: Briefcase,
   },
   {
-    heading: 'Skills',
-    message: "What is a skill you're proud of?",
-    icon: Computer,
+    heading: 'Open source',
+    message: 'What npm packages does Nanda maintain?',
+    icon: Code,
   },
 ] as const

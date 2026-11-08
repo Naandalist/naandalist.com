@@ -65,18 +65,19 @@ const jsonLd = [
       ]}
     />
 
-    <header class="flex flex-col gap-2">
+    <header class="flex flex-col gap-4 border-b border-border pb-8">
       <h1 class="text-3xl font-semibold text-foreground">
         {page.currentPage > 1 ? `Blog · Page ${page.currentPage}` : 'Blog'}
       </h1>
       <p class="max-w-prose text-muted-foreground">{pageDescription}</p>
+      <nav aria-label="Explore writing" class="flex gap-6 text-sm"><a href="/tags" class="underline underline-offset-4">Browse topics</a><a href="/rss.xml" class="underline underline-offset-4">RSS feed ↗</a></nav>
     </header>
 
     <div class="flex flex-col gap-y-8">
       {
         years.map((year) => (
-          <section class="flex flex-col gap-y-4">
-            <h2 class="font-semibold">{year}</h2>
+          <section class="grid gap-2 md:grid-cols-[5rem_minmax(0,1fr)] md:gap-8">
+            <h2 class="pt-6 font-mono text-sm text-muted-foreground">{year}</h2>
             <ul class="not-prose flex flex-col gap-4">
               {postsByYear[year].map((post) => (
                 <li>

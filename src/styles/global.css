@@ -568,3 +568,13 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
     animation: none;
   }
 }
+
+/* Editorial layouts use rules and a label rail rather than a matrix of cards. */
+@layer components {
+  .editorial-section {
+    @apply grid gap-6 border-t border-border pt-8 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] md:gap-12;
+  }
+  :where(a, button, summary, textarea):focus-visible {
+    @apply outline-2 outline-offset-4 outline-ring;
+  }
+}
