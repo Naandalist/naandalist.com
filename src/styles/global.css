@@ -437,6 +437,17 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
     inset 0 -1px 0 hsl(var(--foreground) / 0.08),
     0 16px 40px hsl(var(--foreground) / 0.12);
 }
+/* A small control keeps the metal surface and top highlight, but not the large soft glow under a card. */
+.metal.metal-button {
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.22),
+    inset 0 -1px 0 hsl(var(--foreground) / 0.08);
+  /* The global dark-mode border rule uses !important, so a softer border has to as well. */
+  border-color: hsl(var(--border) / 0.5) !important;
+  /* A hairline: half a CSS pixel is one device pixel on retina screens, and rounds up to 1px elsewhere. */
+  border-width: 0.5px;
+}
+.metal.metal-button::after { padding: 0.5px; }
 /* On small screens the stars behind the card hurt reading, so back the translucent gradient with a solid card colour. */
 @media (max-width: 639px) {
   .metal { background-color: hsl(var(--card)); }

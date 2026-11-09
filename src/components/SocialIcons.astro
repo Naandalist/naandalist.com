@@ -8,9 +8,11 @@ import { cn } from '@/lib/utils'
 interface Props {
   links: SocialLink[]
   className?: string
+  /** Brushed-metal buttons with the border glint, as used by the theme toggle. */
+  metal?: boolean
 }
 
-const { links, className } = Astro.props
+const { links, className, metal = false } = Astro.props
 
 const iconMap = {
   Website: 'lucide:globe',
@@ -41,7 +43,7 @@ const getSocialLink = ({ href, label }: SocialLink) => ({
             href={href}
             aria-label={ariaLabel}
             title={ariaLabel}
-            class={buttonVariants({ variant: 'outline', size: 'icon' })}
+            class={cn(buttonVariants({ variant: 'outline', size: 'icon' }), metal && 'metal metal-button relative')}
             external
           >
             <Icon name={iconName} class="size-4" />
