@@ -447,7 +447,8 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   inherits: false;
   initial-value: 0deg;
 }
-.metal::after {
+.metal::after,
+.glint::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -461,7 +462,8 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   opacity: 0;
   pointer-events: none;
 }
-.metal:hover::after { animation: metal-glint 1400ms ease-in-out 1; }
+.metal:hover::after,
+.glint:hover::after { animation: metal-glint 1400ms ease-in-out 1; }
 @keyframes metal-glint {
   0% { --glint: 0deg; opacity: 0; }
   15%, 85% { opacity: 1; }
@@ -476,7 +478,8 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
 }
 .dither-fade { mask-image: linear-gradient(to top, black 75%, transparent); -webkit-mask-image: linear-gradient(to top, black 75%, transparent); }
 @media (prefers-reduced-motion: reduce) {
-  .metal:hover::after { animation: none; }
+  .metal:hover::after,
+  .glint:hover::after { animation: none; }
 }
 
 /* Recharts focuses its surface on click; keep the ring for keyboard users only. */
