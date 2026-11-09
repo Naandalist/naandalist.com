@@ -78,7 +78,6 @@ import {
   SiVitest,
 } from 'react-icons/si'
 import { Tooltip } from '@/components/ui/Tooltip'
-import { Badge } from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
 
 interface StackIconProps {
@@ -396,12 +395,6 @@ export default function TechStackSlider() {
             </Tooltip>
           ))}
         </Marquee>
-      </div>
-
-      <div className="flex h-6 items-center justify-center">
-        <Badge variant="outline" className="text-xs font-mono">
-          My tech stack & tools
-        </Badge>
       </div>
     </div>
   )

@@ -91,7 +91,7 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <Container class="flex flex-col gap-y-6 reveal-stack">
-    <section class="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,36rem)_1fr] lg:gap-10">
+    <section class="grid grid-cols-1 items-stretch gap-3 sm:gap-4 lg:grid-cols-[minmax(0,36rem)_1fr]">
       <ProfileCard
         client:load
         name={author?.data.name ?? 'Listiananda Apriliawan'}
@@ -110,7 +110,7 @@ const jsonLd = [
           { kind: 'chat', label: 'Ask my assistant', href: '/chat' },
         ]}
       />
-      <div class="flex flex-col gap-4 border-l-2 border-border pl-4 sm:pl-6">
+      <div class="flex flex-col gap-4 rounded-lg border border-border/60 bg-card/10 p-(--space-card) lg:border-0 shadow-1 backdrop-blur-xs">
         <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{home?.eyebrow}</p>
         <h1 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">{home?.headline}</h1>
         <p class="max-w-md text-sm text-muted-foreground">
@@ -139,7 +139,8 @@ const jsonLd = [
       </div>
 
       <div role="region" aria-label="Tech Stack"
-        class="flex min-h-64 sm:min-h-72 w-full flex-col overflow-hidden rounded-lg border border-border bg-card/80 p-4 text-xs text-foreground shadow-1 backdrop-blur-sm lg:col-span-5">
+        class="flex min-h-64 sm:min-h-72 w-full flex-col overflow-hidden rounded-lg border border-border bg-card/80 p-4 text-foreground shadow-1 backdrop-blur-sm lg:col-span-5">
+        <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">My tech stack and Tools</p>
         <TechStackSlider client:idle />
       </div>
 

@@ -437,6 +437,10 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
     inset 0 -1px 0 hsl(var(--foreground) / 0.08),
     0 16px 40px hsl(var(--foreground) / 0.12);
 }
+/* On small screens the stars behind the card hurt reading, so back the translucent gradient with a solid card colour. */
+@media (max-width: 639px) {
+  .metal { background-color: hsl(var(--card)); }
+}
 /* On hover a bright arc travels once around the card edge. */
 @property --glint {
   syntax: '<angle>';
