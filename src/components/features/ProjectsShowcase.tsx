@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useInView } from 'motion/react'
 import { useState, useRef, useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
 import { PiAmazonLogo, PiOpenAiLogo } from 'react-icons/pi'
 import {
   SiAstro,
@@ -686,7 +687,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${buttonVariants({ variant: 'default' })} gap-2 rounded-md h-9 px-5 text-xs font-bold shadow-1 active:scale-95 hover:bg-primary flex items-center justify-center`}
+                  className={cn(buttonVariants({ variant: 'default' }), 'gap-2 rounded-md h-9 px-5 text-xs font-bold shadow-1 active:scale-95 hover:bg-primary/85 flex items-center justify-center')}
                 >
                   <ArrowUpRight size={16} aria-hidden="true" />
                   <span>Live Preview</span>
