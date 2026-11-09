@@ -3,7 +3,7 @@ import Footer from '@/components/Footer.astro'
 import Head from '@/components/Head.astro'
 import Header from '@/components/Header.astro'
 import NavLoader from '@/components/NavLoader.astro'
-import WaterDitherBackground from '@/components/background/WaterDitherBackground.tsx'
+import GalaxyBackground from '@/components/background/GalaxyBackground.tsx'
 import { SITE } from '@/consts'
 import SpeedInsights from '@vercel/speed-insights/astro'
 
@@ -39,7 +39,7 @@ const { title, description, image, imageAlt, fullTitle, jsonLd, ogType, noindex,
     />
   </head>
   <body class="min-h-screen overflow-x-clip bg-background text-foreground antialiased relative">
-    <WaterDitherBackground client:only="react" transition:persist />
+    <GalaxyBackground client:only="react" transition:persist />
     <div class="relative z-10 flex min-h-dvh flex-col">
       <Header />
       <main class="flex-1">
