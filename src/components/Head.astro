@@ -128,9 +128,8 @@ const isKnownSize = isGenerated || image === DEFAULT_OG
       ) {
         return localStorage.getItem('theme')
       }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'theme-light'
+      // Dark by default, whatever the system setting. A saved choice from the toggle still wins.
+      return 'dark'
     }
     const isDark = getThemePreference() === 'dark'
     document.documentElement.classList[isDark ? 'add' : 'remove']('dark')
