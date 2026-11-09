@@ -5,6 +5,9 @@ import MobileMenu from '@/components/ui/MobileMenu'
 import { ModeToggle } from '@/components/ui/ModeToggle'
 import Signature from '@/components/Signature.astro'
 import { NAV_LINKS } from '@/consts'
+
+const path = Astro.url.pathname
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`)
 ---
 
 <header
@@ -26,7 +29,9 @@ import { NAV_LINKS } from '@/consts'
             NAV_LINKS.map((item) => (
               <Link
                 href={item.href}
-                class="capitalize text-foreground/60 transition-colors hover:text-foreground/80"
+                data-nav-link
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class="relative capitalize text-foreground/60 transition-colors hover:text-foreground/80 aria-[current=page]:text-foreground after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-200 aria-[current=page]:after:scale-x-100"
               >
                 {item.label}
               </Link>
@@ -39,3 +44,16 @@ import { NAV_LINKS } from '@/consts'
     </div>
   </Container>
 </header>
+
+<script>
+  /* The header persists across navigations, so mark the current link after every page load. */
+  const mark = () => {
+    const path = location.pathname.replace(/\/$/, '') || '/'
+    for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')) {
+      const href = a.getAttribute('href') ?? ''
+      if (path === href || path.startsWith(`${href}/`)) a.setAttribute('aria-current', 'page')
+      else a.removeAttribute('aria-current')
+    }
+  }
+  document.addEventListener('astro:page-load', mark)
+</script>
