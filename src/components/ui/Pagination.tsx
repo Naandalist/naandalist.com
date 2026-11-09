@@ -52,6 +52,7 @@ const PaginationLink = ({
         variant: isActive ? 'outline' : 'ghost',
         size,
       }),
+      isActive && 'metal metal-button relative',
       isDisabled && 'pointer-events-none opacity-50',
       className,
     )}
