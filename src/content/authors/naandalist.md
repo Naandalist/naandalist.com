@@ -34,7 +34,7 @@ about:
   buildLabel: '02 · How'
   buildTitle: 'Team players build better products, and the client comes first.'
   buildBody: >-
-    I have worked onsite, remote, and hybrid, across a software house, a corporate, and a startup. Outside of work I give back to edtech as a code reviewer, and I contribute to open source too: fixing Snyk security issues in other people's packages and adding features when they are missing. You can find my own releases on [npm](https://www.npmjs.com/~naandalist).
+    I have worked onsite, remote, and hybrid, across a software house, a corporate, and a startup. Outside of work I give back to edtech as a code reviewer, and I contribute to open source too: fixing Snyk security issues in other people's packages and adding features when they are missing. Across all of it I try to work as part of the team, think about the product and not only the ticket, and keep the client's real goal in view. That is why I speak up early, ask why before building, and ship what actually helps the people using it.
   highlights:
     - icon: 'lucide:smartphone'
       title: 'Mobile and web'
