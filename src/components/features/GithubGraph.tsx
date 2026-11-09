@@ -16,6 +16,8 @@ const STEP = CELL + GAP
 const DEFAULT_WEEKS = 26
 
 /** Level 0 (no activity) stays neutral; active days ramp up the additive (green) token. */
+const EMPTY_ROWS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const
+
 const LEVEL_CLASS = ['bg-foreground/10', 'bg-additive/30', 'bg-additive/55', 'bg-additive/80', 'bg-additive'] as const
 
 export default function GithubGraph({ weeks: initialWeeks, total: initialTotal, profileUrl }: Props) {
@@ -38,7 +40,10 @@ export default function GithubGraph({ weeks: initialWeeks, total: initialTotal, 
       .catch(() => {})
   }, [])
 
+  const isEmpty = weeks.length === 0
   React.useEffect(() => {
+    // The wrapper is a different element in the empty state, so measure again when that flips.
+    void isEmpty
     const el = wrapRef.current
     if (!el) return
     const measure = () => {
@@ -50,7 +55,7 @@ export default function GithubGraph({ weeks: initialWeeks, total: initialTotal, 
     const ro = new ResizeObserver(measure)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [])
+  }, [isEmpty])
 
   const shown = React.useMemo(() => weeks.slice(-count), [weeks, count])
   const max = React.useMemo(() => Math.max(0, ...shown.flatMap((w) => w.map((d) => d?.count ?? 0))), [shown])
@@ -78,13 +83,37 @@ export default function GithubGraph({ weeks: initialWeeks, total: initialTotal, 
   }
 
   if (weeks.length === 0) {
+    // Same layout as the real graph, with neutral cells, so the card keeps its shape when data is missing.
+    const emptyWidth = count * STEP - GAP
+    const emptyColumns = Array.from({ length: count }, (_, i) => `col-${i}`)
     return (
-      <div className="flex h-full flex-col items-start justify-center gap-2 text-sm">
-        <p className="font-medium text-foreground">GitHub</p>
-        <p className="text-muted-foreground">Contribution data is unavailable right now.</p>
-        <a href={profileUrl} target="_blank" rel="noreferrer noopener" className="text-foreground underline underline-offset-4">
-          Open my GitHub profile
-        </a>
+      <div className="flex h-full flex-col gap-3">
+        <div className="flex flex-col gap-1">
+          <a href={profileUrl} target="_blank" rel="noreferrer noopener" className="flex items-center gap-2 text-sm text-foreground">
+            <FaGithub size={14} className="shrink-0" />
+            GitHub
+          </a>
+          <p className="text-sm text-muted-foreground">
+            Contribution data is unavailable right now.{' '}
+            <a href={profileUrl} target="_blank" rel="noreferrer noopener" className="text-foreground underline underline-offset-4">
+              Open my GitHub profile
+            </a>
+          </p>
+        </div>
+
+        <div ref={wrapRef} className="relative -m-1 flex min-w-0 flex-1 items-center justify-end overflow-hidden p-1" aria-hidden="true">
+          <div className="flex shrink-0" style={{ gap: GAP, width: emptyWidth }}>
+            {emptyColumns.map((col) => (
+              <div key={col} className="flex flex-col" style={{ gap: GAP }}>
+                {EMPTY_ROWS.map((row) => (
+                  <span key={row} className={`size-3 rounded-sm ${LEVEL_CLASS[0]}`} />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="h-6" aria-hidden="true" />
       </div>
     )
   }
