@@ -49,6 +49,8 @@ const rawProjects = (await getCollection('projects'))
     const toDate = (d?: string) => d ? new Date(d) : new Date(0)
     return toDate(b.data.date).valueOf() - toDate(a.data.date).valueOf()
   })
+  // Info Haji always goes last, whatever its date.
+  .sort((a, b) => Number(a.id === 'mobile-app-info-haji') - Number(b.id === 'mobile-app-info-haji'))
 const projectsData = rawProjects.map((p) => ({
   slug: p.id,
   hasCaseStudy: Boolean(p.body?.trim()),
