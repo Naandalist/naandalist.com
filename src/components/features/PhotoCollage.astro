@@ -1,12 +1,12 @@
 ---
 /**
- * Core Memories: photo cards in an endless marquee scrolling left at every width, across the
+ * People & places: photo cards in an endless marquee scrolling left at every width, across the
  * full viewport. Photos are grayscale; hovering the row pauses it and the hovered card's photo
  * turns to colour. Clicking a card zooms the photo open in a lightbox dialog.
  * Photos are plain <img> tags. Build-time image optimization fetched remote photos, which failed on CI runners.
  */
 
-import memoriesData from '@/data/memories.json'
+import peopleAndPlacesData from '@/data/memories.json'
 
 interface PhotoItem {
   src: string
@@ -17,7 +17,7 @@ interface Props {
   photos?: PhotoItem[]
 }
 
-const { photos = memoriesData } = Astro.props
+const { photos = peopleAndPlacesData } = Astro.props
 
 // The strip is two identical halves and the animation slides by one half, so the loop is seamless.
 // Photos repeat until each half holds at least 8 cards (about 2800px), wider than a 2560px screen.
@@ -29,10 +29,10 @@ const marqueeItems = [...half, ...half]
 <section class="mt-2 pt-4 border-t border-border/50">
   <div class="mb-5">
     <h2 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">
-      Core Memories
+      People & places
     </h2>
     <p class="text-sm text-muted-foreground mt-1">
-      A few moments with the people I met along the way.
+      My photo journal, beyond the screen. Select a photograph for a closer look.
     </p>
   </div>
 
