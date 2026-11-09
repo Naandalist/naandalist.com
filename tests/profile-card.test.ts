@@ -58,9 +58,9 @@ describe('profile card', () => {
     expect(card).toMatch(/min-w-0 flex flex-col justify-between/)
   })
 
-  it('keeps the same card height as before', async () => {
+  it('keeps the minimum card height and grows to match the row', async () => {
     const card = await read('src/components/profile/ProfileCard.tsx')
-    expect(card).toContain('h-80 sm:h-72')
+    expect(card).toContain('h-80 sm:h-auto sm:min-h-72')
     expect(card).not.toContain('sm:h-88')
   })
 

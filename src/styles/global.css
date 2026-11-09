@@ -462,7 +462,7 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   opacity: 0;
   pointer-events: none;
 }
-.metal:hover::after,
+.metal:hover::after { animation: metal-glint 1400ms ease-in-out 1; }
 .glint:hover::after { animation: metal-glint 1400ms ease-in-out 1; }
 @keyframes metal-glint {
   0% { --glint: 0deg; opacity: 0; }
