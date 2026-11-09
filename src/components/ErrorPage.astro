@@ -18,20 +18,24 @@ interface Props {
   bubbles: string[]
   plant?: 'babys-breath' | 'dandelion'
   animate?: boolean
+  /** Leaves out the scene card, so the message stands alone. */
+  hideScene?: boolean
+  /** Leaves out the breadcrumb. */
+  hideCrumb?: boolean
 }
 
-const { crumb, icon, code, codeLabel, title, text, bubbles, plant, animate } = Astro.props
+const { crumb, icon, code, codeLabel, title, text, bubbles, plant, animate, hideScene = false, hideCrumb = false } = Astro.props
 ---
 
-<Container class="flex grow flex-col gap-y-6">
-  <Breadcrumbs items={[{ label: crumb, icon }]} />
-  <section class="grid grid-cols-1 items-center gap-6 lg:grid-cols-12">
+<Container class="flex w-full grow flex-col gap-y-6">
+  {!hideCrumb && <Breadcrumbs items={[{ label: crumb, icon }]} />}
+  <section class:list={['grid grid-cols-1 items-center gap-6 lg:grid-cols-12', hideScene && 'grow content-center']}>
     <div class="flex flex-col items-start gap-4 lg:col-span-7">
       <h1 data-error="title" class="font-title text-4xl italic max-sm:leading-tight sm:text-display-sm text-foreground">{title}</h1>
       <p data-error="text" class="max-w-md text-base text-muted-foreground">{text}</p>
       <div class="flex flex-wrap gap-2"><slot /></div>
     </div>
-    <AboutScene class="lg:col-span-5" label={codeLabel} nickname={code} bubbles={bubbles} plant={plant} animate={animate} />
+    {!hideScene && <AboutScene class="lg:col-span-5" label={codeLabel} nickname={code} bubbles={bubbles} plant={plant} animate={animate} />}
   </section>
   <slot name="after" />
 </Container>

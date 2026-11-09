@@ -16,11 +16,13 @@ type Props = {
   jsonLd?: object[]
   ogType?: 'website' | 'article'
   noindex?: boolean
+  /** Hides the navbar and footer, for pages that stand alone such as 404. */
+  bare?: boolean
   published?: Date
   modified?: Date
 }
 
-const { title, description, image, imageAlt, fullTitle, jsonLd, ogType, noindex, published, modified } = Astro.props
+const { title, description, image, imageAlt, fullTitle, jsonLd, ogType, noindex, bare, published, modified } = Astro.props
 ---
 
 <!doctype html>
@@ -41,13 +43,13 @@ const { title, description, image, imageAlt, fullTitle, jsonLd, ogType, noindex,
   <body class="min-h-screen overflow-x-clip bg-background text-foreground antialiased relative">
     <GalaxyBackground client:only="react" transition:persist />
     <div class="relative z-10 flex min-h-dvh flex-col">
-      <Header />
-      <main class="flex-1">
-        <div class="py-section-sm">
+      {!bare && <Header />}
+      <main class:list={['flex-1', bare && 'flex flex-col']}>
+        <div class:list={['py-section-sm', bare && 'flex flex-1 flex-col']}>
           <slot />
         </div>
       </main>
-      <Footer />
+      {!bare && <Footer />}
     </div>
     <NavLoader />
     <SpeedInsights />

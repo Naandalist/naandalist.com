@@ -13,20 +13,19 @@ const recent = (await getCollection('blog'))
   .slice(0, 3)
 ---
 
-<Layout title="Page not found" description="This page does not exist." noindex>
+<Layout title="Page not found" description="This page does not exist." noindex bare>
   <ErrorPage
     crumb="Not found"
     icon="lucide:circle-help"
     code="404"
+    hideScene
+    hideCrumb
     codeLabel="Page not found"
     title="Nothing here."
-    text="The link may be old, or the page moved. Head back home, or pick up from the blog."
+    text="The link may be old, or the page moved. Head back home and pick up from there."
     bubbles={['Nothing at this address.', 'It may have moved, or the link is too old.']}
   >
-    <Link href="/" class={cn(buttonVariants({ variant: 'outline' }), 'group flex gap-x-1.5')}>
-      <span class="transition-transform group-hover:-translate-x-1">&larr;</span> Home
-    </Link>
-    <Link href="/blog" class={cn(buttonVariants({ variant: 'outline' }))}>Blog</Link>
+    <Link href="/" class={cn(buttonVariants({ variant: 'outline' }), 'metal metal-button relative')}>Back to home</Link>
 
     <!-- Shown only on a missing blog address, so a dead post link still leads somewhere useful. -->
     <div slot="after" id="blog-recent" hidden class="flex flex-col gap-2">
