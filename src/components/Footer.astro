@@ -3,7 +3,6 @@ import Container from '@/components/Container.astro'
 import { SOCIAL_LINKS } from '@/consts'
 import Link from './Link.astro'
 import SocialIcons from './SocialIcons.astro'
-import BackToTop from './BackToTop.astro'
 ---
 
 <footer class="py-4 pb-[max(2rem,env(safe-area-inset-bottom))] sm:pb-12">
@@ -27,6 +26,5 @@ import BackToTop from './BackToTop.astro'
         <SocialIcons links={SOCIAL_LINKS} metal />
       </div>
     </div>
-    <BackToTop float />
   </Container>
 </footer>
