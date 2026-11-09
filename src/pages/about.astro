@@ -66,7 +66,7 @@ const jsonLd = [
           <p class="text-base text-muted-foreground" set:html={renderInline(about.intro)} />
         </article>
 
-        <AboutScene class="lg:col-span-5" label={about.sceneLabel} nickname={about.nickname} bubbles={about.bubbles} />
+        <AboutScene class="lg:col-span-5" label={about.sceneLabel} nickname={about.nickname} bubbles={about.bubbles} plant="city" animate />
 
         <article class="about-card flex flex-col gap-4 p-6 lg:col-span-12">
           <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{about.buildLabel}</p>
@@ -75,18 +75,22 @@ const jsonLd = [
         </article>
 
         {about.highlights.map((m, i) => (
-          <article class="about-card flex items-start gap-4 p-4 lg:col-span-4" style={`--i:${i}`}>
-            <span class="orb" aria-hidden="true"><Icon name={m.icon} class="size-6" /></span>
-            <div class="flex flex-col gap-1">
+          i === 0 ? (
+            <article class="about-card flex flex-col gap-1 p-4 lg:col-span-4" style={`--i:${i}`}>
               <h3 class="text-lg font-bold leading-tight text-primary/80">{m.title}</h3>
               <p class="text-sm text-muted-foreground">{m.text}</p>
-            </div>
-          </article>
+            </article>
+          ) : (
+            <article class="about-card flex flex-col gap-1 p-4 lg:col-span-4" style={`--i:${i}`}>
+              <h3 class="text-lg font-bold leading-tight text-primary/80">{m.title}</h3>
+              <p class="text-sm text-muted-foreground">{m.text}</p>
+            </article>
+          )
         ))}
       </section>
     )}
 
-    <WorkTimeline label="03 · Work" />
+    <WorkTimeline label="03 · Where and when" />
 
     <PhotoCollage />
   </Container>

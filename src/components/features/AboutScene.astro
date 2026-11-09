@@ -11,7 +11,7 @@ interface Props {
   bubbles: string[]
   class?: string
   /** Baby's breath stands still by default. A dandelion has no horizon, so it is drawn flat. */
-  plant?: 'babys-breath' | 'dandelion'
+  plant?: 'babys-breath' | 'dandelion' | 'city'
   animate?: boolean
 }
 
@@ -25,7 +25,9 @@ const dandelion = plant === 'dandelion'
   role="group"
   aria-label={`${label} ${nickname}`}
 >
-  {dandelion ? (
+  {plant === 'city' ? (
+    <BabysBreathField client:visible scene="city" animate={animate} perspective={0.25} className="horizon-fade absolute inset-x-0 bottom-0 h-3/5 w-full text-foreground/60" />
+  ) : dandelion ? (
     <BabysBreathField client:visible scene="dandelion" cell={2} animate={animate} className="absolute inset-x-0 bottom-0 h-3/5 w-full text-foreground/60" />
   ) : (
     <BabysBreathField client:visible animate={animate} perspective={0.25} className="horizon-fade absolute inset-x-0 bottom-0 h-3/5 w-full text-foreground/60" />
