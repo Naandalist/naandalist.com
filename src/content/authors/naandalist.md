@@ -32,9 +32,9 @@ about:
     - >-
       It grew out of Nanda, the short form of Listiananda.
   buildLabel: '02 · How'
-  buildTitle: 'Production first, from the first commit to the store release.'
+  buildTitle: 'Team players build better products, and the client comes first.'
   buildBody: >-
-    I have shipped products for travel, insurance, and finance: progressive hotel search at [Airpaz](/projects/mobile-app-airpaz), a React Native upgrade and security cleanup on [AIA eBenefits](/projects/ebenefits-aia-customer-apps), and an e-KYC liveness SDK at Oxy Creative. On the side I maintain free apps like [Kamus KBBI VI](/projects/mobile-app-kbbi-vi) and [Info Haji](/projects/mobile-app-info-haji), and publish open source packages on [npm](https://www.npmjs.com/~naandalist).
+    I have worked onsite, remote, and hybrid, across a software house, a corporate, and a startup. Outside of work I give back to edtech as a code reviewer, and I contribute to open source too: fixing Snyk security issues in other people's packages and adding features when they are missing. You can find my own releases on [npm](https://www.npmjs.com/~naandalist).
   highlights:
     - icon: 'lucide:smartphone'
       title: 'Mobile and web'
