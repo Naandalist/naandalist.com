@@ -153,6 +153,10 @@
     --chart-2: 0 0% 11%;
     --chart-3: 0 0% 13%;
     --chart-4: 0 0% 15%;
+
+    /* Glass card: a faint fill and a hairline border that let the page background show through. */
+    --surface-glass: 0 0% 0% / 0.03;
+    --border-glass: 0 0% 0% / 0.1;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -183,6 +187,9 @@
     --fluid-haze: 213 7% 50%;
     --fluid-deep: 213 59% 31%;
 
+    --surface-glass: 0 0% 0% / 0.3;
+    --border-glass: 0 0% 100% / 0.06;
+
     /* Priority override: ensure project border color wins over third-party CSS imports
     Some third-party CSS (e.g. @devnomic/marquee) includes global rules that can
     override border colors. Force our intended border color for common bordered
@@ -203,6 +210,13 @@
     *:where(.border, .border-2, .border-t, .border-b, .border-l, .border-r) {
       border-color: hsl(var(--border)) !important;
     }
+  }
+
+  /* Lives in this layer so it can beat the forced dark border colour above: an !important in an
+  earlier layer outranks one outside it, and this class outranks the zero-specificity :where(). */
+  .glass-card {
+    background-color: hsl(var(--surface-glass));
+    border-color: hsl(var(--border-glass)) !important;
   }
 
   *,
