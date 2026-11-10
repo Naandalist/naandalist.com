@@ -1,248 +1,175 @@
 import { Marquee } from '@devnomic/marquee'
 import { useEffect, useState } from 'react'
 import { ExternalLink } from 'lucide-react'
-import { FaWindows } from 'react-icons/fa'
-import type { IconType } from 'react-icons'
-import {
-  SiAnthropic,
-  SiApachespark,
-  SiAstro,
-  SiApple,
-  SiBun,
-  SiCloudflare,
-  SiCplusplus,
-  SiClickhouse,
-  SiClaudecode,
-  SiDatabricks,
-  SiDjango,
-  SiDocker,
-  SiDrizzle,
-  SiExpo,
-  SiExpress,
-  SiFastapi,
-  SiFirebase,
-  SiFlutter,
-  SiGin,
-  SiGnubash,
-  SiGo,
-  SiGooglecloud,
-  SiGrafana,
-  SiGradle,
-  SiGraphql,
-  SiHuggingface,
-  SiHono,
-  SiJavascript,
-  SiJupyter,
-  SiK6,
-  SiKeras,
-  SiKotlin,
-  SiLangchaincorporate,
-  SiLanggraph,
-  SiLatex,
-  SiLinux,
-  SiMlflow,
-  SiModelcontextprotocol,
-  SiMongodb,
-  SiMysql,
-  SiNestjs,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiOllama,
-  SiOpencode,
-  SiOpencv,
-  SiOpenjdk,
-  SiOpenrouter,
-  SiOpentelemetry,
-  SiPostgresql,
-  SiPrisma,
-  SiPrometheus,
-  SiPydantic,
-  SiPytest,
-  SiPython,
-  SiPytorch,
-  SiQdrant,
-  SiRabbitmq,
-  SiReact,
-  SiRedis,
-  SiSentry,
-  SiScikitlearn,
-  SiScala,
-  SiSpringboot,
-  SiStreamlit,
-  SiSupabase,
-  SiTailwindcss,
-  SiTensorflow,
-  SiTypescript,
-  SiVercel,
-  SiVite,
-  SiVitest,
-} from 'react-icons/si'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { cn } from '@/lib/utils'
 
+// Colored icons from github.com/tandpfun/skill-icons (MIT), stored in public/static/skills.
+// skill-icons has no Odoo or AI icons. odoo-*.svg is drawn in-house; grokbot, codex, claude, kimi, deepseek and
+// huggingface wrap marks from github.com/lobehub/lobe-icons (MIT) in the same tile style.
+// Icons in THEMED ship as <name>-dark.svg and <name>-light.svg; the rest are a single <name>.svg.
+const THEMED = new Set([
+  'alpinejs', 'anaconda', 'androidstudio', 'apple', 'aws', 'azure', 'bash', 'bitbucket', 'bun', 'cloudflare',
+  'debian', 'deno', 'dev', 'express', 'figma', 'firebase', 'flutter', 'github', 'githubactions', 'gitlab',
+  'gmail', 'gradle', 'godot', 'jenkins', 'kotlin', 'laravel', 'linux', 'md', 'materialui', 'mint', 'mysql',
+  'netlify', 'nextjs', 'nodejs', 'notion', 'odoo', 'npm', 'obsidian', 'pnpm', 'postgres', 'py', 'react', 'supabase',
+  'tailwind', 'ubuntu', 'grokbot', 'codex', 'claude', 'kimi', 'deepseek', 'huggingface', 'vercel', 'vite', 'vitest', 'vscode', 'webpack', 'windows', 'yarn',
+])
+
+const ICON_BASE = '/static/skills'
+
 interface StackIconProps {
   name: string
-  size?: string
   className?: string
 }
 
-const StackIcon: React.FC<StackIconProps> = ({ name, size = '2em', className }) => {
-  const iconMap: Record<string, IconType> = {
-    // Programming Languages
-    cplusplus: SiCplusplus,
-    go: SiGo,
-    openjdk: SiOpenjdk,
-    javascript: SiJavascript,
-    kotlin: SiKotlin,
-    latex: SiLatex,
-    python: SiPython,
-    scala: SiScala,
-    typescript: SiTypescript,
-    // Frontend Frameworks
-    astro: SiAstro,
-    django: SiDjango,
-    expo: SiExpo,
-    flutter: SiFlutter,
-    nextdotjs: SiNextdotjs,
-    react: SiReact,
-    streamlit: SiStreamlit,
-    tailwindcss: SiTailwindcss,
-    vite: SiVite,
-    // Backend Frameworks
-    bun: SiBun,
-    express: SiExpress,
-    fastapi: SiFastapi,
-    gin: SiGin,
-    hono: SiHono,
-    nestjs: SiNestjs,
-    nodedotjs: SiNodedotjs,
-    springboot: SiSpringboot,
-    // Databases
-    firebase: SiFirebase,
-    graphql: SiGraphql,
-    mongodb: SiMongodb,
-    mysql: SiMysql,
-    postgresql: SiPostgresql,
-    prisma: SiPrisma,
-    drizzle: SiDrizzle,
-    rabbitmq: SiRabbitmq,
-    redis: SiRedis,
-    supabase: SiSupabase,
-    // AI, ML, and Data Engineering
-    anthropic: SiAnthropic,
-    clickhouse: SiClickhouse,
-    databricks: SiDatabricks,
-    huggingface: SiHuggingface,
-    jupyter: SiJupyter,
-    keras: SiKeras,
-    langchain: SiLangchaincorporate,
-    langgraph: SiLanggraph,
-    mcp: SiModelcontextprotocol,
-    mlflow: SiMlflow,
-    ollama: SiOllama,
-    opencv: SiOpencv,
-    openrouter: SiOpenrouter,
-    pydantic: SiPydantic,
-    pytorch: SiPytorch,
-    qdrant: SiQdrant,
-    scikitlearn: SiScikitlearn,
-    spark: SiApachespark,
-    tensorflow: SiTensorflow,
-    // Tools
-    gnubash: SiGnubash,
-    cloudflare: SiCloudflare,
-    claude: SiClaudecode,
-    docker: SiDocker,
-    googlecloud: SiGooglecloud,
-    grafana: SiGrafana,
-    gradle: SiGradle,
-    k6: SiK6,
-    linux: SiLinux,
-    macos: SiApple,
-    windows: FaWindows,
-    opentelemetry: SiOpentelemetry,
-    opencode: SiOpencode,
-    prometheus: SiPrometheus,
-    pytest: SiPytest,
-    vitest: SiVitest,
-    sentry: SiSentry,
-    vercel: SiVercel,
-  }
-
-  const IconComponent = iconMap[name]
-  if (!IconComponent) {
-    return <div>?</div> // Fallback
-  }
-  return <IconComponent size={size} className={cn('text-neutral-900 dark:text-white', className)} aria-hidden="true" />
+const StackIcon: React.FC<StackIconProps> = ({ name, className }) => {
+  const img = (src: string, extra?: string) => (
+    <img
+      src={src}
+      alt=""
+      width={32}
+      height={32}
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+      className={cn('size-8', extra)}
+    />
+  )
+  return (
+    <span className={cn('items-center justify-center', className)} aria-hidden="true">
+      {THEMED.has(name) ? (
+        <>
+          {img(`${ICON_BASE}/${name}-light.svg`, 'dark:hidden')}
+          {img(`${ICON_BASE}/${name}-dark.svg`, 'hidden dark:block')}
+        </>
+      ) : (
+        img(`${ICON_BASE}/${name}.svg`)
+      )}
+    </span>
+  )
 }
+
+interface Stack {
+  name: string
+  alt: string
+  url: string
+}
+
+const row1: Stack[] = [
+  // Languages
+  { name: 'js', alt: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+  { name: 'ts', alt: 'TypeScript', url: 'https://typescriptlang.org' },
+  { name: 'py', alt: 'Python', url: 'https://python.org' },
+  { name: 'kotlin', alt: 'Kotlin', url: 'https://kotlinlang.org' },
+  { name: 'swift', alt: 'Swift', url: 'https://swift.org' },
+  { name: 'cpp', alt: 'C++', url: 'https://isocpp.org' },
+  { name: 'bash', alt: 'Bash', url: 'https://gnu.org/software/bash' },
+  { name: 'html', alt: 'HTML', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
+  { name: 'css', alt: 'CSS', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
+  { name: 'md', alt: 'Markdown', url: 'https://commonmark.org' },
+  // Frontend
+  { name: 'react', alt: 'React', url: 'https://react.dev' },
+  { name: 'redux', alt: 'Redux', url: 'https://redux.js.org' },
+  { name: 'nextjs', alt: 'Next.js', url: 'https://nextjs.org' },
+  { name: 'astro', alt: 'Astro', url: 'https://astro.build' },
+  { name: 'gatsby', alt: 'Gatsby', url: 'https://gatsbyjs.com' },
+  { name: 'svelte', alt: 'Svelte', url: 'https://svelte.dev' },
+  { name: 'alpinejs', alt: 'Alpine.js', url: 'https://alpinejs.dev' },
+  { name: 'jquery', alt: 'jQuery', url: 'https://jquery.com' },
+  { name: 'materialui', alt: 'Material UI', url: 'https://mui.com' },
+  { name: 'tailwind', alt: 'Tailwind CSS', url: 'https://tailwindcss.com' },
+  // Mobile and desktop
+  { name: 'flutter', alt: 'Flutter', url: 'https://flutter.dev' },
+  { name: 'electron', alt: 'Electron', url: 'https://electronjs.org' },
+  // Backend and runtimes
+  { name: 'nodejs', alt: 'Node.js', url: 'https://nodejs.org' },
+  { name: 'bun', alt: 'Bun', url: 'https://bun.sh' },
+  { name: 'deno', alt: 'Deno', url: 'https://deno.com' },
+  { name: 'express', alt: 'Express', url: 'https://expressjs.com' },
+  { name: 'adonis', alt: 'AdonisJS', url: 'https://adonisjs.com' },
+  { name: 'django', alt: 'Django', url: 'https://djangoproject.com' },
+  { name: 'laravel', alt: 'Laravel', url: 'https://laravel.com' },
+  { name: 'wordpress', alt: 'WordPress', url: 'https://wordpress.org' },
+  { name: 'odoo', alt: 'Odoo', url: 'https://odoo.com' },
+]
+
+const row2: Stack[] = [
+  // Databases and BaaS
+  { name: 'postgres', alt: 'PostgreSQL', url: 'https://postgresql.org' },
+  { name: 'mysql', alt: 'MySQL', url: 'https://mysql.com' },
+  { name: 'mongodb', alt: 'MongoDB', url: 'https://mongodb.com' },
+  { name: 'prisma', alt: 'Prisma', url: 'https://prisma.io' },
+  { name: 'supabase', alt: 'Supabase', url: 'https://supabase.com' },
+  { name: 'firebase', alt: 'Firebase', url: 'https://firebase.google.com' },
+  { name: 'appwrite', alt: 'Appwrite', url: 'https://appwrite.io' },
+  // Cloud and hosting
+  { name: 'aws', alt: 'AWS', url: 'https://aws.amazon.com' },
+  { name: 'azure', alt: 'Azure', url: 'https://azure.microsoft.com' },
+  { name: 'cloudflare', alt: 'Cloudflare', url: 'https://cloudflare.com' },
+  { name: 'vercel', alt: 'Vercel', url: 'https://vercel.com' },
+  { name: 'netlify', alt: 'Netlify', url: 'https://netlify.com' },
+  { name: 'heroku', alt: 'Heroku', url: 'https://heroku.com' },
+  { name: 'nginx', alt: 'Nginx', url: 'https://nginx.org' },
+  // DevOps and version control
+  { name: 'docker', alt: 'Docker', url: 'https://docker.com' },
+  { name: 'jenkins', alt: 'Jenkins', url: 'https://jenkins.io' },
+  { name: 'githubactions', alt: 'GitHub Actions', url: 'https://github.com/features/actions' },
+  { name: 'git', alt: 'Git', url: 'https://git-scm.com' },
+  { name: 'github', alt: 'GitHub', url: 'https://github.com' },
+  { name: 'gitlab', alt: 'GitLab', url: 'https://gitlab.com' },
+  { name: 'bitbucket', alt: 'Bitbucket', url: 'https://bitbucket.org' },
+  // Testing and monitoring
+  { name: 'jest', alt: 'Jest', url: 'https://jestjs.io' },
+  { name: 'vitest', alt: 'Vitest', url: 'https://vitest.dev' },
+  { name: 'postman', alt: 'Postman', url: 'https://postman.com' },
+  { name: 'sentry', alt: 'Sentry', url: 'https://sentry.io' },
+]
+
+const row3: Stack[] = [
+  // Build and package managers
+  { name: 'vite', alt: 'Vite', url: 'https://vite.dev' },
+  { name: 'webpack', alt: 'webpack', url: 'https://webpack.js.org' },
+  { name: 'babel', alt: 'Babel', url: 'https://babeljs.io' },
+  { name: 'gradle', alt: 'Gradle', url: 'https://gradle.org' },
+  { name: 'npm', alt: 'npm', url: 'https://npmjs.com' },
+  { name: 'pnpm', alt: 'pnpm', url: 'https://pnpm.io' },
+  { name: 'yarn', alt: 'Yarn', url: 'https://yarnpkg.com' },
+  // Editors and IDEs
+  { name: 'vscode', alt: 'VS Code', url: 'https://code.visualstudio.com' },
+  { name: 'atom', alt: 'Atom', url: 'https://github.com/atom/atom' },
+  { name: 'androidstudio', alt: 'Android Studio', url: 'https://developer.android.com/studio' },
+  { name: 'anaconda', alt: 'Anaconda', url: 'https://anaconda.com' },
+  // AI
+  { name: 'claude', alt: 'Claude', url: 'https://claude.ai' },
+  { name: 'codex', alt: 'Codex', url: 'https://openai.com/codex' },
+  { name: 'grokbot', alt: 'Grok', url: 'https://grok.com' },
+  { name: 'deepseek', alt: 'DeepSeek', url: 'https://deepseek.com' },
+  { name: 'kimi', alt: 'Kimi', url: 'https://kimi.com' },
+  { name: 'huggingface', alt: 'Hugging Face', url: 'https://huggingface.co' },
+  // Design and creative
+  { name: 'figma', alt: 'Figma', url: 'https://figma.com' },
+  { name: 'ae', alt: 'After Effects', url: 'https://adobe.com/products/aftereffects.html' },
+  { name: 'godot', alt: 'Godot', url: 'https://godotengine.org' },
+  // Productivity and community
+  { name: 'notion', alt: 'Notion', url: 'https://notion.so' },
+  { name: 'obsidian', alt: 'Obsidian', url: 'https://obsidian.md' },
+  { name: 'discord', alt: 'Discord', url: 'https://discord.com' },
+  { name: 'gmail', alt: 'Gmail', url: 'https://mail.google.com' },
+  { name: 'dev', alt: 'DEV', url: 'https://dev.to' },
+  // Operating systems
+  { name: 'linux', alt: 'Linux', url: 'https://linux.org' },
+  { name: 'ubuntu', alt: 'Ubuntu', url: 'https://ubuntu.com' },
+  { name: 'debian', alt: 'Debian', url: 'https://debian.org' },
+  { name: 'mint', alt: 'Linux Mint', url: 'https://linuxmint.com' },
+  { name: 'apple', alt: 'macOS', url: 'https://apple.com/macos' },
+  { name: 'windows', alt: 'Windows', url: 'https://microsoft.com/windows' },
+]
 
 export default function TechStackSlider() {
   const [hoveredKey, setHoveredKey] = useState<string | null>(null)
   const [isDesktop, setIsDesktop] = useState(false)
   const [marqueeKey, setMarqueeKey] = useState(0)
-
-  const languages = [
-    { name: 'python', alt: 'Python', url: 'https://python.org' },
-    { name: 'typescript', alt: 'TypeScript', url: 'https://typescriptlang.org' },
-    { name: 'javascript', alt: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-    { name: 'openjdk', alt: 'Java', url: 'https://java.com' },
-    { name: 'kotlin', alt: 'Kotlin', url: 'https://kotlinlang.org' },
-    { name: 'cplusplus', alt: 'C++', url: 'https://isocpp.org' },
-    { name: 'latex', alt: 'LaTeX', url: 'https://www.latex-project.org' },
-  ]
-  const frontend = [
-    { name: 'react', alt: 'React', url: 'https://react.dev' },
-    { name: 'nextdotjs', alt: 'Next.js', url: 'https://nextjs.org' },
-    { name: 'astro', alt: 'Astro', url: 'https://astro.build' },
-    { name: 'tailwindcss', alt: 'Tailwind CSS', url: 'https://tailwindcss.com' },
-    { name: 'django', alt: 'Django', url: 'https://djangoproject.com' },
-    { name: 'vite', alt: 'Vite', url: 'https://vite.dev' },
-    { name: 'expo', alt: 'Expo', url: 'https://expo.dev' },
-  ]
-  const backend = [
-    { name: 'nodedotjs', alt: 'Node.js', url: 'https://nodejs.org' },
-    { name: 'bun', alt: 'Bun', url: 'https://bun.sh' },
-    { name: 'hono', alt: 'Hono', url: 'https://hono.dev' },
-    { name: 'express', alt: 'Express', url: 'https://expressjs.com' },
-  ]
-  const databases = [
-    { name: 'postgresql', alt: 'PostgreSQL', url: 'https://postgresql.org' },
-    { name: 'mysql', alt: 'MySQL', url: 'https://mysql.com' },
-    { name: 'mongodb', alt: 'MongoDB', url: 'https://mongodb.com' },
-    { name: 'redis', alt: 'Redis', url: 'https://redis.io' },
-    { name: 'prisma', alt: 'Prisma', url: 'https://prisma.io' },
-    { name: 'drizzle', alt: 'Drizzle', url: 'https://drizzle.team' },
-    { name: 'supabase', alt: 'Supabase', url: 'https://supabase.com' },
-    { name: 'firebase', alt: 'Firebase', url: 'https://firebase.google.com' },
-    { name: 'mcp', alt: 'MCP', url: 'https://modelcontextprotocol.io' },
-  ]
-  const aiData = [
-    { name: 'huggingface', alt: 'Hugging Face', url: 'https://huggingface.co' },
-    { name: 'ollama', alt: 'Ollama', url: 'https://ollama.com' },
-    { name: 'anthropic', alt: 'Anthropic', url: 'https://anthropic.com' },
-    { name: 'openrouter', alt: 'OpenRouter', url: 'https://openrouter.ai' },
-    { name: 'tensorflow', alt: 'TensorFlow', url: 'https://tensorflow.org' },
-    { name: 'opencv', alt: 'OpenCV', url: 'https://opencv.org' },
-  ]
-  const tools = [
-    { name: 'docker', alt: 'Docker', url: 'https://docker.com' },
-    { name: 'cloudflare', alt: 'Cloudflare', url: 'https://cloudflare.com' },
-    { name: 'vercel', alt: 'Vercel', url: 'https://vercel.com' },
-    { name: 'k6', alt: 'k6', url: 'https://k6.io' },
-    { name: 'vitest', alt: 'Vitest', url: 'https://vitest.dev' },
-    { name: 'sentry', alt: 'Sentry', url: 'https://sentry.io' },
-    { name: 'gnubash', alt: 'Bash', url: 'https://gnu.org/software/bash' },
-    { name: 'linux', alt: 'Linux', url: 'https://linux.org' },
-    { name: 'macos', alt: 'macOS', url: 'https://apple.com/macos' },
-    { name: 'windows', alt: 'Windows', url: 'https://microsoft.com/windows' },
-    { name: 'gradle', alt: 'Gradle', url: 'https://gradle.org' },
-    { name: 'claude', alt: 'Claude Code', url: 'https://claude.com/product/claude-code' },
-    { name: 'opencode', alt: 'Opencode', url: 'https://opencode.ai' },
-  ]
-
-  const row1 = [...languages, ...frontend, ...backend, ...databases]
-  const row2 = aiData
-  const row3 = tools
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -300,12 +227,12 @@ export default function TechStackSlider() {
                   {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
-                    <StackIcon name={stack.name} size="2em" className="sm:hidden text-neutral-900 dark:text-white" />
+                    <StackIcon name={stack.name} className="flex sm:hidden" />
                   )}
                   {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
-                    <StackIcon name={stack.name} size="2em" className="hidden sm:inline text-neutral-900 dark:text-white" />
+                    <StackIcon name={stack.name} className="hidden sm:flex" />
                   )}
                 </span>
               </a>
@@ -342,12 +269,12 @@ export default function TechStackSlider() {
                   {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
-                    <StackIcon name={stack.name} size="2em" className="sm:hidden text-neutral-900 dark:text-white" />
+                    <StackIcon name={stack.name} className="flex sm:hidden" />
                   )}
                   {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
-                    <StackIcon name={stack.name} size="2em" className="hidden sm:inline text-neutral-900 dark:text-white" />
+                    <StackIcon name={stack.name} className="hidden sm:flex" />
                   )}
                 </span>
               </a>
@@ -383,12 +310,12 @@ export default function TechStackSlider() {
                   {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
-                    <StackIcon name={stack.name} size="2em" className="sm:hidden text-neutral-900 dark:text-white" />
+                    <StackIcon name={stack.name} className="flex sm:hidden" />
                   )}
                   {hoveredKey === stack.name ? (
                     <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
                   ) : (
-                    <StackIcon name={stack.name} size="2em" className="hidden sm:inline text-neutral-900 dark:text-white" />
+                    <StackIcon name={stack.name} className="hidden sm:flex" />
                   )}
                 </span>
               </a>
