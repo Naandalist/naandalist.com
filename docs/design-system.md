@@ -76,11 +76,12 @@ Fluid background tokens (set in `.dark` only, used by `.fluid-bg` in `global.css
 - `--fluid-opacity` 0.6, how strongly the clouds show over the page
 - `--fluid-haze` and `--fluid-deep`, the light and deep blue stops of the still gradient shown when WebGL2 is not available
 
-Glass card tokens, used by `.glass-card` (the Wakatime and Last.fm cards on the home page):
-- `--surface-glass` fill: black at 3% in light, black at 30% in dark
-- `--border-glass` border: black at 10% in light, white at 6% in dark
+Glass card tokens, used by `.glass-card` (the profile, Wakatime and Last.fm cards on the home page):
+- `--surface-glass` fill: white at 40% in light, white at 6% in dark
+- `--border-glass` border: navy at 18% in light, white at 15% in dark
+- `--border-glass-hover` border on hover (pointer devices only, 0.35s): navy at 36% in light, white at 60% in dark
 
-Pair `.glass-card` with `border` and `backdrop-blur-sm`, in place of `bg-card/80` and `border-border`.
+Pair `.glass-card` with `border-1` and `backdrop-blur-md`, in place of `bg-card/80` and `border-border`.
 
 The cloud colours themselves live in the shader in `src/components/background/fluid-atmosphere.ts`, not in CSS.
 

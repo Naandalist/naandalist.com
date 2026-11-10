@@ -75,7 +75,7 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
 
   return (
     <section
-      className="glass-card glint backdrop-blur-sm shadow-1 overflow-hidden relative isolate h-80 sm:h-auto sm:min-h-72 rounded-xl border-1 p-4 sm:p-6 flex flex-col"
+      className="glass-card glint backdrop-blur-md shadow-1 overflow-hidden relative isolate h-80 sm:h-auto sm:min-h-72 rounded-xl border-1 p-4 sm:p-6 flex flex-col"
       aria-label={`${name}, profile`}
     >
       <div className="relative z-10 flex items-stretch gap-4">

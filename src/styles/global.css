@@ -155,8 +155,9 @@
     --chart-4: 0 0% 15%;
 
     /* Glass card: a faint fill and a hairline border that let the page background show through. */
-    --surface-glass: 0 0% 0% / 0.03;
-    --border-glass: 0 0% 0% / 0.1;
+    --surface-glass: 0 0% 100% / 0.4;
+    --border-glass: 209 79% 17% / 0.18;
+    --border-glass-hover: 209 79% 17% / 0.36;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -187,8 +188,9 @@
     --fluid-haze: 213 7% 50%;
     --fluid-deep: 213 59% 31%;
 
-    --surface-glass: 0 0% 0% / 0.3;
-    --border-glass: 0 0% 100% / 0.06;
+    --surface-glass: 0 0% 100% / 0.06;
+    --border-glass: 0 0% 100% / 0.15;
+    --border-glass-hover: 0 0% 100% / 0.6;
 
     /* Priority override: ensure project border color wins over third-party CSS imports
     Some third-party CSS (e.g. @devnomic/marquee) includes global rules that can
@@ -217,6 +219,10 @@
   .glass-card {
     background-color: hsl(var(--surface-glass));
     border-color: hsl(var(--border-glass)) !important;
+    transition: border-color 0.35s ease;
+  }
+  @media (hover: hover) {
+    .glass-card:hover { border-color: hsl(var(--border-glass-hover)) !important; }
   }
 
   *,
