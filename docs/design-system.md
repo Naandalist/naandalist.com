@@ -73,7 +73,7 @@ Semantic tokens only: background, foreground, card, primary, secondary, muted, a
 Never use raw hex in components.
 
 Fluid background tokens (set in `.dark` only, used by `.fluid-bg` in `global.css`):
-- `--fluid-opacity` 0.6, how strongly the clouds show over the page
+- `--fluid-opacity` 0.4, how strongly the clouds show over the page
 - `--fluid-haze` and `--fluid-deep`, the light and deep blue stops of the still gradient shown when WebGL2 is not available
 
 Glass card tokens, used by `.glass-card` (the profile, Wakatime and Last.fm cards on the home page):
