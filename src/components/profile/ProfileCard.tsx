@@ -58,8 +58,8 @@ const ICONS = {
   chat: MessageCircle,
 } as const
 
-// A static profile card: no flip, no tilt — the only hover flourish is the
-// metal glint that travels once around the border (see .metal in global.css).
+// A static profile card on the same glass surface as the Wakatime card: no flip, no tilt.
+// The only hover flourish is the glint that travels once around the border (.glint in global.css).
 export default function ProfileCard({ name, role, roleLinks = [], pronunciation, avatar, links }: Props) {
   const [copied, setCopied] = React.useState(false)
 
@@ -75,7 +75,7 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
 
   return (
     <section
-      className="metal relative isolate h-80 sm:h-auto sm:min-h-72 rounded-xl border-1 border-border p-4 sm:p-6 flex flex-col"
+      className="glass-card glint backdrop-blur-sm shadow-1 overflow-hidden relative isolate h-80 sm:h-auto sm:min-h-72 rounded-xl border-1 p-4 sm:p-6 flex flex-col"
       aria-label={`${name}, profile`}
     >
       <div className="relative z-10 flex items-stretch gap-4">

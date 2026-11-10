@@ -10,11 +10,12 @@ describe('profile card', () => {
     expect(css).not.toMatch(/flip-scene|flip-tilt|flip-inner|flip-face|data-flipped/)
   })
 
-  it('keeps the metal border glint as the only hover flourish', async () => {
+  it('sits on the glass surface and keeps the border glint as the only hover flourish', async () => {
     const css = await read('src/styles/global.css')
-    expect(css).toContain('.metal')
-    expect(css).toMatch(/\.metal:hover::after \{ animation: metal-glint/)
-    expect(await read('src/components/profile/ProfileCard.tsx')).toContain('metal')
+    expect(css).toContain('.glass-card')
+    expect(css).toMatch(/\.glint:hover::after \{ animation: metal-glint/)
+    const card = await read('src/components/profile/ProfileCard.tsx')
+    expect(card).toMatch(/className="glass-card glint /)
   })
 
   it('is a plain heading card, not a role="button"', async () => {
