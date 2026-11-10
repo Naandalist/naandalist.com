@@ -72,6 +72,12 @@ Never use `shadow`, `shadow-sm|md|lg|xl|2xl`, or `shadow-[...]`.
 Semantic tokens only: background, foreground, card, primary, secondary, muted, accent, border, additive, destructive, ring.
 Never use raw hex in components.
 
+Fluid background tokens (set in `.dark` only, used by `.fluid-bg` in `global.css`):
+- `--fluid-opacity` 0.6, how strongly the clouds show over the page
+- `--fluid-haze` and `--fluid-deep`, the light and deep blue stops of the still gradient shown when WebGL2 is not available
+
+The cloud colours themselves live in the shader in `src/components/background/fluid-atmosphere.ts`, not in CSS.
+
 ## Rules for an editor (human or AI)
 
 1. Use only the tokens above. If a size is missing, add it here and in `global.css` first, then use it.

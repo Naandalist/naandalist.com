@@ -178,6 +178,11 @@
     --chart-3: 0 0% 94%;
     --chart-4: 0 0% 92%;
 
+    /* Fluid cloud background (dark mode only): opacity over the page, and the still fallback gradient. */
+    --fluid-opacity: 0.6;
+    --fluid-haze: 213 7% 50%;
+    --fluid-deep: 213 59% 31%;
+
     /* Priority override: ensure project border color wins over third-party CSS imports
     Some third-party CSS (e.g. @devnomic/marquee) includes global rules that can
     override border colors. Force our intended border color for common bordered
@@ -407,6 +412,20 @@ html[data-sign] .signature {
   html[data-sign] .signature { animation: none; }
 }
 
+/* Fluid cloud background (FluidBackground.tsx): fades in once its first frame is drawn. */
+.fluid-bg {
+  opacity: 0;
+  transition: opacity 1.8s ease-out;
+}
+.fluid-bg.is-on { opacity: var(--fluid-opacity); }
+/* Still stand-in when WebGL2 is not available or the GPU context is lost. */
+.fluid-bg.is-fallback {
+  background: radial-gradient(ellipse at 89% 46%, hsl(var(--fluid-haze)) 0%, hsl(var(--fluid-deep)) 35%, hsl(var(--background)) 75%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fluid-bg { transition: none; }
+}
+
 /* First visit: home blocks fade in top to bottom (opacity/transform only, no layout shift). */
 @keyframes reveal-up {
   /* Starts at 0.01, not 0, so the text still counts as a largest contentful paint candidate. */
@@ -448,7 +467,7 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   border-width: 0.5px;
 }
 .metal.metal-button::after { padding: 0.5px; }
-/* On small screens the stars behind the card hurt reading, so back the translucent gradient with a solid card colour. */
+/* On small screens the moving background behind the card hurts reading, so back the translucent gradient with a solid card colour. */
 @media (max-width: 639px) {
   .metal { background-color: hsl(var(--card)); }
 }
