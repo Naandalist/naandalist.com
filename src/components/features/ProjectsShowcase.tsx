@@ -483,10 +483,10 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
 
         {/* Footer: tech icons + action buttons */}
         <div className="dashed-rule flex items-center gap-2 pt-3">
-          {/* Every tech icon, wrapping onto a second line if the card is too narrow */}
+          {/* At most 4 tech icons, no overflow count */}
           <div className="relative flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              {project.techStack?.map((tech) => {
+              {project.techStack?.slice(0, 4).map((tech) => {
                 const Icon = techIconMap[tech] ?? Wrench
                 return (
                   <span
