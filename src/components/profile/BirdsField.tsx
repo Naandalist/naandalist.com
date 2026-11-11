@@ -11,7 +11,7 @@ const MAX_FORCE = 0.04
 const VIEW = 70
 const SEPARATION = 26
 const FLEE = 110
-const WING = 7
+const WING = 9
 const MAX_DPR = 2
 
 interface Bird {
@@ -24,10 +24,15 @@ interface Bird {
 }
 
 type Rgb = [number, number, number]
-// Dark mode: white to cyan. Light mode: navy to blue, so the flock stays visible on the pale glass.
-const PALETTE: Record<'dark' | 'light', [Rgb, Rgb]> = {
-  dark: [[255, 255, 255], [0, 210, 255]],
-  light: [[11, 58, 102], [20, 140, 220]],
+// Warm Vanta look: orange, pink, cream and yellow birds. The same palette reads on dark and light glass.
+const STOPS: Rgb[] = [[255, 140, 70], [255, 105, 185], [255, 232, 225], [255, 205, 110], [235, 90, 150]]
+
+function tint(m: number): string {
+  const t = m * (STOPS.length - 1)
+  const i = Math.min(Math.floor(t), STOPS.length - 2)
+  const f = t - i
+  const [a, b] = [STOPS[i], STOPS[i + 1]]
+  return `rgb(${Math.round(a[0] + (b[0] - a[0]) * f)},${Math.round(a[1] + (b[1] - a[1]) * f)},${Math.round(a[2] + (b[2] - a[2]) * f)})`
 }
 
 function limit(b: Bird, max: number) {
@@ -53,9 +58,9 @@ export default function BirdsField({ className }: { className?: string }) {
     let h = 0
     let dpr = 1
     const pointer = { x: -9999, y: -9999 }
-    const birds: Bird[] = Array.from({ length: BIRDS }, (_, i) => {
+    const birds: Bird[] = Array.from({ length: BIRDS }, () => {
       const a = Math.random() * Math.PI * 2
-      return { x: 0, y: 0, vx: Math.cos(a), vy: Math.sin(a), phase: Math.random() * 6.28, mix: i / (BIRDS - 1) }
+      return { x: 0, y: 0, vx: Math.cos(a), vy: Math.sin(a), phase: Math.random() * 6.28, mix: Math.random() }
     })
     let seeded = false
 
@@ -135,15 +140,13 @@ export default function BirdsField({ className }: { className?: string }) {
     const draw = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, w, h)
-      const [c1, c2] = PALETTE[document.documentElement.classList.contains('dark') ? 'dark' : 'light']
       for (const b of birds) {
         const flap = Math.sin(b.phase) * 0.9
         const ang = Math.atan2(b.vy, b.vx)
         ctx.save()
         ctx.translate(b.x, b.y)
         ctx.rotate(ang)
-        const m = b.mix
-        ctx.fillStyle = `rgb(${Math.round(c1[0] + (c2[0] - c1[0]) * m)},${Math.round(c1[1] + (c2[1] - c1[1]) * m)},${Math.round(c1[2] + (c2[2] - c1[2]) * m)})`
+        ctx.fillStyle = tint(b.mix)
         ctx.globalAlpha = 0.9
         // Body and two wings. The wings swing about the body axis as the bird flaps.
         ctx.beginPath()
