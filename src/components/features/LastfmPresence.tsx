@@ -2,7 +2,6 @@ import { MoveUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { FaHeadphonesAlt, FaLastfm, FaSpotify } from 'react-icons/fa'
-import { GiGClef } from 'react-icons/gi'
 import { CACHE_KEYS, CACHE_TTL, getStaleWhileRevalidate, setCachedData } from '@/lib/cache'
 
 interface Track {
@@ -133,7 +132,7 @@ const LastfmPresence = () => {
       <div className="relative flex h-full w-full flex-col items-start justify-between gap-4 p-2 md:flex-row md:items-center">
         <div className="relative flex h-full w-full flex-row items-start justify-between gap-4">
           {/* Album art skeleton, same box as the real image */}
-          <div className="mb-2 aspect-square w-28 max-w-40 animate-pulse rounded-lg border border-border bg-primary/10 md:w-full" />
+          <div className="mb-2 aspect-square w-28 max-w-40 animate-pulse rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.6] bg-primary/10 md:w-full" />
           <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
             <div className="flex flex-col">
               {/* Icon row: same height as the real icon and label, with the Last.fm logo slot on md */}
@@ -173,13 +172,13 @@ const LastfmPresence = () => {
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
         {/* Album art placeholder */}
-        <div className="mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40">
+        <div className="mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.6]">
           <motion.div
             className="hidden md:block"
             animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
             transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.3 }}
           >
-            <FaLastfm size={36} className="text-muted-foreground/50" />
+            <FaLastfm size={36} className="text-foreground" />
           </motion.div>
         </div>
 
@@ -237,7 +236,7 @@ const LastfmPresence = () => {
         ) : (
           <div
             aria-hidden="true"
-            className="relative mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-muted-foreground/60 md:w-full"
+            className="relative mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.6] text-foreground md:w-full"
           >
             <motion.div
               className="relative flex size-3/5 items-center justify-center"
@@ -247,7 +246,7 @@ const LastfmPresence = () => {
                 rotate: { duration: 4, ease: 'easeInOut', repeat: Infinity },
               }}
             >
-              <GiGClef className="size-full" />
+              <FaHeadphonesAlt className="size-full" />
             </motion.div>
           </div>
         )}
