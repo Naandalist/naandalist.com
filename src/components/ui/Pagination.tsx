@@ -52,7 +52,11 @@ const PaginationLink = ({
         variant: isActive ? 'outline' : 'ghost',
         size,
       }),
-      isActive && 'metal metal-button relative',
+      // Circular glass buttons: the current page is filled glass, the rest show glass on hover only.
+      'rounded-full border-1 text-foreground backdrop-blur-md',
+      isActive
+        ? 'glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10'
+        : 'border-transparent hover:border-foreground/30 hover:bg-foreground/10',
       isDisabled && 'pointer-events-none opacity-50',
       className,
     )}
@@ -64,18 +68,16 @@ PaginationLink.displayName = 'PaginationLink'
 const PaginationPrevious = ({
   className,
   isDisabled,
-  size: _size,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
-    size="default"
-    className={cn('gap-1 pl-3', className)}
+    className={className}
     isDisabled={isDisabled}
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
-    <span>Prev</span>
+    <span className="sr-only">Previous page</span>
   </PaginationLink>
 )
 PaginationPrevious.displayName = 'PaginationPrevious'
@@ -83,17 +85,15 @@ PaginationPrevious.displayName = 'PaginationPrevious'
 const PaginationNext = ({
   className,
   isDisabled,
-  size: _size,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
-    size="default"
-    className={cn('gap-1 pr-3', className)}
+    className={className}
     isDisabled={isDisabled}
     {...props}
   >
-    <span>Next</span>
+    <span className="sr-only">Next page</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
 )
