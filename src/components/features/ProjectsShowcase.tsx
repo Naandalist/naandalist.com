@@ -171,10 +171,10 @@ export function ProjectsShowcase({ projects }: Props) {
               type="button"
               key={type}
               onClick={() => handleTypeChange(type)}
-              className={`shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors duration-200 ${
+              className={`h-7 shrink-0 rounded-full border-1 px-3 text-xs font-medium transition-colors duration-200 ${
                 activeType === type
                   ? 'border-foreground bg-foreground text-background'
-                  : 'border-border bg-transparent text-foreground hover:bg-secondary/60'
+                  : 'glass-card bg-foreground/10 text-foreground backdrop-blur-md [--border-glass:var(--foreground)_/_0.3] hover:bg-foreground/20'
               }`}
             >
               {type}
