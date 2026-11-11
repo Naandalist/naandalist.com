@@ -23,16 +23,10 @@ interface Bird {
   mix: number
 }
 
-type Rgb = [number, number, number]
-// Warm Vanta look: orange, pink, cream and yellow birds. The same palette reads on dark and light glass.
-const STOPS: Rgb[] = [[255, 140, 70], [255, 105, 185], [255, 232, 225], [255, 205, 110], [235, 90, 150]]
-
-function tint(m: number): string {
-  const t = m * (STOPS.length - 1)
-  const i = Math.min(Math.floor(t), STOPS.length - 2)
-  const f = t - i
-  const [a, b] = [STOPS[i], STOPS[i + 1]]
-  return `rgb(${Math.round(a[0] + (b[0] - a[0]) * f)},${Math.round(a[1] + (b[1] - a[1]) * f)},${Math.round(a[2] + (b[2] - a[2]) * f)})`
+// Grayscale flock: light greys on the dark glass, dark greys on the light glass.
+function tint(m: number, dark: boolean): string {
+  const v = Math.round(dark ? 150 + 105 * m : 25 + 90 * m)
+  return `rgb(${v},${v},${v})`
 }
 
 function limit(b: Bird, max: number) {
@@ -140,13 +134,14 @@ export default function BirdsField({ className }: { className?: string }) {
     const draw = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, w, h)
+      const dark = document.documentElement.classList.contains('dark')
       for (const b of birds) {
         const flap = Math.sin(b.phase) * 0.9
         const ang = Math.atan2(b.vy, b.vx)
         ctx.save()
         ctx.translate(b.x, b.y)
         ctx.rotate(ang)
-        ctx.fillStyle = tint(b.mix)
+        ctx.fillStyle = tint(b.mix, dark)
         ctx.globalAlpha = 0.9
         // Body and two wings. The wings swing about the body axis as the bird flaps.
         ctx.beginPath()
