@@ -184,7 +184,7 @@
     --chart-4: 0 0% 92%;
 
     /* Fluid cloud background (dark mode only): opacity over the page, and the still fallback gradient. */
-    --fluid-opacity: 0.4;
+    --fluid-opacity: 0.25;
     --fluid-haze: 213 7% 50%;
     --fluid-deep: 213 59% 31%;
 
