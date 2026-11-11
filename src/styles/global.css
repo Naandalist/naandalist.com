@@ -541,17 +541,15 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
 /* About: bento cards and memory orbs (monochrome, from tokens). */
 .about-card {
   border-radius: var(--radius-lg);
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--card) / 0.8);
+  border: 1px solid hsl(var(--border-glass));
+  background: hsl(var(--surface-glass));
   box-shadow: var(--shadow-1);
-  backdrop-filter: blur(8px);
-  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+  backdrop-filter: blur(12px);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.35s ease;
 }
 .about-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
-/* A glass card that also carries about-card (the home Experience card): this file is unlayered, so it has to restate the glass fill and blur. */
-.about-card.glass-card {
-  background: hsl(var(--surface-glass));
-  backdrop-filter: blur(12px);
+@media (hover: hover) {
+  .about-card:hover { border-color: hsl(var(--border-glass-hover)); }
 }
 /* A 1px dashed rule on the top edge with wider gaps than a CSS dashed border (3px dash, 6px gap). The transparent border keeps the 1px a real border would take. */
 .dashed-rule {

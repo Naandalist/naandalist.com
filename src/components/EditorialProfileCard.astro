@@ -67,7 +67,7 @@ const socialLinks = [
 ].filter(Boolean) as { href: string; label: string; icon: IconType }[]
 ---
 
-<div class="metal isolate relative overflow-hidden rounded-xl border-1 border-border/80 bg-card/80 backdrop-blur-md p-5 sm:p-6 shadow-1 transition-all duration-150 hover:border-foreground/30">
+<div class="glass-card glint isolate relative overflow-hidden rounded-xl border-1 backdrop-blur-md p-5 sm:p-6 shadow-1">
   {/* Top Specular Edge */}
   <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground/20 to-transparent pointer-events-none" />
 
@@ -153,7 +153,7 @@ const socialLinks = [
               id="mobile-socials-toggle"
               aria-expanded="false"
               aria-controls="mobile-socials-dock"
-              class="group inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/80 bg-secondary/60 text-xs font-mono text-foreground hover:bg-secondary transition-all active:scale-95"
+              class="group inline-flex items-center gap-1.5 px-3 py-1 rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 backdrop-blur-md text-xs font-mono text-foreground hover:bg-foreground/20 transition-all active:scale-95"
             >
               <PiStarFourFill className="size-2 text-foreground/80" />
               <span>Connect & Links</span>
@@ -183,7 +183,7 @@ const socialLinks = [
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background/80 text-foreground transition-all duration-200 hover:bg-secondary active:scale-95 shadow-1"
+                      class="inline-flex size-8 items-center justify-center rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md transition-all duration-200 hover:bg-foreground/20 active:scale-95 shadow-1"
                       aria-label={item.label}
                       title={item.label}
                     >
@@ -208,7 +208,7 @@ const socialLinks = [
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex size-9 items-center justify-center rounded-md border border-border bg-background/80 text-foreground transition-all duration-200 hover:bg-secondary hover:scale-105 active:scale-95 shadow-1"
+          class="inline-flex size-9 items-center justify-center rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md transition-all duration-200 hover:bg-foreground/20 hover:scale-105 active:scale-95 shadow-1"
           aria-label={item.label}
           title={item.label}
         >

@@ -26,7 +26,7 @@ const half = Array.from({ length: Math.ceil(MIN_HALF / photos.length) }, () => p
 const marqueeItems = [...half, ...half]
 ---
 
-<section class="mt-2 pt-4 border-t border-border/50">
+<section class="mt-2 pt-4 border-t-1 border-foreground/15">
   <div class="mb-5">
     <h2 class="font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">
       People & places
@@ -38,10 +38,8 @@ const marqueeItems = [...half, ...half]
 
   {/* Full bleed: the strip spans the viewport while the heading stays in the container. The body
       clips horizontal overflow, so 100vw counting the scrollbar never adds a sideways scroll. */}
-  <div class="group relative mx-[calc(50%-50vw)] overflow-hidden py-2">
-    {/* Gradient edge fades at the viewport edges */}
-    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-24 bg-linear-to-r from-background to-transparent" />
-    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-24 bg-linear-to-l from-background to-transparent" />
+  {/* A mask fades the cards out at the viewport edges, so it works on any page background */}
+  <div class="group relative mx-[calc(50%-50vw)] overflow-hidden py-2 mask-x-from-[calc(100%-3rem)] sm:mask-x-from-[calc(100%-6rem)]">
 
     {/* 5s per card keeps the same speed however many cards a half holds. */}
     <div class="animate-core-marquee gap-4 sm:gap-5" style={`--marquee-duration: ${half.length * 5}s`}>
@@ -52,10 +50,10 @@ const marqueeItems = [...half, ...half]
           role={i >= half.length ? undefined : 'button'}
           tabindex={i >= half.length ? undefined : 0}
           aria-label={i >= half.length ? undefined : `Open photo: ${item.caption}`}
-          class="group/card cursor-zoom-in w-72 sm:w-84 shrink-0 flex flex-col overflow-hidden rounded-lg border border-border/80 bg-card/80 p-3 sm:p-4 shadow-1 transition-all duration-150 hover:border-foreground/40 hover:-translate-y-1 hover:shadow-2"
+          class="group/card cursor-zoom-in w-72 sm:w-84 shrink-0 flex flex-col overflow-hidden rounded-lg border-1 glass-card backdrop-blur-md p-3 sm:p-4 shadow-1 transition-all duration-150 hover:-translate-y-1 hover:shadow-2"
         >
           {/* Uniform Aspect Ratio Photo (3:2 auto fit center) */}
-          <div class="relative w-full aspect-3/2 overflow-hidden rounded-md bg-secondary/50 border border-border/40 image-loading-shimmer">
+          <div class="relative w-full aspect-3/2 overflow-hidden rounded-md border-1 glass-card [--border-glass:var(--foreground)_/_0.2] [--border-glass-hover:var(--foreground)_/_0.2] image-loading-shimmer">
             <img
               src={item.src}
               alt={i >= half.length ? '' : item.caption}
