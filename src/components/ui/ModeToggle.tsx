@@ -28,7 +28,7 @@ export function ModeToggle() {
     <Button
       variant="outline"
       size="icon"
-      className="metal metal-button relative rounded-full"
+      className="relative rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20"
       title="Toggle theme"
       onClick={toggleTheme}
     >
