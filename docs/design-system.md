@@ -76,7 +76,7 @@ Fluid background tokens (set in `.dark` only, used by `.fluid-bg` in `global.css
 - `--fluid-opacity` 0.25, how strongly the clouds show over the page
 - `--fluid-haze` and `--fluid-deep`, the light and deep blue stops of the still gradient shown when WebGL2 is not available
 
-Glass card tokens, used by `.glass-card` (the profile, Wakatime and Last.fm cards on the home page):
+Glass card tokens, used by `.glass-card` (the home cards, the Experience card, the project, post and package cards, and the footer panel):
 - `--surface-glass` fill: white at 40% in light, white at 6% in dark
 - `--border-glass` border: navy at 18% in light, white at 15% in dark
 - `--border-glass-hover` border on hover (pointer devices only, 0.35s): navy at 36% in light, white at 60% in dark

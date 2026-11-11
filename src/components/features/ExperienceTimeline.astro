@@ -116,7 +116,7 @@ const leaders = vLabels.map((l) => {
 })
 ---
 
-<div class="about-card hidden flex-col gap-4 p-6 lg:flex">
+<div class="about-card glass-card hidden flex-col gap-4 p-6 lg:flex">
   <slot name="heading" />
   <ol class="relative" style={`height: ${u(labelArea + barArea)}`}>
     {labels.map((l) => (
@@ -165,7 +165,7 @@ const leaders = vLabels.map((l) => {
   </div>
 </div>
 
-<div class="about-card flex flex-col gap-4 p-4 sm:p-6 lg:hidden">
+<div class="about-card glass-card flex flex-col gap-4 p-4 sm:p-6 lg:hidden">
   <slot name="heading" />
   <div class="flex">
     <div class="flex w-9 shrink-0 flex-col" aria-hidden="true">

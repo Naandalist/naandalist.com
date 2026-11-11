@@ -11,7 +11,7 @@ const formattedDate = formatDate(entry.data.date)
 const readTime = readingTime(entry.body ?? '')
 ---
 
-<article class="glint not-prose relative rounded-lg border border-border/60 bg-card/10 p-(--space-card) shadow-1 backdrop-blur-xs">
+<article class="glass-card glint not-prose relative rounded-lg border-1 p-(--space-card) shadow-1 backdrop-blur-md">
   <Link href={`/${entry.collection}/${entry.id}`} class="group grid gap-4 sm:grid-cols-[8rem_minmax(0,1fr)]">
     <div class="flex gap-3 text-xs text-muted-foreground sm:flex-col sm:gap-2">
       <time datetime={entry.data.date.toISOString()} class="font-mono">{formattedDate}</time>

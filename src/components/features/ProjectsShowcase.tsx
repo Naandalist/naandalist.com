@@ -370,7 +370,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
           onOpenModal()
         }
       }}
-      className="not-prose flex h-full cursor-pointer flex-col overflow-hidden rounded-lg border bg-card/80 backdrop-blur-sm shadow-1 transition-all duration-150 ease-out hover:-translate-y-1 hover:shadow-3 will-change-transform"
+      className="not-prose flex h-full cursor-pointer flex-col overflow-hidden rounded-lg border-1 glass-card backdrop-blur-md shadow-1 transition-all duration-150 ease-out hover:-translate-y-1 hover:shadow-3 will-change-transform"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -451,8 +451,8 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
 
         {/* Footer: tech icons + action buttons */}
         <div className="flex items-center gap-2 border-t border-border pt-3">
-          {/* Tech icons with fade */}
-          <div className="relative flex-1 min-w-0 overflow-hidden">
+          {/* Tech icons, faded at the right edge with a mask so it works on any card background */}
+          <div className="relative flex-1 min-w-0 overflow-hidden mask-r-from-[calc(100%-2rem)]">
             <div className="flex items-center gap-1.5 sm:gap-2">
               {project.techStack?.slice(0, 5).map((tech) => {
                 const Icon = techIconMap[tech]
@@ -471,8 +471,6 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                 <span className="text-xs text-muted-foreground shrink-0">+{project.techStack.length - 5}</span>
               )}
             </div>
-            {/* Fade gradient */}
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-linear-to-l from-background to-transparent" />
           </div>
 
           {/* Action buttons */}

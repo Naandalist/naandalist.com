@@ -548,6 +548,11 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
 }
 .about-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+/* A glass card that also carries about-card (the home Experience card): this file is unlayered, so it has to restate the glass fill and blur. */
+.about-card.glass-card {
+  background: hsl(var(--surface-glass));
+  backdrop-filter: blur(12px);
+}
 .orb {
   display: grid;
   flex-shrink: 0;
@@ -570,13 +575,11 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
 }
 
 
-/* Footer: readable panel over the dithered background. */
+/* Footer panel: shape only. Fill, border and blur come from .glass-card and backdrop-blur-md. */
 .footer-panel {
   border-radius: var(--radius-lg);
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--card) / 0.8);
+  border: 1px solid;
   box-shadow: var(--shadow-1);
-  backdrop-filter: blur(8px);
 }
 
 /* Image loading: blur-up + shimmer effect for lazy-loaded images */
