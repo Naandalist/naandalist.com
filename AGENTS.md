@@ -28,6 +28,7 @@ Personal site for naandalist. Astro (static output, Vercel adapter) with React i
 
 - Use only tokens from `docs/design-system.md`. Add a missing token there and in `src/styles/global.css` first.
 - No raw hex, `px`/`rem`, or `clamp()` in components, except the rare one-off with `token-ok` and a reason.
+- Cards, buttons, chips, and dialogs use the glass style (`glass-card`, `rounded-full` buttons, no `metal`). The rules and the border-colour gotcha are in `docs/design-system.md`.
 - Titles outside blog use `font-title`. Blog stays sans.
 - Keep layout and sizes stable. Do not change dimensions, fonts, or spacing for performance alone.
 

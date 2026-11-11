@@ -76,12 +76,23 @@ Fluid background tokens (set in `.dark` only, used by `.fluid-bg` in `global.css
 - `--fluid-opacity` 0.25, how strongly the clouds show over the page
 - `--fluid-haze` and `--fluid-deep`, the light and deep blue stops of the still gradient shown when WebGL2 is not available
 
-Glass card tokens, used by `.glass-card` (the home cards, the Experience card, the project, post and package cards, and the footer panel):
+Glass tokens, used by `.glass-card` (cards, panels, chips, dialogs, bubbles, and the menu dropdown):
 - `--surface-glass` fill: white at 40% in light, white at 6% in dark
 - `--border-glass` border: navy at 18% in light, white at 15% in dark
 - `--border-glass-hover` border on hover (pointer devices only, 0.35s): navy at 36% in light, white at 60% in dark
 
 Pair `.glass-card` with `border-1` and `backdrop-blur-md`, in place of `bg-card/80` and `border-border`.
+
+Glass rules:
+- Buttons and icon buttons are `rounded-full`. Use `glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 hover:bg-foreground/20` for a filled glass button.
+- Text-only buttons (Load more, inactive pagination numbers) show glass only on hover.
+- Do not use `metal` or `metal-button` on new controls. Only the glint (`.glint`) stays, on cards.
+- Use `border-1`, `border-t-1`, or `border-l-2` for borders. Plain `border`, `border-2`, `border-t`, `border-b`, and `rounded-*` force the border colour to `--border` and turn glass borders near-black. `glass-card` wins over that rule because it is `!important`.
+- Override a glass border colour with the variable, for example `[--border-glass:var(--foreground)_/_0.25]`. Pin the hover colour with `[--border-glass-hover:...]`.
+- Do not fade edges with an opaque `from-background` gradient. Use a mask (`mask-x-from-[...]`, `mask-t-from-[...]`) so it works on glass.
+- Tech icons use the coloured files in `public/static/skills` (via `StackIcon`) first, and a mono icon only when none exists.
+
+Navbar: `.site-header-bar` in `global.css` is bare at the top. A script in `Header.astro` adds `is-scrolled` after 80px of scroll, which narrows the bar and fades in a glass pill on `::before`.
 
 The cloud colours themselves live in the shader in `src/components/background/fluid-atmosphere.ts`, not in CSS.
 
