@@ -582,13 +582,6 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
 }
 
 
-/* Footer panel: shape only. Fill, border and blur come from .glass-card and backdrop-blur-md. */
-.footer-panel {
-  border-radius: var(--radius-lg);
-  border: 1px solid;
-  box-shadow: var(--shadow-1);
-}
-
 /* Image loading: blur-up + shimmer effect for lazy-loaded images */
 @keyframes shimmer-loading {
   0% {
