@@ -215,11 +215,11 @@ export default function TechStackSlider() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={stack.alt}
-                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] dark:from-[#1f1f1f] dark:to-[#0e0e0e] border border-black/10 dark:border-transparent p-2 sm:p-2 shadow-2"
+                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] glass-card dark:bg-none dark:bg-foreground/10 border-1 p-2 sm:p-2 shadow-2 dark:shadow-1"
                 onMouseEnter={() => setHoveredKey(stack.name)}
                 onMouseLeave={() => setHoveredKey(null)}
               >
-                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:border-[#2a2a2a] pointer-events-none" />
+                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:hidden pointer-events-none" />
                 <span
                   className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
                   draggable={false}
@@ -257,11 +257,11 @@ export default function TechStackSlider() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={stack.alt}
-                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] dark:from-[#1f1f1f] dark:to-[#0e0e0e] border border-black/10 dark:border-transparent p-2 sm:p-2 shadow-2"
+                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] glass-card dark:bg-none dark:bg-foreground/10 border-1 p-2 sm:p-2 shadow-2 dark:shadow-1"
                 onMouseEnter={() => setHoveredKey(stack.name)}
                 onMouseLeave={() => setHoveredKey(null)}
               >
-                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:border-[#2a2a2a] pointer-events-none" />
+                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:hidden pointer-events-none" />
                 <span
                   className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
                   draggable={false}
@@ -298,11 +298,11 @@ export default function TechStackSlider() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={stack.alt}
-                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] dark:from-[#1f1f1f] dark:to-[#0e0e0e] border border-black/10 dark:border-transparent p-2 sm:p-2 shadow-2"
+                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] glass-card dark:bg-none dark:bg-foreground/10 border-1 p-2 sm:p-2 shadow-2 dark:shadow-1"
                 onMouseEnter={() => setHoveredKey(stack.name)}
                 onMouseLeave={() => setHoveredKey(null)}
               >
-                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:border-[#2a2a2a] pointer-events-none" />
+                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:hidden pointer-events-none" />
                 <span
                   className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
                   draggable={false}
