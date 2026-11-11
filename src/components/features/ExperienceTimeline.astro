@@ -141,7 +141,7 @@ const leaders = vLabels.map((l) => {
         </div>
         <span
           aria-hidden="true"
-          class="absolute -translate-x-1/2 border-l border-dashed border-muted-foreground"
+          class="absolute -translate-x-1/2 border-l-2 border-dashed border-muted-foreground/70"
           style={`left: ${l.mid}%; top: ${u((tiers - 1 - l.tier) * TIER + LABEL + 1)}; bottom: ${u(l.lane * (LANE + LANE_GAP) + LANE / 2)}`}
         />
         <span
@@ -160,7 +160,7 @@ const leaders = vLabels.map((l) => {
   </ol>
   <div class="mt-2 grid" style={`grid-template-columns: repeat(${years.length}, minmax(0, 1fr))`} aria-hidden="true">
     {years.map((y) => (
-      <span class="border-l border-border py-1 text-center font-mono text-xs text-muted-foreground first:border-l-0">{y}</span>
+      <span class="border-l-2 border-foreground/25 py-1 text-center font-mono text-xs text-muted-foreground first:border-l-0">{y}</span>
     ))}
   </div>
 </div>
@@ -170,7 +170,7 @@ const leaders = vLabels.map((l) => {
   <div class="flex">
     <div class="flex w-9 shrink-0 flex-col" aria-hidden="true">
       {[...years].reverse().map((y) => (
-        <span class="flex items-center border-t border-border font-mono text-xs text-muted-foreground first:border-t-0" style={`height: ${u(YEAR)}`}>{y}</span>
+        <span class="flex items-center border-t-2 border-foreground/25 font-mono text-xs text-muted-foreground first:border-t-0" style={`height: ${u(YEAR)}`}>{y}</span>
       ))}
     </div>
     <div class="relative shrink-0" style={`width: ${u(vBarWidth + LEADER)}; height: ${u(vHeight)}`} aria-hidden="true">
