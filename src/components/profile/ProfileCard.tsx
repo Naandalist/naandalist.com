@@ -1,7 +1,7 @@
 import { Camera, Check, Copy, Mail, MessageCircle } from 'lucide-react'
 import * as React from 'react'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
-import CloudsField from '@/components/profile/CloudsField'
+import BirdsField from '@/components/profile/BirdsField'
 
 export interface ProfileLink {
   kind: 'mail' | 'linkedin' | 'github' | 'photo' | 'chat'
@@ -126,8 +126,8 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
         })}
       </ul>
 
-      {/* BirdsField (flocking birds, ./BirdsField) is parked: swap it back in here to re-enable. */}
-      <CloudsField className="absolute inset-x-0 bottom-0 z-0 h-1/4 w-full mask-t-from-[40%] sm:h-24" />
+      {/* CloudsField (the drifting cloud band, ./CloudsField) is parked: swap it in here to re-enable. */}
+      <BirdsField className="absolute inset-0 z-0 size-full" />
     </section>
   )
 }
