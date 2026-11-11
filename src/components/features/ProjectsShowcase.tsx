@@ -136,6 +136,7 @@ const techSkillIcon: Record<string, string> = {
   Jest: 'jest',
   Sentry: 'sentry',
   'Azure DevOps': 'azure',
+  'patch-package': 'npm',
   'Redux Toolkit': 'redux',
   'RTK Query': 'redux',
   'Redux Saga': 'redux',
