@@ -126,7 +126,7 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
         })}
       </ul>
 
-      <BirdsField className="absolute inset-0 z-0 size-full" />
+      <BirdsField className="absolute inset-x-0 bottom-0 z-0 h-1/3 w-full mask-t-from-[60%] sm:h-40" />
     </section>
   )
 }

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
-// A flock that flies across the profile card. Classic boids (separation, alignment, cohesion)
+// A flock that flies across its canvas (the empty band of the profile card). Classic boids (separation, alignment, cohesion)
 // drawn in 2D canvas, with the pointer acting as a predator the birds steer away from.
 // Same look as the Vanta "birds" effect, without three.js.
 
@@ -59,7 +59,7 @@ export default function BirdsField({ className }: { className?: string }) {
     let seeded = false
 
     const resize = () => {
-      const r = host.getBoundingClientRect()
+      const r = canvas.getBoundingClientRect()
       w = r.width
       h = r.height
       dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR)
@@ -164,10 +164,10 @@ export default function BirdsField({ className }: { className?: string }) {
 
     resize()
     const ro = new ResizeObserver(resize)
-    ro.observe(host)
+    ro.observe(canvas)
 
     const onMove = (e: PointerEvent) => {
-      const r = host.getBoundingClientRect()
+      const r = canvas.getBoundingClientRect()
       pointer.x = e.clientX - r.left
       pointer.y = e.clientY - r.top
     }
@@ -203,7 +203,7 @@ export default function BirdsField({ className }: { className?: string }) {
       visible = e.isIntersecting
       sync()
     })
-    io.observe(host)
+    io.observe(canvas)
     document.addEventListener('visibilitychange', sync)
     canvas.style.opacity = '1'
     sync()
