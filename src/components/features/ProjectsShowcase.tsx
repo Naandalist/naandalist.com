@@ -584,14 +584,14 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
         initial={{ opacity: 0, scale: 0.95, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 30 }}
-        className="relative w-full max-w-7xl h-fit max-h-[75dvh] sm:h-175 md:h-155 overflow-hidden rounded-xl sm:rounded-lg border bg-background shadow-3 cursor-default mx-auto flex flex-col"
+        className="relative w-full max-w-7xl h-fit max-h-[75dvh] sm:h-175 md:h-155 overflow-hidden rounded-xl sm:rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.25] [--border-glass-hover:var(--foreground)_/_0.25] backdrop-blur-md shadow-3 cursor-default mx-auto flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Mobile X close button */}
         <button
           type="button"
           onClick={onClose}
-          className="md:hidden absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground/70 hover:text-foreground transition-colors"
+          className="md:hidden absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 backdrop-blur-md text-foreground/70 hover:text-foreground transition-colors"
           aria-label="Close"
         >
           <X size={14} />
@@ -599,7 +599,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
         {/* Mobile: stacked layout */}
         <div className="flex flex-col md:grid md:grid-cols-[72%_28%] w-full h-full overflow-hidden">
           {/* Media Section */}
-          <div className="relative bg-black border-b md:border-b-0 md:border-r w-full h-[30vh] md:h-full shrink-0 overflow-hidden image-loading-shimmer">
+          <div className="relative bg-black border-b-1 md:border-b-0 md:border-r-1 border-foreground/20 w-full h-[30vh] md:h-full shrink-0 overflow-hidden image-loading-shimmer">
             {assetSrc && isVideo(assetSrc) ? (
               <video
                 ref={videoRef}
@@ -638,14 +638,14 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
           </div>
           
           {/* Content Section */}
-          <div className="flex flex-col min-h-0 bg-background overflow-hidden flex-1">
+          <div className="flex flex-col min-h-0 overflow-hidden flex-1">
             <div className="flex-1 overflow-y-auto p-4 sm:p-5 md:p-8 scrollbar-hide">
               <div className="flex flex-col gap-4 sm:gap-5">
                 <div className="space-y-2">
                   <h3 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight tracking-tight text-foreground">{project.name}</h3>
                   {project.date && (
                     <div className="flex">
-                      <span className="text-xs text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded-sm border border-border/50">
+                      <span className="text-xs text-muted-foreground">
                         {project.date}
                       </span>
                     </div>
@@ -654,7 +654,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
 
                 <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" showHash={false}>
+                    <Badge key={tag} variant="secondary" showHash={false} className="border-1 bg-foreground/10 text-foreground hover:bg-foreground/15">
                       {tag}
                     </Badge>
                   ))}
@@ -667,7 +667,7 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                 {project.hasCaseStudy && (
                   <a
                     href={`/projects/${project.slug}`}
-                    className="inline-flex w-fit items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-border transition-colors hover:decoration-foreground"
+                    className="inline-flex w-fit items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-foreground/40 transition-colors hover:decoration-foreground"
                   >
                     <BookOpen size={14} aria-hidden="true" />
                     Read the case study
@@ -679,12 +679,12 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground/50 mb-2 sm:mb-3">Powered By</h4>
                   <div className="grid grid-cols-2 gap-y-2 sm:gap-y-3 gap-x-4 sm:gap-x-6">
                     {project.techStack?.map((tech) => {
-                      const Icon = techIconMap[tech]
+                      const Icon = techIconMap[tech] ?? Wrench
                       return (
                         <div key={tech} className="flex items-center gap-2 sm:gap-2.5 group">
-                          <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md bg-secondary/30 border border-border/40 transition-all group-hover:bg-secondary/60 group-hover:border-foreground/20">
-                            {Icon && <Icon size={12} className="sm:hidden text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />}
-                            {Icon && <Icon size={14} className="hidden sm:inline text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />}
+                          <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md bg-foreground/10 border-1 glass-card [--border-glass:var(--foreground)_/_0.2] [--border-glass-hover:var(--foreground)_/_0.2] transition-all group-hover:bg-foreground/20">
+                            <Icon size={12} className="sm:hidden text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
+                            <Icon size={14} className="hidden sm:inline text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
                           </div>
                           <span className="text-xs sm:text-xs font-medium text-foreground/50 group-hover:text-foreground transition-colors truncate">{tech}</span>
                         </div>
@@ -696,15 +696,15 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
             </div>
 
             {/* Actions Footer - Precision Consistent Height */}
-            <div className="h-16 sm:h-20 shrink-0 px-4 sm:px-6 md:px-8 border-t border-border bg-background flex items-center justify-between gap-4 mt-auto">
+            <div className="h-16 sm:h-20 shrink-0 px-4 sm:px-6 md:px-8 border-t-1 border-foreground/20 flex items-center justify-between gap-4 mt-auto">
               <div className="flex items-center gap-2">
-                <CopyLinkButton slug={project.slug} className="h-9 w-9" />
+                <CopyLinkButton slug={project.slug} className="h-9 w-9" glass />
                 {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-all hover:bg-secondary active:scale-95 shadow-1"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md transition-all hover:bg-foreground/20 active:scale-95 shadow-1"
                     title="View Source"
                   >
                     <SiGithub size={16} aria-hidden="true" />
