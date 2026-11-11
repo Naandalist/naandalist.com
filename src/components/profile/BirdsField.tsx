@@ -13,6 +13,10 @@ const SEPARATION = 26
 const FLEE = 110
 const WING = 9
 const MAX_DPR = 2
+// Every so often the flock tightens into a dense ball and swoops through a diving turn.
+const CALM_MIN = 5000
+const CALM_MAX = 11000
+const SWARM_MS = 4200
 
 interface Bird {
   x: number
@@ -57,6 +61,13 @@ export default function BirdsField({ className }: { className?: string }) {
       return { x: 0, y: 0, vx: Math.cos(a), vy: Math.sin(a), phase: Math.random() * 6.28, mix: Math.random() }
     })
     let seeded = false
+    // Swarm moment: k eases 0 -> 1 -> 0 over SWARM_MS. While it is above 0 the flock is drawn to a target that sweeps a dive.
+    let nextSwarm = performance.now() + 2500 + Math.random() * 3000
+    let swarmStart = -1
+    let k = 0
+    let tx = 0
+    let ty = 0
+    let dir = 1
 
     const resize = () => {
       const r = canvas.getBoundingClientRect()
@@ -74,7 +85,26 @@ export default function BirdsField({ className }: { className?: string }) {
       }
     }
 
-    const step = () => {
+    const step = (now: number) => {
+      if (swarmStart < 0 && now > nextSwarm) {
+        swarmStart = now
+        dir = Math.random() < 0.5 ? 1 : -1
+      }
+      if (swarmStart >= 0) {
+        const u = (now - swarmStart) / SWARM_MS
+        if (u >= 1) {
+          swarmStart = -1
+          k = 0
+          nextSwarm = now + CALM_MIN + Math.random() * (CALM_MAX - CALM_MIN)
+        } else {
+          k = Math.sin(u * Math.PI)
+          // Sweep across the band while rising, then dive to the bottom and pull up.
+          tx = w * (0.5 + dir * 0.38 * Math.cos(u * Math.PI * 1.6))
+          ty = h * (0.5 - 0.42 * Math.cos(u * Math.PI * 3.2))
+        }
+      }
+      const limitSpeed = SPEED_LIMIT + k * 1.6
+      const maxForce = MAX_FORCE + k * 0.06
       for (const b of birds) {
         let sx = 0, sy = 0, ax = 0, ay = 0, cx = 0, cy = 0, n = 0
         for (const o of birds) {
@@ -82,13 +112,13 @@ export default function BirdsField({ className }: { className?: string }) {
           const dx = o.x - b.x
           const dy = o.y - b.y
           const d = Math.hypot(dx, dy)
-          if (d > VIEW) continue
+          if (d > VIEW * (1 + k * 2)) continue
           n++
           ax += o.vx
           ay += o.vy
           cx += o.x
           cy += o.y
-          if (d < SEPARATION && d > 0) {
+          if (d < SEPARATION * (1 - k * 0.5) && d > 0) {
             sx -= dx / d / d
             sy -= dy / d / d
           }
@@ -96,8 +126,12 @@ export default function BirdsField({ className }: { className?: string }) {
         let fx = sx * 30
         let fy = sy * 30
         if (n) {
-          fx += (ax / n - b.vx) * 0.6 + (cx / n - b.x) * 0.0006
-          fy += (ay / n - b.vy) * 0.6 + (cy / n - b.y) * 0.0006
+          fx += (ax / n - b.vx) * (0.6 + k * 0.8) + (cx / n - b.x) * (0.0006 + k * 0.004)
+          fy += (ay / n - b.vy) * (0.6 + k * 0.8) + (cy / n - b.y) * (0.0006 + k * 0.004)
+        }
+        if (k > 0) {
+          fx += (tx - b.x) * 0.0016 * k
+          fy += (ty - b.y) * 0.0016 * k
         }
         const pdx = b.x - pointer.x
         const pdy = b.y - pointer.y
@@ -107,13 +141,13 @@ export default function BirdsField({ className }: { className?: string }) {
           fy += (pdy / pd) * ((FLEE - pd) / FLEE) * 1.2
         }
         const f = Math.hypot(fx, fy)
-        if (f > MAX_FORCE) {
-          fx = (fx / f) * MAX_FORCE
-          fy = (fy / f) * MAX_FORCE
+        if (f > maxForce) {
+          fx = (fx / f) * maxForce
+          fy = (fy / f) * maxForce
         }
         b.vx += fx
         b.vy += fy
-        limit(b, SPEED_LIMIT)
+        limit(b, limitSpeed)
         // Keep a minimum cruise speed so the flock never stalls.
         const s = Math.hypot(b.vx, b.vy)
         if (s < 0.7 && s > 0) {
@@ -178,7 +212,7 @@ export default function BirdsField({ className }: { className?: string }) {
     host.addEventListener('pointerleave', onLeave)
 
     if (reduced) {
-      for (let i = 0; i < 40; i++) step()
+      for (let i = 0; i < 40; i++) step(0)
       draw()
       canvas.style.opacity = '1'
       return () => {
@@ -190,8 +224,8 @@ export default function BirdsField({ className }: { className?: string }) {
 
     let raf = 0
     let visible = true
-    const tick = () => {
-      step()
+    const tick = (now: number) => {
+      step(now)
       draw()
       raf = requestAnimationFrame(tick)
     }
