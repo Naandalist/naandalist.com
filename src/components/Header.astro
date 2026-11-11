@@ -11,11 +11,11 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`)
 ---
 
 <header
-  class="sticky top-0 z-10 bg-background/50 backdrop-blur-md pt-safe"
+  class="sticky top-0 z-10 pt-safe"
   transition:persist
 >
   <Container>
-    <div class="flex flex-wrap items-center justify-between gap-3 py-3 sm:gap-4 sm:py-4">
+    <div class="site-header-bar mx-auto my-2 flex flex-wrap items-center justify-between gap-3 sm:my-3 sm:gap-4">
       <Link
         href="/"
         aria-label="naandalist"
@@ -44,6 +44,16 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`)
     </div>
   </Container>
 </header>
+
+<script>
+  /* Like the harness site: the bar is bare at the top and turns into a glass pill once the page scrolls. */
+  const SCROLL_THRESHOLD = 80
+  const bar = () => document.querySelector('.site-header-bar')
+  const onScroll = () => bar()?.classList.toggle('is-scrolled', window.scrollY > SCROLL_THRESHOLD)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  document.addEventListener('astro:page-load', onScroll)
+  onScroll()
+</script>
 
 <script>
   /* The header persists across navigations, so mark the current link after every page load. */

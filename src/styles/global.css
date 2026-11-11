@@ -635,3 +635,41 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
     animation: none;
   }
 }
+
+/* Header bar, copied from the harness site: bare at the top, a glass pill once scrolled.
+   The glass sits on ::before so its fade does not move the content. */
+.site-header-bar {
+  position: relative;
+  max-width: 100%;
+  padding: 0.25rem 0;
+  border-radius: 9999px;
+  transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.site-header-bar::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: hsl(var(--surface-glass));
+  border: 1px solid hsl(var(--border-glass));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out, visibility 0s 0.4s;
+}
+.site-header-bar.is-scrolled {
+  max-width: 56rem;
+  padding: 0.25rem 0.5rem 0.25rem 1rem;
+}
+.site-header-bar.is-scrolled::before {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease-in-out, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header-bar,
+  .site-header-bar::before { transition: none; }
+}
