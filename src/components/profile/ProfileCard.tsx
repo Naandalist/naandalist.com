@@ -126,7 +126,6 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
         })}
       </ul>
 
-      {/* CloudsField (the drifting cloud band, ./CloudsField) is parked: swap it in here to re-enable. */}
       <BirdsField className="absolute inset-0 z-0 size-full" />
     </section>
   )
