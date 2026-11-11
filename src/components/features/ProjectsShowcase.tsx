@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
+import { StackIcon } from './StackIcon'
 import { PiAmazonLogo, PiOpenAiLogo } from 'react-icons/pi'
 import { VscAzureDevops } from 'react-icons/vsc'
 import {
@@ -107,6 +108,37 @@ const techIconMap: Record<
   'Create React App': SiCreatereactapp,
   jsDelivr: SiJsdelivr,
   'Azure DevOps': VscAzureDevops,
+}
+
+// Coloured tile for a technology, from public/static/skills (see StackIcon). Names without an entry keep the glass tile.
+const techSkillIcon: Record<string, string> = {
+  'Next.js': 'nextjs',
+  React: 'react',
+  'React Native': 'react',
+  TypeScript: 'ts',
+  JavaScript: 'js',
+  TailwindCSS: 'tailwind',
+  Supabase: 'supabase',
+  PostgreSQL: 'postgres',
+  'Neon PostgreSQL': 'postgres',
+  Python: 'py',
+  'Node.js': 'nodejs',
+  Prisma: 'prisma',
+  Docker: 'docker',
+  Git: 'git',
+  Vercel: 'vercel',
+  MongoDB: 'mongodb',
+  Astro: 'astro',
+  Django: 'django',
+  Flutter: 'flutter',
+  AWS: 'aws',
+  Vite: 'vite',
+  Jest: 'jest',
+  Sentry: 'sentry',
+  'Azure DevOps': 'azure',
+  'Redux Toolkit': 'redux',
+  'RTK Query': 'redux',
+  'Redux Saga': 'redux',
 }
 
 export type ProjectItem = {
@@ -313,6 +345,11 @@ function CopyLinkButton({ slug, className = "h-7 w-7", glass = false }: { slug: 
   )
 }
 
+/** At most four technologies for the card footer, those with a coloured icon first (order otherwise kept). */
+function footerTech(techStack: string[] = []) {
+  return [...techStack.filter((t) => techSkillIcon[t]), ...techStack.filter((t) => !techSkillIcon[t])].slice(0, 4)
+}
+
 function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenModal: () => void }) {
   const [hovered, setHovered] = useState(false)
   const [assetSrc, setAssetSrc] = useState(project.asset)
@@ -486,19 +523,26 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
 
         {/* Footer: tech icons + action buttons */}
         <div className="dashed-rule flex items-center gap-2 pt-3">
-          {/* At most 4 tech icons, no overflow count */}
+          {/* At most 4 tech icons, coloured ones first, no overflow count */}
           <div className="relative flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              {project.techStack?.slice(0, 4).map((tech) => {
+              {footerTech(project.techStack).map((tech) => {
+                const skill = techSkillIcon[tech]
                 const Icon = techIconMap[tech] ?? Wrench
                 return (
                   <span
                     key={tech}
                     title={tech}
-                    className="text-foreground/70 transition-colors hover:text-foreground shrink-0"
+                    className="flex text-foreground/70 transition-colors hover:text-foreground shrink-0"
                   >
-                    <Icon size={14} className="sm:hidden" aria-hidden="true" />
-                    <Icon size={16} className="hidden sm:inline" aria-hidden="true" />
+                    {skill ? (
+                      <StackIcon name={skill} className="flex" imgClassName="size-3.5 sm:size-4" />
+                    ) : (
+                      <>
+                        <Icon size={14} className="sm:hidden" aria-hidden="true" />
+                        <Icon size={16} className="hidden sm:inline" aria-hidden="true" />
+                      </>
+                    )}
                   </span>
                 )
               })}
@@ -679,13 +723,18 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground/50 mb-2 sm:mb-3">Powered By</h4>
                   <div className="grid grid-cols-2 gap-y-2 sm:gap-y-3 gap-x-4 sm:gap-x-6">
                     {project.techStack?.map((tech) => {
+                      const skill = techSkillIcon[tech]
                       const Icon = techIconMap[tech] ?? Wrench
                       return (
                         <div key={tech} className="flex items-center gap-2 sm:gap-2.5 group">
-                          <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md bg-foreground/10 border-1 glass-card [--border-glass:var(--foreground)_/_0.2] [--border-glass-hover:var(--foreground)_/_0.2] transition-all group-hover:bg-foreground/20">
-                            <Icon size={12} className="sm:hidden text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
-                            <Icon size={14} className="hidden sm:inline text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
-                          </div>
+                          {skill ? (
+                            <StackIcon name={skill} className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0" imgClassName="size-full" />
+                          ) : (
+                            <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md bg-foreground/10 border-1 glass-card [--border-glass:var(--foreground)_/_0.2] [--border-glass-hover:var(--foreground)_/_0.2] transition-all group-hover:bg-foreground/20">
+                              <Icon size={12} className="sm:hidden text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
+                              <Icon size={14} className="hidden sm:inline text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
+                            </div>
+                          )}
                           <span className="text-xs sm:text-xs font-medium text-foreground/50 group-hover:text-foreground transition-colors truncate">{tech}</span>
                         </div>
                       )
