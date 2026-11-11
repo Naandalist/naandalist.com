@@ -9,6 +9,8 @@
 ![typescript](https://img.shields.io/static/v1?logo=typescript&label=&message=typescript&color=36465D&logoColor=AAA&style=flat-square)
 ![tailwind](https://img.shields.io/static/v1?logo=tailwindcss&label=&message=tailwind&color=36465D&logoColor=AAA&style=flat-square)
 ![vercel](https://img.shields.io/static/v1?logo=vercel&label=&message=vercel&color=36465D&logoColor=AAA&style=flat-square)
+<br>
+<img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Open Source">
 
 </div>
 
