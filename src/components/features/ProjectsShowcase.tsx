@@ -189,7 +189,7 @@ export function ProjectsShowcase({ projects }: Props) {
   return (
     <section className="flex flex-col gap-y-5">
       {/* Section heading */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 pt-8">
         <h2 className="shrink-0 font-title text-2xl max-sm:leading-tight sm:text-display-sm">
           Projects
         </h2>
@@ -253,7 +253,10 @@ export function ProjectsShowcase({ projects }: Props) {
           <button
             type="button"
             onClick={() => setVisibleCount((c) => c + 4)}
-            className={`${buttonVariants({ variant: 'ghost' })} group`}
+            className={cn(
+              buttonVariants({ variant: 'ghost' }),
+              'group rounded-full border-1 border-transparent text-foreground hover:border-foreground/30 hover:bg-foreground/10 hover:text-foreground hover:backdrop-blur-md',
+            )}
           >
             Load more stuff that i've built
             <span className="ml-1.5 transition-transform group-hover:translate-y-0.5">
