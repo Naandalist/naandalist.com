@@ -61,7 +61,7 @@ const dandelion = plant === 'dandelion'
 
   <div class="absolute inset-y-4 right-4 left-[44%] flex flex-col justify-center gap-2" aria-hidden="false">
     {bubbles.map((text, i) => (
-      <p data-scene="bubble" class="scene-bubble rounded-lg border border-border bg-background/90 p-3 text-sm text-foreground shadow-2 backdrop-blur-sm" style={`--i:${i}`}>
+      <p data-scene="bubble" class="scene-bubble rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.25] [--border-glass-hover:var(--foreground)_/_0.25] bg-background/90 p-3 text-sm text-foreground shadow-2 backdrop-blur-md" style={`--i:${i}`}>
         {text}
       </p>
     ))}
@@ -97,8 +97,8 @@ const dandelion = plant === 'dandelion'
     width: 8px;
     height: 8px;
     background: hsl(var(--background));
-    border-left: 1px solid hsl(var(--border));
-    border-bottom: 1px solid hsl(var(--border));
+    border-left: 1px solid hsl(var(--foreground) / 0.25);
+    border-bottom: 1px solid hsl(var(--foreground) / 0.25);
     transform: rotate(45deg);
   }
   .scene:hover .scene-person,
