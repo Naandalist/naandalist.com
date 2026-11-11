@@ -210,11 +210,6 @@ export function ProjectsShowcase({ projects }: Props) {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {/* Bottom fade overlay */}
-        {hasMore && (
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-28 bg-linear-to-t from-background via-background/70 to-transparent" />
-        )}
       </div>
 
       {/* Load more */}
@@ -251,7 +246,7 @@ export function ProjectsShowcase({ projects }: Props) {
   )
 }
 
-function CopyLinkButton({ slug, className = "h-7 w-7" }: { slug: string; className?: string }) {
+function CopyLinkButton({ slug, className = "h-7 w-7", glass = false }: { slug: string; className?: string; glass?: boolean }) {
   const [copied, setCopied] = useState(false)
   
   const handleCopy = (e: React.MouseEvent) => {
@@ -269,7 +264,9 @@ function CopyLinkButton({ slug, className = "h-7 w-7" }: { slug: string; classNa
     <button
       type="button"
       onClick={handleCopy}
-      className={`flex items-center justify-center rounded-md border border-border bg-background text-foreground transition-all hover:bg-secondary active:scale-95 shadow-1 ${className}`}
+      className={`flex items-center justify-center rounded-md transition-all active:scale-95 shadow-1 ${
+        glass ? 'border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20' : 'border border-border bg-background text-foreground hover:bg-secondary'
+      } ${className}`}
       aria-label="Copy project link"
       title="Copy Link"
     >
@@ -437,7 +434,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
         {project.tags && project.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <Badge key={tag} variant="secondary" showHash={false}>
+              <Badge key={tag} variant="secondary" showHash={false} className="border-1 bg-foreground/10 text-foreground hover:bg-foreground/15">
                 {tag}
               </Badge>
             ))}
@@ -450,7 +447,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
         </p>
 
         {/* Footer: tech icons + action buttons */}
-        <div className="flex items-center gap-2 border-t border-border pt-3">
+        <div className="flex items-center gap-2 border-t-1 border-foreground/20 pt-3">
           {/* Tech icons, faded at the right edge with a mask so it works on any card background */}
           <div className="relative flex-1 min-w-0 overflow-hidden mask-r-from-[calc(100%-2rem)]">
             <div className="flex items-center gap-1.5 sm:gap-2">
@@ -475,7 +472,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
 
           {/* Action buttons */}
           <div className="flex items-center gap-1.5 shrink-0">
-            <CopyLinkButton slug={project.slug} />
+            <CopyLinkButton slug={project.slug} glass />
             {project.github && (
               <a
                 href={project.github}
@@ -483,7 +480,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                 rel="noopener noreferrer"
                 aria-label="GitHub repository"
                 onClick={(e) => e.stopPropagation()}
-                className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-secondary"
+                className="flex h-7 w-7 items-center justify-center rounded-md border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20 transition-colors"
               >
                 <SiGithub size={14} aria-hidden="true" />
               </a>
@@ -495,7 +492,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                 rel="noopener noreferrer"
                 aria-label="View project"
                 onClick={(e) => e.stopPropagation()}
-                className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-secondary"
+                className="flex h-7 w-7 items-center justify-center rounded-md border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20 transition-colors"
               >
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>
