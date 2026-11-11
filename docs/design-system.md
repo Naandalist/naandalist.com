@@ -56,16 +56,21 @@ Never use bare `rounded`, `rounded-2xl`, `rounded-3xl`, or `rounded-[...]` (exce
 
 | Use | Token |
 |---|---|
-| Chips, tags, small buttons | `rounded-sm` |
-| Inputs, icon buttons, list items | `rounded-md` |
-| Cards | `rounded-lg` |
-| Profile card, modals | `rounded-xl` |
-| Avatars, pills | `rounded-full` |
+| Tags, small badges | `rounded-sm` |
+| Inputs, list items | `rounded-md` |
+| Cards, panels, dialogs | `rounded-lg` |
+| Profile cards (Home and About), chat panel | `rounded-xl` |
+| All buttons and icon buttons, filter chips, pagination, avatars, the navbar pill | `rounded-full` |
 
 ## Shadow
 
-`shadow-1` (cards, buttons), `shadow-2` (hover, popovers), `shadow-3` (modals, flipped card).
+`shadow-1` (cards, buttons), `shadow-2` (hover, popovers), `shadow-3` (modals).
 Never use `shadow`, `shadow-sm|md|lg|xl|2xl`, or `shadow-[...]`.
+
+## Borders
+
+`--default-border-width` is 2px, so a bare `border` is 2px. Glass surfaces use a 1px border: `border-1`, `border-t-1`, `border-b-1`, `border-l-1`, `border-r-1`. Use `border-l-2` or `border-t-2` for deliberate thick lines such as timeline connectors.
+A base rule forces `border-color` to `--border` on `.border`, `.border-2`, `.border-t|b|l|r`, and on `rounded-sm|md|lg`, `.card`, and `.badge`. That is why glass borders must go through `glass-card` or the 1px classes (see Glass rules below).
 
 ## Colors
 
