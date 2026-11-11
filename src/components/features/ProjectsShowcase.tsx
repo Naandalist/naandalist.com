@@ -1,12 +1,13 @@
 'use client'
 
-import { ArrowUpRight, BookOpen, SlidersHorizontal, Link2, Check, X } from 'lucide-react'
+import { ArrowUpRight, BookOpen, SlidersHorizontal, Link2, Check, X, Wrench } from 'lucide-react'
 import { AnimatePresence, motion, useInView } from 'motion/react'
 import { useState, useRef, useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { PiAmazonLogo, PiOpenAiLogo } from 'react-icons/pi'
+import { VscAzureDevops } from 'react-icons/vsc'
 import {
   SiAstro,
   SiDjango,
@@ -35,7 +36,23 @@ import {
   SiTypescript,
   SiVercel,
   SiLangchain,
-  SiVite
+  SiVite,
+  SiCloudinary,
+  SiCreatereactapp,
+  SiDrizzle,
+  SiDynatrace,
+  SiFastlane,
+  SiGooglegemini,
+  SiHermes,
+  SiJest,
+  SiJsdelivr,
+  SiNeon,
+  SiReactquery,
+  SiRedux,
+  SiReduxsaga,
+  SiResend,
+  SiSentry,
+  SiSnyk
 } from 'react-icons/si'
 
 const techIconMap: Record<
@@ -72,6 +89,24 @@ const techIconMap: Record<
   AWS: PiAmazonLogo,
   Langchain: SiLangchain,
   Vite: SiVite,
+  'Redux Toolkit': SiRedux,
+  'RTK Query': SiRedux,
+  'Redux Saga': SiReduxsaga,
+  'React Query': SiReactquery,
+  Snyk: SiSnyk,
+  Dynatrace: SiDynatrace,
+  Sentry: SiSentry,
+  Jest: SiJest,
+  Fastlane: SiFastlane,
+  'Drizzle ORM': SiDrizzle,
+  Resend: SiResend,
+  Cloudinary: SiCloudinary,
+  'Neon PostgreSQL': SiNeon,
+  'Google Gemini': SiGooglegemini,
+  Hermes: SiHermes,
+  'Create React App': SiCreatereactapp,
+  jsDelivr: SiJsdelivr,
+  'Azure DevOps': VscAzureDevops,
 }
 
 export type ProjectItem = {
@@ -264,8 +299,8 @@ function CopyLinkButton({ slug, className = "h-7 w-7", glass = false }: { slug: 
     <button
       type="button"
       onClick={handleCopy}
-      className={`flex items-center justify-center rounded-md transition-all active:scale-95 shadow-1 ${
-        glass ? 'border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20' : 'border border-border bg-background text-foreground hover:bg-secondary'
+      className={`flex items-center justify-center transition-all active:scale-95 shadow-1 ${
+        glass ? 'rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20' : 'rounded-md border border-border bg-background text-foreground hover:bg-secondary'
       } ${className}`}
       aria-label="Copy project link"
       title="Copy Link"
@@ -447,13 +482,13 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
         </p>
 
         {/* Footer: tech icons + action buttons */}
-        <div className="flex items-center gap-2 border-t-1 border-foreground/20 pt-3">
-          {/* Tech icons, faded at the right edge with a mask so it works on any card background */}
-          <div className="relative flex-1 min-w-0 overflow-hidden mask-r-from-[calc(100%-2rem)]">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              {project.techStack?.slice(0, 5).map((tech) => {
-                const Icon = techIconMap[tech]
-                return Icon ? (
+        <div className="dashed-rule flex items-center gap-2 pt-3">
+          {/* Every tech icon, wrapping onto a second line if the card is too narrow */}
+          <div className="relative flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              {project.techStack?.map((tech) => {
+                const Icon = techIconMap[tech] ?? Wrench
+                return (
                   <span
                     key={tech}
                     title={tech}
@@ -462,11 +497,8 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                     <Icon size={14} className="sm:hidden" aria-hidden="true" />
                     <Icon size={16} className="hidden sm:inline" aria-hidden="true" />
                   </span>
-                ) : null
+                )
               })}
-              {project.techStack && project.techStack.length > 5 && (
-                <span className="text-xs text-muted-foreground shrink-0">+{project.techStack.length - 5}</span>
-              )}
             </div>
           </div>
 
@@ -480,7 +512,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                 rel="noopener noreferrer"
                 aria-label="GitHub repository"
                 onClick={(e) => e.stopPropagation()}
-                className="flex h-7 w-7 items-center justify-center rounded-md border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20 transition-colors"
+                className="flex h-7 w-7 items-center justify-center rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20 transition-colors"
               >
                 <SiGithub size={14} aria-hidden="true" />
               </a>
@@ -492,7 +524,7 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
                 rel="noopener noreferrer"
                 aria-label="View project"
                 onClick={(e) => e.stopPropagation()}
-                className="flex h-7 w-7 items-center justify-center rounded-md border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20 transition-colors"
+                className="flex h-7 w-7 items-center justify-center rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 text-foreground backdrop-blur-md hover:bg-foreground/20 transition-colors"
               >
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>

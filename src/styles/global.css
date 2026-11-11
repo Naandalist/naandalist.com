@@ -553,6 +553,15 @@ html[data-reveal] .reveal-stack > :nth-child(n + 5) { --i: 4; }
   background: hsl(var(--surface-glass));
   backdrop-filter: blur(12px);
 }
+/* A 1px dashed rule on the top edge with wider gaps than a CSS dashed border (3px dash, 6px gap). The transparent border keeps the 1px a real border would take. */
+.dashed-rule {
+  border-top: 1px solid transparent;
+  background-image: linear-gradient(to right, hsl(var(--foreground) / 0.25) 0 3px, transparent 3px 9px);
+  background-size: 9px 1px;
+  background-repeat: repeat-x;
+  background-position: top left;
+  background-origin: border-box;
+}
 .orb {
   display: grid;
   flex-shrink: 0;
