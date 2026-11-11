@@ -1,11 +1,7 @@
 import { Camera, Check, Copy, Mail, MessageCircle } from 'lucide-react'
 import * as React from 'react'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
-import BabysBreathField from '@/components/profile/BabysBreathField'
-import type { Scene } from '@/hooks/useBabysBreath'
-
-/** The scene drawn in the card's bottom band. */
-const CARD_SCENE: Scene = 'hike'
+import BirdsField from '@/components/profile/BirdsField'
 
 export interface ProfileLink {
   kind: 'mail' | 'linkedin' | 'github' | 'photo' | 'chat'
@@ -130,7 +126,7 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
         })}
       </ul>
 
-      <BabysBreathField scene={CARD_SCENE} cell={2} className="absolute inset-x-0 bottom-0 h-1/4 w-full text-foreground/55 sm:h-24" />
+      <BirdsField className="absolute inset-0 z-0 size-full" />
     </section>
   )
 }
