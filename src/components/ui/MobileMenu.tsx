@@ -33,7 +33,7 @@ const MobileMenu = () => {
         <Button
           variant="outline"
           size="icon"
-          className="metal metal-button relative md:hidden"
+          className="metal metal-button relative rounded-full md:hidden"
           title="Menu"
         >
           <Menu className="h-5 w-5" />

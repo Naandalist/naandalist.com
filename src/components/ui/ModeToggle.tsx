@@ -28,7 +28,7 @@ export function ModeToggle() {
     <Button
       variant="outline"
       size="icon"
-      className="metal metal-button relative"
+      className="metal metal-button relative rounded-full"
       title="Toggle theme"
       onClick={toggleTheme}
     >
