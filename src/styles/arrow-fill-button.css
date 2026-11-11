@@ -17,12 +17,12 @@
   overflow: hidden;
   text-decoration: none;
   cursor: pointer;
-  border: 1px solid hsl(var(--border));
+  border: 1px solid var(--btn-border, hsl(var(--border)));
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .obsidian-arrow-fill-btn:hover {
-  border-color: hsl(var(--primary));
+  border-color: var(--btn-border-hover, hsl(var(--primary)));
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 

@@ -22,9 +22,11 @@ if (!resumeUrl) {
   href={resumeUrl}
   target="_blank"
   rel="noopener noreferrer"
-  class={cn('obsidian-arrow-fill-btn font-mono group', className)}
+  class={cn('obsidian-arrow-fill-btn font-mono group backdrop-blur-md', className)}
   style={{
-    '--btn-bg': 'hsl(var(--secondary))',
+    '--btn-bg': 'hsl(var(--foreground) / 0.1)',
+    '--btn-border': 'hsl(var(--foreground) / 0.3)',
+    '--btn-border-hover': 'hsl(var(--foreground) / 0.6)',
     '--btn-text': 'hsl(var(--secondary-foreground))',
     '--btn-fill-bg': 'hsl(var(--primary))',
     '--btn-fill-text': 'hsl(var(--primary-foreground))',
