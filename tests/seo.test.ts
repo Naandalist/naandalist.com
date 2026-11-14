@@ -37,6 +37,23 @@ suite('crawler redirects', () => {
   })
 })
 
+suite('heading outline', () => {
+  it('uses one h3 per job in the experience timeline', async () => {
+    const src = await Bun.file('src/components/features/ExperienceTimeline.astro').text()
+    expect(src.match(/<h3 /g)?.length).toBe(1)
+  })
+  it('puts the homepage name in h1 and the headline in h2', async () => {
+    const card = await Bun.file('src/components/profile/ProfileCard.tsx').text()
+    const home = await Bun.file('src/pages/index.astro').text()
+    expect(card).toMatch(/<h1 className=/)
+    expect(home).toContain('{home?.headline}</h2>')
+  })
+  it('does not use a document heading for the table of contents label', async () => {
+    const src = await Bun.file('src/components/TableOfContents.astro').text()
+    expect(src).not.toMatch(/<h2 class="mb-2/)
+  })
+})
+
 suite('lastmod sources', () => {
   it('maps pages to the content that feeds them', () => {
     expect(sourcesFor('/')).toContain('src/content/authors/naandalist.md')
