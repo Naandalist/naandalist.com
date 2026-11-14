@@ -33,9 +33,12 @@ const row1: Stack[] = [
   { name: 'jquery', alt: 'jQuery', url: 'https://jquery.com' },
   { name: 'materialui', alt: 'Material UI', url: 'https://mui.com' },
   { name: 'tailwind', alt: 'Tailwind CSS', url: 'https://tailwindcss.com' },
+  { name: 'react-query', alt: 'React Query', url: 'https://tanstack.com/query' },
+  { name: 'tiptap', alt: 'Tiptap', url: 'https://tiptap.dev' },
   // Mobile and desktop
   { name: 'flutter', alt: 'Flutter', url: 'https://flutter.dev' },
   { name: 'electron', alt: 'Electron', url: 'https://electronjs.org' },
+  { name: 'fastlane', alt: 'fastlane', url: 'https://fastlane.tools' },
   // Backend and runtimes
   { name: 'nodejs', alt: 'Node.js', url: 'https://nodejs.org' },
   { name: 'bun', alt: 'Bun', url: 'https://bun.sh' },
@@ -55,12 +58,16 @@ const row2: Stack[] = [
   { name: 'mongodb', alt: 'MongoDB', url: 'https://mongodb.com' },
   { name: 'prisma', alt: 'Prisma', url: 'https://prisma.io' },
   { name: 'supabase', alt: 'Supabase', url: 'https://supabase.com' },
+  { name: 'neon', alt: 'Neon', url: 'https://neon.com' },
+  { name: 'drizzle', alt: 'Drizzle ORM', url: 'https://orm.drizzle.team' },
+  { name: 'cloudinary', alt: 'Cloudinary', url: 'https://cloudinary.com' },
   { name: 'firebase', alt: 'Firebase', url: 'https://firebase.google.com' },
   { name: 'appwrite', alt: 'Appwrite', url: 'https://appwrite.io' },
   // Cloud and hosting
   { name: 'aws', alt: 'AWS', url: 'https://aws.amazon.com' },
   { name: 'azure', alt: 'Azure', url: 'https://azure.microsoft.com' },
   { name: 'cloudflare', alt: 'Cloudflare', url: 'https://cloudflare.com' },
+  { name: 'jsdelivr', alt: 'jsDelivr', url: 'https://www.jsdelivr.com' },
   { name: 'vercel', alt: 'Vercel', url: 'https://vercel.com' },
   { name: 'netlify', alt: 'Netlify', url: 'https://netlify.com' },
   { name: 'heroku', alt: 'Heroku', url: 'https://heroku.com' },
@@ -76,8 +83,11 @@ const row2: Stack[] = [
   // Testing and monitoring
   { name: 'jest', alt: 'Jest', url: 'https://jestjs.io' },
   { name: 'vitest', alt: 'Vitest', url: 'https://vitest.dev' },
+  { name: 'maestro', alt: 'Maestro', url: 'https://maestro.dev' },
   { name: 'postman', alt: 'Postman', url: 'https://postman.com' },
   { name: 'sentry', alt: 'Sentry', url: 'https://sentry.io' },
+  { name: 'dynatrace', alt: 'Dynatrace', url: 'https://www.dynatrace.com' },
+  { name: 'snyk', alt: 'Snyk', url: 'https://snyk.io' },
 ]
 
 const row3: Stack[] = [
@@ -96,6 +106,7 @@ const row3: Stack[] = [
   { name: 'anaconda', alt: 'Anaconda', url: 'https://anaconda.com' },
   // AI
   { name: 'claude', alt: 'Claude', url: 'https://claude.ai' },
+  { name: 'gemini', alt: 'Gemini', url: 'https://gemini.google.com' },
   { name: 'codex', alt: 'Codex', url: 'https://openai.com/codex' },
   { name: 'grokbot', alt: 'Grok', url: 'https://grok.com' },
   { name: 'deepseek', alt: 'DeepSeek', url: 'https://deepseek.com' },
@@ -103,13 +114,13 @@ const row3: Stack[] = [
   { name: 'huggingface', alt: 'Hugging Face', url: 'https://huggingface.co' },
   // Design and creative
   { name: 'figma', alt: 'Figma', url: 'https://figma.com' },
-  { name: 'ae', alt: 'After Effects', url: 'https://adobe.com/products/aftereffects.html' },
   { name: 'godot', alt: 'Godot', url: 'https://godotengine.org' },
   // Productivity and community
   { name: 'notion', alt: 'Notion', url: 'https://notion.so' },
   { name: 'obsidian', alt: 'Obsidian', url: 'https://obsidian.md' },
   { name: 'discord', alt: 'Discord', url: 'https://discord.com' },
   { name: 'gmail', alt: 'Gmail', url: 'https://mail.google.com' },
+  { name: 'resend', alt: 'Resend', url: 'https://resend.com' },
   { name: 'dev', alt: 'DEV', url: 'https://dev.to' },
   // Operating systems
   { name: 'linux', alt: 'Linux', url: 'https://linux.org' },

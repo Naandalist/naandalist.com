@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" fill="none" viewBox="0 0 256 256"><defs><mask id="notch"><rect width="256" height="256" fill="#fff"/><circle cx="140" cy="174" r="27" fill="#000"/></mask></defs><rect width="256" height="256" fill="#F4F2ED" rx="60"/><rect x="52" y="52" width="152" height="152" fill="#242938" mask="url(#notch)"/></svg>

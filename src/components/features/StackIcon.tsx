@@ -2,15 +2,15 @@ import type { CSSProperties } from 'react'
 import { cn } from '@/lib/utils'
 
 // Colored icons from github.com/tandpfun/skill-icons (MIT), stored in public/static/skills.
-// skill-icons has no Odoo or AI icons. odoo-*.svg is drawn in-house; grokbot, codex, claude, kimi, deepseek and
+// skill-icons has no Odoo or AI icons. odoo-*.svg and neon-*.svg are drawn in-house; grokbot, codex, claude, kimi, deepseek and
 // huggingface wrap marks from github.com/lobehub/lobe-icons (MIT) in the same tile style.
 // Icons in THEMED ship as <name>-dark.svg and <name>-light.svg; the rest are a single <name>.svg.
 const THEMED = new Set([
-  'alpinejs', 'anaconda', 'androidstudio', 'apple', 'aws', 'azure', 'bash', 'bitbucket', 'bun', 'cloudflare',
-  'debian', 'deno', 'dev', 'express', 'figma', 'firebase', 'flutter', 'github', 'githubactions', 'gitlab',
-  'gmail', 'gradle', 'godot', 'jenkins', 'kotlin', 'laravel', 'linux', 'md', 'materialui', 'mint', 'mysql',
-  'netlify', 'nextjs', 'nodejs', 'notion', 'odoo', 'npm', 'obsidian', 'pnpm', 'postgres', 'py', 'react', 'supabase',
-  'tailwind', 'ubuntu', 'grokbot', 'codex', 'claude', 'kimi', 'deepseek', 'huggingface', 'vercel', 'vite', 'vitest', 'vscode', 'webpack', 'windows', 'yarn',
+  'alpinejs', 'anaconda', 'androidstudio', 'apple', 'astro', 'aws', 'azure', 'bash', 'bitbucket', 'bun', 'cloudflare', 'cloudinary',
+  'debian', 'deno', 'dev', 'drizzle', 'dynatrace', 'express', 'fastlane', 'figma', 'firebase', 'flutter', 'gemini', 'github', 'githubactions', 'gitlab',
+  'gmail', 'gradle', 'godot', 'jenkins', 'jsdelivr', 'kotlin', 'laravel', 'linux', 'maestro', 'md', 'materialui', 'mint', 'mysql',
+  'netlify', 'nextjs', 'nodejs', 'notion', 'odoo', 'npm', 'obsidian', 'pnpm', 'postgres', 'py', 'react', 'react-query', 'resend', 'snyk', 'supabase',
+  'tailwind', 'tiptap', 'ubuntu', 'grokbot', 'codex', 'claude', 'kimi', 'deepseek', 'huggingface', 'vercel', 'vite', 'vitest', 'vscode', 'webpack', 'windows', 'yarn',
 ])
 
 const ICON_BASE = '/static/skills'
