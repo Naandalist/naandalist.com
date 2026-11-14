@@ -21,7 +21,8 @@ describe('profile card', () => {
   it('is a plain heading card, not a role="button"', async () => {
     const card = await read('src/components/profile/ProfileCard.tsx')
     expect(card).not.toContain('role="button"')
-    expect(card).toMatch(/<h2/)
+    expect(card).toMatch(/<h1/)
+    expect(card).not.toMatch(/<h2/)
   })
 
   it('shows the same square photo as About, in full color, without a border', async () => {

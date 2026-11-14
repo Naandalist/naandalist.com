@@ -2,7 +2,7 @@ import { describe as suite, it, expect } from 'bun:test'
 import vercel from '../vercel.json'
 import { robotsTxt, TRAINING_BOTS } from '../src/lib/robots'
 import { sourcesFor, frontmatterDate, newestPostDate, fallbackDate, lastmodFor } from '../src/lib/lastmod'
-import { blogPostingLd, breadcrumbLd, collectionPageLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
+import { blogPostingLd, breadcrumbLd, collectionPageLd, creativeWorkLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
 import { llmsFullTxt, llmsTxt, stripMdx, type LlmsInput } from '../src/lib/llms'
 
 suite('robots', () => {
@@ -34,6 +34,30 @@ suite('crawler redirects', () => {
       expect(r.permanent).toBe(true)
     }
     expect(vercel.redirects.some((r) => r.source.includes('/projects/:'))).toBe(false)
+  })
+})
+
+suite('sitemap filter', () => {
+  it('keeps author archives out of the sitemap', async () => {
+    const src = await Bun.file('astro.config.ts').text()
+    expect(src).toMatch(/!new URL\(page\)\.pathname\.startsWith\('\/authors'\)/)
+  })
+})
+
+suite('heading outline', () => {
+  it('uses one h3 per job in the experience timeline', async () => {
+    const src = await Bun.file('src/components/features/ExperienceTimeline.astro').text()
+    expect(src.match(/<h3 /g)?.length).toBe(1)
+  })
+  it('puts the homepage name in h1 and the headline in h2', async () => {
+    const card = await Bun.file('src/components/profile/ProfileCard.tsx').text()
+    const home = await Bun.file('src/pages/index.astro').text()
+    expect(card).toMatch(/<h1 className=/)
+    expect(home).toContain('{home?.headline}</h2>')
+  })
+  it('does not use a document heading for the table of contents label', async () => {
+    const src = await Bun.file('src/components/TableOfContents.astro').text()
+    expect(src).not.toMatch(/<h2 class="mb-2/)
   })
 })
 
@@ -96,6 +120,20 @@ suite('jsonld', () => {
     const ld = collectionPageLd({ url: 'u', name: 'n', description: 'd', items: [{ name: 'a', url: 'u1' }, { name: 'b', url: 'u2' }] })
     expect(ld['@type']).toBe('CollectionPage')
     expect(ld.mainEntity.itemListElement.map((i) => i.position)).toEqual([1, 2])
+  })
+  it('describes a case study as CreativeWork', () => {
+    const ld = creativeWorkLd({
+      url: 'https://x.dev/projects/p/',
+      name: 'P',
+      description: 'A project',
+      sameAs: ['https://p.dev', undefined],
+      modified: new Date('2026-08-29T00:00:00Z'),
+      author: personLd({ name: 'A', url: 'https://x.dev/' }),
+    })
+    expect(ld['@type']).toBe('CreativeWork')
+    expect(ld.sameAs).toEqual(['https://p.dev'])
+    expect(ld.dateModified).toBe('2026-08-29T00:00:00.000Z')
+    expect('image' in ld).toBe(false)
   })
   it('describes a package and drops the repository when there is none', () => {
     const ld = softwareSourceCodeLd({ url: 'u', name: 'pkg', description: 'd', npm: 'https://npm/pkg', version: '1.0.0', license: 'MIT', published: new Date('2026-01-02T00:00:00Z'), author: personLd({ name: 'A', url: 'https://x.dev/' }) })

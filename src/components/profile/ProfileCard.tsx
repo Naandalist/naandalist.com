@@ -85,10 +85,10 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
           className="size-16 sm:size-20 shrink-0 rounded-lg object-cover bg-secondary/40"
         />
         <div className="min-w-0 flex flex-col justify-between">
-          <h2 className="flex items-center gap-2 font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">
+          <h1 className="flex items-center gap-2 font-title text-2xl max-sm:leading-tight sm:text-display-sm text-foreground">
             {name}
             <img src="/assets/checklist_10629607.png" alt="Verified" title="Verified" width="512" height="512" className="inline-block size-5 shrink-0 select-none" draggable={false} />
-          </h2>
+          </h1>
           <p className="text-sm font-medium text-foreground sm:text-base">{renderRole(role, roleLinks)}</p>
           {pronunciation && <p className="font-mono text-xs text-muted-foreground">{pronunciation}</p>}
         </div>

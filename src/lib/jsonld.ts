@@ -84,6 +84,32 @@ export function collectionPageLd(p: { url: string; name: string; description: st
   }
 }
 
+/** A project case study. Dates come from frontmatter `updated` when git lastmod is not used here. */
+export function creativeWorkLd(p: {
+  url: string
+  name: string
+  description: string
+  image?: string
+  sameAs?: (string | undefined)[]
+  modified?: Date
+  author: ReturnType<typeof personLd>
+}) {
+  return {
+    '@context': CONTEXT,
+    ...clean({
+      '@type': 'CreativeWork',
+      name: p.name,
+      description: p.description,
+      url: p.url,
+      image: p.image,
+      dateModified: p.modified?.toISOString(),
+      sameAs: p.sameAs?.filter((s): s is string => Boolean(s)),
+      author: p.author,
+      inLanguage: 'en',
+    }),
+  }
+}
+
 export function contactPageLd({ url, name, description, person }: { url: string; name: string; description: string; person: ReturnType<typeof personLd> }) {
   return { '@context': CONTEXT, '@type': 'ContactPage', name, description, url, mainEntity: person }
 }

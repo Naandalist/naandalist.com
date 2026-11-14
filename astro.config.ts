@@ -44,8 +44,8 @@ export default defineConfig({
   }),
   integrations: [
     sitemap({
-      // /authors is a redirect to /about; keep it out of the sitemap.
-      filter: (page) => new URL(page).pathname !== '/authors/',
+      // /authors redirects to /about; /authors/naandalist/ is a thin post list. Keep both out.
+      filter: (page) => !new URL(page).pathname.startsWith('/authors'),
       // lastmod comes from git history, so it moves only when the content does.
       serialize(item) {
         const date = lastmodFor(new URL(item.url).pathname)
