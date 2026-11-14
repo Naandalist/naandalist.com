@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { cn } from '@/lib/utils'
 
 // Colored icons from github.com/tandpfun/skill-icons (MIT), stored in public/static/skills.
@@ -21,29 +22,20 @@ interface StackIconProps {
   imgClassName?: string
 }
 
+/** One painted tile. Light/dark swap via CSS so themed icons are not two images in the DOM. */
 export function StackIcon({ name, className, imgClassName }: StackIconProps) {
-  const img = (src: string, extra?: string) => (
-    <img
-      src={src}
-      alt=""
-      width={32}
-      height={32}
-      loading="lazy"
-      decoding="async"
-      draggable={false}
-      className={cn('size-8', imgClassName, extra)}
-    />
-  )
+  const themed = THEMED.has(name)
+  const light = `${ICON_BASE}/${themed ? `${name}-light` : name}.svg`
+  const dark = themed ? `${ICON_BASE}/${name}-dark.svg` : light
   return (
     <span className={cn('items-center justify-center', className)} aria-hidden="true">
-      {THEMED.has(name) ? (
-        <>
-          {img(`${ICON_BASE}/${name}-light.svg`, 'dark:hidden')}
-          {img(`${ICON_BASE}/${name}-dark.svg`, 'hidden dark:block')}
-        </>
-      ) : (
-        img(`${ICON_BASE}/${name}.svg`)
-      )}
+      <span
+        className={cn(
+          'inline-block size-8 bg-contain bg-center bg-no-repeat [background-image:var(--skill-light)] dark:[background-image:var(--skill-dark)]',
+          imgClassName,
+        )}
+        style={{ '--skill-light': `url("${light}")`, '--skill-dark': `url("${dark}")` } as CSSProperties}
+      />
     </span>
   )
 }

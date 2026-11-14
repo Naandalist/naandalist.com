@@ -1,6 +1,7 @@
 import { describe as suite, it, expect } from 'bun:test'
+import vercel from '../vercel.json'
 import { robotsTxt, TRAINING_BOTS } from '../src/lib/robots'
-import { sourcesFor, frontmatterDate, newestPostDate } from '../src/lib/lastmod'
+import { sourcesFor, frontmatterDate, newestPostDate, fallbackDate, lastmodFor } from '../src/lib/lastmod'
 import { blogPostingLd, breadcrumbLd, collectionPageLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
 import { llmsFullTxt, llmsTxt, stripMdx, type LlmsInput } from '../src/lib/llms'
 
@@ -16,10 +17,31 @@ suite('robots', () => {
   })
 })
 
+suite('crawler redirects', () => {
+  it('sends /sitemap.xml to the generated sitemap index', () => {
+    const hits = vercel.redirects.filter((r) => r.source === '/sitemap.xml' || r.source === '/sitemap.xml/')
+    expect(hits.length).toBe(2)
+    for (const r of hits) {
+      expect(r.destination).toBe('/sitemap-index.xml')
+      expect(r.permanent).toBe(true)
+    }
+  })
+  it('sends /projects and /projects/ home, and leaves case-study URLs alone', () => {
+    const hits = vercel.redirects.filter((r) => r.source === '/projects' || r.source === '/projects/')
+    expect(hits.length).toBe(2)
+    for (const r of hits) {
+      expect(r.destination).toBe('/')
+      expect(r.permanent).toBe(true)
+    }
+    expect(vercel.redirects.some((r) => r.source.includes('/projects/:'))).toBe(false)
+  })
+})
+
 suite('lastmod sources', () => {
   it('maps pages to the content that feeds them', () => {
     expect(sourcesFor('/')).toContain('src/content/authors/naandalist.md')
     expect(sourcesFor('/about/')).toContain('src/pages/about.astro')
+    expect(sourcesFor('/contact/')).toEqual(['src/pages/contact.astro', 'src/content/authors/naandalist.md'])
     expect(sourcesFor('/blog/hello-world/')[0]).toBe('src/content/blog/hello-world')
     expect(sourcesFor('/blog/2/')).toEqual(['src/content/blog'])
     expect(sourcesFor('/unknown/')).toEqual([])
@@ -29,6 +51,27 @@ suite('lastmod sources', () => {
   })
   it('reads a post date from frontmatter when git is not usable', () => {
     expect(frontmatterDate(['src/content/blog/git-commit-message-convention'])).toBeInstanceOf(Date)
+  })
+  it('treats blog pagination as a list, not a post slug', () => {
+    expect(fallbackDate('/blog/2/')?.valueOf()).toBe(newestPostDate()?.valueOf())
+    expect(fallbackDate('/blog/2/')?.valueOf()).toBe(fallbackDate('/blog/')?.valueOf())
+  })
+  it('falls back to collection dates for posts, projects and packages', () => {
+    expect(fallbackDate('/blog/git-commit-message-convention/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/projects/web-ringkaskata/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/npmjs/blobmascot/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/npmjs/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/contact/')).toBeUndefined()
+  })
+  it('writes ISO lastmod dates that are not in the future', () => {
+    const iso = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+    const latest = Date.now() + 86_400_000
+    for (const path of ['/', '/about/', '/blog/', '/blog/2/', '/contact/', '/projects/web-ringkaskata/', '/npmjs/blobmascot/']) {
+      const date = lastmodFor(path)
+      if (!date) throw new Error(`missing lastmod for ${path}`)
+      expect(date.getTime()).toBeLessThanOrEqual(latest)
+      expect(date.toISOString()).toMatch(iso)
+    }
   })
 })
 
@@ -43,6 +86,8 @@ suite('jsonld', () => {
     const ld = blogPostingLd({ url: 'https://x.dev/blog/a/', title: 'T', description: 'D', published: d, author: personLd({ name: 'A', url: 'https://x.dev/' }) })
     expect(ld.datePublished).toBe(d.toISOString())
     expect(ld.dateModified).toBe(d.toISOString())
+    expect(ld.publisher).toEqual(ld.author)
+    expect(ld.publisher).toMatchObject({ '@type': 'Person', name: 'A', url: 'https://x.dev/' })
   })
   it('numbers breadcrumbs from 1', () => {
     expect(breadcrumbLd([{ name: 'a', url: 'u1' }, { name: 'b', url: 'u2' }]).itemListElement.map((i) => i.position)).toEqual([1, 2])

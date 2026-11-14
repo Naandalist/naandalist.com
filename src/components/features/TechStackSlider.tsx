@@ -120,6 +120,41 @@ const row3: Stack[] = [
   { name: 'windows', alt: 'Windows', url: 'https://microsoft.com/windows' },
 ]
 
+function StackTile({
+  stack,
+  hovered,
+  onEnter,
+  onLeave,
+}: {
+  stack: Stack
+  hovered: boolean
+  onEnter: () => void
+  onLeave: () => void
+}) {
+  return (
+    <Tooltip label={stack.alt}>
+      <a
+        href={stack.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={stack.alt}
+        className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] glass-card dark:bg-none dark:bg-foreground/10 border-1 p-2 sm:p-2 shadow-2 dark:shadow-1"
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
+      >
+        <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:hidden pointer-events-none" />
+        <span className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white">
+          {hovered ? (
+            <ExternalLink size="1.6em" className="text-neutral-800 dark:text-white/80" aria-hidden="true" />
+          ) : (
+            <StackIcon name={stack.name} className="flex" />
+          )}
+        </span>
+      </a>
+    </Tooltip>
+  )
+}
+
 export default function TechStackSlider() {
   const [hoveredKey, setHoveredKey] = useState<string | null>(null)
   const [isDesktop, setIsDesktop] = useState(false)
@@ -163,34 +198,13 @@ export default function TechStackSlider() {
           innerClassName="gap-2 [--duration:148s]"
         >
           {row1.map((stack) => (
-            <Tooltip key={stack.name} label={stack.alt}>
-              <a
-                href={stack.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={stack.alt}
-                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] glass-card dark:bg-none dark:bg-foreground/10 border-1 p-2 sm:p-2 shadow-2 dark:shadow-1"
-                onMouseEnter={() => setHoveredKey(stack.name)}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:hidden pointer-events-none" />
-                <span
-                  className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
-                  draggable={false}
-                >
-                  {hoveredKey === stack.name ? (
-                    <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
-                  ) : (
-                    <StackIcon name={stack.name} className="flex sm:hidden" />
-                  )}
-                  {hoveredKey === stack.name ? (
-                    <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
-                  ) : (
-                    <StackIcon name={stack.name} className="hidden sm:flex" />
-                  )}
-                </span>
-              </a>
-            </Tooltip>
+            <StackTile
+              key={stack.name}
+              stack={stack}
+              hovered={hoveredKey === stack.name}
+              onEnter={() => setHoveredKey(stack.name)}
+              onLeave={() => setHoveredKey(null)}
+            />
           ))}
         </Marquee>
 
@@ -205,34 +219,13 @@ export default function TechStackSlider() {
           innerClassName="gap-2 [--duration:80s]"
         >
           {row2.map((stack) => (
-            <Tooltip key={stack.name} label={stack.alt}>
-              <a
-                href={stack.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={stack.alt}
-                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] glass-card dark:bg-none dark:bg-foreground/10 border-1 p-2 sm:p-2 shadow-2 dark:shadow-1"
-                onMouseEnter={() => setHoveredKey(stack.name)}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:hidden pointer-events-none" />
-                <span
-                  className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
-                  draggable={false}
-                >
-                  {hoveredKey === stack.name ? (
-                    <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
-                  ) : (
-                    <StackIcon name={stack.name} className="flex sm:hidden" />
-                  )}
-                  {hoveredKey === stack.name ? (
-                    <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
-                  ) : (
-                    <StackIcon name={stack.name} className="hidden sm:flex" />
-                  )}
-                </span>
-              </a>
-            </Tooltip>
+            <StackTile
+              key={stack.name}
+              stack={stack}
+              hovered={hoveredKey === stack.name}
+              onEnter={() => setHoveredKey(stack.name)}
+              onLeave={() => setHoveredKey(null)}
+            />
           ))}
         </Marquee>
 
@@ -246,34 +239,13 @@ export default function TechStackSlider() {
           innerClassName="gap-2 [--duration:68s]"
         >
           {row3.map((stack) => (
-            <Tooltip key={stack.name} label={stack.alt}>
-              <a
-                href={stack.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={stack.alt}
-                className="relative mx-1 sm:mx-2 flex h-12 w-14 cursor-pointer items-center justify-center rounded-md bg-linear-to-br from-[#ffffff] to-[#e6e6e6] glass-card dark:bg-none dark:bg-foreground/10 border-1 p-2 sm:p-2 shadow-2 dark:shadow-1"
-                onMouseEnter={() => setHoveredKey(stack.name)}
-                onMouseLeave={() => setHoveredKey(null)}
-              >
-                <div className="absolute h-12 w-14 rounded-md border-2 border-b-0 border-r-0 border-white dark:hidden pointer-events-none" />
-                <span
-                  className="h-full w-full select-none flex items-center justify-center transition-all duration-150 text-neutral-900 dark:text-white"
-                  draggable={false}
-                >
-                  {hoveredKey === stack.name ? (
-                    <ExternalLink size="1.6em" className="sm:hidden text-neutral-800 dark:text-white/80" aria-hidden="true" />
-                  ) : (
-                    <StackIcon name={stack.name} className="flex sm:hidden" />
-                  )}
-                  {hoveredKey === stack.name ? (
-                    <ExternalLink size="1.6em" className="hidden sm:inline text-neutral-800 dark:text-white/80" aria-hidden="true" />
-                  ) : (
-                    <StackIcon name={stack.name} className="hidden sm:flex" />
-                  )}
-                </span>
-              </a>
-            </Tooltip>
+            <StackTile
+              key={stack.name}
+              stack={stack}
+              hovered={hoveredKey === stack.name}
+              onEnter={() => setHoveredKey(stack.name)}
+              onLeave={() => setHoveredKey(null)}
+            />
           ))}
         </Marquee>
       </div>
