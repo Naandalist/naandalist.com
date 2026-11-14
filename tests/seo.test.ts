@@ -64,6 +64,8 @@ suite('jsonld', () => {
     const ld = blogPostingLd({ url: 'https://x.dev/blog/a/', title: 'T', description: 'D', published: d, author: personLd({ name: 'A', url: 'https://x.dev/' }) })
     expect(ld.datePublished).toBe(d.toISOString())
     expect(ld.dateModified).toBe(d.toISOString())
+    expect(ld.publisher).toEqual(ld.author)
+    expect(ld.publisher).toMatchObject({ '@type': 'Person', name: 'A', url: 'https://x.dev/' })
   })
   it('numbers breadcrumbs from 1', () => {
     expect(breadcrumbLd([{ name: 'a', url: 'u1' }, { name: 'b', url: 'u2' }]).itemListElement.map((i) => i.position)).toEqual([1, 2])

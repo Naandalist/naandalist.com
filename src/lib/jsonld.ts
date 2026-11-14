@@ -53,6 +53,7 @@ export function blogPostingLd(p: { url: string; title: string; description: stri
       image: p.image,
       keywords: p.tags,
       author: p.author,
+      publisher: p.author,
       mainEntityOfPage: { '@type': 'WebPage', '@id': p.url },
       inLanguage: 'en',
     }),
