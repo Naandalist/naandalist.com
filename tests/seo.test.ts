@@ -1,7 +1,7 @@
 import { describe as suite, it, expect } from 'bun:test'
 import vercel from '../vercel.json'
 import { robotsTxt, TRAINING_BOTS } from '../src/lib/robots'
-import { sourcesFor, frontmatterDate, newestPostDate } from '../src/lib/lastmod'
+import { sourcesFor, frontmatterDate, newestPostDate, fallbackDate, lastmodFor } from '../src/lib/lastmod'
 import { blogPostingLd, breadcrumbLd, collectionPageLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
 import { llmsFullTxt, llmsTxt, stripMdx, type LlmsInput } from '../src/lib/llms'
 
@@ -41,6 +41,7 @@ suite('lastmod sources', () => {
   it('maps pages to the content that feeds them', () => {
     expect(sourcesFor('/')).toContain('src/content/authors/naandalist.md')
     expect(sourcesFor('/about/')).toContain('src/pages/about.astro')
+    expect(sourcesFor('/contact/')).toEqual(['src/pages/contact.astro', 'src/content/authors/naandalist.md'])
     expect(sourcesFor('/blog/hello-world/')[0]).toBe('src/content/blog/hello-world')
     expect(sourcesFor('/blog/2/')).toEqual(['src/content/blog'])
     expect(sourcesFor('/unknown/')).toEqual([])
@@ -50,6 +51,27 @@ suite('lastmod sources', () => {
   })
   it('reads a post date from frontmatter when git is not usable', () => {
     expect(frontmatterDate(['src/content/blog/git-commit-message-convention'])).toBeInstanceOf(Date)
+  })
+  it('treats blog pagination as a list, not a post slug', () => {
+    expect(fallbackDate('/blog/2/')?.valueOf()).toBe(newestPostDate()?.valueOf())
+    expect(fallbackDate('/blog/2/')?.valueOf()).toBe(fallbackDate('/blog/')?.valueOf())
+  })
+  it('falls back to collection dates for posts, projects and packages', () => {
+    expect(fallbackDate('/blog/git-commit-message-convention/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/projects/web-ringkaskata/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/npmjs/blobmascot/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/npmjs/')).toBeInstanceOf(Date)
+    expect(fallbackDate('/contact/')).toBeUndefined()
+  })
+  it('writes ISO lastmod dates that are not in the future', () => {
+    const iso = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+    const latest = Date.now() + 86_400_000
+    for (const path of ['/', '/about/', '/blog/', '/blog/2/', '/contact/', '/projects/web-ringkaskata/', '/npmjs/blobmascot/']) {
+      const date = lastmodFor(path)
+      if (!date) throw new Error(`missing lastmod for ${path}`)
+      expect(date.getTime()).toBeLessThanOrEqual(latest)
+      expect(date.toISOString()).toMatch(iso)
+    }
   })
 })
 

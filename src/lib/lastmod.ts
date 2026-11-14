@@ -1,7 +1,7 @@
 /**
  * Last modified dates for the sitemap, taken from git so they change only when the content does.
- * On a shallow clone (some CI setups) git history is cut off and every file would look new, so there we
- * fall back to the date in a post's frontmatter and leave other pages without a date. A wrong date is worse
+ * On a shallow clone (Vercel, some CI) git history is cut off and every file would look new, so there we
+ * fall back to `updated` / `date` in frontmatter and leave pages without a date. A wrong date is worse
  * than none, because Google stops trusting lastmod once it sees dates that never match reality.
  */
 import { execFileSync } from 'node:child_process'
@@ -9,6 +9,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs'
 
 const CONTENT = 'src/content'
 const PAGES = 'src/pages'
+const DAY_MS = 86_400_000
 
 /** Source files or folders whose change means the page at `pathname` changed. */
 export function sourcesFor(pathname: string): string[] {
@@ -17,6 +18,7 @@ export function sourcesFor(pathname: string): string[] {
   if (path === '/') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/index.astro`, `${CONTENT}/blog`, `${CONTENT}/projects`, `${CONTENT}/npmjs`]
   if (path === '/about') return [`${CONTENT}/authors/naandalist.md`, `${PAGES}/about.astro`, `${CONTENT}/work`]
   if (path === '/chat') return [`${PAGES}/chat.astro`]
+  if (path === '/contact') return [`${PAGES}/contact.astro`, `${CONTENT}/authors/naandalist.md`]
   if (path === '/privacy' || path === '/terms') return [`${PAGES}${path}.md`]
   if (post && !/^\d+$/.test(post[1])) return [`${CONTENT}/blog/${post[1]}`, `${CONTENT}/blog/${post[1]}.md`, `${CONTENT}/blog/${post[1]}.mdx`]
   if (path.startsWith('/blog') || path.startsWith('/tags')) return [`${CONTENT}/blog`]
@@ -67,9 +69,8 @@ export function frontmatterDate(files: string[]): Date | undefined {
   return d && !Number.isNaN(d.valueOf()) ? d : undefined
 }
 
-/** Newest `updated` or `date` across all posts. The home page, blog list and tag pages change with it. */
-export function newestPostDate(): Date | undefined {
-  const dir = `${CONTENT}/blog`
+/** Newest `updated` or `date` across entries in a content folder. */
+function newestIn(dir: string): Date | undefined {
   if (!existsSync(dir)) return undefined
   const dates = readdirSync(dir)
     .map((name) => frontmatterDate([`${dir}/${name}`]))
@@ -77,12 +78,41 @@ export function newestPostDate(): Date | undefined {
   return dates.length ? new Date(Math.max(...dates.map((d) => d.valueOf()))) : undefined
 }
 
+/** Newest `updated` or `date` across all posts. The blog list and tag pages change with it. */
+export function newestPostDate(): Date | undefined {
+  return newestIn(`${CONTENT}/blog`)
+}
+
+/**
+ * Frontmatter dates used when git history is not trustworthy.
+ * Blog pagination (`/blog/2/`) is a list page, not a post slug.
+ */
+export function fallbackDate(pathname: string): Date | undefined {
+  const path = pathname.replace(/\/+$/, '') || '/'
+  const sources = sourcesFor(pathname)
+  const post = path.match(/^\/blog\/([^/]+)$/)
+  if (post && !/^\d+$/.test(post[1])) return frontmatterDate(sources)
+  if (path === '/') {
+    const dates = [newestIn(`${CONTENT}/blog`), newestIn(`${CONTENT}/projects`), newestIn(`${CONTENT}/npmjs`)].filter(
+      (d): d is Date => d !== undefined,
+    )
+    return dates.length ? new Date(Math.max(...dates.map((d) => d.valueOf()))) : undefined
+  }
+  if (path.startsWith('/blog') || path.startsWith('/tags')) return newestPostDate()
+  if (path.match(/^\/projects\/[^/]+$/) || path.match(/^\/npmjs\/[^/]+$/)) return frontmatterDate(sources)
+  if (path === '/npmjs') return newestIn(`${CONTENT}/npmjs`)
+  return undefined
+}
+
+/** Drop dates that have not happened yet. One day of clock skew is allowed. */
+function usable(date: Date | undefined): Date | undefined {
+  if (!date || Number.isNaN(date.valueOf())) return undefined
+  if (date.getTime() > Date.now() + DAY_MS) return undefined
+  return date
+}
+
 export function lastmodFor(pathname: string): Date | undefined {
   const sources = sourcesFor(pathname)
   if (!sources.length) return undefined
-  const fromGit = gitDate(sources)
-  if (fromGit) return fromGit
-  // No usable history: a post has its own date, and the pages that list posts change when the newest post does.
-  if (/^\/blog\/[^/]+\/?$/.test(pathname)) return frontmatterDate(sources)
-  return pathname === '/' || pathname.startsWith('/blog') || pathname.startsWith('/tags') ? newestPostDate() : undefined
+  return usable(gitDate(sources) ?? fallbackDate(pathname))
 }
