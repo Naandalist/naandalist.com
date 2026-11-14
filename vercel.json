@@ -8,6 +8,8 @@
     { "source": "/id/contact", "destination": "/about", "permanent": true },
     { "source": "/authors", "destination": "/about", "permanent": true },
     { "source": "/authors/", "destination": "/about", "permanent": true },
+    { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
+    { "source": "/sitemap.xml/", "destination": "/sitemap-index.xml", "permanent": true },
     { "source": "/resume", "destination": "/resume/Listiananda-Apriliawan-Frontend-Engineer.pdf", "permanent": false }
   ],
   "headers": [

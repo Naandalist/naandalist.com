@@ -1,4 +1,5 @@
 import { describe as suite, it, expect } from 'bun:test'
+import vercel from '../vercel.json'
 import { robotsTxt, TRAINING_BOTS } from '../src/lib/robots'
 import { sourcesFor, frontmatterDate, newestPostDate } from '../src/lib/lastmod'
 import { blogPostingLd, breadcrumbLd, collectionPageLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
@@ -13,6 +14,17 @@ suite('robots', () => {
   })
   it('never blocks search or answer bots', () => {
     for (const bot of ['Googlebot', 'Bingbot', 'OAI-SearchBot', 'Claude-SearchBot', 'PerplexityBot']) expect(txt).not.toContain(`User-agent: ${bot}`)
+  })
+})
+
+suite('crawler redirects', () => {
+  it('sends /sitemap.xml to the generated sitemap index', () => {
+    const hits = vercel.redirects.filter((r) => r.source === '/sitemap.xml' || r.source === '/sitemap.xml/')
+    expect(hits.length).toBe(2)
+    for (const r of hits) {
+      expect(r.destination).toBe('/sitemap-index.xml')
+      expect(r.permanent).toBe(true)
+    }
   })
 })
 
