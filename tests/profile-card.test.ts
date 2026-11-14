@@ -27,6 +27,7 @@ describe('profile card', () => {
   it('shows the same square photo as About, in full color, without a border', async () => {
     const card = await read('src/components/profile/ProfileCard.tsx')
     const img = card.match(/<img[\s\S]*?\/>/)?.[0] ?? ''
+    expect(img).toContain('alt={name}')
     expect(img).toContain('rounded-lg')
     expect(img).not.toContain('grayscale')
     expect(img).not.toMatch(/\bborder\b/)

@@ -22,10 +22,16 @@
 
 @utility animate-marquee-left {
   animation: marquee-left var(--duration, 40s) linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @utility animate-marquee-up {
   animation: marquee-up var(--duration, 40s) linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes marquee-left {

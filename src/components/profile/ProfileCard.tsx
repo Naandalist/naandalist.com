@@ -77,7 +77,7 @@ export default function ProfileCard({ name, role, roleLinks = [], pronunciation,
       <div className="relative z-10 flex items-stretch gap-4">
         <img
           src={avatar}
-          alt=""
+          alt={name}
           width={80}
           height={80}
           decoding="async"
