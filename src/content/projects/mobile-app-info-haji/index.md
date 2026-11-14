@@ -9,7 +9,7 @@ link: 'https://play.google.com/store/apps/details?id=com.naandalist.info_haji'
 github: 'https://github.com/Naandalist/info-hajj-app'
 date: 'November 2025'
 updated: 2026-08-29
-techStack: ['React Native', 'TypeScript', 'Redux Toolkit', 'RTK Query', 'React Navigation', 'Jest', 'Hermes']
+techStack: ['React Native', 'TypeScript', 'Redux Toolkit', 'React Query', 'React Navigation', 'Jest', 'Hermes']
 category: 'Books & Reference'
 platforms: ['Android 5.0+']
 price: 'Free & Open Source'

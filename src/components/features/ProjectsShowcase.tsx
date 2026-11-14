@@ -1,116 +1,15 @@
 'use client'
 
-import { ArrowUpRight, BookOpen, SlidersHorizontal, Link2, Check, X, Wrench } from 'lucide-react'
+import { ArrowUpRight, BookOpen, SlidersHorizontal, Link2, Check, X } from 'lucide-react'
 import { AnimatePresence, motion, useInView } from 'motion/react'
 import { useState, useRef, useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { StackIcon } from './StackIcon'
-import { PiAmazonLogo, PiOpenAiLogo } from 'react-icons/pi'
-import { VscAzureDevops } from 'react-icons/vsc'
-import {
-  SiAstro,
-  SiDjango,
-  SiDocker,
-  SiExpo,
-  SiFastapi,
-  SiFlutter,
-  SiGit,
-  SiGithub,
-  SiGo,
-  SiGooglecloud,
-  SiGraphql,
-  SiJavascript,
-  SiKubernetes,
-  SiMongodb,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiPostgresql,
-  SiPrisma,
-  SiPython,
-  SiReact,
-  SiRedis,
-  SiRust,
-  SiSupabase,
-  SiTailwindcss,
-  SiTypescript,
-  SiVercel,
-  SiLangchain,
-  SiVite,
-  SiCloudinary,
-  SiCreatereactapp,
-  SiDrizzle,
-  SiDynatrace,
-  SiFastlane,
-  SiGooglegemini,
-  SiHermes,
-  SiJest,
-  SiJsdelivr,
-  SiNeon,
-  SiReactquery,
-  SiRedux,
-  SiReduxsaga,
-  SiResend,
-  SiSentry,
-  SiSnyk
-} from 'react-icons/si'
+import { SiGithub } from 'react-icons/si'
 
-const techIconMap: Record<
-  string,
-  React.ComponentType<{ size?: number; className?: string }>
-> = {
-  'Next.js': SiNextdotjs,
-  React: SiReact,
-  'React Native': SiReact,
-  TypeScript: SiTypescript,
-  TailwindCSS: SiTailwindcss,
-  Supabase: SiSupabase,
-  PostgreSQL: SiPostgresql,
-  Python: SiPython,
-  'Google Cloud': SiGooglecloud,
-  Expo: SiExpo,
-  OpenAI: PiOpenAiLogo,
-  'Node.js': SiNodedotjs,
-  Prisma: SiPrisma,
-  Docker: SiDocker,
-  Git: SiGit,
-  Vercel: SiVercel,
-  MongoDB: SiMongodb,
-  Redis: SiRedis,
-  GraphQL: SiGraphql,
-  Astro: SiAstro,
-  JavaScript: SiJavascript,
-  Go: SiGo,
-  Rust: SiRust,
-  FastAPI: SiFastapi,
-  Django: SiDjango,
-  Flutter: SiFlutter,
-  Kubernetes: SiKubernetes,
-  AWS: PiAmazonLogo,
-  Langchain: SiLangchain,
-  Vite: SiVite,
-  'Redux Toolkit': SiRedux,
-  'RTK Query': SiRedux,
-  'Redux Saga': SiReduxsaga,
-  'React Query': SiReactquery,
-  Snyk: SiSnyk,
-  Dynatrace: SiDynatrace,
-  Sentry: SiSentry,
-  Jest: SiJest,
-  Fastlane: SiFastlane,
-  'Drizzle ORM': SiDrizzle,
-  Resend: SiResend,
-  Cloudinary: SiCloudinary,
-  'Neon PostgreSQL': SiNeon,
-  'Google Gemini': SiGooglegemini,
-  Hermes: SiHermes,
-  'Create React App': SiCreatereactapp,
-  jsDelivr: SiJsdelivr,
-  'Azure DevOps': VscAzureDevops,
-}
-
-// Coloured tile for a technology, from public/static/skills (see StackIcon). Names without an entry keep the glass tile.
+// Coloured tile for a technology, from public/static/skills (see StackIcon). Techs without an entry are not shown.
 const techSkillIcon: Record<string, string> = {
   'Next.js': 'nextjs',
   React: 'react',
@@ -120,7 +19,11 @@ const techSkillIcon: Record<string, string> = {
   TailwindCSS: 'tailwind',
   Supabase: 'supabase',
   PostgreSQL: 'postgres',
-  'Neon PostgreSQL': 'postgres',
+  'Neon PostgreSQL': 'neon',
+  'Drizzle ORM': 'drizzle',
+  Resend: 'resend',
+  TipTap: 'tiptap',
+  Cloudinary: 'cloudinary',
   Python: 'py',
   'Node.js': 'nodejs',
   Prisma: 'prisma',
@@ -138,8 +41,14 @@ const techSkillIcon: Record<string, string> = {
   'Azure DevOps': 'azure',
   'patch-package': 'npm',
   'Redux Toolkit': 'redux',
-  'RTK Query': 'redux',
   'Redux Saga': 'redux',
+  Dynatrace: 'dynatrace',
+  Fastlane: 'fastlane',
+  Maestro: 'maestro',
+  Snyk: 'snyk',
+  'React Query': 'react-query',
+  'Google Gemini': 'gemini',
+  jsDelivr: 'jsdelivr',
 }
 
 export type ProjectItem = {
@@ -346,9 +255,9 @@ function CopyLinkButton({ slug, className = "h-7 w-7", glass = false }: { slug: 
   )
 }
 
-/** At most four technologies for the card footer, those with a coloured icon first (order otherwise kept). */
+/** At most four technologies for the card footer. Only names with an icon in public/static/skills are shown. */
 function footerTech(techStack: string[] = []) {
-  return [...techStack.filter((t) => techSkillIcon[t]), ...techStack.filter((t) => !techSkillIcon[t])].slice(0, 4)
+  return techStack.filter((t) => techSkillIcon[t]).slice(0, 4)
 }
 
 function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenModal: () => void }) {
@@ -528,22 +437,13 @@ function ProjectCard({ project, onOpenModal }: { project: ProjectItem; onOpenMod
           <div className="relative flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               {footerTech(project.techStack).map((tech) => {
-                const skill = techSkillIcon[tech]
-                const Icon = techIconMap[tech] ?? Wrench
                 return (
                   <span
                     key={tech}
                     title={tech}
                     className="flex text-foreground/70 transition-colors hover:text-foreground shrink-0"
                   >
-                    {skill ? (
-                      <StackIcon name={skill} className="flex" imgClassName="size-3.5 sm:size-4" />
-                    ) : (
-                      <>
-                        <Icon size={14} className="sm:hidden" aria-hidden="true" />
-                        <Icon size={16} className="hidden sm:inline" aria-hidden="true" />
-                      </>
-                    )}
+                    <StackIcon name={techSkillIcon[tech]} className="flex" imgClassName="size-3.5 sm:size-4" />
                   </span>
                 )
               })}
@@ -723,23 +623,12 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                 <div className="pt-2">
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground/50 mb-2 sm:mb-3">Powered By</h4>
                   <div className="grid grid-cols-2 gap-y-2 sm:gap-y-3 gap-x-4 sm:gap-x-6">
-                    {project.techStack?.map((tech) => {
-                      const skill = techSkillIcon[tech]
-                      const Icon = techIconMap[tech] ?? Wrench
-                      return (
-                        <div key={tech} className="flex items-center gap-2 sm:gap-2.5 group">
-                          {skill ? (
-                            <StackIcon name={skill} className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0" imgClassName="size-full" />
-                          ) : (
-                            <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md bg-foreground/10 border-1 glass-card [--border-glass:var(--foreground)_/_0.2] [--border-glass-hover:var(--foreground)_/_0.2] transition-all group-hover:bg-foreground/20">
-                              <Icon size={12} className="sm:hidden text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
-                              <Icon size={14} className="hidden sm:inline text-foreground/60 group-hover:text-foreground transition-colors" aria-hidden="true" />
-                            </div>
-                          )}
-                          <span className="text-xs sm:text-xs font-medium text-foreground/50 group-hover:text-foreground transition-colors truncate">{tech}</span>
-                        </div>
-                      )
-                    })}
+                    {project.techStack?.filter((tech) => techSkillIcon[tech]).map((tech) => (
+                      <div key={tech} className="flex items-center gap-2 sm:gap-2.5 group">
+                        <StackIcon name={techSkillIcon[tech]} className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0" imgClassName="size-full" />
+                        <span className="text-xs sm:text-xs font-medium text-foreground/50 group-hover:text-foreground transition-colors truncate">{tech}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

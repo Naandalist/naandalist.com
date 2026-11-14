@@ -18,6 +18,8 @@ import Layout from '@/layouts/Layout.astro'
 import { getImage } from 'astro:assets'
 import { getCollection, getEntry } from 'astro:content'
 import { describe, personLd, websiteLd } from '@/lib/jsonld'
+import { readdirSync } from 'node:fs'
+import { join } from 'node:path'
 
 const author = await getEntry('authors', 'naandalist')
 const home = author?.data.home
@@ -64,6 +66,15 @@ const projectsData = rawProjects.map((p) => ({
   date: p.data.date,
   techStack: p.data.techStack,
 }))
+// Icon names come from the files in public/static/skills (<name>.svg, <name>-light.svg, <name>-dark.svg).
+const skillIcons = [
+  ...new Set(
+    readdirSync(join(process.cwd(), 'public/static/skills'))
+      .filter((file) => file.endsWith('.svg'))
+      .map((file) => file.replace(/(-light|-dark)?\.svg$/, '')),
+  ),
+]
+
 const siteUrl = new URL('/', Astro.site).href
 const homeDescription = describe(author?.data.home?.tagline ?? SITE.DESCRIPTION)
 const jsonLd = [
@@ -142,7 +153,7 @@ const jsonLd = [
       <div role="region" aria-label="Tech Stack"
         class="flex min-h-64 sm:min-h-72 w-full flex-col overflow-hidden rounded-lg border-1 glass-card p-4 text-foreground shadow-1 backdrop-blur-md lg:col-span-5">
         <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">My tech stack and Tools</p>
-        <TechStackSlider client:idle />
+        <TechStackSlider icons={skillIcons} client:idle />
       </div>
 
     </section>

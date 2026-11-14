@@ -166,7 +166,11 @@ function StackTile({
   )
 }
 
-export default function TechStackSlider() {
+export default function TechStackSlider({ icons }: { icons: string[] }) {
+  // Only show a tile when its icon exists in public/static/skills.
+  const available = new Set(icons)
+  const rows = [row1, row2, row3].map((row) => row.filter((stack) => available.has(stack.name)))
+  const [row1Stacks, row2Stacks, row3Stacks] = rows
   const [hoveredKey, setHoveredKey] = useState<string | null>(null)
   const [isDesktop, setIsDesktop] = useState(false)
   const [marqueeKey, setMarqueeKey] = useState(0)
@@ -208,7 +212,7 @@ export default function TechStackSlider() {
           className="mb-4 transform rotate-1"
           innerClassName="gap-2 [--duration:148s]"
         >
-          {row1.map((stack) => (
+          {row1Stacks.map((stack) => (
             <StackTile
               key={stack.name}
               stack={stack}
@@ -229,7 +233,7 @@ export default function TechStackSlider() {
           className="mb-4 transform rotate-1"
           innerClassName="gap-2 [--duration:80s]"
         >
-          {row2.map((stack) => (
+          {row2Stacks.map((stack) => (
             <StackTile
               key={stack.name}
               stack={stack}
@@ -249,7 +253,7 @@ export default function TechStackSlider() {
           className="mb-4 transform rotate-1"
           innerClassName="gap-2 [--duration:68s]"
         >
-          {row3.map((stack) => (
+          {row3Stacks.map((stack) => (
             <StackTile
               key={stack.name}
               stack={stack}

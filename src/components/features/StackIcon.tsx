@@ -9,7 +9,7 @@ const THEMED = new Set([
   'alpinejs', 'anaconda', 'androidstudio', 'apple', 'astro', 'aws', 'azure', 'bash', 'bitbucket', 'bun', 'cloudflare', 'cloudinary',
   'debian', 'deno', 'dev', 'drizzle', 'dynatrace', 'express', 'fastlane', 'figma', 'firebase', 'flutter', 'gemini', 'github', 'githubactions', 'gitlab',
   'gmail', 'gradle', 'godot', 'jenkins', 'jsdelivr', 'kotlin', 'laravel', 'linux', 'maestro', 'md', 'materialui', 'mint', 'mysql',
-  'netlify', 'nextjs', 'nodejs', 'notion', 'odoo', 'npm', 'obsidian', 'pnpm', 'postgres', 'py', 'react', 'react-query', 'resend', 'snyk', 'supabase',
+  'netlify', 'neon', 'nextjs', 'nodejs', 'notion', 'odoo', 'npm', 'obsidian', 'pnpm', 'postgres', 'py', 'react', 'react-query', 'resend', 'snyk', 'supabase',
   'tailwind', 'tiptap', 'ubuntu', 'grokbot', 'codex', 'claude', 'kimi', 'deepseek', 'huggingface', 'vercel', 'vite', 'vitest', 'vscode', 'webpack', 'windows', 'yarn',
 ])
 
