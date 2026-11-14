@@ -116,9 +116,10 @@ const leaders = vLabels.map((l) => {
 })
 ---
 
-<div class="about-card glass-card hidden flex-col gap-4 p-6 lg:flex">
+<div class="about-card glass-card flex flex-col gap-4 p-4 sm:p-6">
+  {/* One heading for both layouts, so the HTML has a single h2. */}
   <slot name="heading" />
-  <ol class="relative" style={`height: ${u(labelArea + barArea)}`}>
+  <ol class="relative hidden lg:block" style={`height: ${u(labelArea + barArea)}`}>
     {labels.map((l) => (
       <li>
         <div
@@ -158,16 +159,12 @@ const leaders = vLabels.map((l) => {
       </li>
     ))}
   </ol>
-  <div class="mt-2 grid" style={`grid-template-columns: repeat(${years.length}, minmax(0, 1fr))`} aria-hidden="true">
+  <div class="mt-2 hidden lg:grid" style={`grid-template-columns: repeat(${years.length}, minmax(0, 1fr))`} aria-hidden="true">
     {years.map((y) => (
       <span class="border-l-2 border-foreground/25 py-1 text-center font-mono text-xs text-muted-foreground first:border-l-0">{y}</span>
     ))}
   </div>
-</div>
-
-<div class="about-card glass-card flex flex-col gap-4 p-4 sm:p-6 lg:hidden">
-  <slot name="heading" />
-  <div class="flex">
+  <div class="flex lg:hidden">
     <div class="flex w-9 shrink-0 flex-col" aria-hidden="true">
       {[...years].reverse().map((y) => (
         <span class="flex items-center border-t-2 border-foreground/25 font-mono text-xs text-muted-foreground first:border-t-0" style={`height: ${u(YEAR)}`}>{y}</span>
