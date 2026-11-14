@@ -5,9 +5,9 @@ import { badgeVariants } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { Separator } from '@/components/ui/Separator'
 import Layout from '@/layouts/Layout.astro'
-import { breadcrumbLd } from '@/lib/jsonld'
+import { breadcrumbLd, creativeWorkLd, personLd } from '@/lib/jsonld'
 import { Icon } from 'astro-icon/components'
-import { type CollectionEntry, getCollection, render } from 'astro:content'
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content'
 
 // Projects with a case study get their own page. The rest redirect to their card on the home page.
 export async function getStaticPaths() {
@@ -27,7 +27,17 @@ const { name, description, date, category, platforms, price, techStack, link, gi
 
 const siteUrl = new URL('/', Astro.site).href
 const projectUrl = new URL(`/projects/${project.id}/`, Astro.site).href
+const owner = await getEntry('authors', 'naandalist')
 const jsonLd = [
+  creativeWorkLd({
+    url: projectUrl,
+    name,
+    description,
+    image: fallback ? new URL(fallback, siteUrl).href : undefined,
+    sameAs: [link, github],
+    modified: project.data.updated,
+    author: personLd({ name: owner?.data.name ?? 'Listiananda Apriliawan', url: siteUrl }),
+  }),
   breadcrumbLd([
     { name: 'Home', url: siteUrl },
     { name, url: projectUrl },

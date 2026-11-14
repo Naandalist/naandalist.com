@@ -2,7 +2,7 @@ import { describe as suite, it, expect } from 'bun:test'
 import vercel from '../vercel.json'
 import { robotsTxt, TRAINING_BOTS } from '../src/lib/robots'
 import { sourcesFor, frontmatterDate, newestPostDate, fallbackDate, lastmodFor } from '../src/lib/lastmod'
-import { blogPostingLd, breadcrumbLd, collectionPageLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
+import { blogPostingLd, breadcrumbLd, collectionPageLd, creativeWorkLd, describe, softwareSourceCodeLd, personLd, plainText, serializeLd } from '../src/lib/jsonld'
 import { llmsFullTxt, llmsTxt, stripMdx, type LlmsInput } from '../src/lib/llms'
 
 suite('robots', () => {
@@ -34,6 +34,13 @@ suite('crawler redirects', () => {
       expect(r.permanent).toBe(true)
     }
     expect(vercel.redirects.some((r) => r.source.includes('/projects/:'))).toBe(false)
+  })
+})
+
+suite('sitemap filter', () => {
+  it('keeps author archives out of the sitemap', async () => {
+    const src = await Bun.file('astro.config.ts').text()
+    expect(src).toMatch(/!new URL\(page\)\.pathname\.startsWith\('\/authors'\)/)
   })
 })
 
@@ -113,6 +120,20 @@ suite('jsonld', () => {
     const ld = collectionPageLd({ url: 'u', name: 'n', description: 'd', items: [{ name: 'a', url: 'u1' }, { name: 'b', url: 'u2' }] })
     expect(ld['@type']).toBe('CollectionPage')
     expect(ld.mainEntity.itemListElement.map((i) => i.position)).toEqual([1, 2])
+  })
+  it('describes a case study as CreativeWork', () => {
+    const ld = creativeWorkLd({
+      url: 'https://x.dev/projects/p/',
+      name: 'P',
+      description: 'A project',
+      sameAs: ['https://p.dev', undefined],
+      modified: new Date('2026-08-29T00:00:00Z'),
+      author: personLd({ name: 'A', url: 'https://x.dev/' }),
+    })
+    expect(ld['@type']).toBe('CreativeWork')
+    expect(ld.sameAs).toEqual(['https://p.dev'])
+    expect(ld.dateModified).toBe('2026-08-29T00:00:00.000Z')
+    expect('image' in ld).toBe(false)
   })
   it('describes a package and drops the repository when there is none', () => {
     const ld = softwareSourceCodeLd({ url: 'u', name: 'pkg', description: 'd', npm: 'https://npm/pkg', version: '1.0.0', license: 'MIT', published: new Date('2026-01-02T00:00:00Z'), author: personLd({ name: 'A', url: 'https://x.dev/' }) })

@@ -4,7 +4,7 @@ import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import Layout from '@/layouts/Layout.astro'
-import { describe } from '@/lib/jsonld'
+import { collectionPageLd } from '@/lib/jsonld'
 import { type CollectionEntry, getCollection } from 'astro:content'
 import { getImage } from 'astro:assets'
 
@@ -37,20 +37,28 @@ const authorPosts = allPosts
   })
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 
-const authorDescription = describe(
-  author.data.about?.intro ??
-    author.data.home?.tagline ??
-    author.data.role ??
-    author.data.bio ??
-    `Profile of ${author.data.name}.`,
-)
+const publishedPosts = authorPosts.filter((post) => !post.data.draft)
+const siteUrl = new URL('/', Astro.site).href
+const authorDescription = `Articles by ${author.data.name} on frontend, mobile, React Native, and shipping software.`
+const jsonLd = [
+  collectionPageLd({
+    url: new URL(`/authors/${author.id}/`, siteUrl).href,
+    name: `Posts by ${author.data.name}`,
+    description: authorDescription,
+    items: publishedPosts.map((post) => ({
+      name: post.data.title,
+      url: new URL(`/blog/${post.id}/`, siteUrl).href,
+    })),
+  }),
+]
 ---
 
 <Layout
-  title={author.data.name}
-  fullTitle={author.data.name}
+  title={`Posts by ${author.data.name}`}
+  fullTitle={`Posts by ${author.data.name}`}
   description={authorDescription}
   imageAlt={`Portrait of ${author.data.name}`}
+  jsonLd={jsonLd}
 >
   <Container class="flex flex-col gap-y-6">
     <Breadcrumbs
@@ -80,9 +88,9 @@ const authorDescription = describe(
     <section class="flex flex-col gap-y-4">
       <h2 class="text-2xl font-semibold">Posts by {author.data.name}</h2>
       {
-        authorPosts.length > 0 ? (
+        publishedPosts.length > 0 ? (
           <ul class="not-prose flex flex-col gap-4">
-            {authorPosts.filter(post => !post.data.draft).map((post) => (
+            {publishedPosts.map((post) => (
               <li>
                 <BlogCard entry={post} />
               </li>
