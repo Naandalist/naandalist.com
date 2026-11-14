@@ -3,6 +3,7 @@
     { "source": "/posts", "destination": "/blog", "permanent": true },
     { "source": "/posts/:slug*", "destination": "/blog/:slug*", "permanent": true },
     { "source": "/projects", "destination": "/", "permanent": true },
+    { "source": "/projects/", "destination": "/", "permanent": true },
     { "source": "/work", "destination": "/about#experience", "permanent": true },
     { "source": "/id", "destination": "/", "permanent": true },
     { "source": "/id/contact", "destination": "/about", "permanent": true },

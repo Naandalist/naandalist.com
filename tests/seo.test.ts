@@ -26,6 +26,15 @@ suite('crawler redirects', () => {
       expect(r.permanent).toBe(true)
     }
   })
+  it('sends /projects and /projects/ home, and leaves case-study URLs alone', () => {
+    const hits = vercel.redirects.filter((r) => r.source === '/projects' || r.source === '/projects/')
+    expect(hits.length).toBe(2)
+    for (const r of hits) {
+      expect(r.destination).toBe('/')
+      expect(r.permanent).toBe(true)
+    }
+    expect(vercel.redirects.some((r) => r.source.includes('/projects/:'))).toBe(false)
+  })
 })
 
 suite('lastmod sources', () => {
