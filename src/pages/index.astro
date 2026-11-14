@@ -158,15 +158,17 @@ const jsonLd = [
     </section>
 
     <section class="flex flex-col gap-y-4">
-      <div class="flex items-center gap-4">
+      <div class="flex items-center justify-between gap-4">
         <h2 class="shrink-0 font-title text-2xl max-sm:leading-tight sm:text-display-sm">Latest posts</h2>
-        {/* <div className="h-px flex-1 bg-border" /> */}
+        <Link href="/blog" class="group shrink-0 text-sm text-foreground/80 transition-colors hover:text-foreground">
+          See all <span class="inline-block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true">&nearr;</span>
+        </Link>
       </div>
-      <ul class="not-prose flex flex-col gap-y-4">
+      <ul class="not-prose grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {
           blog.map((post) => (
             <li>
-              <BlogCard entry={post} />
+              <BlogCard entry={post} layout="stack" />
             </li>
           ))
         }
