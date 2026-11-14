@@ -10,7 +10,7 @@ import {
 } from "@/lib/cache";
 
 /**
- * Coding activity for the last 7 days from Wakatime, laid out like the waka-readme block on my
+ * All-time coding activity from Wakatime, laid out like the waka-readme block on my
  * GitHub profile: language, time, a 25-character block bar, and percent.
  */
 
@@ -52,13 +52,10 @@ export function humanTime(seconds: number): string {
 
 const percentText = (p: number) => `${p.toFixed(2).padStart(5, "0")} %`;
 
-const sevenDaysAgo = () => {
-  const d = new Date();
-  d.setUTCDate(d.getUTCDate() - 7);
-  return d.toISOString().slice(0, 10);
-};
-
 const WAKATIME_API_URL = import.meta.env.PUBLIC_WAKATIME_API_URL;
+
+// Earliest date the stats endpoint should count from. Hackatime defaults to 10 years back, so pass an explicit start.
+const ALL_TIME_START = "1970-01-01";
 
 const WakatimeBox = ({ omitLanguages = [] }: Props) => {
   const [stats, setStats] = useState<Stats | null>(null);
@@ -73,7 +70,7 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
       return;
     }
 
-    fetch(`${WAKATIME_API_URL}/stats?start_date=${sevenDaysAgo()}`)
+    fetch(`${WAKATIME_API_URL}/stats?start_date=${ALL_TIME_START}`)
       .then((response) => {
         if (!response.ok) throw new Error("Failed to fetch data");
         return response.json();
@@ -107,7 +104,7 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
 
   const header = (total: string) => (
     <div className="flex flex-col">
-      <span className="text-muted-foreground">Last 7 Days</span>
+      <span className="text-muted-foreground">All Time</span>
       <span>
         Total Time:{" "}
         <span className="font-semibold text-foreground">{total}</span>
@@ -154,7 +151,7 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
     >
       {header(humanTime(stats.totalSeconds))}
       {stats.languages.length === 0 ? (
-        <p className="text-muted-foreground">No coding activity this week.</p>
+        <p className="text-muted-foreground">No coding activity yet.</p>
       ) : (
         <ul className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-4 sm:grid-cols-[auto_auto_auto_auto] sm:justify-start">
           {stats.languages.map((lang, i) => (
