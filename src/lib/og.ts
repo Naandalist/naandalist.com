@@ -33,7 +33,7 @@ function loadAssets() {
       font('InstrumentSerif-Regular.ttf'),
       font('Geist-Regular.ttf'),
       font('Geist-SemiBold.ttf'),
-      readFile(join(root, 'public/static/profile/avatar-ink.png')),
+      readFile(join(root, 'public/static/profile/avatar-photo.png')),
     ])
     return {
       fonts: [
