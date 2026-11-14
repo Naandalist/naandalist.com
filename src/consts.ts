@@ -19,7 +19,7 @@ export const SITE: Site = {
     'Personal site of Listiananda Apriliawan, product engineer building web and cross-platform mobile apps.',
   EMAIL: 'dev@naandalist.com',
   NUM_POSTS_ON_HOMEPAGE: 6,
-  NUM_PACKAGES_ON_HOMEPAGE: 3,
+  NUM_PACKAGES_ON_HOMEPAGE: 6,
   POSTS_PER_PAGE: 7,
   SITEURL: 'https://naandalist.com',
 }
