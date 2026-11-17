@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { SiWakatime } from "react-icons/si";
 import {
   getCachedData,
   setCachedData,
@@ -49,8 +50,6 @@ export function humanTime(seconds: number): string {
   const h = hrs > 0 ? `${hrs} hr${hrs === 1 ? "" : "s"} ` : "";
   return `${h}${mins} min${mins === 1 ? "" : "s"}`;
 }
-
-const percentText = (p: number) => `${p.toFixed(2).padStart(5, "0")} %`;
 
 const WAKATIME_API_URL = import.meta.env.PUBLIC_WAKATIME_API_URL;
 
@@ -103,27 +102,40 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
   }, [omitLanguages]);
 
   const header = (total: string) => (
-    <div className="flex flex-col">
-      <span className="text-muted-foreground">All Time</span>
-      <span>
-        Total Time:{" "}
-        <span className="font-semibold text-foreground">{total}</span>
-      </span>
+    <div className="flex flex-col gap-1">
+      <a
+        href="https://wakatime.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        className="flex items-center gap-2 text-sm text-foreground"
+      >
+        <SiWakatime size={14} className="shrink-0" />
+        WakaTime
+      </a>
+      <p className="text-lg font-bold leading-tight text-foreground">
+        {total}{" "}
+        <span className="text-sm font-normal">of coding, all time</span>
+      </p>
+      <p className="text-sm text-muted-foreground">
+        Recorded automatically by WakaTime while I write code.
+      </p>
     </div>
   );
 
+  const wrap = "flex size-full flex-col gap-4";
+
   if (isLoading)
     return (
-      <div className="flex size-full flex-col gap-3 p-2 font-mono text-xs leading-5">
+      <div className={wrap}>
         {header("…")}
-        <ul className="flex flex-col">
+        <ul className="flex flex-col gap-2">
           {(["sk-0", "sk-1", "sk-2", "sk-3", "sk-4"] as const).map((id, i) => (
             <li
               key={id}
-              className={`h-5 items-center ${i < ROWS - 1 ? "flex" : "hidden sm:flex"}`}
+              className={i < ROWS - 1 ? "block" : "hidden sm:block"}
             >
               <div
-                className="h-3 animate-pulse rounded-sm bg-primary/10"
+                className="h-4 animate-pulse rounded-full bg-foreground/10"
                 style={{ width: `${90 - i * 12}%` }}
               />
             </li>
@@ -134,26 +146,26 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
 
   if (error || !stats)
     return (
-      <div className="flex size-full flex-col gap-3 p-2 font-mono text-xs leading-5">
+      <div className={wrap}>
         {header("—")}
-        <p className="whitespace-normal text-muted-foreground">
-          Couldn't reach Wakatime. Check back later.
+        <p className="text-sm text-muted-foreground">
+          Couldn't reach WakaTime. Check back later.
         </p>
       </div>
     );
 
   return (
     <motion.div
-      className="flex size-full flex-col gap-3 p-2 font-mono text-xs leading-5"
+      className={wrap}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
     >
       {header(humanTime(stats.totalSeconds))}
       {stats.languages.length === 0 ? (
-        <p className="text-muted-foreground">No coding activity yet.</p>
+        <p className="text-sm text-muted-foreground">No coding activity yet.</p>
       ) : (
-        <ul className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-4 sm:grid-cols-[auto_auto_auto_auto] sm:justify-start">
+        <ul className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 text-xs">
           {stats.languages.map((lang, i) => (
             // The phone card is shorter, so it shows one row fewer.
             <li
@@ -161,17 +173,17 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
               className={i < ROWS - 1 ? "contents" : "hidden sm:contents"}
             >
               <span className="truncate text-foreground">{lang.name}</span>
-              <span className="text-muted-foreground">
-                {humanTime(lang.seconds)}
-              </span>
               <span
                 aria-hidden="true"
-                className="hidden text-foreground/70 sm:inline"
+                className="h-3 overflow-hidden rounded-full bg-foreground/10"
               >
-                {blockBar(lang.percent)}
+                <span
+                  className="block h-full rounded-full bg-additive/80"
+                  style={{ width: `${Math.min(Math.max(lang.percent, 0), 100)}%` }}
+                />
               </span>
               <span className="text-right tabular-nums text-muted-foreground">
-                {percentText(lang.percent)}
+                {humanTime(lang.seconds)} · {lang.percent.toFixed(1)}%
               </span>
             </li>
           ))}
