@@ -127,38 +127,26 @@ const LastfmPresence = () => {
     }
   }, [])
 
+  const wrap = 'relative flex h-full w-full flex-col gap-4'
+  const coverBox = 'aspect-square size-28 shrink-0 rounded-lg sm:size-36'
+
   if (isLoading) {
     return (
-      <div className="relative flex h-full w-full flex-col items-start justify-between gap-4 p-2 md:flex-row md:items-center">
-        <div className="relative flex h-full w-full flex-row items-start justify-between gap-4">
-          {/* Album art skeleton, same box as the real image */}
-          <div className="mb-2 aspect-square w-28 max-w-40 animate-pulse rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.6] bg-primary/10 md:w-full" />
-          <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
-            <div className="flex flex-col">
-              {/* Icon row: same height as the real icon and label, with the Last.fm logo slot on md */}
-              <span className="mt-1 mb-1 flex h-5.5 w-full items-center gap-2 sm:h-6">
-                <div className="size-5.5 shrink-0 animate-pulse rounded-full bg-primary/10" />
-                <div className="h-4 w-28 animate-pulse rounded-sm bg-primary/10" />
-                <div className="ml-auto hidden size-5.5 shrink-0 animate-pulse rounded-full bg-primary/10 md:block" />
-              </span>
-              <div className="flex flex-col">
-                {/* Song title: line box of text-base sm:text-xl leading-snug */}
-                <div className="flex h-5.5 items-center sm:h-7">
-                  <div className="h-4 w-48 animate-pulse rounded-sm bg-primary/10 sm:h-5" />
-                </div>
-                {/* Artist and album: line box of text-sm sm:text-base */}
-                <div className="flex h-5 items-center sm:h-6">
-                  <div className="h-3.5 w-3/5 animate-pulse rounded-sm bg-primary/10" />
-                </div>
-                <div className="flex h-5 items-center sm:h-6">
-                  <div className="h-3.5 w-1/2 animate-pulse rounded-sm bg-primary/10" />
-                </div>
-              </div>
-            </div>
+      <div className={wrap}>
+        <div className="flex flex-col gap-1">
+          <div className="flex h-5 items-center gap-2">
+            <div className="size-3.5 shrink-0 animate-pulse rounded-full bg-foreground/10" />
+            <div className="h-3.5 w-24 animate-pulse rounded-sm bg-foreground/10" />
+          </div>
+          <div className="flex h-7 items-center">
+            <div className="h-5 w-48 animate-pulse rounded-sm bg-foreground/10" />
+          </div>
+          <div className="flex h-5 items-center">
+            <div className="h-3.5 w-3/5 animate-pulse rounded-sm bg-foreground/10" />
           </div>
         </div>
-        {/* Link button skeleton, same size-11 circle as the real button */}
-        <div className="absolute bottom-0 right-0 m-3 size-11 animate-pulse rounded-full bg-primary/10" />
+        <div className={`${coverBox} animate-pulse border-1 glass-card`} />
+        <div className="absolute bottom-0 right-0 size-11 animate-pulse rounded-full bg-foreground/10" />
       </div>
     )
   }
@@ -166,45 +154,29 @@ const LastfmPresence = () => {
   if (!displayData)
     return (
       <motion.div
-        className="relative flex h-full w-full flex-row items-start justify-between gap-4 p-2"
+        className={wrap}
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
-        {/* Album art placeholder */}
-        <div className="mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.6]">
-          <motion.div
-            className="hidden md:block"
-            animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
-            transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.3 }}
-          >
-            <FaLastfm size={36} className="text-foreground" />
-          </motion.div>
+        <div className="flex flex-col gap-1">
+          <span className="flex items-center gap-2 text-sm text-foreground">
+            <FaLastfm size={14} className="shrink-0" />
+            Last.fm
+          </span>
+          <p className="text-lg font-bold leading-tight text-foreground">Signal lost...</p>
+          <p className="text-sm text-muted-foreground">
+            Couldn't reach Last.fm. The API dropped the mic, check back later.
+          </p>
         </div>
-
-        {/* Text area */}
-        <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
-          <div className="flex flex-col gap-1.5">
-            <span className="flex w-full items-center gap-2 text-sm text-muted-foreground">
-              <FaHeadphonesAlt size={14} className="shrink-0" />
-              Signal lost...
-              <FaLastfm
-                size={24}
-                className="ml-auto hidden shrink-0 text-muted-foreground/40 md:block"
-              />
-            </span>
-            <span className="truncate text-lg font-bold leading-tight text-primary/80">
-              Couldn't reach Last.fm API
-            </span>
-            <span className="text-sm text-muted-foreground leading-snug">
-              The API dropped the mic. Check back later.
-            </span>
-          </div>
+        <div className={`${coverBox} flex items-center justify-center border-1 glass-card text-foreground`}>
+          <FaHeadphonesAlt size={36} />
         </div>
       </motion.div>
     )
 
   const isPinned = FALLBACK_TRACKS.includes(displayData)
+  const isPlaying = displayData['@attr']?.nowplaying === 'true'
   const { name: song, artist, album, image, url } = displayData
   // Last.fm returns empty strings when it has no cover (e.g. scrobbles without album metadata).
   const cover =
@@ -212,116 +184,76 @@ const LastfmPresence = () => {
       .map((i) => i['#text'])
       .reverse()
       .find(Boolean) ?? ''
+  const status = isPinned ? 'On repeat' : isPlaying ? 'Listening now' : 'Last played'
 
   return (
     <motion.div
-      className="relative flex h-full w-full flex-col items-start justify-between gap-4 p-2 md:flex-row md:items-center"
+      className={wrap}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
-      <div className="relative flex h-full w-full flex-row items-start justify-between gap-4">
-        {cover ? (
-          <motion.img
-            src={cover}
-            alt="Album art"
-            width={160}
-            height={160}
-            loading="eager"
-            decoding="async"
-            className="mb-2 aspect-square w-28 max-w-40 rounded-lg border border-border object-cover grayscale transition-[filter] duration-200 hover:grayscale-0 md:w-full"
-            whileHover={{ scale: 1.05, rotate: 1.5 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          />
-        ) : (
-          <div
-            aria-hidden="true"
-            className="relative mb-2 flex aspect-square w-28 max-w-40 shrink-0 items-center justify-center rounded-lg border-1 glass-card [--border-glass:var(--foreground)_/_0.6] text-foreground md:w-full"
-          >
-            <motion.div
-              className="relative flex size-3/5 items-center justify-center"
-              animate={reduceMotion ? undefined : { y: [0, -4, 0, 4, 0], rotate: [-4, 4, -4] }}
-              transition={{
-                y: { duration: 5, ease: 'easeInOut', repeat: Infinity },
-                rotate: { duration: 4, ease: 'easeInOut', repeat: Infinity },
-              }}
-            >
-              <FaHeadphonesAlt className="size-full" />
-            </motion.div>
-          </div>
-        )}
-        <div className="flex min-w-0 flex-1 flex-col justify-end overflow-hidden">
-          <div className="flex flex-col">
-            <span className="mt-1 mb-1 flex w-full items-center gap-2 text-primary sm:mb-1">
-              {displayData['@attr']?.nowplaying === 'true' ? (
-                <div className="flex items-end space-x-1 h-5 pb-0.5">
-                  <div
-                    className="w-1 h-3 bg-primary/90 rounded-full animate-pulse"
-                    style={{ animationDelay: '0ms', animationDuration: '1.5s' }}
-                  />
-                  <div
-                    className="w-1 h-4 bg-primary/70 rounded-full animate-pulse"
-                    style={{
-                      animationDelay: '150ms',
-                      animationDuration: '1.2s',
-                    }}
-                  />
-                  <div
-                    className="w-1 h-5 bg-primary/60 rounded-full animate-pulse"
-                    style={{
-                      animationDelay: '300ms',
-                      animationDuration: '1.5s',
-                    }}
-                  />
-                  <div
-                    className="w-1 h-3.5 bg-primary/90 rounded-full animate-pulse"
-                    style={{
-                      animationDelay: '450ms',
-                      animationDuration: '1.2s',
-                    }}
-                  />
-                </div>
-              ) : (
-                <FaHeadphonesAlt size={22} className="shrink-0" />
-              )}
-              <span className="text-sm sm:text-base font-medium text-primary">
-                {isPinned
-                  ? 'On repeat...'
-                  : displayData['@attr']?.nowplaying === 'true'
-                    ? 'Listening to...'
-                    : 'Last played...'}
-              </span>
-              {isPinned ? (
-                <FaSpotify size={22} className="ml-auto hidden shrink-0 md:block" />
-              ) : (
-                <FaLastfm size={22} className="ml-auto hidden shrink-0 md:block" />
-              )}
+      <div className="flex min-w-0 flex-col gap-1">
+        <span className="flex items-center gap-2 text-sm text-foreground">
+          {isPinned ? <FaSpotify size={14} className="shrink-0" /> : <FaLastfm size={14} className="shrink-0" />}
+          {isPinned ? 'Spotify' : 'Last.fm'}
+          <span className="text-muted-foreground">· {status}</span>
+          {isPlaying && (
+            <span className="flex h-3 items-end gap-0.5" aria-hidden="true">
+              {[0, 150, 300].map((delay) => (
+                <span
+                  key={delay}
+                  className="h-full w-0.5 animate-pulse rounded-full bg-foreground"
+                  style={{ animationDelay: `${delay}ms`, animationDuration: '1.2s' }}
+                />
+              ))}
             </span>
-            <div className="flex flex-col">
-              <span className="truncate text-base sm:text-xl font-bold leading-snug text-primary">
-                {song}
-              </span>
-              <span className="w-5/6 truncate text-sm sm:text-base text-muted-foreground">
-                <span className="font-semibold text-secondary-foreground">by</span>{' '}
-                {artist['#text']}
-              </span>
-              {album['#text'] && (
-                <span className="w-5/6 truncate text-sm sm:text-base text-muted-foreground">
-                  <span className="font-semibold text-secondary-foreground">on</span>{' '}
-                  {album['#text']}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
+          )}
+        </span>
+        <p className="truncate text-lg font-bold leading-tight text-foreground">{song}</p>
+        <p className="truncate text-sm text-muted-foreground">
+          {artist['#text']}
+          {album['#text'] ? ` · ${album['#text']}` : ''}
+        </p>
       </div>
+
+      {cover ? (
+        <motion.img
+          src={cover}
+          alt="Album art"
+          width={160}
+          height={160}
+          loading="eager"
+          decoding="async"
+          className={`${coverBox} border-1 glass-card object-cover grayscale transition-[filter] duration-200 hover:grayscale-0`}
+          whileHover={{ scale: 1.05, rotate: 1.5 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          className={`${coverBox} flex items-center justify-center border-1 glass-card text-foreground`}
+        >
+          <motion.div
+            className="flex size-3/5 items-center justify-center"
+            animate={reduceMotion ? undefined : { y: [0, -4, 0, 4, 0], rotate: [-4, 4, -4] }}
+            transition={{
+              y: { duration: 5, ease: 'easeInOut', repeat: Infinity },
+              rotate: { duration: 4, ease: 'easeInOut', repeat: Infinity },
+            }}
+          >
+            <FaHeadphonesAlt className="size-full" />
+          </motion.div>
+        </div>
+      )}
+
       <a
         href={url}
         aria-label={isPinned ? 'Listen on Spotify' : 'View on last.fm'}
         title={isPinned ? 'Listen on Spotify' : 'View on last.fm'}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute bottom-0 right-0 m-3 flex size-11 items-center justify-center rounded-full border-1 border-foreground/30 bg-foreground/10 text-primary transition-all duration-150 hover:rotate-12 hover:border-foreground/60 hover:bg-foreground/20 hover:ring-1 hover:ring-primary"
+        className="absolute bottom-0 right-0 flex size-11 items-center justify-center rounded-full border-1 border-foreground/30 bg-foreground/10 text-foreground transition-all duration-150 hover:rotate-12 hover:border-foreground/60 hover:bg-foreground/20"
       >
         <MoveUpRight size={16} />
       </a>
