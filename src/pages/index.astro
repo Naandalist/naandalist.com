@@ -11,6 +11,7 @@ import WakatimeBox from '@/components/features/WakatimeBox.tsx'
 import ResumeButton from '@/components/features/ResumeButton.astro'
 import ProfileCard from '@/components/profile/ProfileCard.tsx'
 import GithubGraph from '@/components/features/GithubGraph.tsx'
+import { ArrowRight } from 'lucide-react'
 import { SITE } from '@/consts'
 import { loadContributions } from '@/lib/github'
 import { memo, withTimeout } from '@/lib/memo'
@@ -136,12 +137,12 @@ const jsonLd = [
 
     <section class="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-12">
       <div role="region" aria-label="Wakatime Section"
-        class="lg:col-span-6 flex min-h-60 sm:min-h-72 w-full min-w-0 flex-col rounded-lg border-1 glass-card p-4 text-foreground shadow-1 backdrop-blur-md">
+        class="lg:col-span-7 flex min-h-60 sm:min-h-72 w-full min-w-0 flex-col rounded-lg border-1 glass-card p-4 text-foreground shadow-1 backdrop-blur-md">
         <WakatimeBox omitLanguages={['Other']} client:visible />
       </div>
 
       <div role="region" aria-label="Last.fm Section"
-        class="lg:col-span-6 flex min-h-60 sm:min-h-72 w-full min-w-0 flex-col rounded-lg border-1 glass-card p-4 text-foreground shadow-1 backdrop-blur-md">
+        class="lg:col-span-5 flex min-h-60 sm:min-h-72 w-full min-w-0 flex-col rounded-lg border-1 glass-card p-4 text-foreground shadow-1 backdrop-blur-md">
         <LastfmPresence client:visible />
       </div>
 
@@ -171,8 +172,8 @@ const jsonLd = [
     <section class="flex flex-col gap-y-4">
       <div class="flex items-center justify-between gap-4">
         <h2 class="shrink-0 font-title text-2xl max-sm:leading-tight sm:text-display-sm">Latest posts</h2>
-        <Link href="/blog" class="group shrink-0 text-sm text-foreground/80 transition-colors hover:text-foreground">
-          See all <span class="inline-block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true">&nearr;</span>
+        <Link href="/blog" class="group inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-sm text-foreground/80 transition-colors hover:text-foreground">
+          See all <ArrowRight size={14} class="shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
         </Link>
       </div>
       <ul class="not-prose grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -189,8 +190,8 @@ const jsonLd = [
     <section class="flex flex-col gap-y-4">
       <div class="flex items-center justify-between gap-4 pt-8">
         <h2 class="shrink-0 font-title text-2xl max-sm:leading-tight sm:text-display-sm">Open source contributions</h2>
-        <Link href="/npmjs" class="group shrink-0 text-sm text-foreground/80 transition-colors hover:text-foreground">
-          See all <span class="inline-block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true">&nearr;</span>
+        <Link href="/npmjs" class="group inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-sm text-foreground/80 transition-colors hover:text-foreground">
+          See all <ArrowRight size={14} class="shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
         </Link>
       </div>
       <ul class="not-prose grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
