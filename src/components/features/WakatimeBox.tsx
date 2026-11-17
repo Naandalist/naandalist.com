@@ -178,7 +178,7 @@ const WakatimeBox = ({ omitLanguages = [] }: Props) => {
                 className="h-3 overflow-hidden rounded-full bg-foreground/10"
               >
                 <span
-                  className="block h-full rounded-full bg-additive/80"
+                  className="block h-full rounded-full bg-foreground"
                   style={{ width: `${Math.min(Math.max(lang.percent, 0), 100)}%` }}
                 />
               </span>
