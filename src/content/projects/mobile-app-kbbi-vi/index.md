@@ -1,6 +1,9 @@
 ---
 name: 'Kamus KBBI VI'
 description: 'A free, ad-free Indonesian dictionary with fuzzy search.'
+longDescription:
+  - 'Kamus KBBI VI is a free, ad-free Indonesian dictionary with a modern interface and richer entries: definitions, usage examples, derived words, and proverbs. It uses no advertising or analytics SDKs and does not store search terms or history.'
+  - 'I built everything myself. That includes a Python pipeline that harvests each entry into structured JSON, an open dataset delivered on demand through jsDelivr to keep the app small, and fuzzy search that tolerates imperfect spelling. I also optimized the Android release with ProGuard and R8, and I maintain the app on the Play Store.'
 tags: ['Mobile']
 type: ['Mobile']
 asset: '/static/projects/mobile-app-kbbi-vi.webp'

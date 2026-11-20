@@ -1,6 +1,9 @@
 ---
 name: 'AIA eBenefits App'
 description: 'A mobile app for accessing employee benefits, eCards, clinics, and claims.'
+longDescription:
+  - 'AIA eBenefits gives members of the AIA Employee Benefits Scheme in Singapore mobile access to their insurance benefits, eCards, panel clinics, and claim services. It is a production app on both Android and iOS, built by a team of five engineers and two business analysts.'
+  - 'As a Senior Engineer / Analyst from February 2023 to April 2025, I owned the direct React Native upgrade from 0.65 to 0.74 without changing existing customer workflows. I also remediated vulnerable dependencies flagged by Snyk, investigated production issues with Dynatrace, and documented the work for the team.'
 tags: ['Mobile']
 type: ['Mobile']
 asset: '/static/projects/ebenefits-aia-customer-apps.webp'

@@ -1,6 +1,9 @@
 ---
 name: 'AIA Generative AI Platform'
 description: 'An internal AI platform for validating marketing content against company policies.'
+longDescription:
+  - 'AIA Generative AI Platform is an internal application for validating marketing assets before they are shared on public social media. The marketing team submits images or PDF documents and reviews whether the material meets company policy standards.'
+  - 'I worked on it as a Senior Engineer / Analyst at AIA, covering the Next.js web flow, Redux Toolkit state, and the integration with the AI pipeline. Retrieval-augmented generation supplies policy context to Google Gemini, and the dashboard shows rules applied, impact severity, processing status, and validation date so people can review the findings.'
 tags: ['Frontend', 'Web', 'AI & ML']
 type: ['Frontend', 'Web App', 'AI']
 asset: '/static/projects/web-ai-aia-platform.webp'

@@ -1,6 +1,9 @@
 ---
 name: 'AIA Delight Web App'
 description: 'An internal marketing app for managing the coupon lifecycle.'
+longDescription:
+  - 'AIA Delight is an internal web application the marketing team uses to operate coupon programs. It brings coupon issuance, customer claims, expiration management, and related operational workflows into one interface, so staff can see what happened to a coupon and what to do next.'
+  - 'As a Senior Engineer / Analyst at AIA, I implemented and maintained frontend behavior in a legacy React and Create React App codebase written in JavaScript. I validated API integrations in the UAT environment and kept state transitions careful, since each action changes what is possible afterward.'
 tags: ['Frontend', 'Web']
 type: ['Frontend', 'Web App']
 asset: '/static/projects/web-aia-delight.webp'

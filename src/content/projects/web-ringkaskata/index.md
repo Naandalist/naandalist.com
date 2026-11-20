@@ -1,6 +1,9 @@
 ---
 name: 'Ringkaskata.com'
 description: 'An independent platform for publishing positive Indonesian stories.'
+longDescription:
+  - 'Ringkaskata is an independent Indonesian publishing platform I co-founded with a journalism graduate. It gives freelance writers a place to publish useful, positive, and verified stories, work that often struggled to pass verification on larger platforms, amid the noise of online misinformation.'
+  - 'I built it end-to-end as the technical co-founder and sole full-stack developer: a public Next.js site, a custom admin dashboard with guest, admin, and superadmin roles, a TipTap writing flow, and passwordless sign-in through Resend. SEO tooling and a move to Vercel after a hosting incident keep it discoverable and resilient.'
 tags: ['Fullstack', 'Web']
 type: ['Fullstack', 'Web App']
 asset: '/static/projects/web-ringkaskata.webp'
@@ -8,7 +11,7 @@ fallback: '/static/projects/web-ringkaskata.webp'
 link: 'https://ringkaskata.com/'
 date: 'February 2026'
 updated: 2026-08-29
-techStack: ['Next.js', 'TypeScript', 'Neon PostgreSQL', 'Drizzle ORM', 'Resend', 'TipTap', 'Cloudinary']
+techStack: ['Next.js', 'TypeScript', 'Neon DB', 'Drizzle ORM', 'Resend', 'TipTap', 'Cloudinary']
 category: 'Media & Publishing'
 platforms: ['Web']
 price: 'Free'

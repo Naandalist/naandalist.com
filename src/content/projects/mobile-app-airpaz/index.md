@@ -1,6 +1,9 @@
 ---
 name: 'Airpaz: Flight & Hotel Booking'
 description: 'A travel app for booking flights and hotels across multiple markets.'
+longDescription:
+  - 'Airpaz is a travel platform for booking flights and hotels across multiple markets. I joined its six-person frontend team in April 2025 to work on the React Native mobile apps and the React web application, building and maintaining customer-facing booking features.'
+  - 'My main contribution was progressive hotel search results. Names and images appear first while pricing keeps loading in the background, orchestrated in Redux Toolkit middleware, which improved retention in the search flow. I also worked on Maestro end-to-end tests, Fastlane release automation, and Sentry-based incident investigation.'
 tags: ['Mobile']
 type: ['Mobile']
 asset: '/static/projects/mobile-app-airpaz.webp'

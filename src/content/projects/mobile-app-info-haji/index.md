@@ -1,6 +1,9 @@
 ---
 name: 'Info Haji'
 description: 'A clearer mobile client for complete official Hajj information.'
+longDescription:
+  - 'Info Haji is an independent hobby project that helps Indonesian Hajj pilgrims and their families check portion details, departure estimates, payment status, queue information, quotas, and related news from one mobile interface. It is free and open source.'
+  - 'The official app already exposed this data, but its interface was hard to use and hid useful API fields. I designed, built, released, and maintain a clearer alternative client in React Native, with no custom backend. It reads official Ministry of Religious Affairs services directly and adds privacy safeguards such as root detection.'
 tags: ['Mobile']
 type: ['Mobile']
 asset: '/static/projects/mobile-app-info-haji.webp'

@@ -58,6 +58,7 @@ const projectsData = rawProjects.map((p) => ({
   hasCaseStudy: Boolean(p.body?.trim()),
   name: p.data.name,
   description: p.data.description,
+  longDescription: p.data.longDescription,
   tags: p.data.tags,
   type: p.data.type ?? [],
   asset: p.data.asset,

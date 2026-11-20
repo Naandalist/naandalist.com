@@ -81,6 +81,8 @@ const projects = defineCollection({
   schema: z.object({
     name: z.string(),
     description: z.string(),
+    /** Paragraphs shown in the project dialog. The card keeps the short description. */
+    longDescription: z.array(z.string()).optional(),
     tags: z.array(z.string()),
     type: z.array(z.string()),
     asset: z.string().optional(),
