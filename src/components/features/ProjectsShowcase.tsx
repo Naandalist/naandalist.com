@@ -1,8 +1,8 @@
 'use client'
 
-import { ArrowUpRight, BookOpen, SlidersHorizontal, Link2, Check, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, ChevronDown, SlidersHorizontal, Link2, Check, X } from 'lucide-react'
 import { AnimatePresence, motion, useInView } from 'motion/react'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
@@ -19,7 +19,7 @@ const techSkillIcon: Record<string, string> = {
   TailwindCSS: 'tailwind',
   Supabase: 'supabase',
   PostgreSQL: 'postgres',
-  'Neon PostgreSQL': 'neon',
+  'Neon DB': 'neon',
   'Drizzle ORM': 'drizzle',
   Resend: 'resend',
   TipTap: 'tiptap',
@@ -57,6 +57,7 @@ export type ProjectItem = {
   hasCaseStudy?: boolean
   name: string
   description: string
+  longDescription?: string[]
   tags: string[]
   type: string[]
   asset?: string
@@ -489,6 +490,27 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
   const [assetErrored, setAssetErrored] = useState(false)
   const [imgLoaded, setImgLoaded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [fade, setFade] = useState({ top: false, bottom: false })
+
+  // Fade the text at an edge only while there is more content beyond it.
+  const updateScrollHint = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const top = el.scrollTop > 4
+    const bottom = el.scrollHeight - el.scrollTop - el.clientHeight > 4
+    setFade((prev) => (prev.top === top && prev.bottom === bottom ? prev : { top, bottom }))
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    updateScrollHint()
+    const observer = new ResizeObserver(updateScrollHint)
+    observer.observe(el)
+    if (el.firstElementChild) observer.observe(el.firstElementChild)
+    return () => observer.disconnect()
+  }, [updateScrollHint])
 
   useEffect(() => {
     setAssetSrc(project.asset)
@@ -584,7 +606,14 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
           
           {/* Content Section */}
           <div className="flex flex-col min-h-0 overflow-hidden flex-1">
-            <div className="flex-1 overflow-y-auto p-4 sm:p-5 md:p-8 scrollbar-hide">
+            <div className="relative flex min-h-0 flex-1 flex-col">
+            <div ref={scrollRef} onScroll={updateScrollHint} className={cn(
+                'flex-1 overflow-y-auto p-4 sm:p-5 md:p-8 scrollbar-hide',
+                fade.top && fade.bottom && '[mask-image:linear-gradient(to_bottom,transparent,black_22%,black_78%,transparent)]',
+                !fade.top && fade.bottom && '[mask-image:linear-gradient(to_bottom,black_78%,transparent)]',
+                fade.top && !fade.bottom && '[mask-image:linear-gradient(to_bottom,transparent,black_22%)]',
+              )}
+            >
               <div className="flex flex-col gap-4 sm:gap-5">
                 <div className="space-y-2">
                   <h3 className="text-lg sm:text-xl md:text-2xl font-bold leading-tight tracking-tight text-foreground">{project.name}</h3>
@@ -605,23 +634,27 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   ))}
                 </div>
 
-                <p className="text-sm leading-relaxed text-muted-foreground text-justify">
-                  {project.description}
-                </p>
+                <div className="flex flex-col gap-3">
+                  {(project.longDescription?.length ? project.longDescription : [project.description]).map((paragraph) => (
+                    <p key={paragraph} className="text-sm leading-relaxed text-muted-foreground">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
 
                 {project.hasCaseStudy && (
                   <a
                     href={`/projects/${project.slug}`}
-                    className="inline-flex w-fit items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-foreground/40 transition-colors hover:decoration-foreground"
+                    className="group inline-flex w-fit items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 decoration-foreground/40 transition-colors hover:decoration-foreground"
                   >
-                    <BookOpen size={14} aria-hidden="true" />
-                    Read the case study
+                    Read the full story
+                    <ArrowRight size={14} className="shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                   </a>
                 )}
 
                 {/* Tech Stack - Compact Grid */}
-                <div className="pt-2">
-                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground/50 mb-2 sm:mb-3">Powered By</h4>
+                <div className="dashed-rule pt-4">
+                  <h4 className="text-xs font-bold text-muted-foreground/50 mb-2 sm:mb-3">Powered By</h4>
                   <div className="grid grid-cols-2 gap-y-2 sm:gap-y-3 gap-x-4 sm:gap-x-6">
                     {project.techStack?.filter((tech) => techSkillIcon[tech]).map((tech) => (
                       <div key={tech} className="flex items-center gap-2 sm:gap-2.5 group">
@@ -632,6 +665,20 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
                   </div>
                 </div>
               </div>
+            </div>
+              <button
+                type="button"
+                tabIndex={fade.bottom && !fade.top ? 0 : -1}
+                aria-hidden={!(fade.bottom && !fade.top)}
+                onClick={() => scrollRef.current?.scrollBy({ top: scrollRef.current.clientHeight * 0.8, behavior: 'smooth' })}
+                className={cn(
+                  'absolute bottom-3 left-1/2 flex -translate-x-1/2 cursor-pointer items-center gap-1 rounded-full border-1 glass-card [--border-glass:var(--foreground)_/_0.3] bg-foreground/10 px-3 py-2 text-xs font-medium text-foreground backdrop-blur-md transition-opacity duration-200 hover:bg-foreground/20',
+                  fade.bottom && !fade.top ? 'opacity-100' : 'pointer-events-none opacity-0',
+                )}
+              >
+                Scroll
+                <ChevronDown size={14} aria-hidden="true" />
+              </button>
             </div>
 
             {/* Actions Footer - Precision Consistent Height */}
