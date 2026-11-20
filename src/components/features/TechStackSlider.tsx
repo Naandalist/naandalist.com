@@ -209,7 +209,7 @@ export default function TechStackSlider({ icons }: { icons: string[] }) {
           fade={true}
           direction="left"
           pauseOnHover={hoveredKey !== null || isDesktop}
-          className="mb-4 transform rotate-1"
+          className="mb-4"
           innerClassName="gap-2 [--duration:148s]"
         >
           {row1Stacks.map((stack) => (
@@ -230,7 +230,7 @@ export default function TechStackSlider({ icons }: { icons: string[] }) {
           direction="left"
           reverse={true}
           pauseOnHover={hoveredKey !== null || isDesktop}
-          className="mb-4 transform rotate-1"
+          className="mb-4"
           innerClassName="gap-2 [--duration:80s]"
         >
           {row2Stacks.map((stack) => (
@@ -250,7 +250,7 @@ export default function TechStackSlider({ icons }: { icons: string[] }) {
           fade={true}
           direction="left"
           pauseOnHover={hoveredKey !== null || isDesktop}
-          className="mb-4 transform rotate-1"
+          className="mb-4"
           innerClassName="gap-2 [--duration:68s]"
         >
           {row3Stacks.map((stack) => (
